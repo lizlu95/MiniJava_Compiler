@@ -1,0 +1,325 @@
+/**
+ * JavaCC file
+ */
+ 
+options {
+  JDK_VERSION = "1.6";
+  STATIC = false;
+  LOOKAHEAD = 1;
+}
+PARSER_BEGIN(IRParser)
+package ir.parser;
+
+import static ir.tree.IR.*;
+import util.List;
+import translate.ProcFragment;
+import translate.Fragments;
+import translate.DataFragment;
+import ir.frame.Frame;
+import ir.tree.*;
+import ir.temp.Temp;
+import ir.temp.Label;
+import ir.frame.x86_64.X86_64Frame;
+
+public class IRParser {
+    static private IRStm buildSEQStm(List<IRStm> s) {
+      IRStm seqs = IR.NOP;
+      for (IRStm stmt : s) {          seqs = IR.SEQ(stmt, seqs);
+      }	  return seqs;
+    }
+}
+
+PARSER_END(IRParser)
+
+SKIP :
+{
+ 	" "
+|	"\r"
+| 	"\n"
+|	"\t"
+|	< MULTI_LINE_COMMENT: "/*" (~["*"])* "*" ("*" | ~["*","/"] (~["*"])* "*")* "/" >
+|   < SINGLE_LINE_COMMENT: "#" (~["\n"])* >
+}
+
+TOKEN : /* KEYWORDS */
+{	
+	< MF:		"MethodFragment" >
+| 	< DF:		"DataFragment" >
+| 	< IRDATA:	"IRData" >
+| 	< VALUES:	"values" >
+| 	< FRAME:	"X86_64Frame">
+| 	< label:		"label" >	
+| 	< NLO:		"nextLocalOffset" >
+| 	< formals:		"formals" >
+| 	< LIST:		"List" >
+| 	< TS:		"trace scheduled:" >
+| 	< LABEL:	"LABEL" >
+| 	< MOVE:		"MOVE" >
+| 	< CONST:	"CONST" >
+| 	< MEM:		"MEM" >
+| 	< NAME:		"NAME" >
+| 	< CALL:		"CALL" >
+| 	< BINOPP:	"BINOP" >
+| 	< ASSIGN:	"<-" >
+|   < CJUMPP:	"CJUMP" >
+| 	< JUMP:		"JUMP" >
+| 	< EXP:		"EXP" >
+| 	< L:	"LT" >
+| 	< E:	"EQ" >
+| 	< G:	"GT" >
+| 	< LE:	"LE" >
+| 	< NE:	"NE" >
+| 	< GE:	"GE" >
+| 	< B:	"ULT" >
+| 	< A:	"UGT" >
+| 	< BE:	"ULE" >
+| 	< AE:	"UGE" >
+| 	< PLUS:	"PLUS" >
+| 	< MINUS:	"MINUS" >
+| 	< MUL:	"MUL" >
+
+}
+TOKEN : /* SEPARATORS and OPERATORS*/
+{	< LPAREN: "(" >
+|	< RPAREN: ")" >
+| 	< LB: "{" >
+| 	< RB: "}" >
+| 	< EQUALS: "=" >
+| 	< COMMA:	 "," >
+| 	< STAR: "*" >
+| 	< COLON: ":" >
+}
+	
+TOKEN :
+{   	< INTEGER_LITERAL: ( "-" ) ? ( <DIGIT> )+ >
+| 	< REGISTER: "%r" ("ax" | "bx" | "cx" | "dx" | "si" | "di" | "sp" | "bp" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" ) >
+| 	< FAKEREGISTER: "t" (<DIGIT>)+ >
+|   < IDENTIFIER: ( <LETTER> | "_" ) (<LETTER> | "_" | "." | "$" | <DIGIT>)* >
+|   < #LETTER: ["A" - "Z", "a" - "z"] >
+|   < #DIGIT: ["0" - "9"] >
+}
+
+Fragments Fragments() : {	ProcFragment pf;
+	DataFragment df;
+	Fragments f = new Fragments(null);
+}
+{
+  	(  	  pf = MethodFragment()
+  		{ f.add(pf); }
+  |   df = DataFragment()
+  		{ f.add(df); }
+  )+
+  	< EOF > 	{ return f; }
+}
+
+ProcFragment MethodFragment() : {
+  Frame f;
+  List<IRStm> stms;
+}{
+    < MF > < LB >	f = Frame()
+	( < TS > ) ?
+	stms = IRStatementList()
+	< RB >
+	{ return new ProcFragment(f, buildSEQStm(stms)); }
+}
+//
+//   DataFragment {
+//      IRData _x 1 values
+//         CONST 0
+//   }
+DataFragment DataFragment() : {
+  List<IRExp> exps;
+  Label name;
+}
+{
+	< DF >  < LB > < IRDATA > name = Label() Integer() < VALUES >
+	exps = IRExpListNoComma()
+	< RB >
+	{ return new DataFragment(null, new IRData(name, exps)); }
+}
+
+Frame Frame() : {
+  	Label labelname;
+  	String offset;
+  	List<Temp> formallist;
+}
+{	
+	< FRAME >
+	< LB >
+		< label > < EQUALS > labelname = Label()
+		< NLO > < EQUALS > offset = Integer()
+		< formals > < EQUALS > formallist = TempList()
+	< RB >
+	{
+	  return new X86_64Frame(labelname, Integer.parseInt(offset), formallist);	}
+}
+List<IRStm> IRStatementList() : {
+  List<IRStm> stms = List.empty();
+  IRStm s;
+}
+{
+  	< LIST > < LB >
+  		(  		  s = IRStm()
+  			{ stms = stms.cons(s, stms); }
+  		)+
+  	< RB >
+  	
+ 	{ return stms; }
+}
+
+List<Temp> TempList() : {
+  List<Temp> stms = List.empty();
+  Temp s;
+}
+{
+  	< LIST > < LB >
+  		(  		  s = Temp()
+  		  { stms = stms.cons(s, stms); }
+  		)*
+  	< RB >
+  	
+ 	{ return stms.reverse(); }
+}
+
+List<IRExp> IRExpList() : {
+  List<IRExp> stms = List.empty();
+  IRExp s;
+}
+{
+ 		s = IRExp()
+  		{ stms = stms.cons(s, stms); }
+  		( < COMMA > s = IRExp()
+  		{ stms = stms.cons(s, stms); }
+        )*
+ 	{ return stms.reverse(); }
+}
+
+List<IRExp> IRExpListNoComma() : {
+  List<IRExp> stms = List.empty();
+  IRExp s;
+}
+{
+  		( s = IRExp()
+  		{ stms = stms.cons(s, stms); }
+        )*
+ 	{ return stms.reverse(); }
+}
+
+IRExp Dest() : {
+	Temp t;
+	IRExp addr;
+}
+{
+	t = Temp()
+	{ return IR.TEMP(t); }
+| 	<  MEM > < LPAREN > addr = IRExp() < RPAREN >
+	{ return IR.MEM(addr); }
+}
+
+IRExp IRExp() : {	Temp t;
+	String c;
+	Label name;
+	IRExp l, r;
+	BINOP.Op op;
+	IRExp target;
+	List<IRExp> args;
+}
+{	t = Temp()
+	{ return IR.TEMP(t); }| 	<  CONST > c = Integer()	{ return IR.CONST(Integer.parseInt(c)); }
+| 	<  NAME > < LPAREN > name = Label() < RPAREN >
+	{ return IR.NAME(name); }
+| 	<  BINOPP > < LPAREN > op = Op() < COMMA > l = IRExp() < COMMA > r = IRExp() < RPAREN >
+	{ return IR.BINOP(op, l, r); }
+| 	<  CALL > < LPAREN > target = IRExp() < COMMA > args = IRExpList() < RPAREN >
+	{ return IR.CALL(target, args); }
+| 	<  MEM > < LPAREN > target = IRExp() < RPAREN >
+	{ return IR.MEM(target); }
+}	
+
+BINOP.Op Op() : {	
+}
+{	< PLUS >	{ return BINOP.Op.PLUS; }| 	< MINUS >
+	{ return BINOP.Op.MINUS; }
+| 	< MUL >
+	{ return BINOP.Op.MUL; }	  
+}
+
+IRStm IRStm() : {
+  	String name;
+  	IRExp dst, src;
+  	IRExp l, r;
+  	Label truelabel, falselabel;
+  	CJUMP.RelOp relop;
+}
+{
+	< MOVE > < LPAREN > dst = Dest() < ASSIGN > src = IRExp() < RPAREN > 
+	{ return IR.MOVE(dst, src); }
+| 	< EXP > < LPAREN > src = IRExp() < RPAREN > 
+	{ return IR.EXP(src); }
+| 	< JUMP > < LPAREN > l = IRExp() < RPAREN > 
+	{ NAME n = (NAME) l; return IR.JUMP(n.getLabel()); }
+| 	< CJUMPP > < LPAREN > relop = RelOp() < COMMA >
+		l = IRExp() < COMMA >
+		r = IRExp() < COMMA >
+		truelabel = Label() < COMMA >
+		falselabel = Label()
+		< RPAREN > 
+	{ return IR.CJUMP(relop, l, r, truelabel, falselabel); }
+| 	< LABEL > truelabel = Label() 
+	{ return IR.LABEL(truelabel); }
+}
+
+CJUMP.RelOp RelOp() : {}
+{
+	< E >
+	{ return CJUMP.RelOp.EQ; }
+| 	< NE >
+	{ return CJUMP.RelOp.NE; }
+| 	< L >
+	{ return CJUMP.RelOp.LT; }
+| 	< G >
+	{ return CJUMP.RelOp.GT; }
+| 	< LE >
+	{ return CJUMP.RelOp.LE; }
+| 	< GE >
+	{ return CJUMP.RelOp.GE; }
+| 	< B >
+	{ return CJUMP.RelOp.ULT; }
+| 	< BE >
+	{ return CJUMP.RelOp.ULE; }
+| 	< A >
+	{ return CJUMP.RelOp.UGT; }
+| 	< AE >
+	{ return CJUMP.RelOp.UGE; }
+}
+
+String Integer () :{  	Token i;
+}
+{  	i = < INTEGER_LITERAL >
+  	{ return i.image; }}
+
+String Id() : {
+	Token i;
+}
+{
+	i = <IDENTIFIER>
+	{ return i.image; }
+}
+
+Label Label() : {
+	Token i;
+}
+{
+	i = <IDENTIFIER>
+	{ return Label.get(i.image.substring(1)); }
+}
+
+Temp Temp() : {
+	Token i;
+}
+{
+	i = <REGISTER> < COLON > < REGISTER >
+	{ return new Temp(i.image); }
+|	i = < FAKEREGISTER >
+	{ return new Temp(i.image); }
+}

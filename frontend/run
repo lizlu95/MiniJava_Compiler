@@ -1,0 +1,47 @@
+#!/bin/bash
+PLUGINDIR=/Applications/eclipse-juno/plugins
+PROJECT=.
+IRPROJECT=../ir
+CLASSPATH=$PROJECT/bin:$IRPROJECT/bin:$PLUGINDIR/org.junit_4.8.1.v4_8_1_v20100427-1100/junit.jar:$PLUGINDIR/org.hamcrest.core_1.1.0.v20090501071000.jar 
+arg=
+pass=$1
+shift
+export CLASSPATH
+while [ 1 -le $# ] ; do
+echo "Program: "
+cat $1
+echo ""
+case $pass in
+    ([Pp]ar*)
+	pass=Parser  ;;
+    ([Ff]low*)
+	pass=FlowGraph ;;
+    ([Gg]en* | [Cc]ode)
+	pass=Generate ;;
+    ([Ii]nt*)
+	pass=Interference ;;
+    ([Rr]eg*)
+	pass=RegAlloc ;;
+    ([Vv][Rr]eg*)
+	pass=RegAlloc ; arg=-v;;
+    ([Ff]inal*)
+	pass=Final ;;
+    ([Tt]ran* | [Ii][Rr]*)
+	pass=Translate ;;
+    ([Tt]ype* | [Cc]heck*)
+	pass=TypeChecker ;;
+    ([Ss]im[Ff]*)
+	pass=SimFinal ;;
+    ([Ss]im*)
+	pass=Simulate ;;
+    ([Ll]ive*)
+	pass=Liveness ;;
+    ([Rr]un* | [Ee]xec*)
+	pass=Run ;;
+    (*)
+	echo "Don't understand $pass";
+	exit 1;;
+esac
+java driver.D$pass $1 $arg
+shift
+done
