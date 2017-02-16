@@ -40,6 +40,9 @@ public class Test4Parse extends Test3Parse {
      * Note: in "noverify" mode, a test transcript is written to the file
      * "Test4Parse-log.tmp". This logfile is rewritten on
      * each testrun.
+     *
+     * 2017 note: Remember that verifyTranscript is broken with jUnit5, just like
+     * for functions-starter.  Do not use it.
      */
     final static boolean verifyTanscript = false;
 
