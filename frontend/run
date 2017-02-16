@@ -1,8 +1,34 @@
 #!/bin/bash
-PLUGINDIR=/Applications/eclipse-juno/plugins
+
+#
+# run.sh - Driver for the CPSC411 Expression Language Compiler's passes
+#
+
+# Author: Norm Hutchinson
+# Modified by Ron Garcia, 2016-2017
+# Modified by Felipe Banados Schwerter, 2017
+
 PROJECT=.
-IRPROJECT=../ir
-CLASSPATH=$PROJECT/bin:$IRPROJECT/bin:$PLUGINDIR/org.junit_4.8.1.v4_8_1_v20100427-1100/junit.jar:$PLUGINDIR/org.hamcrest.core_1.1.0.v20090501071000.jar 
+JARS="$PROJECT/backend/target/backend-1.0-SNAPSHOT.jar:\
+$PROJECT/frontend/target/frontend-1.0-SNAPSHOT.jar:\
+$PROJECT/ir/target/ir-1.0-SNAPSHOT.jar:\
+$PROJECT/opt/target/opt-1.0-SNAPSHOT.jar:\
+$PROJECT/x86_64sim/target/x86_64sim-1.0-SNAPSHOT.jar:\
+$PROJECT/util/target/util-1.0-SNAPSHOT.jar"
+
+CLASSPATH="$JARS"
+
+
+if [ $# -ne 2 ]; then
+   cat <<EOF ;
+   Usage:
+   run <CMD> file
+   CMDs:
+     parse, type, ir, gen, flow, interf, reg, final,
+EOF
+   exit 1;
+fi
+
 arg=
 pass=$1
 shift
