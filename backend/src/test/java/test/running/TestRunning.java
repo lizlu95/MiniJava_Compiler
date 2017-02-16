@@ -10,8 +10,6 @@ import util.Utils;
 import driver.Compiler;
 import driver.Runner;
 
-import junit.framework.Assert;
-
 /**
  * This is the final test...
  * <p>
@@ -39,7 +37,7 @@ public class TestRunning extends TestTranslate {
         System.out.println(">>>>>  " + assemFile);
 
         String output = runner.run(assemFile);
-        Assert.assertEquals(expected, output);
+        assert (expected == output);
 
         return null;
     }
@@ -55,7 +53,7 @@ public class TestRunning extends TestTranslate {
         System.out.println(">>>>>  " + assemFile);
 
         String output = runner.run(assemFile);
-        Assert.assertEquals(expected, output);
+        assert (expected == output);
         return null;
     }
 

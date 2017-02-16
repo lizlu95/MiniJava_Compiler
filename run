@@ -16,8 +16,13 @@ $PROJECT/opt/target/opt-1.0-SNAPSHOT.jar:\
 $PROJECT/x86_64sim/target/x86_64sim-1.0-SNAPSHOT.jar:\
 $PROJECT/util/target/util-1.0-SNAPSHOT.jar"
 
-CLASSPATH="$JARS"
-
+CLASSPATH="$PROJECT/backend/target/classes:\
+$PROJECT/frontend/target/classes:\
+$PROJECT/ir/target/classes:\
+$PROJECT/opt/target/classes:\
+$PROJECT/x86_64sim/target/classes:\
+$PROJECT/util/target/classes:\
+$JARS"
 
 if [ $# -ne 2 ]; then
    cat <<EOF ;
@@ -68,6 +73,7 @@ case $pass in
 	echo "Don't understand $pass";
 	exit 1;;
 esac
-java driver.D$pass $1 $arg
+echo "$CLASSPATH"
+java -cp "$CLASSPATH" driver.D$pass $1 $arg
 shift
 done

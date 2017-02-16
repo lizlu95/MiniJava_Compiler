@@ -4,9 +4,7 @@ import ir.interp.InterpMode;
 
 import java.io.File;
 
-
-import org.junit.AfterClass;
-
+import org.junit.jupiter.api.AfterAll;
 import test.translate.TestTranslate;
 import translate.Fragments;
 import typechecker.TypeCheckerException;
@@ -71,7 +69,7 @@ public class TestCodegen extends TestTranslate {
      * This prints out a representation of the X86Muncher's pattern munching rules.
      * For debugging purposes.
      */
-    @AfterClass
+    @AfterAll
     public static void dumpRules() {
         //	X86Muncher.dumpRules();
     }

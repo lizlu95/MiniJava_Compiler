@@ -7,7 +7,6 @@ import codegen.assem.Instr;
 import analysis.FlowGraph;
 import analysis.util.graph.Graph;
 import analysis.util.graph.Node;
-import junit.framework.Assert;
 
 /**
  * Again this test (mostly) just prints out the result of constructing the interference graph.
@@ -28,12 +27,12 @@ public class TestInterference extends TestFlowGraphs {
         System.out.println(interf);
 
         //There are a few simple sanity checks that can be performed:
-        Assert.assertTrue(isSymmetric(interf));
+        assert(isSymmetric(interf));
         // Should be symmetric because if t1 interferes with t2 it means they
         // can not both be allocated to the same register. This is obviously a
         // symmetric relationship.
 
-        Assert.assertTrue(isNonReflexive(interf));
+        assert(isNonReflexive(interf));
         // No temp should ever interfere with itself (this would mean that
         // it can not be allocated the same register as itself).
 
@@ -48,8 +47,8 @@ public class TestInterference extends TestFlowGraphs {
     private <N> boolean isSymmetric(Graph<N> g) {
         for (Node<N> node : g.nodes()) {
             for (Node<N> succ : node.succ()) {
-                Assert.assertTrue(node.goesTo(succ));
-                Assert.assertTrue(succ.comesFrom(node));
+                assert(node.goesTo(succ));
+                assert(succ.comesFrom(node));
                 if (!succ.goesTo(node)) return false;
             }
         }

@@ -1,11 +1,8 @@
-package analysis.util.example;
+package test.analysis.util;
 
 import static util.List.*;
 
-
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import util.List;
 
 import analysis.util.ActiveSet;
@@ -167,9 +164,9 @@ public class ActiveSetExample {
     }
 
     private <E> void expectAll(List<E> expect, ActiveSet<E> set) {
-        Assert.assertEquals(expect.size(), set.getElements().size());
+        assert(expect.size() == set.getElements().size());
         for (E e : expect) {
-            Assert.assertTrue(set.getElements().contains(e));
+            assert (set.getElements().contains(e));
         }
     }
 

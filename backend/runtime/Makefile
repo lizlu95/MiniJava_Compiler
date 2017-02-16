@@ -15,9 +15,12 @@
 # Once you have the runtime built, you should not need to rely
 # on this build script for anything anymore.
 
+
 #GCC=	gcc -Wall
 GCC=	gcc -Wall -pedantic -g
-AS=	as --gstabs
+AS=	as -g
+#in linux, you may get more precise debug info if you change AS to
+#AS= as --gstabs
 
 ########################################################################
 # make runtime.o:

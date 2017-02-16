@@ -4,10 +4,8 @@ import ir.frame.Access;
 import ir.frame.Frame;
 import ir.frame.x86_64.X86_64Frame;
 import ir.temp.Label;
-import junit.framework.Assert;
 
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import util.List;
 
 /**
@@ -32,7 +30,7 @@ public class TestX86Frame {
         System.out.println("Allocating 0 formals and 4 locals");
         Label empty = Label.generate("empty");
         Frame frame = factory.newFrame(empty, 0);
-        Assert.assertEquals(0, frame.getFormals().size());
+        assert (0 == frame.getFormals().size());
         Access[] var = new Access[4];
         for (int i = 0; i < var.length; i++) {
             boolean escapes = i % 2 == 0;
@@ -43,8 +41,8 @@ public class TestX86Frame {
         // them inFrame and two of them inRegisters).
         for (int i = 0; i < var.length; i++) {
             for (int j = 0; j < var.length; j++) {
-                Assert.assertEquals(i == j, var[i].equals(var[j]));
-                Assert.assertEquals(i == j, var[i].toString().equals(var[j].toString()));
+                assert ((i == j) == var[i].equals(var[j]));
+                assert ((i == j) == var[i].toString().equals(var[j].toString()));
             }
         }
     }
@@ -57,7 +55,7 @@ public class TestX86Frame {
         Frame frame = factory.newFrame(lab, 4);
         List<Access> formals = frame.getFormals();
 
-        Assert.assertEquals(formalsEscape.size(), formals.size());
+        assert(formalsEscape.size() == formals.size());
 
         Access[] var = new Access[8];
         for (int i = 0; i < formals.size(); i++) {
@@ -79,8 +77,8 @@ public class TestX86Frame {
         // the same inFrame address as the same string.
         for (int i = 0; i < var.length; i++) {
             for (int j = 0; j < var.length; j++) {
-                Assert.assertEquals(i == j, var[i].equals(var[j]));
-                Assert.assertEquals(i == j, var[i].toString().equals(var[j].toString()));
+                assert ((i == j) == var[i].equals(var[j]));
+                assert ((i == j) == var[i].toString().equals(var[j].toString()));
             }
         }
     }

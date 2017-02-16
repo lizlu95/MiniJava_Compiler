@@ -23,7 +23,7 @@ public class Assembly extends DefaultIndentable implements Iterable<AssemFragmen
 
         out.indent();
 
-        out.println(".ident	\"minijavac: cs411 course project 2011w2\"");
+        out.println(".ident	\"minijavac: cs411 course project 2017w2\"");
         if (!Utils.macOS())
             out.println(".section	.note.GNU-stack,\"\",@progbits");
         out.outdent();

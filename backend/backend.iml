@@ -19,6 +19,8 @@
     <orderEntry type="module" module-name="frontend" />
     <orderEntry type="library" name="Maven: net.java.dev.javacc:javacc:6.1.0" level="project" />
     <orderEntry type="module" module-name="ir" />
+    <orderEntry type="module" module-name="frontend" scope="TEST" production-on-test="" />
+    <orderEntry type="module" module-name="x86_64sim" />
     <orderEntry type="module" module-name="util" />
   </component>
 </module>

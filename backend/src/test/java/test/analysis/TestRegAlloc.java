@@ -1,6 +1,5 @@
 package test.analysis;
 
-import test.analysis.TestFlowGraphs;
 import util.List;
 import ir.temp.Color;
 import ir.temp.Temp;
@@ -9,7 +8,6 @@ import analysis.FlowGraph;
 import analysis.InterferenceGraph;
 import analysis.RegAlloc;
 import analysis.util.graph.Node;
-import junit.framework.Assert;
 
 
 import static util.List.*;
@@ -22,8 +20,8 @@ public class TestRegAlloc extends TestFlowGraphs {
         List<Color> goodColors = List.empty();
         for (Temp reg : proc.getFrame().registers()) {
             Color color = reg.getColor(); // Registers should have pre-assigned colors.
-            Assert.assertNotNull(color);
-            Assert.assertFalse(goodColors.contains(color));
+            assert(color != null);
+            assert(!goodColors.contains(color));
             goodColors = cons(color, goodColors);
         }
 
@@ -40,11 +38,11 @@ public class TestRegAlloc extends TestFlowGraphs {
         for (Node<Temp> node : ig.nodes()) {
             Temp t = node.wrappee();
             Color color = t.getColor();
-            Assert.assertTrue(goodColors.contains(color));
+            assert(goodColors.contains(color));
             for (Node<Temp> interferes : ig.nodeFor(t).succ()) {
                 Color color2 = interferes.wrappee().getColor();
-                Assert.assertTrue(goodColors.contains(color2));
-                Assert.assertFalse(color2.equals(color));
+                assert(goodColors.contains(color2));
+                assert(!color2.equals(color));
             }
         }
 
