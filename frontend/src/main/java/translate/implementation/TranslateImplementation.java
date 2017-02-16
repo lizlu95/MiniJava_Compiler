@@ -7,12 +7,13 @@ import translate.Fragments;
 import typechecker.TypeChecked;
 import typechecker.implementation.TypeCheckerImplementation;
 import util.ImpTable;
+import util.Pair;
 
 public class TranslateImplementation {
 
     private Frame frameFactory;
     private Program program;
-    private ImpTable<Type> table;
+    private Pair<ImpTable<Type>, ImpTable<Type>> table;
 
     public TranslateImplementation(Frame frameFactory, TypeChecked _typechecked) {
         this.frameFactory = frameFactory;
@@ -22,7 +23,7 @@ public class TranslateImplementation {
     }
 
     public Fragments translate() {
-        TranslateVisitor vis = new TranslateVisitor(table, frameFactory);
+        TranslateVisitor vis = new TranslateVisitor(new Pair(table.first, table.second), frameFactory);
         program.accept(vis);
         return vis.getResult();
     }

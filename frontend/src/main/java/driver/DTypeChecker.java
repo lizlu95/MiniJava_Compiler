@@ -18,8 +18,10 @@ public class DTypeChecker {
         TypeCheckerImplementation tc = new TypeCheckerImplementation(p);
         tc.typeCheck();
 
-        System.out.println("Symbol table:");
-        System.out.println(tc.getTable());
+        System.out.println("Symbol table for globals:");
+        System.out.println(tc.getTable().first);
+        System.out.println("\nSymbol table for functions:");
+        System.out.println(tc.getTable().second);
     }
 
     /**

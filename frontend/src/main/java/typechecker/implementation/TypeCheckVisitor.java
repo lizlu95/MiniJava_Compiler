@@ -3,6 +3,7 @@ package typechecker.implementation;
 import ast.*;
 import typechecker.ErrorReport;
 import util.ImpTable;
+import util.Pair;
 import visitor.Visitor;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
      * The symbol table from Phase 1.
      */
     private ImpTable<Type> globals;
+    private ImpTable<Type> functions;
     private ImpTable<Type> thisFunction;
 
     private Type lookup(String name) {
@@ -49,8 +51,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
         return t;
     }
 
-    public TypeCheckVisitor(ImpTable<Type> variables, ErrorReport errors) {
-        this.globals = variables;
+    public TypeCheckVisitor(Pair<ImpTable<Type>, ImpTable<Type>> variables, ErrorReport errors) {
+        this.globals = variables.first;
+        this.functions = variables.second;
         this.errors = errors;
     }
 
@@ -226,7 +229,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         String functionName = "unknown";
         if (e instanceof IdentifierExp)
             functionName = ((IdentifierExp) e).name;
-        Type t = globals.lookup(functionName);
+        Type t = functions.lookup(functionName);
         if (t == null) {
             errors.undefinedId(functionName);
             n.setType(new UnknownType());

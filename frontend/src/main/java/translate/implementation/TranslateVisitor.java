@@ -18,6 +18,7 @@ import translate.implementation.TRExp;
 import util.FunTable;
 import util.List;
 import util.Lookup;
+import util.Pair;
 import visitor.Visitor;
 
 import static ir.tree.IR.*;
@@ -55,7 +56,7 @@ public class TranslateVisitor implements Visitor<TRExp> {
 
     private FunTable<IRExp> currentEnv;
 
-    public TranslateVisitor(Lookup<Type> table, Frame frameFactory) {
+    public TranslateVisitor(Pair<Lookup<Type>, Lookup<Type>> table, Frame frameFactory) {
         this.frags = new Fragments(frameFactory);
         this.frameFactory = frameFactory;
     }
