@@ -15,7 +15,7 @@ class ConsList<E> extends List<E> {
     private final List<E> cdr;
 
     ConsList(E car, List<E> cdr) {
-        assert(cdr != null);
+        assert (cdr != null);
         this.car = car;
         this.cdr = cdr;
     }

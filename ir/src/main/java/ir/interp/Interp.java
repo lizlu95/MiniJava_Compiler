@@ -131,7 +131,7 @@ public class Interp {
             @Override
             public Word call(Interp interp, List<Word> list) {
                 int numBytes = ((Int) list.get(0)).value;
-                assert(numBytes % wordSize == 0);
+                assert (numBytes % wordSize == 0);
                 Array arr = new Array(numBytes / wordSize, wordSize);
                 arr.fill(new Int(0));
                 return arr;
@@ -179,7 +179,7 @@ public class Interp {
     }
 
     public String run() {
-        assert(out == null) :
+        assert (out == null) :
                 "You aren't supposed to run the program more than once with the same interpreter";
         out = new StringWriter();
         main.call(this, List.list(new Word[0]));

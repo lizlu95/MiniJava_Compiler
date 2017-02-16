@@ -38,7 +38,7 @@ public class TEMP extends IRExp {
     public final Temp temp;
 
     public TEMP(Temp t) {
-        assert(t != null);
+        assert (t != null);
         temp = t;
     }
 

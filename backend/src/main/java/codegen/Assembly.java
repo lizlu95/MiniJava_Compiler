@@ -13,29 +13,29 @@ import util.Utils;
  */
 public class Assembly extends DefaultIndentable implements Iterable<AssemFragment> {
 
-	private List<AssemFragment> fragments = List.empty();
-	
-	@Override
-	public void dump(IndentingWriter out) {		
-		for (AssemFragment f : fragments) {
-			out.println(f);
-		}
-		
-		out.indent();
-		
-		out.println(".ident	\"minijavac: cs411 course project 2011w2\"");
-		if (!Utils.macOS()) 
-			out.println(".section	.note.GNU-stack,\"\",@progbits");
-		out.outdent();
-	}
+    private List<AssemFragment> fragments = List.empty();
 
-	public void add(AssemFragment code) {
-		fragments.add(code);
-	}
+    @Override
+    public void dump(IndentingWriter out) {
+        for (AssemFragment f : fragments) {
+            out.println(f);
+        }
 
-	@Override
-	public Iterator<AssemFragment> iterator() {
-		return fragments.iterator();
-	}
+        out.indent();
+
+        out.println(".ident	\"minijavac: cs411 course project 2011w2\"");
+        if (!Utils.macOS())
+            out.println(".section	.note.GNU-stack,\"\",@progbits");
+        out.outdent();
+    }
+
+    public void add(AssemFragment code) {
+        fragments.add(code);
+    }
+
+    @Override
+    public Iterator<AssemFragment> iterator() {
+        return fragments.iterator();
+    }
 
 }

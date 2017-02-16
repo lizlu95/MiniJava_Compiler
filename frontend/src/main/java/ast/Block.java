@@ -6,23 +6,22 @@ import java.util.List;
 
 
 public class Block extends Statement {
-	
-	public final NodeList<Statement> statements;
 
-	public Block(NodeList<Statement> statements) {
-		super();
-		this.statements = statements;
-	}
+    public final NodeList<Statement> statements;
 
-	public Block(List<Statement> statements) {
-		this(new NodeList<Statement>(statements));
-	}
+    public Block(NodeList<Statement> statements) {
+        super();
+        this.statements = statements;
+    }
 
-	@Override
-	public <R> R accept(Visitor<R> v) {
-		return v.visit(this);
-	}
-	
-	
+    public Block(List<Statement> statements) {
+        this(new NodeList<Statement>(statements));
+    }
+
+    @Override
+    public <R> R accept(Visitor<R> v) {
+        return v.visit(this);
+    }
+
 
 }

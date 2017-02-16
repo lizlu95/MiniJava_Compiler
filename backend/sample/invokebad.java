@@ -1,22 +1,24 @@
-class Array{
-    public static void main(String[] a){
-	System.out.println(new Test().do());
+class Array {
+    public static void main(String[] a) {
+        System.out.println(new Test(). do ());
     }
 }
 
 class A {
     public int m() {
-	return 0;
+        return 0;
     }
 }
 
 class Test {
     A outera;
-    public int do() {
-	A a;
-	int x;
-	x = outera.m();
-	x = a.m();
-	return 0;
+    public int do()
+
+    {
+        A a;
+        int x;
+        x = outera.m();
+        x = a.m();
+        return 0;
     }
 }

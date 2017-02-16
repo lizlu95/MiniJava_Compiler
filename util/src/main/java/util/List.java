@@ -159,12 +159,12 @@ public abstract class List<E> extends DefaultIndentable implements Iterable<E> {
 
         for (E e : this) {
 /**            if (e instanceof IRStm) {
-                if (e instanceof LABEL)
-                    out.outdent();
-                out.println(((IRStm) e).onOneLine());
-                if (e instanceof LABEL)
-                    out.indent();
-            } else**/
+ if (e instanceof LABEL)
+ out.outdent();
+ out.println(((IRStm) e).onOneLine());
+ if (e instanceof LABEL)
+ out.indent();
+ } else**/
             out.println(e);
         }
         out.outdent();

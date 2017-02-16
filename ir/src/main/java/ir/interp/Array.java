@@ -20,7 +20,7 @@ public class Array extends Ptr {
 
         @Override
         public Ptr add(int bytesOffset) {
-            assert(bytesOffset % wordSize == 0);
+            assert (bytesOffset % wordSize == 0);
             return new DisplacedPtr(this.wordsOffset + bytesOffset / wordSize);
         }
 
@@ -66,7 +66,7 @@ public class Array extends Ptr {
 
     @Override
     public Ptr add(int bytesOffset) {
-        assert(bytesOffset % wordSize == 0);
+        assert (bytesOffset % wordSize == 0);
         return new DisplacedPtr(bytesOffset / wordSize);
     }
 

@@ -37,7 +37,7 @@ public class BasicBlocks extends DefaultIndentable {
     }
 
     private void endCurrentBlock() {
-        assert(currentBlock != null) : "There is no current block";
+        assert (currentBlock != null) : "There is no current block";
         blocks.add(currentBlock);
         currentBlock = null;
     }

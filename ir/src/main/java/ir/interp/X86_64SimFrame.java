@@ -96,7 +96,7 @@ public class X86_64SimFrame extends DefaultIndentable {
      * value (i.e. not a Java null pointer or the UninitializedWord
      */
     public void setTemp(Temp name, Word value) {
-        assert(value != null);
+        assert (value != null);
         temps.put(name, value);
     }
 

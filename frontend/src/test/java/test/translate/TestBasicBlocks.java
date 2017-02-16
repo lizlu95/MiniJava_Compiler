@@ -12,14 +12,14 @@ import ir.interp.InterpMode;
  * there are problems in this test, then it probably means the translation
  * to basic blocks did something wrong (so this is more likely a bug in
  * my BasicBlocks code than in your IR translation code :-)
- * 
+ *
  * @author kdvolder
  */
 public class TestBasicBlocks extends TestTranslate {
-	
-	@Override
-	protected InterpMode getSimulationMode() {
-		return InterpMode.BASIC_BLOCKS;
-	}
+
+    @Override
+    protected InterpMode getSimulationMode() {
+        return InterpMode.BASIC_BLOCKS;
+    }
 
 }

@@ -47,16 +47,16 @@ public class ImpTable<V> extends DefaultIndentable
      * to use functional inserts instead.
      */
     public void put(String id, V value) throws DuplicateException {
-        assert(value != null);
-        assert(id != null);
+        assert (value != null);
+        assert (id != null);
         V existing = map.get(id);
         if (existing != null) throw new DuplicateException("Duplicate entry: " + id);
         map.put(id, value);
     }
 
     public void set(String id, V value) {
-        assert(value != null);
-        assert(id != null);
+        assert (value != null);
+        assert (id != null);
         map.put(id, value);
     }
 

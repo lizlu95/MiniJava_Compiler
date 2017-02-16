@@ -10,21 +10,21 @@ import util.ImpTable;
 
 public class TranslateImplementation {
 
-	private Frame frameFactory;
-	private Program program;
-	private ImpTable<Type> table;
+    private Frame frameFactory;
+    private Program program;
+    private ImpTable<Type> table;
 
-	public TranslateImplementation(Frame frameFactory, TypeChecked _typechecked) {
-		this.frameFactory = frameFactory;
-		TypeCheckerImplementation typechecked = (TypeCheckerImplementation) _typechecked;
-		this.program = typechecked.getProgram();
-		this.table = typechecked.getTable();
-	}
+    public TranslateImplementation(Frame frameFactory, TypeChecked _typechecked) {
+        this.frameFactory = frameFactory;
+        TypeCheckerImplementation typechecked = (TypeCheckerImplementation) _typechecked;
+        this.program = typechecked.getProgram();
+        this.table = typechecked.getTable();
+    }
 
-	public Fragments translate() {
-		TranslateVisitor vis = new TranslateVisitor(table, frameFactory);
-		program.accept(vis);
-		return vis.getResult();
-	}
+    public Fragments translate() {
+        TranslateVisitor vis = new TranslateVisitor(table, frameFactory);
+        program.accept(vis);
+        return vis.getResult();
+    }
 
 }

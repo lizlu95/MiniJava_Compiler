@@ -6,21 +6,21 @@ package typechecker;
  * to see how to create and raise TypeCheckerExceptions
  */
 public class TypeCheckerException extends Exception {
-	
-	private static final long serialVersionUID = 1965921755523813030L;
-	
-	private ErrorMessage firstError;
 
-	TypeCheckerException(ErrorMessage firstError) {
-		this.firstError = firstError;
-	}
+    private static final long serialVersionUID = 1965921755523813030L;
 
-	public ErrorMessage getFirstMessage() {
-		return firstError;
-	}
-	
-	@Override
-	public String toString() {
-		return "TypeCheckerException("+firstError+")";
-	}
+    private ErrorMessage firstError;
+
+    TypeCheckerException(ErrorMessage firstError) {
+        this.firstError = firstError;
+    }
+
+    public ErrorMessage getFirstMessage() {
+        return firstError;
+    }
+
+    @Override
+    public String toString() {
+        return "TypeCheckerException(" + firstError + ")";
+    }
 }

@@ -35,7 +35,7 @@ public class Utils {
             try {
                 String line = null; //not declared within while loop
                 /*
-				 * readLine is a bit quirky :
+                 * readLine is a bit quirky :
 				 * it returns the content of a line MINUS the newline.
 				 * it returns null only for the END of the stream.
 				 * it returns an empty String if two newlines appear in a row.

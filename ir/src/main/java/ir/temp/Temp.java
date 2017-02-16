@@ -88,7 +88,7 @@ public class Temp implements Comparable<Temp> {
      * paint each Temp according to the register it is allocated to.
      */
     public void paint(Color color) {
-        assert(this.color == null) : "Not allowed to paint a Temp more than once! (Uncolor it first)";
+        assert (this.color == null) : "Not allowed to paint a Temp more than once! (Uncolor it first)";
         this.color = color;
     }
 

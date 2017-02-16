@@ -107,7 +107,7 @@ public class TranscriptWriter extends Writer {
 
         @Override
         public void close() throws IOException {
-            assert(-1 == input.read()) : "Transcript log has more data";
+            assert (-1 == input.read()) : "Transcript log has more data";
             input.close();
         }
 
@@ -124,7 +124,7 @@ public class TranscriptWriter extends Writer {
 
         @Override
         public void write(int c) throws IOException {
-            assert(!(c < 0)) : "Character code are positive no?";
+            assert (!(c < 0)) : "Character code are positive no?";
 
             //int expect = input.read();
 
@@ -148,9 +148,9 @@ public class TranscriptWriter extends Writer {
                 wasCR = true;
             else {
                 lastCharOK = c == expect;
-                assert(expect >= 0) : "Existing transcript ended unexpectedly";
+                assert (expect >= 0) : "Existing transcript ended unexpectedly";
 
-                assert((char) expect == (char) c) : "\nLine: " + lineNumber + "\nExpected: \"" + expectedLine.toString() +
+                assert ((char) expect == (char) c) : "\nLine: " + lineNumber + "\nExpected: \"" + expectedLine.toString() +
                         "\"\nActual: \"" + actualLine.toString() + "\"\n";
             }
         }
@@ -170,9 +170,9 @@ public class TranscriptWriter extends Writer {
                 line = input.readLine();
                 lineNumber++;
             }
-            assert(line != null) : "Marker " + marker + " not found";
+            assert (line != null) : "Marker " + marker + " not found";
             if (!recoveryMode)
-                assert(noSkip) : "Marker was found, but needed to skip some data in the log (a test did not produce all expected output?)";
+                assert (noSkip) : "Marker was found, but needed to skip some data in the log (a test did not produce all expected output?)";
         }
 
     }
@@ -217,7 +217,7 @@ public class TranscriptWriter extends Writer {
      * The marker String should not contain newline characters!
      */
     public void mark(String marker) throws IOException {
-        assert(!marker.contains("\n")) : "Marker String should not contain newline characters";
+        assert (!marker.contains("\n")) : "Marker String should not contain newline characters";
         log.mark(marker);
         stdout.write(marker + "\n");
     }

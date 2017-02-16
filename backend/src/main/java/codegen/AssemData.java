@@ -13,43 +13,43 @@ import util.List;
 
 public class AssemData extends AssemFragment {
 
-	private DataFragment dataIR;
-	private List<Instr> asmBody;
+    private DataFragment dataIR;
+    private List<Instr> asmBody;
 
-	public AssemData(DataFragment dataIR) {
-		this.dataIR = dataIR;
-		rewrite(); // Actually not "re" writing, but writing for the first time :-)
-	}
+    public AssemData(DataFragment dataIR) {
+        this.dataIR = dataIR;
+        rewrite(); // Actually not "re" writing, but writing for the first time :-)
+    }
 
-	@Override
-	public void dump(IndentingWriter out) {
-		out.println(".data");
-		out.indent();
-		for (Instr instr : getBody()) {
-			out.println(instr);
-		}
-		out.outdent();
-	}
+    @Override
+    public void dump(IndentingWriter out) {
+        out.println(".data");
+        out.indent();
+        for (Instr instr : getBody()) {
+            out.println(instr);
+        }
+        out.outdent();
+    }
 
-	public Label getLabel() {
-		return dataIR.getBody().getLabel();
-	}
+    public Label getLabel() {
+        return dataIR.getBody().getLabel();
+    }
 
-	public List<Instr> getBody() {
-		return asmBody;
-	}
+    public List<Instr> getBody() {
+        return asmBody;
+    }
 
-	public Muncher newMuncher() {
-		return new X86_64Muncher(null);
-	}
+    public Muncher newMuncher() {
+        return new X86_64Muncher(null);
+    }
 
-	public void rewrite() {
-		IRData body = dataIR.getBody();
-		Muncher m = newMuncher();
-		m.munch(IR.LABEL(body.getLabel()));
-		for (IRExp e : body) {
-			m.munchData(e);
-		}
-		asmBody = m.getInstructions();
-	}
+    public void rewrite() {
+        IRData body = dataIR.getBody();
+        Muncher m = newMuncher();
+        m.munch(IR.LABEL(body.getLabel()));
+        for (IRExp e : body) {
+            m.munchData(e);
+        }
+        asmBody = m.getInstructions();
+    }
 }

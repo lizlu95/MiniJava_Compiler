@@ -70,7 +70,7 @@ public class TraceSchedule {
                 getProgram().add(stm);
             }
             IRStm last = block.head();
-            assert(last.isJump()) :
+            assert (last.isJump()) :
                     "Basic blocks algorithm broken? No jump at end of BB!";
             if (last instanceof CJUMP) {
                 // Treated as a special case because we want to "flip" branches to
@@ -138,7 +138,7 @@ public class TraceSchedule {
             } else if (s instanceof JUMP) {
                 JUMP jump = (JUMP) s;
                 List<Label> labels = jump.getJumpTargets();
-                assert(labels.size() >= 1);
+                assert (labels.size() >= 1);
                 if (labels.size() == 1 && !program.tail().isEmpty()) {
                     Label forbiddenLabel = labels.head();
                     Label nextLabel = ((LABEL) program.get(1)).getLabel();
@@ -146,7 +146,7 @@ public class TraceSchedule {
                 }
             }
         }
-        assert(doneLabel == ((LABEL) program.getLast()).getLabel());
+        assert (doneLabel == ((LABEL) program.getLast()).getLabel());
     }
 
     public List<IRStm> getProgram() {

@@ -69,15 +69,15 @@ public class PartialProcFragment extends ProcFragment {
 
     public void replace(IRStm oldi, IRStm newi) {
         // Should check that this doesn't break things horribly
-        assert(!(oldi instanceof LABEL));
-        assert(!(newi instanceof LABEL));
+        assert (!(oldi instanceof LABEL));
+        assert (!(newi instanceof LABEL));
 
         body = body.replace(oldi, newi);
     }
 
     public void replace(IRStm oldi, List<IRStm> newi) {
         // Should check that this doesn't break things horribly
-        assert(!(oldi instanceof LABEL));
+        assert (!(oldi instanceof LABEL));
 
         body = body.replace(oldi, newi);
     }

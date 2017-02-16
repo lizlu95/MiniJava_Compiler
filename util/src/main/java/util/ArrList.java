@@ -60,7 +60,7 @@ class ArrList<E> extends List<E> implements Iterable<E> {
      * @see util.List#add(E)
      */
     public void add(E e) {
-        assert(allowMutation);
+        assert (allowMutation);
         elements.add(e);
     }
 
@@ -92,7 +92,7 @@ class ArrList<E> extends List<E> implements Iterable<E> {
         private int drop;
 
         public TailList(ArrList<E> from, int drop) {
-            assert(drop > 0);
+            assert (drop > 0);
             // Checking this:
             // Assertions.assertTrue(drop<=from.size());
             // would observe the size of the from array and make it

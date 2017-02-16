@@ -83,7 +83,7 @@ public class CompositeTemp extends Temp {
         this.color = color;
         for (Temp t : elements) {
             if (t.getColor() != null) {
-                assert(t.getColor().equals(color));
+                assert (t.getColor().equals(color));
                 // Do nothing, we have merged a painted temp with a non-painted temp
             } else {
                 t.paint(color);

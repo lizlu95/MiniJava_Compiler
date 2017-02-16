@@ -134,15 +134,15 @@ public class ProcFragment extends Fragment {
 
     public void replace(IRStm oldi, IRStm newi) {
         // Should check that this doesn't break things horribly
-        assert(!(oldi instanceof LABEL));
-        assert(!(newi instanceof LABEL));
+        assert (!(oldi instanceof LABEL));
+        assert (!(newi instanceof LABEL));
 
         traceScheduled = traceScheduled.replace(oldi, newi);
     }
 
     public void replace(IRStm oldi, List<IRStm> newi) {
         // Should check that this doesn't break things horribly
-        assert(!(oldi instanceof LABEL));
+        assert (!(oldi instanceof LABEL));
 
         traceScheduled = traceScheduled.replace(oldi, newi);
     }

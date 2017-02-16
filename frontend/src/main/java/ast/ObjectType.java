@@ -3,24 +3,24 @@ package ast;
 import visitor.Visitor;
 
 public class ObjectType extends Type {
-	
-	public final String name;
 
-	public ObjectType(String name) {
-		super();
-		this.name = name;
-	}
+    public final String name;
 
-	@Override
-	public <R> R accept(Visitor<R> v) {
-		return v.visit(this);
-	}
+    public ObjectType(String name) {
+        super();
+        this.name = name;
+    }
 
-	@Override
-	public boolean equals(Object other) {
-		if (this.getClass()==other.getClass()) {
-			return this.name.equals(((ObjectType)other).name);
-		}
-		return false;
-	}
+    @Override
+    public <R> R accept(Visitor<R> v) {
+        return v.visit(this);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this.getClass() == other.getClass()) {
+            return this.name.equals(((ObjectType) other).name);
+        }
+        return false;
+    }
 }
