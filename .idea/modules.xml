@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/backend/backend.iml" filepath="$PROJECT_DIR$/backend/backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/frontend/frontend.iml" filepath="$PROJECT_DIR$/frontend/frontend.iml" />
       <module fileurl="file://$PROJECT_DIR$/ir/ir.iml" filepath="$PROJECT_DIR$/ir/ir.iml" />
       <module fileurl="file://$PROJECT_DIR$/minijava.iml" filepath="$PROJECT_DIR$/minijava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/util/util.iml" filepath="$PROJECT_DIR$/util/util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/x86_64sim/x86_64sim.iml" filepath="$PROJECT_DIR$/x86_64sim/x86_64sim.iml" />
     </modules>
   </component>
 </project>

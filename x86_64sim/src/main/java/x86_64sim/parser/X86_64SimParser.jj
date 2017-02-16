@@ -1,0 +1,302 @@
+/**
+ * JavaCC file
+ */
+ 
+options {
+  JDK_VERSION = "1.6";
+  STATIC = false;
+  LOOKAHEAD = 5;
+}
+PARSER_BEGIN(X86_64SimParser)
+package x86_64sim.parser;
+
+import x86_64sim.*;
+import x86_64sim.instruction.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class X86_64SimParser {
+}
+
+PARSER_END(X86_64SimParser)
+
+SKIP :
+{
+ 	" "
+|	"\r"
+|	"\t"
+|	< MULTI_LINE_COMMENT: "/*" (~["*"])* "*" ("*" | ~["*","/"] (~["*"])* "*")* "/" >
+|   < SINGLE_LINE_COMMENT: "#" (~["\n"])* >
+}
+
+TOKEN : /* KEYWORDS */
+{	
+	< GLOBL:		".globl" >
+| 	< ALIGN:	".align">
+| 	< QUAD:		".quad" >	
+| 	< TEXT:		".text" >
+| 	< DATA:		".data" >
+| 	< SECTION:		".section" (~["\n"])* >
+| 	< TYPE:		".type" (~["\n"])* >
+| 	< SIZE:		".size" (~["\n"])* >
+| 	< IDENT:	".ident" >
+| 	< CMP:		"cmpq" >
+| 	< INC:		"incq" >
+| 	< DEC:		"decq" >
+| 	< ADD:		"addq" >
+| 	< SUB:		"subq" >
+| 	< MUL:		"imulq" >
+|   < DIV:		"idivq" >
+| 	< XOR:		"xorq" >
+| 	< CQTO:		"cqto" >
+| 	< MOV:		"movq" >
+| 	< CMOVL:	"cmovl" >
+| 	< CMOVE:	"cmove" >
+| 	< CMOVG:	"cmovg" >
+| 	< CMOVLE:	"cmovle" >
+| 	< CMOVNE:	"cmovne" >
+| 	< CMOVGE:	"cmovge" >
+| 	< CMOVB:	"cmovlb" >
+| 	< CMOVA:	"cmova" >
+| 	< CMOVBE:	"cmovbe" >
+| 	< CMOVAE:	"cmovae" >
+| 	< JL:		"jl" >
+| 	< JE:		"je" >
+| 	< JG:		"jg" >
+| 	< JLE:		"jle" >
+| 	< JNE:		"jne" >
+| 	< JGE:		"jge" >
+| 	< JB:		"jb" >
+| 	< JA:		"ja" >
+| 	< JBE:		"jbe" >
+| 	< JAE:		"jae" >
+|  	< JMP:		"jmp" >
+|  	< CALL:		"call" >
+| 	< LEAVE:	"leave" >
+| 	< LEA:		"leaq" >
+| 	< PUSH:		"pushq" >
+| 	< RET:		"ret" >
+| 	< SAR:		"sarq" >
+}
+TOKEN : /* SEPARATORS and OPERATORS*/
+{	<LPAREN: "(">
+|	<RPAREN: ")">
+| 	<COMMA:	 "," >
+| 	<DOLLAR:	"$" >
+| 	< NL:		"\n" >
+| 	< STAR: "*" >
+}
+	
+TOKEN :
+{   	< INTEGER_LITERAL: ( "-" ) ? ( <DIGIT> )+ >
+|  	< SCALE_LITERAL: ( "1" | "2" | "4" | "8" ) >
+| 	< REGISTER: "%r" ("ax" | "bx" | "cx" | "dx" | "si" | "di" | "sp" | "bp" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" ) | "t" (<DIGIT>)+ >
+| 	< RIP: "%rip" >
+|   < IDENTIFIER: ( <LETTER> | "_" ) (<LETTER> | "_" | "." | "$" | <DIGIT>)* >
+| 	< STRING:  "\"" (~[ "\"", "\n" ])* "\"" >
+|   < #LETTER: ["A" - "Z", "a" - "z"] >
+|   < #DIGIT: ["0" - "9"] >
+}
+
+Program Program() : { 
+	Program p = new Program();
+}{	( Statement(p) )*
+	<EOF>
+	{ return p; }
+}
+void Statement(Program p) : {
+  	String name;
+}
+{	
+	Directive(p)
+| 	( name = Label() { p.add(name); } )? ( Instruction(p) )? < NL >
+	{	}
+}
+void Directive(Program p) : {
+  String value;
+}
+{
+  	< TEXT >
+ 	{ p.doText(); }
+ | 	< DATA >
+ 	{ p.doData(); }
+ | 	< QUAD > ( value = Integer() | value = Identifier() )
+ 	{ p.doQuad(value); }
+ |  < ALIGN > value = Integer()
+ 	{ p.doAlign(value); }
+ |	< GLOBL > < IDENTIFIER >
+ |  < IDENT > < STRING >
+ |  < SECTION >
+ |  < TYPE >
+ |  < SIZE >
+  }
+
+String Label() : {
+  	String name;
+}
+{	name = Identifier() 
+	":"
+	{ return name; }
+}
+
+void Instruction(Program p) : {
+	String offset = "0", source = null, index = null, target = null, scale = "1";
+}
+{
+  	< ADD > source = IntLit() < COMMA > target = Register()
+  	{ p.add(new AddI2R(source, target)); }
+| 	< ADD > source = Register() < COMMA > target = Register()
+	{ p.add(new AddR2R(source, target)); }
+|  	< CALL > target = Identifier()
+  	{ p.add(new Call(target)); }
+|  	< CALL > < STAR > target = Register()
+  	{ p.add(new Call("*", target)); }
+| 	< CMOVL > source = Register() < COMMA > target = Register()
+	{ p.add(new CMovR2R("l", source, target)); }
+| 	< CMOVE > source = Register() < COMMA > target = Register()
+	{ p.add(new CMovR2R("e", source, target)); }
+| 	< CMOVG > source = Register() < COMMA > target = Register()
+	{ p.add(new CMovR2R("g", source, target)); }
+| 	< CMOVLE > source = Register() < COMMA > target = Register()
+	{ p.add(new CMovR2R("le", source, target)); }
+| 	< CMOVNE > source = Register() < COMMA > target = Register()
+	{ p.add(new CMovR2R("ne", source, target)); }
+| 	< CMOVGE > source = Register() < COMMA > target = Register()
+	{ p.add(new CMovR2R("ge", source, target)); }
+| 	< CMOVB > source = Register() < COMMA > target = Register()
+	{ p.add(new CMovR2R("b", source, target)); }
+| 	< CMOVA > source = Register() < COMMA > target = Register()
+	{ p.add(new CMovR2R("a", source, target)); }
+| 	< CMOVBE > source = Register() < COMMA > target = Register()
+	{ p.add(new CMovR2R("be", source, target)); }
+| 	< CMOVAE > source = Register() < COMMA > target = Register()
+	{ p.add(new CMovR2R("ae", source, target)); }
+|  	< CMP > source = IntLit() < COMMA > target = Register()
+  	{ p.add(new CmpI2R(source, target)); }
+| 	< CMP > source = Register() < COMMA > target = Register()
+	{ p.add(new CmpR2R(source, target)); }
+|  	< CMP > ( offset = Integer() )? < LPAREN > source = Register() < RPAREN > < COMMA > target = Register()
+  	{ p.add(new CmpM2R(offset, source, target)); }
+|  	< CMP >  source = Register() < COMMA > ( offset = Integer() )? < LPAREN > target = Register() < RPAREN >
+  	{ p.add(new CmpR2M(source, offset, target)); }
+|  	< CMP > source = IntLit() < COMMA > ( offset = Integer() )? < LPAREN > target = Register() < RPAREN >
+  	{ p.add(new CmpI2M(source, offset, target)); }
+|  	< DEC > target = Register()
+  	{ p.add(new Dec(target)); }
+|  	< INC > target = Register()
+  	{ p.add(new Inc(target)); }
+| 	< JL > target = Identifier()
+	{ p.add(new CJmp("l", target)); }
+| 	< JE > target = Identifier()
+	{ p.add(new CJmp("e", target)); }
+| 	< JG > target = Identifier()
+	{ p.add(new CJmp("g", target)); }
+| 	< JLE > target = Identifier()
+	{ p.add(new CJmp("le", target)); }
+| 	< JNE > target = Identifier()
+	{ p.add(new CJmp("ne", target)); }
+| 	< JGE > target = Identifier()
+	{ p.add(new CJmp("ge", target)); }
+| 	< JB > target = Identifier()
+	{ p.add(new CJmp("b", target)); }
+| 	< JA > target = Identifier()
+	{ p.add(new CJmp("a", target)); }
+| 	< JBE > target = Identifier()
+	{ p.add(new CJmp("be", target)); }
+| 	< JAE > target = Identifier()
+	{ p.add(new CJmp("ae", target)); }
+|  	< JMP > target = Identifier()
+  	{ p.add(new Jmp(target)); }
+|  	< LEAVE > 
+  	{ p.add(new Leave()); }
+|  	< MOV > (source = IntLit() | source = IdLit()) < COMMA > target = Register()
+  	{ p.add(new MoveI2R(source, target)); }
+| 	< MOV > source = Register() < COMMA > target = Register()
+	{ p.add(new MoveR2R(source, target)); }|  	< MOV > ( offset = Integer() )? < LPAREN > source= Register() ( < COMMA > index = Register() ( < COMMA > scale = Integer() )? )? < RPAREN > < COMMA > target = Register()
+  	{ if (index == null) p.add(new MoveM2R(offset, source, target)); else p.add(new MoveIM2R(offset, source, target, index, scale)); }
+| 	< MOV > source = Register() < COMMA > ( offset = Integer() )? < LPAREN > target = Register() ( < COMMA > index = Register() ( < COMMA > scale = Integer() )? )? < RPAREN >
+	{ if (index == null) p.add(new MoveR2M(offset, source, target)); else p.add(new MoveR2IM(offset, source, target, index, scale)); }
+| 	< MOV > (source = IntLit()|source = IdLit()) < COMMA > ( offset = Integer() )? < LPAREN > target = Register() ( < COMMA > index = Register() ( < COMMA > scale = Integer() )? )? < RPAREN >
+	{ if (index == null) p.add(new MoveI2M(offset, source, target)); else p.add(new MoveI2IM(offset, source, target, index, scale)); }
+|  	< LEA > ( offset = Integer() )? < LPAREN > source= Register() ( < COMMA > index = Register() ( < COMMA > scale = Integer() )? )? < RPAREN > < COMMA > target = Register()
+  	{ if (index == null) p.add(new Lea(offset, source, target)); else p.add(new Lea(offset, source, target, index, scale)); }
+|  	< LEA > ( offset = Integer() )? < LPAREN > < COMMA > index = Register() < COMMA > scale = Integer() < RPAREN > < COMMA > target = Register()
+  	{ p.add(new Lea(offset, source, target, index, scale)); }
+|  	< LEA > ( offset = Identifier() )? < LPAREN > source= Rip() < RPAREN > < COMMA > target = Register()
+  	{ p.add(new Lea(offset, target)); }
+|  	< MUL > scale = IntLit() < COMMA > source = Register() ( < COMMA > target = Register() )?
+  	{ if (target == null) p.add(new MulI2R(scale, source)); else p.add(new MulIR2R(scale, source, target)); }
+| 	< MUL > source = Register() < COMMA > target = Register()
+	{ p.add(new MulR2R(source, target)); }
+| 	< DIV > source = Register()
+	{ p.add(new DivR(source)); }
+| 	< CQTO > 
+	{ p.add(new CQTO()); }
+|  	< PUSH > target = Register()
+  	{ p.add(new Push(target)); }
+|  	< RET > 
+  	{ p.add(new Ret()); }
+|   < SAR > source = IntLit() < COMMA > target = Register()
+  	{ p.add(new SarI2R(source, target)); }
+|  	< SUB > source = IntLit() < COMMA > target = Register()
+  	{ p.add(new SubI2R(source, target)); }
+| 	< SUB > source = Register() < COMMA > target = Register()
+	{ p.add(new SubR2R(source, target)); }
+| 	< XOR > source = Register() < COMMA > target = Register()
+	{ p.add(new XorR2R(source, target)); }
+}
+
+String IntLit () :
+{
+  	String i;
+}
+{
+  	< DOLLAR > i = Integer() 
+  	{ return i; }
+}
+
+String Integer () :{  	Token i;
+}
+{  	i = < INTEGER_LITERAL >
+  	{ return i.image; }}
+
+String Scale () :
+{
+  	Token i;
+}
+{
+  	i = < SCALE_LITERAL >
+  	{ return i.image; }
+}
+
+String Identifier() : {
+	Token i;
+}
+{
+	i = <IDENTIFIER>
+	{ return i.image; }
+}
+
+String IdLit() : {
+	Token i;
+}
+{
+	< DOLLAR > i = <IDENTIFIER>
+	{ return i.image; }
+}
+
+String Register() : {
+	Token i;
+}
+{
+	i = <REGISTER>
+	{ return i.image; }
+}
+
+String Rip() : {
+	Token i;
+}
+{
+	i = <RIP>
+	{ return i.image; }
+}

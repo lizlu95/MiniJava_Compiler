@@ -7,7 +7,6 @@ import ir.tree.LABEL;
 
 import java.util.HashMap;
 
-import org.junit.jupiter.api.Assertions;
 import translate.ProcFragment;
 import util.List;
 
@@ -62,7 +61,8 @@ public class SimProc extends Callable {
 
     private void putLabel(Label label, List<IRStm> tail) {
         List<IRStm> existing = labels.get(label);
-        Assertions.assertNull(existing, "Duplicate label in IR code: " + label);
+        assert (existing == null) :
+                "Duplicate label in IR code: " + label;
         labels.put(label, tail);
     }
 

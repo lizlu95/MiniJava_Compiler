@@ -1,0 +1,59 @@
+Write at address 2 fails, bad alignmentThe program was:
+Program with 11 labels and 47 instructions
+_Foo_doit:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	cmpq	%rsp, %rsp
+	jge	_loopend_2
+_loopbody_3:
+	addq	%rsp, %rsp
+	movq	1, %rsp
+	addq	%rsp, %rsp
+_looptest_4:
+	cmpq	%rsp, %rsp
+	jl	_loopbody_3
+_loopend_2:
+	movq	%rsp, %rax
+_bail_1:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_7:
+	ret
+_cs411main:
+	subq	$8, %rsp
+_L_8:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	10, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Foo_doit
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_bail_5:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_9:
+	addq	$8, %rsp
+	ret

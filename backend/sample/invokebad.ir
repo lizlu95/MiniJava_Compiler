@@ -1,0 +1,166 @@
+MethodFragment {
+   X86_64Frame { label = _A_m
+      nextLocalOffset = -8
+      formals = List {
+         t2943
+      }
+   }
+   List {
+      LABEL _L_936
+      MOVE(
+         t2944 <-
+         %rbx:%rbx)
+      MOVE(
+         t2945 <-
+         %r12:%r12)
+      MOVE(
+         t2946 <-
+         %r13:%r13)
+      MOVE(
+         t2947 <-
+         %r14:%r14)
+      MOVE(
+         t2948 <-
+         %r15:%r15)
+      MOVE(
+         t2943 <-
+         %rdi:%rdi)
+      MOVE(
+         %rax:%rax <-
+         CONST 0)
+      LABEL _bail_933
+      MOVE(
+         %rbx:%rbx <-
+         t2944)
+      MOVE(
+         %r12:%r12 <-
+         t2945)
+      MOVE(
+         %r13:%r13 <-
+         t2946)
+      MOVE(
+         %r14:%r14 <-
+         t2947)
+      MOVE(
+         %r15:%r15 <-
+         t2948)
+      LABEL _DONE_937
+   }
+}
+MethodFragment {
+   X86_64Frame { label = _Test_do
+      nextLocalOffset = -8
+      formals = List {
+         t2949
+      }
+   }
+   List {
+      LABEL _L_938
+      MOVE(
+         t2952 <-
+         %rbx:%rbx)
+      MOVE(
+         t2953 <-
+         %r12:%r12)
+      MOVE(
+         t2954 <-
+         %r13:%r13)
+      MOVE(
+         t2955 <-
+         %r14:%r14)
+      MOVE(
+         t2956 <-
+         %r15:%r15)
+      MOVE(
+         t2949 <-
+         %rdi:%rdi)
+      MOVE(
+         t2950 <-
+         CONST 0)
+      MOVE(
+         t2951 <-
+         CALL(
+            NAME(_A_m),
+            MEM(t2949)))
+      MOVE(
+         t2951 <-
+         CALL(
+            NAME(_A_m),
+            t2950))
+      MOVE(
+         %rax:%rax <-
+         CONST 0)
+      LABEL _bail_934
+      MOVE(
+         %rbx:%rbx <-
+         t2952)
+      MOVE(
+         %r12:%r12 <-
+         t2953)
+      MOVE(
+         %r13:%r13 <-
+         t2954)
+      MOVE(
+         %r14:%r14 <-
+         t2955)
+      MOVE(
+         %r15:%r15 <-
+         t2956)
+      LABEL _DONE_939
+   }
+}
+MethodFragment {
+   X86_64Frame { label = _cs411main
+      nextLocalOffset = -8
+      formals = List {
+      }
+   }
+   List {
+      LABEL _L_940
+      MOVE(
+         t2957 <-
+         %rbx:%rbx)
+      MOVE(
+         t2958 <-
+         %r12:%r12)
+      MOVE(
+         t2959 <-
+         %r13:%r13)
+      MOVE(
+         t2960 <-
+         %r14:%r14)
+      MOVE(
+         t2961 <-
+         %r15:%r15)
+      MOVE(
+         t2963 <-
+         CALL(
+            NAME(_cs411newobject),
+            CONST 8))
+      MOVE(
+         t2962 <-
+         CALL(
+            NAME(_Test_do),
+            t2963))
+      EXP(CALL(
+         NAME(_cs411println),
+         t2962))
+      LABEL _bail_935
+      MOVE(
+         %rbx:%rbx <-
+         t2957)
+      MOVE(
+         %r12:%r12 <-
+         t2958)
+      MOVE(
+         %r13:%r13 <-
+         t2959)
+      MOVE(
+         %r14:%r14 <-
+         t2960)
+      MOVE(
+         %r15:%r15 <-
+         t2961)
+      LABEL _DONE_941
+   }
+}

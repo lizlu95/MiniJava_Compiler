@@ -1,0 +1,88 @@
+Write at address 4088 out of boundsThe program was:
+Program with 16 labels and 72 instructions
+_Foo_doit:
+	subq	$8, %rsp
+_L_5:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	10, %rsp
+	movq	%rsp, (%rsp)
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Foo_ident
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Foo_getField
+_bail_1:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_6:
+	addq	$8, %rsp
+	ret
+_Foo_ident:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rsp, %rax
+_bail_2:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_8:
+	ret
+_Foo_getField:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_3:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_10:
+	ret
+_cs411main:
+	subq	$8, %rsp
+_L_11:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	8, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Foo_doit
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_bail_4:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_12:
+	addq	$8, %rsp
+	ret

@@ -1,0 +1,151 @@
+MethodFragment {
+   X86_64Frame { label = _Foo_doit
+      nextLocalOffset = -8
+      formals = List {
+         t2484
+      }
+   }
+   List {
+      LABEL _L_779
+      MOVE(
+         t2486 <-
+         %rbx:%rbx)
+      MOVE(
+         t2487 <-
+         %r12:%r12)
+      MOVE(
+         t2488 <-
+         %r13:%r13)
+      MOVE(
+         t2489 <-
+         %r14:%r14)
+      MOVE(
+         t2490 <-
+         %r15:%r15)
+      MOVE(
+         t2484 <-
+         %rdi:%rdi)
+      MOVE(
+         t2485 <-
+         CALL(
+            NAME(_cs411newarray),
+            CONST 2))
+      CJUMP(UGE,
+         CONST 0,
+         MEM(BINOP(PLUS,
+            t2485, 
+            CONST -8)),
+         _boundsbad_775, _boundsok_774)
+      LABEL _boundsok_774
+      MOVE(
+         MEM(t2485) <-
+         CONST 0)
+      CJUMP(UGE,
+         CONST 1,
+         MEM(BINOP(PLUS,
+            t2485, 
+            CONST -8)),
+         _boundsbad_775, _boundsok_776)
+      LABEL _boundsok_776
+      MOVE(
+         MEM(BINOP(PLUS,
+            t2485, 
+            CONST 8)) <-
+         CONST 1)
+      CJUMP(UGE,
+         CONST 2,
+         MEM(BINOP(PLUS,
+            t2485, 
+            CONST -8)),
+         _boundsbad_775, _boundsok_777)
+      LABEL _boundsok_777
+      MOVE(
+         MEM(BINOP(PLUS,
+            t2485, 
+            CONST 16)) <-
+         CONST 2)
+      MOVE(
+         %rax:%rax <-
+         CONST 0)
+      LABEL _bail_773
+      MOVE(
+         %rbx:%rbx <-
+         t2486)
+      MOVE(
+         %r12:%r12 <-
+         t2487)
+      MOVE(
+         %r13:%r13 <-
+         t2488)
+      MOVE(
+         %r14:%r14 <-
+         t2489)
+      MOVE(
+         %r15:%r15 <-
+         t2490)
+      JUMP(NAME(_DONE_780))
+      LABEL _boundsbad_775
+      MOVE(
+         %rax:%rax <-
+         CALL(
+            NAME(_cs411error),
+            CONST 1))
+      JUMP(NAME(_bail_773))
+      LABEL _DONE_780
+   }
+}
+MethodFragment {
+   X86_64Frame { label = _cs411main
+      nextLocalOffset = -8
+      formals = List {
+      }
+   }
+   List {
+      LABEL _L_781
+      MOVE(
+         t2491 <-
+         %rbx:%rbx)
+      MOVE(
+         t2492 <-
+         %r12:%r12)
+      MOVE(
+         t2493 <-
+         %r13:%r13)
+      MOVE(
+         t2494 <-
+         %r14:%r14)
+      MOVE(
+         t2495 <-
+         %r15:%r15)
+      MOVE(
+         t2497 <-
+         CALL(
+            NAME(_cs411newobject),
+            CONST 0))
+      MOVE(
+         t2496 <-
+         CALL(
+            NAME(_Foo_doit),
+            t2497))
+      EXP(CALL(
+         NAME(_cs411println),
+         t2496))
+      LABEL _bail_778
+      MOVE(
+         %rbx:%rbx <-
+         t2491)
+      MOVE(
+         %r12:%r12 <-
+         t2492)
+      MOVE(
+         %r13:%r13 <-
+         t2493)
+      MOVE(
+         %r14:%r14 <-
+         t2494)
+      MOVE(
+         %r15:%r15 <-
+         t2495)
+      LABEL _DONE_782
+   }
+}

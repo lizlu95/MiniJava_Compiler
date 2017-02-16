@@ -1,0 +1,523 @@
+Write at address 2 fails, bad alignmentThe program was:
+Program with 70 labels and 454 instructions
+_QS_Start:
+	subq	$8, %rsp
+_L_56:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_QS_Init
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_QS_Print
+	movq	%rax, %rsp
+	movq	9999, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	1, %rsp
+	subq	%rsp, %rsp
+	movq	%rsp, %rdx
+	xorq	%rsp, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_QS_Sort
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_QS_Print
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_1:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_57:
+	addq	$8, %rsp
+	ret
+_QS_Sort:
+	subq	$8, %rsp
+_L_58:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rdx, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_4
+_L_3:
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_6:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	1, %rsp
+	subq	%rsp, %rsp
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopend_8
+_loopbody_9:
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopend_11
+_loopbody_12:
+	movq	1, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_14:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_15
+_L_16:
+	movq	1, %rsp
+_L_17:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopbody_12
+_loopend_11:
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopend_18
+_loopbody_19:
+	movq	1, %rsp
+	subq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_21:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_22
+_L_23:
+	movq	1, %rsp
+_L_24:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopbody_19
+_loopend_18:
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_25:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_27:
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_26:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_28:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	addq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_30
+_L_29:
+	xorq	%rsp, %rsp
+_L_31:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopbody_9
+_loopend_8:
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_33:
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_32:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_35:
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_34:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_36:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	subq	%rsp, %rsp
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_QS_Sort
+	movq	%rax, %rsp
+	movq	%rsp, %rdx
+	movq	1, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_QS_Sort
+	movq	%rax, %rsp
+_L_5:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_2:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_59
+_boundsbad_7:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_2
+_L_15:
+	xorq	%rsp, %rsp
+	jmp	_L_17
+_L_22:
+	xorq	%rsp, %rsp
+	jmp	_L_24
+_L_30:
+	movq	1, %rsp
+	jmp	_L_31
+_L_4:
+	xorq	%rsp, %rsp
+	jmp	_L_5
+_DONE_59:
+	addq	$8, %rsp
+	ret
+_QS_Print:
+	subq	$8, %rsp
+_L_60:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	xorq	%rsp, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jge	_loopend_38
+_loopbody_39:
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_42
+_boundsok_41:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	1, %rsp
+	addq	%rsp, %rsp
+_looptest_40:
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jl	_loopbody_39
+_loopend_38:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_37:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_61
+_boundsbad_42:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_37
+_DONE_61:
+	addq	$8, %rsp
+	ret
+_QS_Init:
+	subq	$8, %rsp
+_L_62:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	%rsp, %rdi
+	call	_cs411newarray
+	movq	%rax, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	xorq	%rsp, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_45
+_boundsok_44:
+	movq	20, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	1, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_45
+_boundsok_46:
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	7, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	2, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_45
+_boundsok_47:
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	12, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	3, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_45
+_boundsok_48:
+	movq	24, %rsp
+	addq	%rsp, %rsp
+	movq	18, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	4, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_45
+_boundsok_49:
+	movq	32, %rsp
+	addq	%rsp, %rsp
+	movq	2, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	5, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_45
+_boundsok_50:
+	movq	40, %rsp
+	addq	%rsp, %rsp
+	movq	11, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	6, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_45
+_boundsok_51:
+	movq	48, %rsp
+	addq	%rsp, %rsp
+	movq	6, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	7, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_45
+_boundsok_52:
+	movq	56, %rsp
+	addq	%rsp, %rsp
+	movq	9, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	8, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_45
+_boundsok_53:
+	movq	64, %rsp
+	addq	%rsp, %rsp
+	movq	19, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	9, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_45
+_boundsok_54:
+	movq	72, %rsp
+	addq	%rsp, %rsp
+	movq	5, %rsp
+	movq	%rsp, (%rsp)
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_43:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_63
+_boundsbad_45:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_43
+_DONE_63:
+	addq	$8, %rsp
+	ret
+_cs411main:
+	subq	$8, %rsp
+_L_64:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	16, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	10, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_QS_Start
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_bail_55:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_65:
+	addq	$8, %rsp
+	ret

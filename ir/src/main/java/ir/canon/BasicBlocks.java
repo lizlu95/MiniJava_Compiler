@@ -3,7 +3,6 @@ package ir.canon;
 import static ir.tree.IR.JUMP;
 import static ir.tree.IR.LABEL;
 
-import org.junit.jupiter.api.Assertions;
 import util.DefaultIndentable;
 import util.IndentingWriter;
 import util.List;
@@ -38,7 +37,7 @@ public class BasicBlocks extends DefaultIndentable {
     }
 
     private void endCurrentBlock() {
-        Assertions.assertNotNull(currentBlock, "There is no current block");
+        assert(currentBlock != null) : "There is no current block";
         blocks.add(currentBlock);
         currentBlock = null;
     }

@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>ubc.cs411</groupId>
-        <artifactId>functions-starter</artifactId>
-        <version>1.0</version>
+        <groupId>ca.ubc.cs411</groupId>
+        <artifactId>minijava</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>ubc.cs411</groupId>
+    <groupId>ca.ubc.cs411</groupId>
     <artifactId>ir</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -21,11 +21,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>ca.ubc.cs411</groupId>
+            <artifactId>util</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.0.0-M3</version>
+            <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>

@@ -1,0 +1,509 @@
+Write at address 12 fails, bad alignmentThe program was:
+Program with 88 labels and 422 instructions
+_BS_Start:
+	subq	$8, %rsp
+_L_68:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Init
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_BS_Print
+	movq	%rax, %rsp
+	movq	8, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Search
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_3
+_L_2:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_L_4:
+	movq	19, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Search
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_6
+_L_5:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_L_7:
+	movq	20, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Search
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_9
+_L_8:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_L_10:
+	movq	21, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Search
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_12
+_L_11:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_L_13:
+	movq	37, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Search
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_15
+_L_14:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_L_16:
+	movq	38, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Search
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_18
+_L_17:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_L_19:
+	movq	39, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Search
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_21
+_L_20:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_L_22:
+	movq	50, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Search
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_24
+_L_23:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_L_25:
+	movq	999, %rsp
+	movq	%rsp, %rax
+_bail_1:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_69
+_L_3:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	jmp	_L_4
+_L_6:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	jmp	_L_7
+_L_9:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	jmp	_L_10
+_L_12:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	jmp	_L_13
+_L_15:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	jmp	_L_16
+_L_18:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	jmp	_L_19
+_L_21:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	jmp	_L_22
+_L_24:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	jmp	_L_25
+_DONE_69:
+	addq	$8, %rsp
+	ret
+_BS_Search:
+	subq	$8, %rsp
+_L_70:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	-8, %rsp
+	movq	(%rsp), %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	1, %rsp
+	subq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopend_27
+_loopbody_28:
+	addq	%rsp, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Div
+	movq	%rax, %rsp
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_31
+_boundsok_30:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_33
+_L_32:
+	movq	1, %rsp
+	subq	%rsp, %rsp
+_L_34:
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Compare
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_36
+_L_35:
+	xorq	%rsp, %rsp
+_L_37:
+	cmpq	%rsp, %rsp
+	jge	_L_39
+_L_38:
+	xorq	%rsp, %rsp
+_L_40:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopbody_28
+_loopend_27:
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Compare
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_42
+_L_41:
+	movq	1, %rsp
+_L_43:
+	movq	%rsp, %rax
+_bail_26:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_71
+_boundsbad_31:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_26
+_L_33:
+	movq	1, %rsp
+	addq	%rsp, %rsp
+	jmp	_L_34
+_L_36:
+	movq	1, %rsp
+	jmp	_L_37
+_L_39:
+	xorq	%rsp, %rsp
+	jmp	_L_40
+_L_42:
+	xorq	%rsp, %rsp
+	jmp	_L_43
+_DONE_71:
+	addq	$8, %rsp
+	ret
+_L_72:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	subq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jge	_loopend_45
+_loopbody_46:
+	movq	1, %rsp
+	addq	%rsp, %rsp
+	movq	2, %rsp
+	addq	%rsp, %rsp
+_looptest_47:
+	cmpq	%rsp, %rsp
+	jl	_loopbody_46
+_loopend_45:
+	movq	%rsp, %rax
+_bail_44:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_73:
+	ret
+_L_74:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rdx, %rsp
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	addq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_50
+_L_49:
+	xorq	%rsp, %rsp
+_L_51:
+	movq	%rsp, %rax
+_bail_48:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_75
+_L_50:
+	cmpq	%rsp, %rsp
+	jge	_L_52
+_L_53:
+	movq	1, %rsp
+_L_54:
+	jmp	_L_51
+_L_52:
+	xorq	%rsp, %rsp
+	jmp	_L_54
+_DONE_75:
+	ret
+_BS_Print:
+	subq	$8, %rsp
+_L_76:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	1, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jge	_loopend_56
+_loopbody_57:
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_60
+_boundsok_59:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	1, %rsp
+	addq	%rsp, %rsp
+_looptest_58:
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jl	_loopbody_57
+_loopend_56:
+	movq	99999, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_55:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_77
+_boundsbad_60:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_55
+_DONE_77:
+	addq	$8, %rsp
+	ret
+_BS_Init:
+	subq	$8, %rsp
+_L_78:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	%rsp, %rdi
+	call	_cs411newarray
+	movq	%rax, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	1, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	addq	%rsp, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jge	_loopend_62
+_loopbody_63:
+	movq	2, %rsp
+	imulq	%rsp, %rsp
+	movq	3, %rsp
+	subq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_66
+_boundsok_65:
+	addq	%rsp, %rsp
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	addq	%rsp, %rsp
+	movq	1, %rsp
+	subq	%rsp, %rsp
+_looptest_64:
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jl	_loopbody_63
+_loopend_62:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_61:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_79
+_boundsbad_66:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_61
+_DONE_79:
+	addq	$8, %rsp
+	ret
+_cs411main:
+	subq	$8, %rsp
+_L_80:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	16, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	20, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_BS_Start
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_bail_67:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_81:
+	addq	$8, %rsp
+	ret

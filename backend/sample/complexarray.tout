@@ -1,0 +1,123 @@
+Write at address -6 fails, bad alignmentThe program was:
+Program with 17 labels and 104 instructions
+_Foo_do:
+	subq	$8, %rsp
+_L_9:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	5, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Foo_n
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_3
+_boundsok_2:
+	movq	(%rsp), %rsp
+	movq	15, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Foo_n
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_3
+_boundsok_4:
+	movq	(%rsp), %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_1:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_10
+_boundsbad_3:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_1
+_DONE_10:
+	addq	$8, %rsp
+	ret
+_Foo_n:
+	subq	$8, %rsp
+_L_11:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newarray
+	movq	%rax, %rsp
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	xorq	%rsp, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_7
+_boundsok_6:
+	movq	%rsp, (%rsp)
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_5:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_12
+_boundsbad_7:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_5
+_DONE_12:
+	addq	$8, %rsp
+	ret
+_cs411main:
+	subq	$8, %rsp
+_L_13:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	8, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	2, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Foo_do
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_bail_8:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_14:
+	addq	$8, %rsp
+	ret

@@ -1,6 +1,5 @@
 package ir.interp;
 
-import org.junit.jupiter.api.Assertions;
 
 /**
  * A Word that is a pointer to some dynamically allocated
@@ -21,7 +20,7 @@ public class Array extends Ptr {
 
         @Override
         public Ptr add(int bytesOffset) {
-            Assertions.assertTrue(bytesOffset % wordSize == 0);
+            assert(bytesOffset % wordSize == 0);
             return new DisplacedPtr(this.wordsOffset + bytesOffset / wordSize);
         }
 
@@ -67,7 +66,7 @@ public class Array extends Ptr {
 
     @Override
     public Ptr add(int bytesOffset) {
-        Assertions.assertTrue(bytesOffset % wordSize == 0);
+        assert(bytesOffset % wordSize == 0);
         return new DisplacedPtr(bytesOffset / wordSize);
     }
 

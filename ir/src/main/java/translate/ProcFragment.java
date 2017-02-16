@@ -1,6 +1,5 @@
 package translate;
 
-import org.junit.jupiter.api.Assertions;
 import util.IndentingWriter;
 import util.List;
 import ir.canon.BasicBlocks;
@@ -135,15 +134,15 @@ public class ProcFragment extends Fragment {
 
     public void replace(IRStm oldi, IRStm newi) {
         // Should check that this doesn't break things horribly
-        Assertions.assertFalse(oldi instanceof LABEL);
-        Assertions.assertFalse(newi instanceof LABEL);
+        assert(!(oldi instanceof LABEL));
+        assert(!(newi instanceof LABEL));
 
         traceScheduled = traceScheduled.replace(oldi, newi);
     }
 
     public void replace(IRStm oldi, List<IRStm> newi) {
         // Should check that this doesn't break things horribly
-        Assertions.assertFalse(oldi instanceof LABEL);
+        assert(!(oldi instanceof LABEL));
 
         traceScheduled = traceScheduled.replace(oldi, newi);
     }

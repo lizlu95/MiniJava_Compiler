@@ -1,0 +1,783 @@
+Write at address 4088 out of boundsThe program was:
+Program with 119 labels and 678 instructions
+_L_63:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rdx, %rsp
+	movq	%rcx, %rsp
+	movq	%rsp, (%rsp)
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_1:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_64:
+	ret
+_Element_GetAge:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_2:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_66:
+	ret
+_L_67:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_3:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_68:
+	ret
+_L_69:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_4:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_70:
+	ret
+_Element_Equal:
+	subq	$8, %rsp
+_L_71:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_Element_GetAge
+	movq	%rax, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Element_Compare
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_6
+_L_7:
+	movq	%rsp, %rdi
+	call	_Element_GetSalary
+	movq	%rax, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Element_Compare
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_9
+_L_10:
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_13
+_L_12:
+	movq	%rsp, %rdi
+	call	_Element_GetMarried
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_15
+_L_16:
+	xorq	%rsp, %rsp
+_L_17:
+	movq	%rsp, %rax
+_bail_5:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_72
+_L_6:
+	xorq	%rsp, %rsp
+	jmp	_L_8
+_L_9:
+	xorq	%rsp, %rsp
+	jmp	_L_11
+_L_15:
+	xorq	%rsp, %rsp
+	jmp	_L_17
+_L_13:
+	movq	%rsp, %rdi
+	call	_Element_GetMarried
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_19
+_L_18:
+	xorq	%rsp, %rsp
+_L_20:
+	jmp	_L_14
+_L_19:
+	xorq	%rsp, %rsp
+	jmp	_L_20
+_DONE_72:
+	addq	$8, %rsp
+	ret
+_Element_Compare:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rdx, %rsp
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	addq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_23
+_L_22:
+	xorq	%rsp, %rsp
+_L_24:
+	movq	%rsp, %rax
+_bail_21:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_74
+_L_23:
+	cmpq	%rsp, %rsp
+	jge	_L_25
+_L_26:
+	movq	1, %rsp
+_L_27:
+	jmp	_L_24
+_L_25:
+	xorq	%rsp, %rsp
+	jmp	_L_27
+_DONE_74:
+	ret
+_List_Init:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	1, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_28:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_76:
+	ret
+_List_InitNew:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rdx, %rsp
+	movq	%rcx, %rsp
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	%rsp, (%rsp)
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_29:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_78:
+	ret
+_List_Insert:
+	subq	$8, %rsp
+_L_79:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	24, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rcx
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_List_InitNew
+	movq	%rax, %rsp
+	movq	%rsp, %rax
+_bail_30:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_80:
+	addq	$8, %rsp
+	ret
+_List_SetNext:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_31:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_82:
+	ret
+_List_Delete:
+	subq	$8, %rsp
+_L_83:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	-1, %rsp
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	(%rsp), %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_36
+_loopend_33:
+	movq	%rsp, %rax
+_bail_32:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_84
+_L_36:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopend_33
+_loopbody_34:
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Element_Equal
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_38
+_L_37:
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_41
+_L_40:
+	movq	%rsp, %rdi
+	call	_List_GetNext
+	movq	%rax, %rsp
+_L_42:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_43
+_L_44:
+	xorq	%rsp, %rsp
+_L_45:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopend_33
+_L_46:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopend_33
+_L_85:
+	jmp	_loopbody_34
+_L_41:
+	movq	-555, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	%rsp, %rdi
+	call	_List_GetNext
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_List_SetNext
+	movq	%rax, %rsp
+	movq	-555, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	jmp	_L_42
+_L_38:
+	xorq	%rsp, %rsp
+	jmp	_L_39
+_L_43:
+	movq	%rsp, %rdi
+	call	_List_GetNext
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_GetEnd
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_GetElem
+	movq	%rax, %rsp
+	movq	1, %rsp
+	jmp	_L_45
+_DONE_84:
+	addq	$8, %rsp
+	ret
+_List_Search:
+	subq	$8, %rsp
+_L_86:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	(%rsp), %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopbody_49
+_loopend_48:
+	movq	%rsp, %rax
+_bail_47:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_87
+_loopbody_49:
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Element_Equal
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_52
+_L_51:
+	movq	1, %rsp
+_L_53:
+	movq	%rsp, %rdi
+	call	_List_GetNext
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_GetEnd
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_GetElem
+	movq	%rax, %rsp
+_looptest_50:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopend_48
+_L_88:
+	jmp	_loopbody_49
+_L_52:
+	xorq	%rsp, %rsp
+	jmp	_L_53
+_DONE_87:
+	addq	$8, %rsp
+	ret
+_List_GetEnd:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_54:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_90:
+	ret
+_List_GetElem:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_55:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_92:
+	ret
+_List_GetNext:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_56:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_94:
+	ret
+_List_Print:
+	subq	$8, %rsp
+_L_95:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	(%rsp), %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopbody_59
+_loopend_58:
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_57:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_96
+_loopbody_59:
+	movq	%rsp, %rdi
+	call	_Element_GetAge
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	%rsp, %rdi
+	call	_List_GetNext
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_GetEnd
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_GetElem
+	movq	%rax, %rsp
+_looptest_60:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopend_58
+_L_97:
+	jmp	_loopbody_59
+_DONE_96:
+	addq	$8, %rsp
+	ret
+_LL_Start:
+	subq	$8, %rsp
+_L_98:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	24, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_Init
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_Init
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_Print
+	movq	%rax, %rsp
+	movq	24, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rcx
+	movq	37000, %rsp
+	movq	%rsp, %rdx
+	movq	25, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Element_Init
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_List_Insert
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_Print
+	movq	%rax, %rsp
+	movq	10000000, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	24, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	1, %rsp
+	movq	%rsp, %rcx
+	movq	42000, %rsp
+	movq	%rsp, %rdx
+	movq	39, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Element_Init
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_List_Insert
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_Print
+	movq	%rax, %rsp
+	movq	10000000, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	24, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rcx
+	movq	34000, %rsp
+	movq	%rsp, %rdx
+	movq	22, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Element_Init
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_List_Insert
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_Print
+	movq	%rax, %rsp
+	movq	24, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rcx
+	movq	34000, %rsp
+	movq	%rsp, %rdx
+	movq	27, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Element_Init
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_List_Search
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_List_Search
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	10000000, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	24, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rcx
+	movq	35000, %rsp
+	movq	%rsp, %rdx
+	movq	28, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Element_Init
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_List_Insert
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_Print
+	movq	%rax, %rsp
+	movq	2220000, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_List_Delete
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_Print
+	movq	%rax, %rsp
+	movq	33300000, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_List_Delete
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_List_Print
+	movq	%rax, %rsp
+	movq	44440000, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_61:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_99:
+	addq	$8, %rsp
+	ret
+_cs411main:
+	subq	$8, %rsp
+_L_100:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_LL_Start
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_bail_62:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_101:
+	addq	$8, %rsp
+	ret

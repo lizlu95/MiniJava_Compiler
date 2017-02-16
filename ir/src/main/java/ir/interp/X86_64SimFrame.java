@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.junit.jupiter.api.Assertions;
 import util.DefaultIndentable;
 import util.IndentingWriter;
 import util.List;
@@ -97,7 +96,7 @@ public class X86_64SimFrame extends DefaultIndentable {
      * value (i.e. not a Java null pointer or the UninitializedWord
      */
     public void setTemp(Temp name, Word value) {
-        Assertions.assertFalse(value == null);
+        assert(value != null);
         temps.put(name, value);
     }
 

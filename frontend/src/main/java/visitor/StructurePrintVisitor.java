@@ -31,8 +31,8 @@ public class StructurePrintVisitor implements Visitor<Void> {
 	public Void visit(Program n) {
 		out.println("Program");
 		out.indent();
-		n.statements.accept(this);
-		n.print.accept(this);
+		n.mainClass.accept(this);
+		n.classes.accept(this);
 		out.outdent();
 		return null;
 	}

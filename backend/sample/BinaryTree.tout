@@ -1,0 +1,1010 @@
+Write at address 4088 out of boundsThe program was:
+Program with 164 labels and 864 instructions
+_BT_Start:
+	subq	$8, %rsp
+_L_99:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	xorq	%rsp, %rsp
+	movq	48, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	16, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Init
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_Print
+	movq	%rax, %rsp
+	movq	100000000, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	8, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Insert
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_Print
+	movq	%rax, %rsp
+	movq	24, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Insert
+	movq	%rax, %rsp
+	movq	4, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Insert
+	movq	%rax, %rsp
+	movq	12, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Insert
+	movq	%rax, %rsp
+	movq	20, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Insert
+	movq	%rax, %rsp
+	movq	28, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Insert
+	movq	%rax, %rsp
+	movq	14, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Insert
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_Print
+	movq	%rax, %rsp
+	movq	24, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Search
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	12, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Search
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	16, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Search
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	50, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Search
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	12, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Search
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	12, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Delete
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_Print
+	movq	%rax, %rsp
+	movq	12, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Search
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_1:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_100:
+	addq	$8, %rsp
+	ret
+_Tree_Init:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	24, %rsp
+	addq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	32, %rsp
+	addq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_2:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_102:
+	ret
+_Tree_SetRight:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_3:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_104:
+	ret
+_L_105:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_4:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_106:
+	ret
+_Tree_GetRight:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_5:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_108:
+	ret
+_L_109:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_6:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_110:
+	ret
+_Tree_GetKey:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_7:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_112:
+	ret
+_L_113:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	16, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_8:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_114:
+	ret
+_Tree_GetHas_Right:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	32, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_9:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_116:
+	ret
+_Tree_GetHas_Left:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	24, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rax
+_bail_10:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_118:
+	ret
+_Tree_SetHas_Left:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	24, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_11:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_120:
+	ret
+_L_121:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	32, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_12:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_122:
+	ret
+_Tree_Compare:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rdx, %rsp
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	addq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_15
+_L_14:
+	xorq	%rsp, %rsp
+_L_16:
+	movq	%rsp, %rax
+_bail_13:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_124
+_L_15:
+	cmpq	%rsp, %rsp
+	jge	_L_17
+_L_18:
+	movq	1, %rsp
+_L_19:
+	jmp	_L_16
+_L_17:
+	xorq	%rsp, %rsp
+	jmp	_L_19
+_DONE_124:
+	ret
+_Tree_Insert:
+	subq	$8, %rsp
+_L_125:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	48, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Init
+	movq	%rax, %rsp
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopend_21
+_loopbody_22:
+	movq	%rsp, %rdi
+	call	_Tree_GetKey
+	movq	%rax, %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_25
+_L_24:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Left
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_28
+_L_27:
+	movq	%rsp, %rdi
+	call	_Tree_GetLeft
+	movq	%rax, %rsp
+_L_29:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopbody_22
+_loopend_21:
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_20:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_126
+_L_28:
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetHas_Left
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetLeft
+	movq	%rax, %rsp
+	jmp	_L_29
+_L_25:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Right
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_31
+_L_30:
+	movq	%rsp, %rdi
+	call	_Tree_GetRight
+	movq	%rax, %rsp
+_L_32:
+	jmp	_L_26
+_L_31:
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetHas_Right
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetRight
+	movq	%rax, %rsp
+	jmp	_L_32
+_DONE_126:
+	addq	$8, %rsp
+	ret
+_Tree_Delete:
+	subq	$8, %rsp
+_L_127:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopend_34
+_loopbody_35:
+	movq	%rsp, %rdi
+	call	_Tree_GetKey
+	movq	%rax, %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_38
+_L_37:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Left
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_41
+_L_40:
+	movq	%rsp, %rdi
+	call	_Tree_GetLeft
+	movq	%rax, %rsp
+_L_42:
+	xorq	%rsp, %rsp
+_looptest_36:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopbody_35
+_loopend_34:
+	movq	%rsp, %rax
+_bail_33:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_128
+_L_41:
+	xorq	%rsp, %rsp
+	jmp	_L_42
+_L_38:
+	cmpq	%rsp, %rsp
+	jge	_L_44
+_L_43:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Right
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_47
+_L_46:
+	movq	%rsp, %rdi
+	call	_Tree_GetRight
+	movq	%rax, %rsp
+_L_48:
+	jmp	_L_39
+_L_47:
+	xorq	%rsp, %rsp
+	jmp	_L_48
+_L_44:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_50
+_L_49:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Right
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_55
+_L_53:
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Remove
+	movq	%rax, %rsp
+_L_51:
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	jmp	_L_45
+_L_55:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Left
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_L_53
+_L_52:
+	movq	1, %rsp
+	jmp	_L_54
+_L_50:
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Remove
+	movq	%rax, %rsp
+	jmp	_L_51
+_DONE_128:
+	addq	$8, %rsp
+	ret
+_Tree_Remove:
+	subq	$8, %rsp
+_L_129:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rdx, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Left
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_58
+_L_57:
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_RemoveLeft
+	movq	%rax, %rsp
+_L_59:
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_56:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_130
+_L_58:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Right
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_61
+_L_60:
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_RemoveRight
+	movq	%rax, %rsp
+_L_62:
+	jmp	_L_59
+_L_61:
+	movq	%rsp, %rdi
+	call	_Tree_GetKey
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_GetLeft
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_GetKey
+	movq	%rax, %rsp
+	movq	%rsp, %rdx
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_Compare
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_64
+_L_63:
+	movq	40, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetLeft
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetHas_Left
+	movq	%rax, %rsp
+_L_65:
+	jmp	_L_62
+_L_64:
+	movq	40, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetRight
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetHas_Right
+	movq	%rax, %rsp
+	jmp	_L_65
+_DONE_130:
+	addq	$8, %rsp
+	ret
+_Tree_RemoveRight:
+	subq	$8, %rsp
+_L_131:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rdx, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Right
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopend_67
+_loopbody_68:
+	movq	%rsp, %rdi
+	call	_Tree_GetRight
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_GetKey
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetKey
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_GetRight
+	movq	%rax, %rsp
+_looptest_69:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Right
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopbody_68
+_loopend_67:
+	movq	40, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetRight
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetHas_Right
+	movq	%rax, %rsp
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_66:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_132:
+	addq	$8, %rsp
+	ret
+_Tree_RemoveLeft:
+	subq	$8, %rsp
+_L_133:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rdx, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Left
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopend_71
+_loopbody_72:
+	movq	%rsp, %rdi
+	call	_Tree_GetLeft
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_GetKey
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetKey
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_GetLeft
+	movq	%rax, %rsp
+_looptest_73:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Left
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopbody_72
+_loopend_71:
+	movq	40, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetLeft
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_SetHas_Left
+	movq	%rax, %rsp
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_70:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_134:
+	addq	$8, %rsp
+	ret
+_Tree_Search:
+	subq	$8, %rsp
+_L_135:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	xorq	%rsp, %rsp
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_loopend_75
+_loopbody_76:
+	movq	%rsp, %rdi
+	call	_Tree_GetKey
+	movq	%rax, %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_79
+_L_78:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Left
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_82
+_L_81:
+	movq	%rsp, %rdi
+	call	_Tree_GetLeft
+	movq	%rax, %rsp
+_looptest_77:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	jne	_loopbody_76
+_loopend_75:
+	movq	%rsp, %rax
+_bail_74:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_136
+_L_82:
+	xorq	%rsp, %rsp
+	jmp	_L_83
+_L_79:
+	cmpq	%rsp, %rsp
+	jge	_L_85
+_L_84:
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Right
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_88
+_L_87:
+	movq	%rsp, %rdi
+	call	_Tree_GetRight
+	movq	%rax, %rsp
+_L_86:
+	jmp	_L_80
+_L_88:
+	xorq	%rsp, %rsp
+	jmp	_L_89
+_L_85:
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	jmp	_L_86
+_DONE_136:
+	addq	$8, %rsp
+	ret
+_Tree_Print:
+	subq	$8, %rsp
+_L_137:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_RecPrint
+	movq	%rax, %rsp
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_90:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_138:
+	addq	$8, %rsp
+	ret
+_Tree_RecPrint:
+	subq	$8, %rsp
+_L_139:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Left
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_93
+_L_92:
+	movq	%rsp, %rdi
+	call	_Tree_GetLeft
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_RecPrint
+	movq	%rax, %rsp
+_L_94:
+	movq	%rsp, %rdi
+	call	_Tree_GetKey
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	%rsp, %rdi
+	call	_Tree_GetHas_Right
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_96
+_L_95:
+	movq	%rsp, %rdi
+	call	_Tree_GetRight
+	movq	%rax, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_Tree_RecPrint
+	movq	%rax, %rsp
+_L_97:
+	movq	1, %rsp
+	movq	%rsp, %rax
+_bail_91:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_140
+_L_93:
+	movq	1, %rsp
+	jmp	_L_94
+_L_96:
+	movq	1, %rsp
+	jmp	_L_97
+_DONE_140:
+	addq	$8, %rsp
+	ret
+_cs411main:
+	subq	$8, %rsp
+_L_141:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_BT_Start
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_bail_98:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_142:
+	addq	$8, %rsp
+	ret

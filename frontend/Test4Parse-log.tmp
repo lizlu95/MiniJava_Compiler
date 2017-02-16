@@ -35,13 +35,18 @@ class Foo {
 ---------------
 class Main {
   public static void main(String[] args) {
-      System.out.println(new Foo().parg(10));
+      System.out.println(new Foo().do(2));
   }
 }
 class Foo {
-    public int parg(int arg) { 
-      System.out.println(arg);
-      return arg;
+    int [] arr;
+   public int do(int y) { 
+      return this.n(5)[0] + this.n(15)[0];
+   }
+   public int [] n(int n) { 
+      arr = new int[n];
+	   arr[0] = n;
+      return arr;
    }
 }
 ### END # TEST 3 ###
@@ -49,8 +54,17 @@ class Foo {
 ---------------
 class Main {
   public static void main(String[] args) {
-      System.out.println(10+20);
+      System.out.println(new Foo().warg(5));
   }
+}
+class Foo {
+    public int warg(int arg) { 
+      while (0<arg) {
+         System.out.println(arg);
+         arg = arg - 1;
+      }
+      return arg;
+   }
 }
 ### END # TEST 4 ###
 ### BEG # TEST 5 ###
@@ -74,25 +88,53 @@ class Foo {
 ---------------
 class Main {
   public static void main(String[] args) {
-      System.out.println(new Foo().getFoo());
+      { System.out.println(new Foo().max(10,20));
+        System.out.println(new Foo().max(20,10));
+      }
   }
 }
 class Foo {
-    public int getFoo() { return 78; }
+    public int max(int x, int y) { 
+      int tmp; boolean flag;
+      flag = y < x;
+      flag = !flag;
+      if (flag) tmp = y; else tmp = x;
+      return tmp;
+   }
 }
 ### END # TEST 6 ###
 ### BEG # TEST 7 ###
 ---------------
 class Main {
-  public static void main(String[] args) {
-      System.out.println(new Foo().sum(14,17));
-  }
-}
-class Foo {
-    public int sum(int x, int y) { return x+y*99; }
+  public static void main(String[] args) { {} }
 }
 ### END # TEST 7 ###
 ### BEG # TEST 8 ###
+---------------
+class Main {
+  public static void main(String[] args) {
+      System.out.println(10+20);
+  }
+}
+### END # TEST 8 ###
+### BEG # TEST 9 ###
+---------------
+class Main {
+  public static void main(String[] args) {
+      { System.out.println(new Foo().max(10,20));
+        System.out.println(new Foo().max(20,10));
+      }
+  }
+}
+class Foo {
+    public int max(int x, int y) { 
+      int tmp;
+      if (!(y<x)) tmp = y; else tmp = x;
+      return tmp;
+   }
+}
+### END # TEST 9 ###
+### BEG # TEST 10 ###
 ---------------
 class Main {
   public static void main(String[] args) {
@@ -108,8 +150,8 @@ class Foo {
        return tmp+tmp2;
    }
 }
-### END # TEST 8 ###
-### BEG # TEST 9 ###
+### END # TEST 10 ###
+### BEG # TEST 11 ###
 ---------------
 class Main {
   public static void main(String[] args) {
@@ -124,44 +166,78 @@ class Foo {
       return arr[0];
    }
 }
-### END # TEST 9 ###
-### BEG # TEST 10 ###
+### END # TEST 11 ###
+### BEG # TEST 12 ###
 ---------------
 class Main {
   public static void main(String[] args) {
-      System.out.println(new Foo().do(2));
+      System.out.println(10);
   }
 }
-class Foo {
-    int [] arr;
-   public int do(int y) { 
-      return this.n(5)[0] + this.n(15)[0];
-   }
-   public int [] n(int n) { 
-      arr = new int[n];
-	   arr[0] = n;
-      return arr;
-   }
-}
-### END # TEST 10 ###
-### BEG # TEST 11 ###
+### END # TEST 12 ###
+### BEG # TEST 13 ###
 ---------------
 class Main {
   public static void main(String[] args) {
-      System.out.println(new Foo().warg(5));
+      {}
   }
 }
 class Foo {
-    public int warg(int arg) { 
-      while (0<arg) {
-         System.out.println(arg);
-         arg = arg - 1;
-      }
+    public int getFoo() { return 0; }
+}
+### END # TEST 13 ###
+### BEG # TEST 14 ###
+---------------
+class Main {
+  public static void main(String[] args) {
+      System.out.println(new Foo().parg(10));
+  }
+}
+class Foo {
+    public int parg(int arg) { 
+      System.out.println(arg);
       return arg;
    }
 }
-### END # TEST 11 ###
-### BEG # TEST 12 ###
+### END # TEST 14 ###
+### BEG # TEST 15 ###
+---------------
+class Main {
+  public static void main(String[] args) {
+      System.out.println(new Foo().getFoo());
+  }
+}
+class Foo {
+    public int getFoo() { return 78; }
+}
+### END # TEST 15 ###
+### BEG # TEST 16 ###
+---------------
+class Main {
+  public static void main(String[] args) {
+      System.out.println(new Foo().sum(14,17));
+  }
+}
+class Foo {
+    public int sum(int x, int y) { return x+y*99; }
+}
+### END # TEST 16 ###
+### BEG # TEST 17 ###
+---------------
+class Main {
+  public static void main(String[] args) {
+      System.out.println(new Foo().getSet(new int[2],17));
+  }
+}
+class Foo {
+    public int getSet(int[] arr, int y) { 
+      arr[0] = y;
+      arr[1] = 2*arr[0];
+      return arr[0]+arr[1]+arr.length;
+   }
+}
+### END # TEST 17 ###
+### BEG # TEST 18 ###
 ---------------
 class Main {
   public static void main(String[] args) {
@@ -194,8 +270,8 @@ class Foo {
       return sum;
    }
 }
-### END # TEST 12 ###
-### BEG # TEST 13 ###
+### END # TEST 18 ###
+### BEG # TEST 19 ###
 ---------------
 class Main {
   public static void main(String[] args) {
@@ -211,44 +287,8 @@ class Foo {
       return tmp;
    }
 }
-### END # TEST 13 ###
-### BEG # TEST 14 ###
----------------
-class Main {
-  public static void main(String[] args) {
-      { System.out.println(new Foo().max(10,20));
-        System.out.println(new Foo().max(20,10));
-      }
-  }
-}
-class Foo {
-    public int max(int x, int y) { 
-      int tmp;
-      if (!(y<x)) tmp = y; else tmp = x;
-      return tmp;
-   }
-}
-### END # TEST 14 ###
-### BEG # TEST 15 ###
----------------
-class Main {
-  public static void main(String[] args) {
-      { System.out.println(new Foo().max(10,20));
-        System.out.println(new Foo().max(20,10));
-      }
-  }
-}
-class Foo {
-    public int max(int x, int y) { 
-      int tmp; boolean flag;
-      flag = y < x;
-      flag = !flag;
-      if (flag) tmp = y; else tmp = x;
-      return tmp;
-   }
-}
-### END # TEST 15 ###
-### BEG # TEST 16 ###
+### END # TEST 19 ###
+### BEG # TEST 20 ###
 ---------------
 class Main {
   public static void main(String[] args) {
@@ -265,8 +305,8 @@ class Foo {
       return tmp;
    }
 }
-### END # TEST 16 ###
-### BEG # TEST 17 ###
+### END # TEST 20 ###
+### BEG # TEST 21 ###
 ---------------
 class Main {
   public static void main(String[] args) { {
@@ -286,8 +326,8 @@ class Foo {
       return result;
    }
 }
-### END # TEST 17 ###
-### BEG # TEST 18 ###
+### END # TEST 21 ###
+### BEG # TEST 22 ###
 ---------------
 class Main {
   public static void main(String[] args) {
@@ -308,8 +348,8 @@ class Point {
       return p.donothing();
    }
 }
-### END # TEST 18 ###
-### BEG # TEST 19 ###
+### END # TEST 22 ###
+### BEG # TEST 23 ###
 ---------------
 class Main {
   public static void main(String[] args) {
@@ -339,8 +379,8 @@ class Point {
       return 0;
    }
 }
-### END # TEST 19 ###
-### BEG # TEST 20 ###
+### END # TEST 23 ###
+### BEG # TEST 24 ###
 ---------------
 class Main {
   public static void main(String[] args) {
@@ -361,8 +401,8 @@ class Test {
         System.out.println(0);     return count;
    }
 }
-### END # TEST 20 ###
-### BEG # TEST 21 ###
+### END # TEST 24 ###
+### BEG # TEST 25 ###
 ---------------
 class Main {
   public static void main(String[] args) {
@@ -375,8 +415,8 @@ class Test {
      return 9999;
   }
 }
-### END # TEST 21 ###
-### BEG # TEST 22 ###
+### END # TEST 25 ###
+### BEG # TEST 26 ###
 ---------------
 class Main {
   public static void main(String[] args) {
@@ -389,50 +429,10 @@ class Test {
       return 9999;
   }
 }
-### END # TEST 22 ###
-### BEG # TEST 23 ###
----------------
-File: sample/BinarySearch.java
-### END # TEST 23 ###
-### BEG # TEST 24 ###
----------------
-class Main {
-  public static void main(String[] args) { {} }
-}
-### END # TEST 24 ###
-### BEG # TEST 25 ###
----------------
-class Main {
-  public static void main(String[] args) {
-      System.out.println(10);
-  }
-}
-### END # TEST 25 ###
-### BEG # TEST 26 ###
----------------
-class Main {
-  public static void main(String[] args) {
-      {}
-  }
-}
-class Foo {
-    public int getFoo() { return 0; }
-}
 ### END # TEST 26 ###
 ### BEG # TEST 27 ###
 ---------------
-class Main {
-  public static void main(String[] args) {
-      System.out.println(new Foo().getSet(new int[2],17));
-  }
-}
-class Foo {
-    public int getSet(int[] arr, int y) { 
-      arr[0] = y;
-      arr[1] = 2*arr[0];
-      return arr[0]+arr[1]+arr.length;
-   }
-}
+File: sample/BinarySearch.java
 ### END # TEST 27 ###
 ### BEG # TEST 28 ###
 ---------------

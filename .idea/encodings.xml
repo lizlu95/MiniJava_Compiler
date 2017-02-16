@@ -2,7 +2,10 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/backend" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/frontend" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ir" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/util" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/x86_64sim" charset="UTF-8" />
   </component>
 </project>

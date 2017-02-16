@@ -1,0 +1,81 @@
+Write at address 4088 out of boundsThe program was:
+Program with 15 labels and 65 instructions
+_Test_do:
+	subq	$8, %rsp
+_L_7:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsp, %rdi
+	call	_Test_something
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_3
+_L_2:
+	movq	1, %rsp
+	addq	%rsp, %rsp
+_L_4:
+	movq	2, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_1:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_8
+_L_3:
+	xorq	%rsp, %rsp
+	jmp	_L_4
+_DONE_8:
+	addq	$8, %rsp
+	ret
+_Test_something:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	3, %rsp
+	movq	%rsp, %rax
+_bail_5:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_10:
+	ret
+_cs411main:
+	subq	$8, %rsp
+_L_11:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Test_do
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_bail_6:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_12:
+	addq	$8, %rsp
+	ret

@@ -1,0 +1,122 @@
+Write at address 4088 out of boundsThe program was:
+Program with 18 labels and 103 instructions
+_O_m:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsi, %rsp
+	movq	%rdx, %rsp
+	movq	3, %rsp
+	movq	%rsp, %rax
+_bail_1:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_11:
+	ret
+_Test_do:
+	subq	$8, %rsp
+_L_12:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	xorq	%rsp, %rsp
+	movq	4, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newarray
+	movq	%rax, %rsp
+	movq	3, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_4
+_boundsok_3:
+	movq	24, %rsp
+	addq	%rsp, %rsp
+	movq	11, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	1, %rsp
+	movq	3, %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_4
+_boundsok_5:
+	movq	24, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	1, %rsp
+	movq	%rsp, %rdx
+	movq	6, %rsp
+	movq	%rsp, %rsi
+	movq	%rsp, %rdi
+	call	_O_m
+	movq	%rax, %rsp
+	cmpq	%rsp, %rsp
+	jge	_L_8
+_L_6:
+	xorq	%rsp, %rsp
+	cmpq	%rsp, %rsp
+	je	_L_8
+_L_7:
+	movq	2, %rsp
+	movq	%rsp, %rax
+_bail_2:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_13
+_boundsbad_4:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_2
+_L_8:
+	xorq	%rsp, %rsp
+	jmp	_L_7
+_DONE_13:
+	addq	$8, %rsp
+	ret
+_cs411main:
+	subq	$8, %rsp
+_L_14:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Test_do
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_bail_9:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_15:
+	addq	$8, %rsp
+	ret

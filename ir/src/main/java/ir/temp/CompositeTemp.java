@@ -1,7 +1,5 @@
 package ir.temp;
 
-import org.junit.jupiter.api.Assertions;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,11 +78,12 @@ public class CompositeTemp extends Temp {
      */
     @Override
     public void paint(Color color) {
-        Assertions.assertNull(this.color, "Not allowed to paint a Temp more than once! (Uncolor it first)");
+        assert (this.color == null) :
+                "Not allowed to paint a Temp more than once! (Uncolor it first)";
         this.color = color;
         for (Temp t : elements) {
             if (t.getColor() != null) {
-                Assertions.assertTrue(t.getColor().equals(color));
+                assert(t.getColor().equals(color));
                 // Do nothing, we have merged a painted temp with a non-painted temp
             } else {
                 t.paint(color);

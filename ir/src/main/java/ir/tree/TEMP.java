@@ -5,7 +5,6 @@ import ir.interp.X86_64SimFrame;
 import ir.temp.Color;
 import ir.temp.Temp;
 import ir.visitor.Visitor;
-import org.junit.jupiter.api.Assertions;
 import util.IndentingWriter;
 import util.List;
 
@@ -39,7 +38,7 @@ public class TEMP extends IRExp {
     public final Temp temp;
 
     public TEMP(Temp t) {
-        Assertions.assertNotNull(t);
+        assert(t != null);
         temp = t;
     }
 

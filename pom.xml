@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ubc.cs411</groupId>
+    <groupId>ca.ubc.cs411</groupId>
     <artifactId>minijava</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -19,6 +19,9 @@
     <modules>
         <module>ir</module>
         <module>frontend</module>
+        <module>backend</module>
+        <module>util</module>
+        <module>x86_64sim</module>
     </modules>
 
     <build>

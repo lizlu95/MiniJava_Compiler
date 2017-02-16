@@ -1,0 +1,610 @@
+Program: 
+class Main {
+  public static void main(String[] args) { {
+      System.out.println(new Foo().doit(10));
+  } }
+}
+class Foo {
+    public int doit(int x) {
+      int result;
+      int count;
+      result = 0;
+      count = 1;
+      while (count<x) {
+          result = result + count;
+          count = count + 1;
+      }
+      return result;
+   }
+}
+
+Fragments:
+Fragments {
+   MethodFragment {
+      X86_64Frame { label = _Foo_doit
+         nextLocalOffset = -8
+         formals = List {
+            t000
+            t001
+         }
+      }
+      body:
+      SEQ(
+         SEQ(
+            SEQ(
+               SEQ(
+                  SEQ(
+                     SEQ(
+                        SEQ(
+                           MOVE(
+                              TEMP t004 <-
+                              TEMP %rbx:%rbx), 
+                           MOVE(
+                              TEMP t005 <-
+                              TEMP %r12:%r12)), 
+                        MOVE(
+                           TEMP t006 <-
+                           TEMP %r13:%r13)), 
+                     MOVE(
+                        TEMP t007 <-
+                        TEMP %r14:%r14)), 
+                  MOVE(
+                     TEMP t008 <-
+                     TEMP %r15:%r15)), 
+               MOVE(
+                  TEMP t000 <-
+                  TEMP %rdi:%rdi)), 
+            MOVE(
+               TEMP t001 <-
+               TEMP %rsi:%rsi)), 
+         SEQ(
+            SEQ(
+               SEQ(
+                  SEQ(
+                     MOVE(
+                        TEMP t002 <-
+                        CONST 0), 
+                     MOVE(
+                        TEMP t003 <-
+                        CONST 1)), 
+                  SEQ(
+                     LABEL _looptest_4, 
+                     SEQ(
+                        CJUMP(LT,
+                           TEMP t003,
+                           TEMP t001,
+                           _loopbody_3, _loopend_2), 
+                        SEQ(
+                           LABEL _loopbody_3, 
+                           SEQ(
+                              SEQ(
+                                 MOVE(
+                                    TEMP t002 <-
+                                    BINOP(PLUS,
+                                       TEMP t002, 
+                                       TEMP t003)), 
+                                 MOVE(
+                                    TEMP t003 <-
+                                    BINOP(PLUS,
+                                       TEMP t003, 
+                                       CONST 1))), 
+                              SEQ(
+                                 JUMP(NAME(_looptest_4)), 
+                                 LABEL _loopend_2)))))), 
+               MOVE(
+                  TEMP %rax:%rax <-
+                  TEMP t002)), 
+            SEQ(
+               SEQ(
+                  SEQ(
+                     SEQ(
+                        SEQ(
+                           LABEL _bail_1, 
+                           MOVE(
+                              TEMP %rbx:%rbx <-
+                              TEMP t004)), 
+                        MOVE(
+                           TEMP %r12:%r12 <-
+                           TEMP t005)), 
+                     MOVE(
+                        TEMP %r13:%r13 <-
+                        TEMP t006)), 
+                  MOVE(
+                     TEMP %r14:%r14 <-
+                     TEMP t007)), 
+               MOVE(
+                  TEMP %r15:%r15 <-
+                  TEMP t008))))
+      linearized:
+      List {
+         MOVE(
+            TEMP t004 <-
+            TEMP %rbx:%rbx)
+         MOVE(
+            TEMP t005 <-
+            TEMP %r12:%r12)
+         MOVE(
+            TEMP t006 <-
+            TEMP %r13:%r13)
+         MOVE(
+            TEMP t007 <-
+            TEMP %r14:%r14)
+         MOVE(
+            TEMP t008 <-
+            TEMP %r15:%r15)
+         MOVE(
+            TEMP t000 <-
+            TEMP %rdi:%rdi)
+         MOVE(
+            TEMP t001 <-
+            TEMP %rsi:%rsi)
+         MOVE(
+            TEMP t002 <-
+            CONST 0)
+         MOVE(
+            TEMP t003 <-
+            CONST 1)
+         LABEL _looptest_4
+         CJUMP(LT,
+            TEMP t003,
+            TEMP t001,
+            _loopbody_3, _loopend_2)
+         LABEL _loopbody_3
+         MOVE(
+            TEMP t002 <-
+            BINOP(PLUS,
+               TEMP t002, 
+               TEMP t003))
+         MOVE(
+            TEMP t003 <-
+            BINOP(PLUS,
+               TEMP t003, 
+               CONST 1))
+         JUMP(NAME(_looptest_4))
+         LABEL _loopend_2
+         MOVE(
+            TEMP %rax:%rax <-
+            TEMP t002)
+         LABEL _bail_1
+         MOVE(
+            TEMP %rbx:%rbx <-
+            TEMP t004)
+         MOVE(
+            TEMP %r12:%r12 <-
+            TEMP t005)
+         MOVE(
+            TEMP %r13:%r13 <-
+            TEMP t006)
+         MOVE(
+            TEMP %r14:%r14 <-
+            TEMP t007)
+         MOVE(
+            TEMP %r15:%r15 <-
+            TEMP t008)
+      }
+      basic blocks:
+      List {
+   List {
+      LABEL _L_6
+      MOVE(
+         TEMP t004 <-
+         TEMP %rbx:%rbx)
+      MOVE(
+         TEMP t005 <-
+         TEMP %r12:%r12)
+      MOVE(
+         TEMP t006 <-
+         TEMP %r13:%r13)
+      MOVE(
+         TEMP t007 <-
+         TEMP %r14:%r14)
+      MOVE(
+         TEMP t008 <-
+         TEMP %r15:%r15)
+      MOVE(
+         TEMP t000 <-
+         TEMP %rdi:%rdi)
+      MOVE(
+         TEMP t001 <-
+         TEMP %rsi:%rsi)
+      MOVE(
+         TEMP t002 <-
+         CONST 0)
+      MOVE(
+         TEMP t003 <-
+         CONST 1)
+      JUMP(NAME(_looptest_4))
+   }
+   List {
+      LABEL _looptest_4
+      CJUMP(LT,
+         TEMP t003,
+         TEMP t001,
+         _loopbody_3, _loopend_2)
+   }
+   List {
+      LABEL _loopbody_3
+      MOVE(
+         TEMP t002 <-
+         BINOP(PLUS,
+            TEMP t002, 
+            TEMP t003))
+      MOVE(
+         TEMP t003 <-
+         BINOP(PLUS,
+            TEMP t003, 
+            CONST 1))
+      JUMP(NAME(_looptest_4))
+   }
+   List {
+      LABEL _loopend_2
+      MOVE(
+         TEMP %rax:%rax <-
+         TEMP t002)
+      JUMP(NAME(_bail_1))
+   }
+   List {
+      LABEL _bail_1
+      MOVE(
+         TEMP %rbx:%rbx <-
+         TEMP t004)
+      MOVE(
+         TEMP %r12:%r12 <-
+         TEMP t005)
+      MOVE(
+         TEMP %r13:%r13 <-
+         TEMP t006)
+      MOVE(
+         TEMP %r14:%r14 <-
+         TEMP t007)
+      MOVE(
+         TEMP %r15:%r15 <-
+         TEMP t008)
+      JUMP(NAME(_DONE_7))
+   }
+}
+      trace scheduled:
+      List {
+         LABEL _L_6
+         MOVE(
+            TEMP t004 <-
+            TEMP %rbx:%rbx)
+         MOVE(
+            TEMP t005 <-
+            TEMP %r12:%r12)
+         MOVE(
+            TEMP t006 <-
+            TEMP %r13:%r13)
+         MOVE(
+            TEMP t007 <-
+            TEMP %r14:%r14)
+         MOVE(
+            TEMP t008 <-
+            TEMP %r15:%r15)
+         MOVE(
+            TEMP t000 <-
+            TEMP %rdi:%rdi)
+         MOVE(
+            TEMP t001 <-
+            TEMP %rsi:%rsi)
+         MOVE(
+            TEMP t002 <-
+            CONST 0)
+         MOVE(
+            TEMP t003 <-
+            CONST 1)
+         LABEL _looptest_4
+         CJUMP(GE,
+            TEMP t003,
+            TEMP t001,
+            _loopend_2, _loopbody_3)
+         LABEL _loopbody_3
+         MOVE(
+            TEMP t002 <-
+            BINOP(PLUS,
+               TEMP t002, 
+               TEMP t003))
+         MOVE(
+            TEMP t003 <-
+            BINOP(PLUS,
+               TEMP t003, 
+               CONST 1))
+         JUMP(NAME(_looptest_4))
+         LABEL _loopend_2
+         MOVE(
+            TEMP %rax:%rax <-
+            TEMP t002)
+         LABEL _bail_1
+         MOVE(
+            TEMP %rbx:%rbx <-
+            TEMP t004)
+         MOVE(
+            TEMP %r12:%r12 <-
+            TEMP t005)
+         MOVE(
+            TEMP %r13:%r13 <-
+            TEMP t006)
+         MOVE(
+            TEMP %r14:%r14 <-
+            TEMP t007)
+         MOVE(
+            TEMP %r15:%r15 <-
+            TEMP t008)
+         LABEL _DONE_7
+      }
+   }
+   MethodFragment {
+      X86_64Frame { label = _cs411main
+         nextLocalOffset = -8
+         formals = List {
+         }
+      }
+      body:
+      SEQ(
+         SEQ(
+            SEQ(
+               SEQ(
+                  SEQ(
+                     MOVE(
+                        TEMP t009 <-
+                        TEMP %rbx:%rbx), 
+                     MOVE(
+                        TEMP t010 <-
+                        TEMP %r12:%r12)), 
+                  MOVE(
+                     TEMP t011 <-
+                     TEMP %r13:%r13)), 
+               MOVE(
+                  TEMP t012 <-
+                  TEMP %r14:%r14)), 
+            MOVE(
+               TEMP t013 <-
+               TEMP %r15:%r15)), 
+         SEQ(
+            EXP(CALL(
+               NAME(_cs411println),
+               CALL(
+                  NAME(_Foo_doit),
+                  CALL(
+                     NAME(_cs411newobject),
+                     CONST 0),
+                  CONST 10))), 
+            SEQ(
+               SEQ(
+                  SEQ(
+                     SEQ(
+                        SEQ(
+                           LABEL _bail_5, 
+                           MOVE(
+                              TEMP %rbx:%rbx <-
+                              TEMP t009)), 
+                        MOVE(
+                           TEMP %r12:%r12 <-
+                           TEMP t010)), 
+                     MOVE(
+                        TEMP %r13:%r13 <-
+                        TEMP t011)), 
+                  MOVE(
+                     TEMP %r14:%r14 <-
+                     TEMP t012)), 
+               MOVE(
+                  TEMP %r15:%r15 <-
+                  TEMP t013))))
+      linearized:
+      List {
+         MOVE(
+            TEMP t009 <-
+            TEMP %rbx:%rbx)
+         MOVE(
+            TEMP t010 <-
+            TEMP %r12:%r12)
+         MOVE(
+            TEMP t011 <-
+            TEMP %r13:%r13)
+         MOVE(
+            TEMP t012 <-
+            TEMP %r14:%r14)
+         MOVE(
+            TEMP t013 <-
+            TEMP %r15:%r15)
+         MOVE(
+            TEMP t015 <-
+            CALL(
+               NAME(_cs411newobject),
+               CONST 0))
+         MOVE(
+            TEMP t014 <-
+            CALL(
+               NAME(_Foo_doit),
+               TEMP t015,
+               CONST 10))
+         EXP(CALL(
+            NAME(_cs411println),
+            TEMP t014))
+         LABEL _bail_5
+         MOVE(
+            TEMP %rbx:%rbx <-
+            TEMP t009)
+         MOVE(
+            TEMP %r12:%r12 <-
+            TEMP t010)
+         MOVE(
+            TEMP %r13:%r13 <-
+            TEMP t011)
+         MOVE(
+            TEMP %r14:%r14 <-
+            TEMP t012)
+         MOVE(
+            TEMP %r15:%r15 <-
+            TEMP t013)
+      }
+      basic blocks:
+      List {
+   List {
+      LABEL _L_8
+      MOVE(
+         TEMP t009 <-
+         TEMP %rbx:%rbx)
+      MOVE(
+         TEMP t010 <-
+         TEMP %r12:%r12)
+      MOVE(
+         TEMP t011 <-
+         TEMP %r13:%r13)
+      MOVE(
+         TEMP t012 <-
+         TEMP %r14:%r14)
+      MOVE(
+         TEMP t013 <-
+         TEMP %r15:%r15)
+      MOVE(
+         TEMP t015 <-
+         CALL(
+            NAME(_cs411newobject),
+            CONST 0))
+      MOVE(
+         TEMP t014 <-
+         CALL(
+            NAME(_Foo_doit),
+            TEMP t015,
+            CONST 10))
+      EXP(CALL(
+         NAME(_cs411println),
+         TEMP t014))
+      JUMP(NAME(_bail_5))
+   }
+   List {
+      LABEL _bail_5
+      MOVE(
+         TEMP %rbx:%rbx <-
+         TEMP t009)
+      MOVE(
+         TEMP %r12:%r12 <-
+         TEMP t010)
+      MOVE(
+         TEMP %r13:%r13 <-
+         TEMP t011)
+      MOVE(
+         TEMP %r14:%r14 <-
+         TEMP t012)
+      MOVE(
+         TEMP %r15:%r15 <-
+         TEMP t013)
+      JUMP(NAME(_DONE_9))
+   }
+}
+      trace scheduled:
+      List {
+         LABEL _L_8
+         MOVE(
+            TEMP t009 <-
+            TEMP %rbx:%rbx)
+         MOVE(
+            TEMP t010 <-
+            TEMP %r12:%r12)
+         MOVE(
+            TEMP t011 <-
+            TEMP %r13:%r13)
+         MOVE(
+            TEMP t012 <-
+            TEMP %r14:%r14)
+         MOVE(
+            TEMP t013 <-
+            TEMP %r15:%r15)
+         MOVE(
+            TEMP t015 <-
+            CALL(
+               NAME(_cs411newobject),
+               CONST 0))
+         MOVE(
+            TEMP t014 <-
+            CALL(
+               NAME(_Foo_doit),
+               TEMP t015,
+               CONST 10))
+         EXP(CALL(
+            NAME(_cs411println),
+            TEMP t014))
+         LABEL _bail_5
+         MOVE(
+            TEMP %rbx:%rbx <-
+            TEMP t009)
+         MOVE(
+            TEMP %r12:%r12 <-
+            TEMP t010)
+         MOVE(
+            TEMP %r13:%r13 <-
+            TEMP t011)
+         MOVE(
+            TEMP %r14:%r14 <-
+            TEMP t012)
+         MOVE(
+            TEMP %r15:%r15 <-
+            TEMP t013)
+         LABEL _DONE_9
+      }
+   }
+}
+Simulating IR code:
+45
+Program: 
+
+flow graph for : _Foo_doit
+0: <- ; goto 1                                    _L_6:
+1: t004 <= %rbx ; goto 2                          movq    %rbx, t004
+2: t005 <= %r12 ; goto 3                          movq    %r12, t005
+3: t006 <= %r13 ; goto 4                          movq    %r13, t006
+4: t007 <= %r14 ; goto 5                          movq    %r14, t007
+5: t008 <= %r15 ; goto 6                          movq    %r15, t008
+6: t000 <= %rdi ; goto 7                          movq    %rdi, t000
+7: t001 <= %rsi ; goto 8                          movq    %rsi, t001
+8: t002 <- ; goto 9                               movq    $0, t002
+9: t003 <- ; goto 10                              movq    $1, t003
+10: <- ; goto 11                                  _looptest_4:
+11: <- t003 t001 ; goto 12                        cmpq    t001, t003
+12: <- ; goto 13 17                               jge     _loopend_2
+13: <- ; goto 14                                  _loopbody_3:
+14: t002 <- t002 t003 ; goto 15                   leaq    0(t002, t003), t002
+15: t003 <- t003 ; goto 16                        leaq    1(t003), t003
+16: <- ; goto 10                                  jmp     _looptest_4
+17: <- ; goto 18                                  _loopend_2:
+18: %rax <= t002 ; goto 19                        movq    t002, %rax
+19: <- ; goto 20                                  _bail_1:
+20: %rbx <= t004 ; goto 21                        movq    t004, %rbx
+21: %r12 <= t005 ; goto 22                        movq    t005, %r12
+22: %r13 <= t006 ; goto 23                        movq    t006, %r13
+23: %r14 <= t007 ; goto 24                        movq    t007, %r14
+24: %r15 <= t008 ; goto 25                        movq    t008, %r15
+25: <- ; goto 26                                  _DONE_7:
+26: <- %rax %rsp %rbp %rbx %r12 %r13 %r14 %r15 ; goto 
+                                                  # return sink
+
+flow graph for : _cs411main
+0: <- ; goto 1                                    _L_8:
+1: t009 <= %rbx ; goto 2                          movq    %rbx, t009
+2: t010 <= %r12 ; goto 3                          movq    %r12, t010
+3: t011 <= %r13 ; goto 4                          movq    %r13, t011
+4: t012 <= %r14 ; goto 5                          movq    %r14, t012
+5: t013 <= %r15 ; goto 6                          movq    %r15, t013
+6: %rdi <- ; goto 7                               movq    $0, %rdi
+7: %rax %r10 %r11 %rdi %rsi %rdx %rcx %r8 %r9 <- %rsp %rbp %rdi ; goto 8 
+                                                  call    _cs411newobject
+8: t015 <= %rax ; goto 9                          movq    %rax, t015
+9: %rsi <- ; goto 10                              movq    $10, %rsi
+10: %rdi <= t015 ; goto 11                        movq    t015, %rdi
+11: %rax %r10 %r11 %rdi %rsi %rdx %rcx %r8 %r9 <- %rsp %rbp %rdi %rsi ; goto 12 
+                                                  call    _Foo_doit
+12: t014 <= %rax ; goto 13                        movq    %rax, t014
+13: %rdi <= t014 ; goto 14                        movq    t014, %rdi
+14: %rax %r10 %r11 %rdi %rsi %rdx %rcx %r8 %r9 <- %rsp %rbp %rdi ; goto 15 
+                                                  call    _cs411println
+15: <- ; goto 16                                  _bail_5:
+16: %rbx <= t009 ; goto 17                        movq    t009, %rbx
+17: %r12 <= t010 ; goto 18                        movq    t010, %r12
+18: %r13 <= t011 ; goto 19                        movq    t011, %r13
+19: %r14 <= t012 ; goto 20                        movq    t012, %r14
+20: %r15 <= t013 ; goto 21                        movq    t013, %r15
+21: <- ; goto 22                                  _DONE_9:
+22: <- %rax %rsp %rbp %rbx %r12 %r13 %r14 %r15 ; goto 
+                                                  # return sink
+

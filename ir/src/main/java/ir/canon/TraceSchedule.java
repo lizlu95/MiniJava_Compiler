@@ -11,7 +11,6 @@ import ir.tree.LABEL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.jupiter.api.Assertions;
 import util.List;
 
 
@@ -66,11 +65,13 @@ public class TraceSchedule {
             for (; !block.tail().isEmpty(); block = block.tail()) {
                 //Loop through all statements except the last one.
                 IRStm stm = block.head();
-                Assertions.assertFalse(stm.isJump(), "Basic blocks algorithm broken? Jumps inside a BB!");
+                assert (!stm.isJump()) :
+                        "Basic blocks algorithm broken? Jumps inside a BB!";
                 getProgram().add(stm);
             }
             IRStm last = block.head();
-            Assertions.assertTrue(last.isJump(), "Basic blocks algorithm broken? No jump at end of BB!");
+            assert(last.isJump()) :
+                    "Basic blocks algorithm broken? No jump at end of BB!";
             if (last instanceof CJUMP) {
                 // Treated as a special case because we want to "flip" branches to
                 // ensure it is followed by a false label.
@@ -133,19 +134,19 @@ public class TraceSchedule {
             if (s instanceof CJUMP) {
                 CJUMP cjump = (CJUMP) s;
                 Label next = ((LABEL) program.get(1)).getLabel();
-                Assertions.assertEquals(cjump.getFalseLabel(), next);
+                assert (cjump.getFalseLabel() == next);
             } else if (s instanceof JUMP) {
                 JUMP jump = (JUMP) s;
                 List<Label> labels = jump.getJumpTargets();
-                Assertions.assertTrue(labels.size() >= 1);
+                assert(labels.size() >= 1);
                 if (labels.size() == 1 && !program.tail().isEmpty()) {
                     Label forbiddenLabel = labels.head();
                     Label nextLabel = ((LABEL) program.get(1)).getLabel();
-                    Assertions.assertFalse(nextLabel.equals(forbiddenLabel));
+                    assert (!nextLabel.equals(forbiddenLabel));
                 }
             }
         }
-        Assertions.assertEquals(doneLabel, ((LABEL) program.getLast()).getLabel());
+        assert(doneLabel == ((LABEL) program.getLast()).getLabel());
     }
 
     public List<IRStm> getProgram() {

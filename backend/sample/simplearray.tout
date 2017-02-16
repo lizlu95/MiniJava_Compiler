@@ -1,0 +1,160 @@
+Write at address 4088 out of boundsThe program was:
+Program with 26 labels and 132 instructions
+_Test_fill:
+	subq	$8, %rsp
+_L_15:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	10, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newarray
+	movq	%rax, %rsp
+	movq	%rsp, (%rsp)
+	xorq	%rsp, %rsp
+	movq	10, %rsp
+	cmpq	%rsp, %rsp
+	jge	_loopend_2
+_loopbody_3:
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_6
+_boundsok_5:
+	imulq	%rsp, %rsp
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	%rsp, (%rsp)
+	movq	1, %rsp
+	addq	%rsp, %rsp
+_looptest_4:
+	movq	10, %rsp
+	cmpq	%rsp, %rsp
+	jl	_loopbody_3
+_loopend_2:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_1:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_16
+_boundsbad_6:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_1
+_DONE_16:
+	addq	$8, %rsp
+	ret
+_Test_print:
+	subq	$8, %rsp
+_L_17:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	xorq	%rsp, %rsp
+	movq	10, %rsp
+	cmpq	%rsp, %rsp
+	jge	_loopend_8
+_loopbody_9:
+	movq	(%rsp), %rsp
+	movq	-8, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	cmpq	%rsp, %rsp
+	jae	_boundsbad_12
+_boundsok_11:
+	movq	8, %rsp
+	imulq	%rsp, %rsp
+	addq	%rsp, %rsp
+	movq	(%rsp), %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+	movq	1, %rsp
+	addq	%rsp, %rsp
+_looptest_10:
+	movq	10, %rsp
+	cmpq	%rsp, %rsp
+	jl	_loopbody_9
+_loopend_8:
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_7:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+	jmp	_DONE_18
+_boundsbad_12:
+	movq	1, %rsp
+	movq	%rsp, %rdi
+	call	_cs411error
+	jmp	_bail_7
+_DONE_18:
+	addq	$8, %rsp
+	ret
+_Test_do:
+	subq	$8, %rsp
+_L_19:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	%rdi, %rsp
+	movq	%rsp, %rdi
+	call	_Test_fill
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Test_print
+	movq	%rax, %rsp
+	xorq	%rsp, %rsp
+	movq	%rsp, %rax
+_bail_13:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_20:
+	addq	$8, %rsp
+	ret
+_cs411main:
+	subq	$8, %rsp
+_L_21:
+	movq	%rbx, %rsp
+	movq	%r12, %rsp
+	movq	%r13, %rsp
+	movq	%r14, %rsp
+	movq	%r15, %rsp
+	movq	8, %rsp
+	movq	%rsp, %rdi
+	call	_cs411newobject
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_Test_do
+	movq	%rax, %rsp
+	movq	%rsp, %rdi
+	call	_cs411println
+_bail_14:
+	movq	%rsp, %rbx
+	movq	%rsp, %r12
+	movq	%rsp, %r13
+	movq	%rsp, %r14
+	movq	%rsp, %r15
+_DONE_22:
+	addq	$8, %rsp
+	ret

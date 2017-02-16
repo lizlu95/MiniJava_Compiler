@@ -34,7 +34,7 @@ public class TypeCheckerImplementation extends TypeChecked {
 		variables = buildTable();
 		//Phase 2:
 		program.accept(new TypeCheckVisitor(variables, errors));
-		//Throw an exception if there were errors:
+		//Th	row an exception if there were errors:
 		errors.close();
 		// If there was no exception:
 		return this;
