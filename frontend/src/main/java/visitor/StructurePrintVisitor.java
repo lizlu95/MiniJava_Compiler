@@ -199,81 +199,150 @@ public class StructurePrintVisitor implements Visitor<Void> {
 
     @Override
     public Void visit(MainClass n) {
-        throw new Error("Not implemented");
+        out.println("MainClass");
+        out.indent();
+        new IdentifierExp(n.className).accept(this);
+        new IdentifierExp(n.argName).accept(this);
+        n.statement.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(ClassDecl n) {
-        throw new Error("Not implemented");
+        out.println("ClassDecl");
+        out.indent();
+        new IdentifierExp(n.name).accept(this);
+        new IdentifierExp(n.superName).accept(this);
+        n.vars.accept(this);
+        n.methods.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(MethodDecl n) {
-        throw new Error("Not implemented");
+        out.println("MethodDecl");
+        out.indent();
+        n.returnExp.accept(this);
+        new IdentifierExp(n.name).accept(this);
+        n.formals.accept(this);
+        n.vars.accept(this);
+        n.statements.accept(this);
+        n.returnExp.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(IntArrayType n) {
-        throw new Error("Not implemented");
+        out.println("IntArrayType");
+        return null;
     }
 
     @Override
     public Void visit(ObjectType n) {
-        throw new Error("Not implemented");
+        out.println("ObjectType");
+        return null;
     }
 
     @Override
     public Void visit(Block n) {
-        throw new Error("Not implemented");
+        out.println("Block");
+        out.indent();
+        n.statements.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(If n) {
-        throw new Error("Not implemented");
+        out.println("If");
+        out.indent();
+        n.tst.accept(this);
+        n.thn.accept(this);
+        n.els.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(While n) {
-        throw new Error("Not implemented");
+        out.println("While");
+        out.indent();
+        n.tst.accept(this);
+        n.body.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(ArrayAssign n) {
-        throw new Error("Not implemented");
+        out.println("ArrayAssign");
+        out.indent();
+        new IdentifierExp(n.name).accept(this);
+        n.index.accept(this);
+        n.value.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(And n) {
-        throw new Error("Not implemented");
+        out.println("And");
+        out.indent();
+        n.e1.accept(this);
+        n.e2.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(ArrayLookup n) {
-        throw new Error("Not implemented");
+        out.println("ArrayLookup");
+        out.indent();
+        n.array.accept(this);
+        n.index.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(ArrayLength n) {
-        throw new Error("Not implemented");
+        out.println("ArrayLength");
+        out.indent();
+        n.array.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(BooleanLiteral n) {
-        throw new Error("Not implemented");
+        out.println("BooleanLiteral"+ n.value);
+        return null;
     }
 
     @Override
     public Void visit(This n) {
-        throw new Error("Not implemented");
+        out.println("This");
+        return null;
     }
 
     @Override
     public Void visit(NewArray n) {
-        throw new Error("Not implemented");
+        out.println("NewArray");
+        out.indent();
+        n.size.accept(this);
+        out.outdent();
+        return null;
     }
 
     @Override
     public Void visit(NewObject n) {
-        throw new Error("Not implemented");
+        out.println("NewObject");
+        out.indent();
+        new IdentifierExp(n.typeName).accept(this);
+        out.outdent();
+        return null;
     }
 }

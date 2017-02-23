@@ -299,7 +299,8 @@ public class Test3Parse {
     }
 
     @Test
-    public void ifThenElse() throws Exception {
+    public void ifThenElse() throws Exception
+    {
         accept("class Main {\n" +
                 "  public static void main(String[] args) {\n" +
                 "      { System.out.println(new Foo().max(10,20));\n" +
