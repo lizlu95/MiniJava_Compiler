@@ -35,12 +35,28 @@ TOKEN : /* KEYWORDS */
 |	< RETURN: 		"return" >
 | 	< INT:			"int" >
 | 	< BOOLEAN: 		"boolean" >
+|   <CLASS:          "class">
+|   <PUBLIC:         "public">
+|   <STATIC:         "static">
+|   <VOID:           "void">
+|   <MAIN:           "main">
+|   <STRING:         "String">
+|   <EXTENDS:        "exntends">
+|   <IF:            "if">
+|   <ELSE:          "else">
+|   <WHILE:         "while">
+|   <LENGTH:        "length">
+|   <TRUE:          "true">
+|   <FALSE:         "false">
+|   <NEW:           "new">
 }
 TOKEN : /* SEPARATORS and OPERATORS*/
 {	<LPAREN: "(">
 |	<RPAREN: ")">
 |	<LBRACE: "{">
 |	<RBRACE: "}">
+|   <LBRACKET: "[">
+|   <RBRACKET: "]">
 |	<ASSIGN: "=">
 |	<QUESTION:	 "?">
 |	<PLUS:	 "+" >
@@ -51,6 +67,7 @@ TOKEN : /* SEPARATORS and OPERATORS*/
 | 	<COLON:	 ":" >
 | 	<COMMA:	"," >
 | 	<SEMICOLON:	 ";" >
+|   <DOT:    ".">
 }
 	
 TOKEN :
@@ -60,19 +77,116 @@ TOKEN :
 |   < #DIGIT: ["0" - "9"] >
 }
 
-Program Program() : { 
+Program Program() : {
 	NodeList<AST> ss = new NodeList<AST>();
 	Statement s;
 	FunctionDecl f;
 	Expression e;
-}{	( s=Statement()
+}
+{
+	( s=Statement()
 		{ ss.add(s); }
     | f=FunctionDeclaration()
-		{ ss.add(f); }	)*
+		{ ss.add(f); }
+	)*
 	< PRINT > e = Expression()
 	<EOF>
 	{ return new Program(ss, new Print(e)); }
-}
+}
+
+//Goal	::=	MainClass ( ClassDeclaration )* <EOF>
+Program Goal() : {
+    MainClass main;
+	NodeList<ClassDecl> classes = new NodeList<ClassDecl>();
+	ClassDecl c;
+}
+{
+    main=MainClass()
+	( c=ClassDeclaration()
+		{ classes.add(c); }
+	)*
+	<EOF>
+	{ return new Program(main, classes); }
+}
+
+//TODO MainClass
+//MainClass	::=	"class" Identifier "{" "public" "static" "void" "main" "(" "String" "[" "]"
+//Identifier ")" "{" Statement "}" "}"
+MainClass MainClass() : {
+    String className;
+    String argName;
+    Statement s;
+}
+{
+    <CLASS>
+    className=Identifier()
+    <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN>
+        <LPAREN>
+            <STRING> <LBRACKET> <RBRACKET> argName=Identifier()
+        <RPAREN>
+        <LBRACE> s=Statement()
+        <RBRACE>
+    <RBRACE>
+    { return new MainClass(className,argName,s);}
+}
+
+//TODO ClassDeclaration
+//ClassDeclaration	::=	"class" Identifier ( "extends" Identifier )?
+//"{" ( VarDeclaration )* ( MethodDeclaration )* "}"
+ClassDecl ClassDeclaration() : {
+    String name;
+    String superName = null;
+    NodeList<VarDecl> vars = new NodeList<VarDecl>();
+    NodeList<MethodDecl> methods = new NodeList<MethodDecl>();
+    VarDecl v;
+    MethodDecl m;
+}
+{
+    <CLASS> name=Identifier()
+    ( <EXTENDS> superName=Identifier() )?
+    <LBRACE> ( v=VarDeclaration() { vars.add(v);} )*
+              ( m=MethodDeclaration() {methods.add(m);} )*
+    <RBRACE>
+    {return new ClassDecl(name,superName, vars,methods);}
+}
+
+//TODO VarDeclaration
+//VarDeclaration	::=	Type Identifier ";"
+VarDecl VarDeclaration() : {
+    Type t;
+    String name;
+}
+{
+    t=Type()
+    name=Identifier()
+    {return new VarDecl(t,name,0);}
+}
+//TODO MethodDeclaration
+//MethodDeclaration	::=	"public" Type Identifier "(" ( Type Identifier ( "," Type Identifier )* )? ")"
+//"{" ( VarDeclaration )* ( Statement )* "return" Expression ";" "}"
+MethodDecl MethodDeclaration() : {
+    Type returnType;
+    String name;
+    List<VarDecl> formals;
+    NodeList<VarDecl> formalsAsNodeList;
+    NodeList<VarDecl> vars = new NodeList<VarDecl>();
+    NodeList<Statement> statements = new NodeList<Statement>();
+    Expression returnExp;
+    VarDecl f;
+    VarDecl v;
+    Statement s;
+    Type formalType;
+    String formalName;
+}
+{
+    <PUBLIC> returnType=Type() name=Identifier()
+    <LPAREN> formals=FormalList()  { formalsAsNodeList = new NodeList<VarDecl>(formals);}<RPAREN> <LBRACE>
+        ( v=VarDeclaration() {vars.add(v);} )*
+        ( s=Statement() {statements.add(s);} )*
+        <RETURN> returnExp=Expression() <SEMICOLON> <RBRACE>
+    {return new MethodDecl(returnType,name,formalsAsNodeList,vars,statements,returnExp);}
+}
+
 FunctionDecl FunctionDeclaration() : {
 	Type rt;
 	String i;
@@ -103,24 +217,84 @@ List<VarDecl> FormalList() : {
 	{ return formals; }
 }
 
+//Type	::=	"int" "[" "]"
+//|	"boolean"
+//|	"int"
+//|	Identifier
 Type Type() : {
 	Type t;
 	String name;
 }
 {
-( "int"					{ t = new IntegerType(); }
+(
+ LOOKAHEAD (2)
+ "int" "[" "]"          { t =new IntArrayType(); }
+|"int"					{ t = new IntegerType(); }
 | "boolean"				{ t = new BooleanType(); }
+| name=Identifier()     { t = new ObjectType(name);}
 )						{ return t; }
 }
 
 Statement Statement() : {
-	Statement s = null; //TODO: should not be null ever!
+	Statement s;
+
 }
-{	(	
-		s=Assign()
-	)	
-	{ return s; }		
-}
+{
+s=Block()       {return s;}
+| s=If()        {return s;}
+| s=While()        {return s;}
+| s=Print()         {return s;}
+| LOOKAHEAD(2) s=Assign()	{ return s; }
+| s=ArrayAssign()   {return s;}
+}
+
+//TODO Block
+Block Block() : {
+	NodeList<Statement> statements = new NodeList<Statement>();
+	Statement s;
+}
+{
+<LBRACE> ( s=Statement() {statements.add(s);} )* <RPAREN> {return new Block(statements);}
+}
+//TODO If
+If If() : {
+    Statement s;
+    Expression tst;
+    Statement thn;
+    Statement els;
+}
+{
+    <IF> <LPAREN> tst=Expression() <RPAREN> thn=Statement() <ELSE> els=Statement()
+    {return new If(tst,thn,els);}
+}
+//TODO While
+While While() : {
+    Expression tst;
+    Statement body;
+}
+{
+   <WHILE> <LPAREN> tst=Expression() <RPAREN> body=Statement()
+   {return new While(tst,body);}
+}
+//TODO Print
+Print Print() :{
+    Expression exp;
+}
+{
+    "System" <DOT> "out" <DOT> "println" <LPAREN> exp=Expression() <RPAREN> <SEMICOLON>
+    {return new Print(exp);}
+}
+//TODO ArrayAssign
+ArrayAssign ArrayAssign() :{
+    String name;
+    Expression index;
+    Expression value;
+}
+{
+    name=Identifier() <LBRACKET> index=Expression() <RBRACKET> <ASSIGN> value=Expression() <SEMICOLON>
+    {return new ArrayAssign(name,index,value);}
+}
+
 Statement Assign() : {
 	String name;
 	Expression value;
@@ -173,10 +347,16 @@ Expression AddExpression() : {
 // For parsing anything with priority same or higher than *
 Expression MultExpression() :  {
 	Expression e, e2;
+	Token op;
 }
 {	e=NotExpression() 
-	(	"*" e2=NotExpression()
-			{ e = new Times(e, e2); } 
+	(	(op="*"|op="&&")
+	    e2=NotExpression()
+	    { if (op.image.equals("*"))
+			e = new Times(e, e2);
+         else
+            e = new And(e,e2);
+        }
 	)*
 	{ return e; }
 }
@@ -204,8 +384,93 @@ Expression PrimaryExpression() : {
 		( "(" el=ExpressionList() ")"
 				{ e = new Call(e, el); }
 		)?
-		{ return e; }		 
-| "(" e=Expression() ")"				{ return e; }
+		{ return e; }
+| LOOKAHEAD (2)
+    e=ArrayLookup()                     {return e; }
+| e=BooleanLiteral()                    {return e; }
+| e=IdentifierExpression()              {return e; }
+| e=This()                              {return e; }
+| e=NewObject()                         {return e; }
+}
+
+//TODO ArrayLookUp
+Expression ArrayLookup() : {
+    Expression e;
+    Expression array;
+    Expression index;
+}
+{
+    array=ArrayLength() <LBRACKET> index=ArrayLength() <RBRACKET>
+    {e = new ArrayLookup(array,index); return e;}
+}
+//TODO ArrayLength
+Expression ArrayLength() :{
+    Expression e;
+    Expression array;
+}
+{
+    array=Call() <DOT> <LENGTH>
+    {e= new ArrayLength(array); return e;}
+}
+
+//TODO Call
+Expression Call() : {
+    Expression e;
+    Expression receiver;
+    Expression name;
+    NodeList<Expression> rands;
+}
+{
+    receiver=NewArray() <DOT> name=IdentifierExpression()
+    <LPAREN> rands=ExpressionList() <RPAREN>
+    {e = new Call(receiver,name,rands); return e;}
+}
+
+//TODO BooleanLiteral "true" "False"
+Expression BooleanLiteral() : {
+    Expression e;
+    boolean value;
+}
+{
+    <TRUE>      {value = true; e= new BooleanLiteral(value); return e;}
+    | <FALSE>   {value = false; e=new BooleanLiteral(value); return e;}
+}
+
+//TODO IdentifierExp
+Expression IdentifierExpression() : {
+    Expression e;
+    String name;
+}
+{
+    name=Identifier()   {e = new IdentifierExp(name); return e;}
+}
+
+//TODO "this"
+Expression This() : {
+    Expression e;
+}
+{
+    "this"  {e = new This(); return e;}
+}
+
+//TODO NewArray
+Expression NewArray() : {
+    Expression e;
+    Expression size;
+}
+{
+    <NEW> <INT> <LBRACKET> size=Expression() <RBRACKET>
+    {e = new NewArray(size); return e;}
+}
+
+//TODO NewObject
+Expression NewObject() : {
+    Expression e;
+    String typeName;
+}
+{
+    <NEW> typeName=Identifier() <LPAREN> <RPAREN>
+    {e= new NewObject(typeName); return e;}
 }
 
 NodeList<Expression> ExpressionList() : {
