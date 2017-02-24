@@ -49,6 +49,9 @@ TOKEN : /* KEYWORDS */
 |   <TRUE:          "true">
 |   <FALSE:         "false">
 |   <NEW:           "new">
+|   <SYSTEM:        "System">
+|   <OUT:           "out">
+|   <PRINTLN:         "println">
 }
 TOKEN : /* SEPARATORS and OPERATORS*/
 {	<LPAREN: "(">
@@ -77,7 +80,7 @@ TOKEN :
 |   < #DIGIT: ["0" - "9"] >
 }
 
-Program Program() : {
+Program Goal() : {
 	NodeList<AST> ss = new NodeList<AST>();
 	Statement s;
 	FunctionDecl f;
@@ -95,7 +98,7 @@ Program Program() : {
 }
 
 //Goal	::=	MainClass ( ClassDeclaration )* <EOF>
-Program Goal() : {
+Program Program() : {
     MainClass main;
 	NodeList<ClassDecl> classes = new NodeList<ClassDecl>();
 	ClassDecl c;
@@ -243,9 +246,9 @@ Statement Statement() : {
 s=Block()       {return s;}
 | s=If()        {return s;}
 | s=While()        {return s;}
-| s=Print()         {return s;}
+| LOOKAHEAD(2) s=Print()         {return s;}
 | LOOKAHEAD(2) s=Assign()	{ return s; }
-| s=ArrayAssign()   {return s;}
+| LOOKAHEAD(2) s=ArrayAssign()   {return s;}
 }
 
 //TODO Block
@@ -254,7 +257,7 @@ Block Block() : {
 	Statement s;
 }
 {
-<LBRACE> ( s=Statement() {statements.add(s);} )* <RPAREN> {return new Block(statements);}
+<LBRACE> ( s=Statement() {statements.add(s);} )* <RBRACE> {return new Block(statements);}
 }
 //TODO If
 If If() : {
@@ -281,7 +284,7 @@ Print Print() :{
     Expression exp;
 }
 {
-    "System" <DOT> "out" <DOT> "println" <LPAREN> exp=Expression() <RPAREN> <SEMICOLON>
+    <SYSTEM> <DOT> <OUT> <DOT> <PRINTLN> <LPAREN> exp=Expression() <RPAREN> <SEMICOLON>
     {return new Print(exp);}
 }
 //TODO ArrayAssign
@@ -309,7 +312,7 @@ Statement Assign() : {
 Expression Expression() : {
 	Expression e, e2, e3;
 }
-{	e=CompExpression() 
+{	e=CompExpression()
 	( "?" e2 = Expression()
 	  ":" e3 = Expression()
 		{	e = new Conditional(e, e2, e3); }
@@ -321,8 +324,8 @@ Expression Expression() : {
 Expression CompExpression() : {
 	Expression e, e2;
 }
-{ 	e=AddExpression() 
-	( "<" e2=AddExpression() 
+{ 	e=AddExpression()
+	( "<" e2=AddExpression()
 		{ e = new LessThan(e, e2); }
 	)?
 	{ return e; }
@@ -332,14 +335,14 @@ Expression AddExpression() : {
 	Expression e, e2;
 	Token op;
 }
-{	e=MultExpression() 
-	( 	(op="+"|op="-") 
-		e2=MultExpression() 
+{	e=MultExpression()
+	( 	(op="+"|op="-")
+		e2=MultExpression()
 			{ if (op.image.equals("+"))
 				e=new Plus(e, e2);
 			  else
 			  	e=new Minus(e, e2);
-			}	
+			}
 	)*
 	{ return e; }
 }
@@ -349,7 +352,7 @@ Expression MultExpression() :  {
 	Expression e, e2;
 	Token op;
 }
-{	e=NotExpression() 
+{	e=NotExpression()
 	(	(op="*"|op="&&")
 	    e2=NotExpression()
 	    { if (op.image.equals("*"))
@@ -370,7 +373,7 @@ Expression NotExpression() : {
 | 	e=PrimaryExpression()
 		{ return e; }
 }
-        
+
 /* PrimaryExpression is the expression that has highest precedence.*/
 Expression PrimaryExpression() : {
 	Token t;
@@ -379,12 +382,6 @@ Expression PrimaryExpression() : {
 	NodeList<Expression> el;
 }
 { t=<INTEGER_LITERAL>					{ return new IntegerLiteral(t.image); }
-| i=Identifier()
-	{ e = new IdentifierExp(i); } 
-		( "(" el=ExpressionList() ")"
-				{ e = new Call(e, el); }
-		)?
-		{ return e; }
 | LOOKAHEAD (2)
     e=ArrayLookup()                     {return e; }
 | e=BooleanLiteral()                    {return e; }
@@ -392,7 +389,12 @@ Expression PrimaryExpression() : {
 | e=This()                              {return e; }
 | e=NewObject()                         {return e; }
 }
-
+//| i=Identifier()
+//	{ e = new IdentifierExp(i); }
+//		( "(" el=ExpressionList() ")"
+//				{ e = new Call(e, el); }
+//		)?
+//		{ return e; }
 //TODO ArrayLookUp
 Expression ArrayLookup() : {
     Expression e;
@@ -402,6 +404,7 @@ Expression ArrayLookup() : {
 {
     array=ArrayLength() <LBRACKET> index=ArrayLength() <RBRACKET>
     {e = new ArrayLookup(array,index); return e;}
+
 }
 //TODO ArrayLength
 Expression ArrayLength() :{
@@ -409,7 +412,7 @@ Expression ArrayLength() :{
     Expression array;
 }
 {
-    array=Call() <DOT> <LENGTH>
+    array=Call() "." <LENGTH>
     {e= new ArrayLength(array); return e;}
 }
 
@@ -421,6 +424,7 @@ Expression Call() : {
     NodeList<Expression> rands;
 }
 {
+    LOOKAHEAD (2)
     receiver=NewArray() <DOT> name=IdentifierExpression()
     <LPAREN> rands=ExpressionList() <RPAREN>
     {e = new Call(receiver,name,rands); return e;}

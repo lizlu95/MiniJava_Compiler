@@ -87,9 +87,18 @@ public class Test3Parse {
 
     @Test
     public void callSimpleMethod() throws Exception {
+//        accept("class Main {\n" +
+//                "  public static void main(String[] args) {\n" +
+//                "      System.out.println(new Foo().getFoo());\n" +
+//                "  }\n" +
+//                "}\n" +
+//                "class Foo {\n " +
+//                "   public int getFoo() { return 78; }\n" +
+//                "}"
+//        );
         accept("class Main {\n" +
                 "  public static void main(String[] args) {\n" +
-                "      System.out.println(new Foo().getFoo());\n" +
+                "      System.out.println(5);\n" +
                 "  }\n" +
                 "}\n" +
                 "class Foo {\n " +
