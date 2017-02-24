@@ -228,6 +228,12 @@ public class Test3Parse {
                 "   }\n" +
                 "}"
         );
+//        accept("class Main {\n" +
+//                "  public static void main(String[] args) {\n" +
+//                "      System.out.println(A.B(c,d));\n" +
+//                "  }\n" +
+//                "}\n"
+//        );
     }
 
     @Test
