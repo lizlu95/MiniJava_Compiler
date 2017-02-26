@@ -31,7 +31,7 @@ SKIP :
 
 TOKEN : /* KEYWORDS */
 {	
-	< PRINT:		"print1" >
+	< PRINT:		"print" >
 |	< RETURN: 		"return" >
 | 	< INT:			"int" >
 | 	< BOOLEAN: 		"boolean" >
@@ -41,7 +41,7 @@ TOKEN : /* KEYWORDS */
 |   <VOID:           "void">
 |   <MAIN:           "main">
 |   <STRING:         "String">
-|   <EXTENDS:        "exntends">
+|   <EXTENDS:        "extends">
 |   <IF:            "if">
 |   <ELSE:          "else">
 |   <WHILE:         "while">
@@ -94,7 +94,7 @@ Program Goal() : {
     | f=FunctionDeclaration()
 		{ ss.add(f); }
 	)*
-	< PRINT > e = Expression()
+	e = Expression()
 	<EOF>
 	{ return new Program(ss, new Print(e)); }
 }

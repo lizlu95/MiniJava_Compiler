@@ -31,8 +31,10 @@ public class PrettyPrintVisitor implements Visitor<Void> {
 
     @Override
     public Void visit(Program n) {
-        n.statements.accept(this);
-        n.print.accept(this);
+        n.mainClass.accept(this);
+        n.classes.accept(this);
+        //n.statements.accept(this);
+        //n.print.accept(this);
         return null;
     }
 
@@ -168,7 +170,7 @@ public class PrettyPrintVisitor implements Visitor<Void> {
     @Override
     public Void visit(VarDecl n) {
         n.type.accept(this);
-        out.print(" " + n.name);
+        out.print(" " + n.name + ";\n");
         return null;
     }
 
@@ -252,7 +254,7 @@ public class PrettyPrintVisitor implements Visitor<Void> {
     public Void visit(MethodDecl n) {
         out.print("public ");
         n.returnType.accept(this);
-        out.print(n.name+"(");
+        out.print(" " + n.name+"(");
         for(int i = 0 ; i < n.formals.size(); i++){
             n.formals.elementAt(i).accept(this);
             if (i + 1 < n.formals.size()) {
