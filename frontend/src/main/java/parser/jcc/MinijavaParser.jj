@@ -31,7 +31,7 @@ SKIP :
 
 TOKEN : /* KEYWORDS */
 {	
-	< PRINT:		"print" >
+	< PRINT:		"print1" >
 |	< RETURN: 		"return" >
 | 	< INT:			"int" >
 | 	< BOOLEAN: 		"boolean" >
@@ -171,8 +171,8 @@ VarDecl VarDeclaration() : {
 //MethodDeclaration	::=	"public" Type Identifier "(" ( Type Identifier ( "," Type Identifier )* )? ")"
 //"{" ( VarDeclaration )* ( Statement )* "return" Expression ";" "}"
 MethodDecl MethodDeclaration() : {
-    Type returnType;
-    String name;
+    Type returnType,t;
+    String name,id;
     List<VarDecl> formals;
     NodeList<VarDecl> formalsAsNodeList;
     NodeList<VarDecl> vars = new NodeList<VarDecl>();
@@ -187,8 +187,9 @@ MethodDecl MethodDeclaration() : {
 {
     <PUBLIC> returnType=Type() name=Identifier()
     <LPAREN> formals=FormalList()  { formalsAsNodeList = new NodeList<VarDecl>(formals);}<RPAREN> <LBRACE>
-        ( v=VarDeclaration() {vars.add(v);} )*
-        ( s=Statement() {statements.add(s);} )*
+       (LOOKAHEAD(2) t=Type() id=Identifier() <SEMICOLON>
+               {v = new VarDecl(t,id,0); vars.add(v);})*
+               ( s=Statement() {statements.add(s);} )*
         <RETURN> returnExp=Expression() <SEMICOLON> <RBRACE>
     {return new MethodDecl(returnType,name,formalsAsNodeList,vars,statements,returnExp);}
 }
@@ -362,7 +363,12 @@ Expression ObjectExpression() : {
 {
     e=PrimaryExpression()
     (
-        <DOT> i=Identifier() {ie=new IdentifierExp(i);} <LPAREN>
+        <DOT>
+        (<LENGTH>
+         {return new ArrayLength(e);}
+         )?
+
+        i=Identifier() {ie=new IdentifierExp(i);} <LPAREN>
             el=ExpressionList() <RPAREN>
         {return new Call(e, ie, el);}
     )?
