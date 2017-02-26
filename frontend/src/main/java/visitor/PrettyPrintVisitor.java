@@ -31,10 +31,14 @@ public class PrettyPrintVisitor implements Visitor<Void> {
 
     @Override
     public Void visit(Program n) {
-        n.mainClass.accept(this);
-        n.classes.accept(this);
-        //n.statements.accept(this);
-        //n.print.accept(this);
+        if (n.mainClass == null){
+         n.statements.accept(this);
+         n.print.accept(this);
+        }
+        else {
+            n.mainClass.accept(this);
+            n.classes.accept(this);
+        }
         return null;
     }
 
@@ -80,7 +84,8 @@ public class PrettyPrintVisitor implements Visitor<Void> {
     public Void visit(Assign n) {
         out.print(n.name + " = ");
         n.value.accept(this);
-        out.println(";");
+        out.print(";");
+        out.println();
         return null;
     }
 
@@ -170,7 +175,7 @@ public class PrettyPrintVisitor implements Visitor<Void> {
     @Override
     public Void visit(VarDecl n) {
         n.type.accept(this);
-        out.print(" " + n.name + ";\n");
+        out.print(" " + n.name);
         return null;
     }
 
@@ -199,7 +204,7 @@ public class PrettyPrintVisitor implements Visitor<Void> {
                 out.print(", ");
             }
         }
-        out.println(")");
+        out.print(")");
         return null;
     }
 
@@ -240,6 +245,7 @@ public class PrettyPrintVisitor implements Visitor<Void> {
         out.indent();
         for(int i = 0;i<n.vars.size(); i++){
             n.vars.elementAt(i).accept(this);
+            out.println("; ");
         }
         for(int i = 0;i<n.methods.size(); i++){
             n.methods.elementAt(i).accept(this);
@@ -265,6 +271,7 @@ public class PrettyPrintVisitor implements Visitor<Void> {
         out.indent();
         for(int i = 0;i<n.vars.size(); i++){
             n.vars.elementAt(i).accept(this);
+            out.println("; ");
         }
         for (int i = 0; i < n.statements.size(); i++) {
             n.statements.elementAt(i).accept(this);
@@ -309,15 +316,15 @@ public class PrettyPrintVisitor implements Visitor<Void> {
     public Void visit(If n) {
         out.print("if (");
         n.tst.accept(this);
-        out.println(") {");
+        out.println(")");
         out.indent();
         n.thn.accept(this);
         out.outdent();
-        out.println("} else {");
+        out.println("else");
         out.indent();
         n.els.accept(this);
         out.outdent();
-        out.println("}");
+        out.println("");
 
         // TODO Auto-generated method stub
         return null;
@@ -327,11 +334,11 @@ public class PrettyPrintVisitor implements Visitor<Void> {
     public Void visit(While n) {
         out.print("while (");
         n.tst.accept(this);
-        out.println(") {");
+        out.println(")");
         out.indent();
         n.body.accept(this);
         out.outdent();
-        out.println("}");
+        out.println("");
         // TODO Auto-generated method stub
         return null;
     }
@@ -342,7 +349,8 @@ public class PrettyPrintVisitor implements Visitor<Void> {
         n.index.accept(this);
         out.print("] = ");
         n.value.accept(this);
-        out.println(";");
+        out.print(";");
+        out.println();
         // TODO Auto-generated method stub
         return null;
     }

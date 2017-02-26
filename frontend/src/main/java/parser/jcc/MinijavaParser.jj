@@ -183,9 +183,11 @@ MethodDecl MethodDeclaration() : {
     Statement s;
     Type formalType;
     String formalName;
+    Token tprint;
 }
 {
-    <PUBLIC> returnType=Type() name=Identifier()
+    <PUBLIC> returnType=Type()
+    (name=Identifier() | tprint=<PRINT> {name = tprint.image;})
     <LPAREN> formals=FormalList()  { formalsAsNodeList = new NodeList<VarDecl>(formals);}<RPAREN> <LBRACE>
        (LOOKAHEAD(2) t=Type() id=Identifier() <SEMICOLON>
                {v = new VarDecl(t,id,0); vars.add(v);})*
@@ -250,8 +252,8 @@ Statement Statement() : {
 s=Block()       {return s;}
 | s=If()        {return s;}
 | s=While()        {return s;}
-| LOOKAHEAD(2) s=Print()         {return s;}
-| LOOKAHEAD(2) s=Assign()	{ return s; }
+| s=Print()         {return s;}
+| s=Assign()	{ return s; }
 }
 
 //TODO Block
@@ -289,6 +291,8 @@ Print Print() :{
 {
     <SYSTEM> <DOT> <OUT> <DOT> <PRINTLN> <LPAREN> exp=Expression() <RPAREN> <SEMICOLON>
     {return new Print(exp);}
+    | <PRINT> exp=Expression()
+    {return new Print(exp);}
 }
 //
 //ArrayAssign ArrayAssign() :{
@@ -306,7 +310,7 @@ Statement Assign() : {
 	Expression value;
 	Expression index;
 }
-{	name=Identifier() 
+{	(name=Identifier())
 	( "=" value=Expression() ";"
 		{return new Assign(new IdentifierExp(name), value); }
 	)?
@@ -355,6 +359,7 @@ Expression ArrayExpression() : {
 //TODO pretty print for true/false need spaces
 //TODO pretty print for Call should look different? not too sure
 Expression ObjectExpression() : {
+    Token t;
     Expression e;
     String i;
     Expression ie;
@@ -368,9 +373,14 @@ Expression ObjectExpression() : {
          {return new ArrayLength(e);}
          )?
 
-        i=Identifier() {ie=new IdentifierExp(i);} <LPAREN>
+        (i=Identifier() {ie=new IdentifierExp(i);} <LPAREN>
             el=ExpressionList() <RPAREN>
         {return new Call(e, ie, el);}
+        )?
+        (t=<PRINT> {ie=new IdentifierExp(t.image);} <LPAREN>
+            el=ExpressionList() <RPAREN>
+        {return new Call(e, ie, el);}
+        )?
     )?
     {return e;}
 |   LOOKAHEAD(2) <NEW> i=Identifier() <LPAREN> <RPAREN>
@@ -384,15 +394,21 @@ Expression PrimaryExpression() : {
     Token t;
     Expression e;
     String s;
+    NodeList<Expression> el;
 }
 {
   t=<INTEGER_LITERAL>   { return new IntegerLiteral(t.image);}
 | t=<TRUE>               { return new BooleanLiteral(true);}
 | t=<FALSE>              { return new BooleanLiteral(false);}
 | t=<THIS>               { return new This();}
-| s=Identifier()          { return new IdentifierExp(s);}
 | <NOT> e=Expression()   { return new Not(e);}
 | <LPAREN> e=Expression() <RPAREN> {return e;} //TODO what is this one?
+| (s=Identifier() | t=<PRINT> {s=t.image;})
+	{ e = new IdentifierExp(s); }
+		( "(" el=ExpressionList() ")"
+				{ e = new Call(e, el); }
+		)?
+		{ return e; }
 }
 
 Expression OperatorExpression() :{
