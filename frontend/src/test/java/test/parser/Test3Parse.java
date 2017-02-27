@@ -87,15 +87,15 @@ public class Test3Parse {
 
     @Test
     public void callSimpleMethod() throws Exception {
-//        accept("class Main {\n" +
-//                "  public static void main(String[] args) {\n" +
-//                "      System.out.println(new Foo().getFoo());\n" +
-//                "  }\n" +
-//                "}\n" +
-//                "class Foo {\n " +
-//                "   public int getFoo() { return 78; }\n" +
-//                "}"
-//        );
+        accept("class Main {\n" +
+                "  public static void main(String[] args) {\n" +
+                "      System.out.println(new Foo().getFoo());\n" +
+                "  }\n" +
+                "}\n" +
+                "class Foo {\n " +
+                "   public int getFoo() { return 78; }\n" +
+                "}"
+        );
         accept("class Main {\n" +
                 "  public static void main(String[] args) {\n" +
                 "      System.out.println(5);\n" +
@@ -175,6 +175,21 @@ public class Test3Parse {
                 "   }\n" +
                 "}"
         );
+
+        //test if support more than one left recursion
+        accept("class Main {\n" +
+                "  public static void main(String[] args) {\n" +
+                "      System.out.println(new Foo().do());\n" +
+                "  }\n" +
+                "}\n" +
+                "class Foo {\n " +
+                "   public int do() { \n" +
+                "      int[] arr;\n" +
+                "      arr = new int[5].length.length;\n" +
+                "      return true.length.length[arr.length];\n" +
+                "   }\n" +
+                "}"
+        );
     }
 
     @Test
@@ -228,12 +243,12 @@ public class Test3Parse {
                 "   }\n" +
                 "}"
         );
-//        accept("class Main {\n" +
-//                "  public static void main(String[] args) {\n" +
-//                "      System.out.println(A.B(c,d));\n" +
-//                "  }\n" +
-//                "}\n"
-//        );
+        accept("class Main {\n" +
+                "  public static void main(String[] args) {\n" +
+                "      System.out.println(A.B(c,d));\n" +
+                "  }\n" +
+                "}\n"
+        );
     }
 
     @Test
@@ -587,7 +602,7 @@ public class Test3Parse {
     /////////////////////////////////////////////////////////////////////////////////
     // Finally, check whether the parser accepts all the sample code.
     @Test
-    public void testParseSampleCode() throws Exception {
+    public void  testParseSampleCode() throws Exception {
         File[] files = SampleCode.sampleFiles("java");
         for (File file : files) {
             accept(file);
