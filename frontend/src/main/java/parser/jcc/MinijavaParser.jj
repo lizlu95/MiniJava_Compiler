@@ -82,25 +82,9 @@ TOKEN :
 |   < #DIGIT: ["0" - "9"] >
 }
 
-Program Goal() : {
-	NodeList<AST> ss = new NodeList<AST>();
-	Statement s;
-	FunctionDecl f;
-	Expression e;
-}
-{
-	( s=Statement()
-		{ ss.add(s); }
-    | f=FunctionDeclaration()
-		{ ss.add(f); }
-	)*
-	e = Expression()
-	<EOF>
-	{ return new Program(ss, new Print(e)); }
-}
 
 //Goal	::=	MainClass ( ClassDeclaration )* <EOF>
-Program Program() : {
+Program Goal() : {
     MainClass main;
 	NodeList<ClassDecl> classes = new NodeList<ClassDecl>();
 	ClassDecl c;

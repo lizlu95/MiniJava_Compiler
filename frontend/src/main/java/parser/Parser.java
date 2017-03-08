@@ -47,7 +47,7 @@ public class Parser {
      */
     private static Program parse(Reader input) throws ParseException {
         JCCMinijavaParser parser = new JCCMinijavaParser(input);
-        return parser.Program();
+        return parser.Goal();
     }
 
     /**
