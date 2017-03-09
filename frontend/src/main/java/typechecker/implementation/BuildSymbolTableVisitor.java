@@ -16,8 +16,17 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
 
     private final ImpTable<Type> globals = new ImpTable<Type>();
     private final ImpTable<Type> functions = new ImpTable<Type>();
+    private final ImpTable<Type> mainTable = new ImpTable<Type>();
+    private final ImpTable<Type> classes = new ImpTable<Type>();
     private final ErrorReport errors;
     private ImpTable<Type> thisFunction = null;
+    private ImpTable<Type> thisFields = null;
+    private ImpTable<Type> thisMethods = null;
+    private ImpTable<Type> thisSuperFields = null;
+    private ImpTable<Type> thisSuperMethods = null;
+
+
+
 
     public BuildSymbolTableVisitor(ErrorReport errors) {
         this.errors = errors;
@@ -149,6 +158,16 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         def(thisFunction, n.name, n.type);
         return null;
     }
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(ClassType n){
+        return null;
+
+    }
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(MethodType n){
+        throw new Error("Not implemented");
+
+    }
 
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(FunctionType n) {
@@ -158,6 +177,42 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(Call n) {
         return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(ClassDecl n){
+                //throw new Error("Not implemented");
+        ClassType ct = new ClassType();
+        thisFields = new ImpTable<Type>();
+        thisMethods = new ImpTable<Type>();
+        if(n.superName != null){
+            ClassType sct = (ClassType) classes.lookup(n.superName);
+            thisSuperFields = sct.fields;
+            thisSuperMethods = sct.methds;
+        }
+
+
+        //todo maybe need fields inside classtype
+        n.vars.accept(this);//todo implement vars visitor
+        n.methods.accept(this);//todo implement methods visitor
+        n.type = ct;
+        def(classes,n.name,ct);
+        thisFields = null;
+        thisMethods = null;
+        thisSuperFields = null;
+        thisSuperMethods = null;
+        return null;
+        //        FunctionType ft = new FunctionType();
+    //        thisFunction = new ImpTable<Type>();
+    //        ft.locals = thisFunction;
+    //        ft.formals = n.formals;
+    //        ft.returnType = n.returnType;
+    //        n.formals.accept(this);
+    //        n.statements.accept(this);
+    //        n.returnExp.accept(this);
+    //        n.type = ft;
+    //        def(functions, n.name, ft);
+    //        thisFunction = null;
     }
 
     ///////////////////// Helpers ///////////////////////////////////////////////
@@ -188,5 +243,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
             errors.duplicateDefinition(name);
         }
     }
+
+
 
 }

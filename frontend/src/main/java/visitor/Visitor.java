@@ -88,5 +88,8 @@ public interface Visitor<R> {
     public R visit(Not not);
 
     public R visit(Conditional n);
-
+    //todo
+    public R visit(ClassType classType);
+    //todo
+    public R visit(MethodType methodType);
 }

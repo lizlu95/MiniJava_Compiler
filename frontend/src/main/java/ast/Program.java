@@ -9,6 +9,7 @@ public class Program extends AST {
 
     public final MainClass mainClass;
     public final NodeList<ClassDecl> classes;
+    //todo remove the things thats not used
     public final NodeList<AST> statements;
     public final Print print;
 

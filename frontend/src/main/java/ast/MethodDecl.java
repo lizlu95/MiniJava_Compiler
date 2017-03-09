@@ -14,6 +14,8 @@ public class MethodDecl extends AST {
     public final NodeList<Statement> statements;
     public final Expression returnExp;
 
+    public MethodType type;
+
     public MethodDecl(Type returnType, String name, NodeList<VarDecl> formals,
                       NodeList<VarDecl> vars, NodeList<Statement> statements, Expression returnExp) {
         super();

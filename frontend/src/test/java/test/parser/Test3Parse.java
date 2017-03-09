@@ -98,7 +98,7 @@ public class Test3Parse {
         );
         accept("class Main {\n" +
                 "  public static void main(String[] args) {\n" +
-                "      System.out.println(5);\n" +
+                "      System.out.println(new Foo().getFoo());\n" +
                 "  }\n" +
                 "}\n" +
                 "class Foo {\n " +

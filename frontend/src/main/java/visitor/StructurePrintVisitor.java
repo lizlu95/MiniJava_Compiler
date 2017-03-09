@@ -347,4 +347,14 @@ public class StructurePrintVisitor implements Visitor<Void> {
         out.outdent();
         return null;
     }
+
+    @Override
+    public Void visit(ClassType classType) {
+        throw new Error("Not implemented");
+    }
+
+    @Override
+    public Void visit(MethodType methodType) {
+        throw new Error("Not implemented");
+    }
 }

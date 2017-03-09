@@ -13,6 +13,8 @@ public class ClassDecl extends AST {
     public final NodeList<VarDecl> vars;
     public final NodeList<MethodDecl> methods;
 
+    public ClassType type;
+
     public ClassDecl(String name, String superName, NodeList<VarDecl> vars,
                      NodeList<MethodDecl> methods) {
         super();

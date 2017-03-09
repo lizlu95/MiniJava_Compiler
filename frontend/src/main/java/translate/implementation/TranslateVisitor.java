@@ -445,4 +445,14 @@ public class TranslateVisitor implements Visitor<TRExp> {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public TRExp visit(ClassType classType) {
+        throw new Error("Not implemented");
+    }
+
+    @Override
+    public TRExp visit(MethodType methodType) {
+        throw new Error("Not implemented");
+    }
 }

@@ -341,4 +341,14 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(NewObject n) {
         throw new Error("Not implemented");
     }
+
+    @Override
+    public Type visit(ClassType classType) {
+        throw new Error("Not implemented");
+    }
+
+    @Override
+    public Type visit(MethodType methodType) {
+        throw new Error("Not implemented");
+    }
 }
