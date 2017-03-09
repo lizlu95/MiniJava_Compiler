@@ -1,7 +1,7 @@
 /**
  * JavaCC file
  */
- 
+
 options {
   JDK_VERSION = "1.6";
   STATIC = false;
@@ -30,8 +30,8 @@ SKIP :
 }
 
 TOKEN : /* KEYWORDS */
-{	
-	< PRINT:		"print" >
+{
+	< PRINT:		"print1" >
 |	< RETURN: 		"return" >
 | 	< INT:			"int" >
 | 	< BOOLEAN: 		"boolean" >
@@ -74,7 +74,7 @@ TOKEN : /* SEPARATORS and OPERATORS*/
 |   <DOT:    ".">
 |   <AND:   "&&">
 }
-	
+
 TOKEN :
 {   < INTEGER_LITERAL: ( <DIGIT> )+ >
 |   < IDENTIFIER: <LETTER> (<LETTER> | "_" | <DIGIT>)* >
@@ -187,12 +187,12 @@ FunctionDecl FunctionDeclaration() : {
 	List<Statement> stats = new ArrayList<Statement>();
 	Statement s;
 	Expression re;
-} 
-{	rt=Type() i=Identifier() "(" formals=FormalList() ")" "{" 
+}
+{	rt=Type() i=Identifier() "(" formals=FormalList() ")" "{"
 	    (
 	    	s=Statement()					{ stats.add(s); }
-	    )* 
-	    "return" re=Expression() ";" 
+	    )*
+	    "return" re=Expression() ";"
 	 "}"
 	 { return new FunctionDecl(rt, i, formals, stats, re); }
 }
@@ -203,9 +203,9 @@ List<VarDecl> FormalList() : {
 	String n;
 }
 {	( t=Type() n=Identifier() 			{ formals.add(new VarDecl(t,n, formals.size())); }
-		(	
+		(
 			"," t=Type() n=Identifier()	{ formals.add(new VarDecl(t,n, formals.size())); }
-		)* 
+		)*
 	)?
 	{ return formals; }
 }
@@ -280,194 +280,131 @@ Print Print() :{
 }
 
 Statement Assign() : {
-	String name;
-	Expression value;
-	Expression index;
+    String name;
+    Expression value,index,v2;
+    Statement s;
 }
-{	(name=Identifier())
-	( "=" value=Expression() ";"
-		{return new Assign(new IdentifierExp(name), value); }
-	)?
-	(
-     <LBRACKET> index=Expression() <RBRACKET> <ASSIGN> value=Expression() <SEMICOLON>
-    {return new ArrayAssign(name,index,value);}
-	)
+{   name=Identifier()
+    (<ASSIGN> value=Expression() <SEMICOLON>
+    {s=new Assign(new IdentifierExp(name), value); }
+
+   |<LBRACKET> index=Expression() <RBRACKET> <ASSIGN> v2=Expression() <SEMICOLON>
+    {s=new ArrayAssign(name,index,v2);})
+    {return s;}
 }
 
-//loop will start here
-Expression Expression() :{
+
+
+// For parsing anything with priority same or higher than &&
+Expression Expression() : {
+    Expression e,e2;
+}
+{
+    e=CompExpression()
+    (<AND> e2=Expression()
+        {e=new And(e,e2);})*
+    {return e;}
+}
+
+// For parsing anything with priority same or higher than <
+Expression CompExpression() : {
+    Expression e, e2;
+}
+{   e=AddExpression()
+    ( <SMALLER> e2=AddExpression()
+        { e = new LessThan(e, e2); }
+    )?
+    { return e; }
+}
+// For parsing anything with priority same or higher than +
+Expression AddExpression() : {
+    Expression e, e2;
+    Token op;
+}
+{   e=MultExpression()
+    (   (op=<PLUS>|op=<MINUS>)
+        e2=MultExpression()
+            { if (op.image.equals("+"))
+                e=new Plus(e, e2);
+              else
+                e=new Minus(e, e2);
+            }
+    )*
+    { return e; }
+}
+
+// For parsing anything with priority same or higher than *
+Expression MultExpression() :  {
+    Expression e, e2;
+}
+{   e=NotExpression()
+    (   <MULT> e2=NotExpression()
+            { e = new Times(e, e2); }
+    )*
+    { return e; }
+}
+
+// For parsing anything with priority same or higher than ! expressions:
+Expression NotExpression() : {
     Expression e;
-    Token t;
 }
-{
-     e=OperatorExpression() {return e;}
+{   <NOT> e=NotExpression()
+        { return new Not(e); }
+|   e=ArrayExpression()
+        { return e; }
 }
 
+// array and method call 
 Expression ArrayExpression() : {
-    Expression e,ex;
-    Expression e2;
     String i;
-    Expression ie;
+    Expression e,e2;
     NodeList<Expression> el;
 }
-{
-    e=ObjectExpression()
-     (
-     <LBRACKET> e2=Expression() <RBRACKET>
-    {e= new ArrayLookup(e,e2);}
-    )?
-    (
-        <DOT>
-            (
-            <LENGTH>
-            {e= new ArrayLength(e);}
-
-
-            |
-                i=Identifier() {ie=new IdentifierExp(i);} <LPAREN>
-                    el=ExpressionList() <RPAREN>
-                {e= new Call(e, ie, el);}
-            )
-
-        (
-        <DOT>
-            (
-            <LENGTH>
-            {ex= new ArrayLength(e); e = ex;}
-
-
-            |
-                i=Identifier() {ie=new IdentifierExp(i);} <LPAREN>
-                    el=ExpressionList() <RPAREN>
-                {ex= new Call(e, ie, el); e = ex;}
-            )
-
-        )*
-    )?
-    {return e;}
-}
-// pretty print for true/false need spaces
-// pretty print for Call should look different? not too sure
-Expression ObjectExpression() : {
-    Token t;
-    Expression e,ex;
-    String i;
-    Expression ie;
-    NodeList<Expression> el;
-}
-{
+{   // Expression "[" Expression "]"
     e=PrimaryExpression()
-
-        (
-        <DOT>
-            (<LENGTH>
-             {e = new ArrayLength(e);}
-
-
-            |i=Identifier() {ie=new IdentifierExp(i);} <LPAREN>
-                el=ExpressionList() <RPAREN>
-            {e = new Call(e, ie, el);}
-
-            |t=<PRINT> {ie=new IdentifierExp(t.image);} <LPAREN>
-                el=ExpressionList() <RPAREN>
-            {e = new Call(e, ie, el);}
-            )
-
-
-            (
-                <DOT>
-                (<LENGTH>
-                 {ex =  new ArrayLength(e); e = ex;}
-
-
-                |i=Identifier() {ie=new IdentifierExp(i);} <LPAREN>
-                    el=ExpressionList() <RPAREN>
-                {ex= new Call(e, ie, el); e = ex;}
-
-                |t=<PRINT> {ie=new IdentifierExp(t.image);} <LPAREN>
-                    el=ExpressionList() <RPAREN>
-                {ex= new Call(e, ie, el); e = ex;}
-                )
-
-            )*
-        )?
+        (<LBRACKET> e2=ArrayExpression() <RBRACKET>
+        {e=new ArrayLookup(e,e2);}
+        |   // Expression "." "length"
+        (<DOT>
+            (<LENGTH> {e=new ArrayLength(e);}
+            // Expression "." Identifier "(" ExpressionList ")"
+           |i=Identifier() <LPAREN> el=ExpressionList() <RPAREN>
+            {e=new Call(e, new IdentifierExp(i), el);})
+        ))*
     {return e;}
-|   LOOKAHEAD(2) <NEW> i=Identifier() <LPAREN> <RPAREN>
-    {return new NewObject(i);}
-|    <NEW><INT><LBRACKET> e=Expression() <RBRACKET>
-         {return new NewArray(e);}
 }
 
-//loop will ends here
+/* PrimaryExpression is the expression that has highest precedence.*/
 Expression PrimaryExpression() : {
     Token t;
+    String i;
     Expression e;
-    String s;
     NodeList<Expression> el;
 }
-{
-  t=<INTEGER_LITERAL>   { return new IntegerLiteral(t.image);}
-| t=<TRUE>               { return new BooleanLiteral(true);}
-| t=<FALSE>              { return new BooleanLiteral(false);}
-| t=<THIS>               { return new This();}
-| <NOT> e=Expression()   { return new Not(e);}
-| <LPAREN> e=Expression() <RPAREN> {return e;} // what is this one?
-| (s=Identifier() | t=<PRINT> {s=t.image;})
-	{ e = new IdentifierExp(s); }
-		( "(" el=ExpressionList() ")"
-				{ e = new Call(e, el); }
-		)?
-		{ return e; }
+{   t=<INTEGER_LITERAL>    { return new IntegerLiteral(t.image); }
+|   t=<TRUE>               { return new BooleanLiteral(true);}
+|   t=<FALSE>              { return new BooleanLiteral(false);}
+|   t=<THIS>               { return new This();}
+|   i=Identifier()         { return new IdentifierExp(i);}
+|   <LPAREN> e=Expression() <RPAREN>      { return e; }
+|   LOOKAHEAD(2) <NEW>
+       <INT> <LBRACKET> e=Expression() <RBRACKET>
+        {return new NewArray(e);}
+|   <NEW> i=Identifier() <LPAREN> <RPAREN>
+    {return new NewObject(i);}
 }
 
-Expression OperatorExpression() :{
-    Expression e;
-    Expression e2;
-    Token t;
-}
-{
-    e=ArrayExpression()
-    (
-    (t=<AND> | t=<SMALLER> | t=<PLUS> | t=<MINUS> | t=<MULT>)
-    e2=Expression()
-    {   switch(t.image){
-            case "&&":
-                e= new And(e,e2);
-                break;
-            case "<":
-                e= new LessThan(e,e2);
-                break;
-            case "+":
-                e= new Plus(e,e2);
-                break;
-            case "-":
-                e= new Minus(e,e2);
-                break;
-            case "*":
-                e= new Times(e,e2);
-                break;
-            default:
-                //do nothing should not get here
-                break;
-        }
-        return e;
-    }
-    )?
-    {
-    return e;
-    }
-}
 
 NodeList<Expression> ExpressionList() : {
 	List<Expression> el = new ArrayList<Expression>();
 	Expression e;
 }
 {
-	( 
+	(
 		e=Expression() 			{ el.add(e); }
 		(
-			"," e=Expression()	{ el.add(e); }
-		)* 
+			<COMMA> e=Expression()	{ el.add(e); }
+		)*
 	)?
 	{ return new NodeList<Expression>(el); }
 }

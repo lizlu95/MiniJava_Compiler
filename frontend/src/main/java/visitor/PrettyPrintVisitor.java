@@ -74,9 +74,9 @@ public class PrettyPrintVisitor implements Visitor<Void> {
 
     @Override
     public Void visit(Print n) {
-        out.print("print ");
+        out.print("System.out.println(");
         n.exp.accept(this);
-        out.println("");
+        out.println(");");
         return null;
     }
 
@@ -196,6 +196,8 @@ public class PrettyPrintVisitor implements Visitor<Void> {
 
     @Override
     public Void visit(Call n) {
+        n.receiver.accept(this);
+        out.print(".");
         n.name.accept(this);
         out.print("(");
         for (int i = 0; i < n.rands.size(); i++) {
