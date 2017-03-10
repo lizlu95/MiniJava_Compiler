@@ -149,7 +149,7 @@ VarDecl VarDeclaration() : {
     t=Type()
     name=Identifier()
     <SEMICOLON>
-    {return new VarDecl(t,name,0);}
+    {return new VarDecl(ast.VarDecl.Kind.FIELD,t,name,0);}
 }
 // MethodDeclaration
 //MethodDeclaration	::=	"public" Type Identifier "(" ( Type Identifier ( "," Type Identifier )* )? ")"
@@ -174,7 +174,7 @@ MethodDecl MethodDeclaration() : {
     (name=Identifier() | tprint=<PRINT> {name = tprint.image;})
     <LPAREN> formals=FormalList()  { formalsAsNodeList = new NodeList<VarDecl>(formals);}<RPAREN> <LBRACE>
        (LOOKAHEAD(2) t=Type() id=Identifier() <SEMICOLON>
-               {v = new VarDecl(t,id,0); vars.add(v);})*
+               {v = new VarDecl(ast.VarDecl.Kind.LOCAL,t,id,0); vars.add(v);})*
                ( s=Statement() {statements.add(s);} )*
         <RETURN> returnExp=Expression() <SEMICOLON> <RBRACE>
     {return new MethodDecl(returnType,name,formalsAsNodeList,vars,statements,returnExp);}
@@ -202,9 +202,9 @@ List<VarDecl> FormalList() : {
 	Type t;
 	String n;
 }
-{	( t=Type() n=Identifier() 			{ formals.add(new VarDecl(t,n, formals.size())); }
+{	( t=Type() n=Identifier() 			{ formals.add(new VarDecl(ast.VarDecl.Kind.FORMAL,t,n, formals.size())); }
 		(
-			"," t=Type() n=Identifier()	{ formals.add(new VarDecl(t,n, formals.size())); }
+			"," t=Type() n=Identifier()	{ formals.add(new VarDecl(ast.VarDecl.Kind.FORMAL,t,n, formals.size())); }
 		)*
 	)?
 	{ return formals; }
