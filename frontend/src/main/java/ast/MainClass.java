@@ -8,6 +8,7 @@ public class MainClass extends AST {
     public final String argName;
     public final Statement statement;
 
+    public ClassType type;
     public MainClass(String className, String argName, Statement statement) {
         super();
         this.className = className;

@@ -1,9 +1,11 @@
 package typechecker.implementation;
 
 import ast.*;
+import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
 import typechecker.ErrorReport;
 import util.ImpTable;
 import util.ImpTable.DuplicateException;
+import util.Lookup;
 import util.Pair;
 import visitor.DefaultVisitor;
 
@@ -62,11 +64,32 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
     }
 
     @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(MainClass n){
+        ClassType ct = new ClassType();
+        thisFields = new ImpTable<Type>();
+        thisMethods = new ImpTable<Type>();
+        ct.fields = thisFields;
+        ct.methds = thisMethods;
+        //todo do nothing for now.
+        n.type = ct;
+        def(mainTable,n.className,ct);
+        def(classes,n.className,ct);
+        thisFields = null;
+        thisMethods = null;
+//
+//        MethodType mt = new MethodType();
+//        thisParams = new ImpTable<Type>();
+//        thisLocals = null;
+//        mt.params = thisParams;
+//        mt.locals = null;
+        //assume no typecheck is needed
+
+        return null;
+    }
+
+    @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(Assign n) {
-        // if current method has no parameter nor locals, add n.name to class global variable
-        //todo which table to insert this in?
-        ImpTable<Type> t = thisVarDecls != null? thisVarDecls : thisFields;
-        def(t,n.name.name,new UnknownType());
+        lookup(n.name.name);
 //        ImpTable<Type> t = thisFunction != null ? thisFunction : globals;
 //        def(t, n.name.name, new UnknownType());
 //        n.value.accept(this);
@@ -164,7 +187,84 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         return null;
     }
 
-    
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(IntArrayType n){
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(ObjectType n){
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(If n){
+        n.tst.accept(this);
+        n.thn.accept(this);
+        n.els.accept(this);
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(While n){
+        n.tst.accept(this);
+        n.body.accept(this);
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(ArrayAssign n){
+        lookup(n.name);
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(And n){
+        n.e1.accept(this);
+        n.e2.accept(this);
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(ArrayLookup n){
+        n.array.accept(this);
+        n.index.accept(this);
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(ArrayLength n){
+        n.array.accept(this);
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(This n){
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(NewArray n){
+        n.size.accept(this);
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(NewObject n){
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(Block n){
+        n.statements.accept(this);
+        return null;
+    }
+
+    @Override
+    public Pair<ImpTable<Type>, ImpTable<Type>> visit(BooleanLiteral n){
+        return null;
+    }
+
 
     @Override
     // This is a formal parameter to the current function
@@ -213,6 +313,9 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
 
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(Call n) {
+        n.receiver.accept(this);
+        n.name.accept(this);
+        n.rands.accept(this);
         return null;
     }
 
@@ -270,14 +373,14 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
     // Lookup a name in the two symbol tables that it might be in
     private Type lookup(String name) {
         Type t = null;
-        if(thisParams != null){
-            t = thisParams.lookup(name);
+        if(thisLocals != null){
+            t = thisLocals.lookup(name);
             if(t!= null){
                 return t;
             }
         }
-        if(thisLocals != null){
-            t = thisLocals.lookup(name);
+        if(thisParams != null){
+            t = thisParams.lookup(name);
             if(t!= null){
                 return t;
             }
