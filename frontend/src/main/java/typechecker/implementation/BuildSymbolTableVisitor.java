@@ -326,6 +326,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         thisMethods = new ImpTable<Type>();
         ct.fields = thisFields;
         ct.methds = thisMethods;
+        ct.superName = n.superName;
         if(n.superName != null){
             ClassType sct = (ClassType) classes.lookup(n.superName);
             if(sct != null){

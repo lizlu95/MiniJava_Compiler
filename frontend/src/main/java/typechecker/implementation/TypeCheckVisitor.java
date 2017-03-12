@@ -34,26 +34,56 @@ public class TypeCheckVisitor implements Visitor<Type> {
     /**
      * The symbol table from Phase 1.
      */
-    private ImpTable<Type> globals;
-    private ImpTable<Type> functions;
+//    private ImpTable<Type> globals;
+//    private ImpTable<Type> functions;
+//    private ImpTable<Type> thisFunction;
+    private final ImpTable<Type> globals = null;
+    private final ImpTable<Type> functions = null;
+    private final ImpTable<Type> mainTable;
+    private final ImpTable<Type> classes;
     private ImpTable<Type> thisFunction;
+    private ImpTable<Type> thisFields;
+    private ImpTable<Type> thisMethods;
+    private ImpTable<Type> thisSuperFields;
+    private ImpTable<Type> thisSuperMethods;
+    private ImpTable<Type> thisParams;
+    private ImpTable<Type> thisLocals;
 
+    // Lookup a name in the two symbol tables that it might be in
     private Type lookup(String name) {
-        Type t;
-        if (thisFunction != null) {
-            t = thisFunction.lookup(name);
-            if (t != null)
+        Type t = null;
+        if(thisLocals != null){
+            t = thisLocals.lookup(name);
+            if(t!= null){
                 return t;
+            }
         }
-        t = globals.lookup(name);
-        if (t == null)
-            errors.undefinedId(name);
+        if(thisParams != null){
+            t = thisParams.lookup(name);
+            if(t!= null){
+                return t;
+            }
+        }
+        if(thisFields != null){
+            t = thisFields.lookup(name);
+            if(t!= null){
+                return t;
+            }
+        }
+        if(thisSuperFields != null){
+            t = thisSuperFields.lookup(name);
+            if(t!= null){
+                return t;
+            }
+        }
+
+        errors.undefinedId(name);
         return t;
     }
 
     public TypeCheckVisitor(Pair<ImpTable<Type>, ImpTable<Type>> variables, ErrorReport errors) {
-        this.globals = variables.first;
-        this.functions = variables.second;
+        this.mainTable = variables.first;
+        this.classes = variables.second;
         this.errors = errors;
     }
 
@@ -93,8 +123,10 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(Program n) {
         //		variables = applyInheritance(variables);
-        n.statements.accept(this);
-        n.print.accept(this);
+        n.mainClass.accept(this);//todo
+        n.classes.accept(this);//todo
+//        n.statements.accept(this);
+//        n.print.accept(this);
         return null;
     }
 
@@ -118,25 +150,48 @@ public class TypeCheckVisitor implements Visitor<Type> {
      */
     @Override
     public Type visit(Print n) {
-        Type actual = n.exp.accept(this);
-        if (!assignableFrom(new IntegerType(), actual) && !assignableFrom(new BooleanType(), actual)) {
-            List<Type> l = new ArrayList<Type>();
-            l.add(new IntegerType());
-            l.add(new BooleanType());
-            errors.typeError(n.exp, l, actual);
-        }
+        /*minijava only prints integer types*/
+        check(n.exp,new IntegerType());
+//        if (!assignableFrom(new IntegerType(), actual) && !assignableFrom(new BooleanType(), actual)) {
+//            List<Type> l = new ArrayList<Type>();
+//            l.add(new IntegerType());
+//            l.add(new BooleanType());
+//            errors.typeError(n.exp, l, actual);
+//        }
         return null;
     }
 
     @Override
     public Type visit(Assign n) {
-        boolean isLocal = thisFunction != null && thisFunction.lookup(n.name.name) != null;
-        Type expressionType = n.value.accept(this);
-        if (isLocal) {
-            thisFunction.set(n.name.name, expressionType);
-        } else {
-            globals.set(n.name.name, expressionType);
+        //todo check name is assigned to same type exp or subtype exp
+        Type n_type = lookup(n.name.name);
+        //look up identifier name, if found
+        if(n_type != null){
+            //get type of n.value
+            Type v_type = n.value.accept(this);
+            //if the types are not equal
+
+            if(!assignableFrom(n_type,v_type) && n_type instanceof ObjectType && v_type instanceof ObjectType){
+                //cast both to objectType to see if valueType is subclass
+                ObjectType ov_type = (ObjectType)v_type;
+                ObjectType on_type = (ObjectType)n_type;
+                //get v_type's supertype from its ClassType
+               ClassType ovc = (ClassType) classes.lookup(ov_type.name);
+                //if the class name is invalid or superType not equal identifier Type
+                //throw error
+               if(ovc==null || on_type.name != ovc.superName){
+                   throw new Error("Assign type undefined");
+               }
+
+            }
         }
+//        boolean isLocal = thisFunction != null && thisFunction.lookup(n.name.name) != null;
+//        Type expressionType = n.value.accept(this);
+//        if (isLocal) {
+//            thisFunction.set(n.name.name, expressionType);
+//        } else {
+//            globals.set(n.name.name, expressionType);
+//        }
         return null;
     }
 
@@ -189,16 +244,21 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(IdentifierExp n) {
-        List<Type> l = new ArrayList<Type>();
         Type type = lookup(n.name);
-        if (type == null)
-            type = new UnknownType();
-        if (type instanceof FunctionType) {
-            l.add(new IntegerType());
-            l.add(new BooleanType());
-            errors.typeError(n, l, type);
+        if(type == null){
+            throw new Error("undefined identifier");
         }
         return type;
+//        List<Type> l = new ArrayList<Type>();
+//        Type type = lookup(n.name);
+//        if (type == null)
+//            type = new UnknownType();
+//        if (type instanceof FunctionType) {
+//            l.add(new IntegerType());
+//            l.add(new BooleanType());
+//            errors.typeError(n, l, type);
+//        }
+//        return type;
     }
 
     @Override
@@ -224,6 +284,11 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(Call n) {
+        // lookup method identifier(n.name) in table
+        // get parameterlist
+        // get resultType
+        //
+        //n.receiver has type c, then look up method defination in class C
         Expression e = n.name;
         FunctionType ft = null;
         String functionName = "unknown";
@@ -264,57 +329,74 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(MainClass n) {
-        throw new Error("Not implemented");
+        // todo do nothing for now since
+        return null;
     }
 
     @Override
     public Type visit(ClassDecl n) {
-        throw new Error("Not implemented");
+        return null;
     }
 
     @Override
     public Type visit(MethodDecl n) {
-        throw new Error("Not implemented");
+        return null;
     }
 
     @Override
     public Type visit(IntArrayType n) {
-        throw new Error("Not implemented");
+        return n;
     }
 
     @Override
     public Type visit(ObjectType n) {
-        throw new Error("Not implemented");
+        return n;
     }
 
     @Override
     public Type visit(Block n) {
-        throw new Error("Not implemented");
+        n.statements.accept(this);
+        return null;
     }
 
     @Override
     public Type visit(If n) {
-        throw new Error("Not implemented");
+        check(n.tst,new BooleanType());
+        n.thn.accept(this);
+        n.els.accept(this);
+        return null;
     }
 
     @Override
     public Type visit(While n) {
-        throw new Error("Not implemented");
+        check(n.tst,new BooleanType());
+        n.body.accept(this);
+        return null;
     }
 
     @Override
     public Type visit(ArrayAssign n) {
-        throw new Error("Not implemented");
+        Type tn = lookup(n.name);
+        if (tn != null){
+            Type tv = n.value.accept(this);
+            check(n.value,tn,tv);
+        }
+        check(n.index, new IntegerType());
+        return null;
     }
 
     @Override
     public Type visit(And n) {
-        throw new Error("Not implemented");
+        check(n.e1, new BooleanType());
+        check(n.e2, new BooleanType());
+        n.setType(new BooleanType());
+        return n.getType();
     }
 
     @Override
     public Type visit(ArrayLookup n) {
-        throw new Error("Not implemented");
+
+        return null;
     }
 
     @Override
