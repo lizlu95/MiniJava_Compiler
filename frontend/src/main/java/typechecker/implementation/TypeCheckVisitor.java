@@ -48,6 +48,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
     private ImpTable<Type> thisSuperMethods;
     private ImpTable<Type> thisParams;
     private ImpTable<Type> thisLocals;
+    private String currClass;
 
     // Lookup a name in the two symbol tables that it might be in
     private Type lookup(String name) {
@@ -324,12 +325,20 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(ClassDecl n) {
-        throw new Error ("Not implemented");
+        currClass = n.name;
+        n.vars.accept(this);
+        n.methods.accept(this);
+        currClass = null;
+        return null;
     }
 
     @Override
     public Type visit(MethodDecl n) {
-        throw new Error ("Not implemented");
+        n.formals.accept(this);
+        n.vars.accept(this);
+        n.statements.accept(this);
+        check(n.returnExp,n.returnType);
+        return null;
     }
 
     @Override
@@ -384,6 +393,15 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(ArrayLookup n) {
+        if(n.array instanceof IdentifierExp){
+            Type ti = lookup(((IdentifierExp) n.array).name);
+            if(ti == null){
+                throw new Error("undefined Identifier");
+            }
+            check(n.index,new IntegerType());
+            n.setType(new IntegerType());
+            return n.getType();
+        }
 
         return null;
     }
@@ -403,8 +421,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(This n) {
-        //TODO need to somehow get the name of "this" class
-        n.setType(new ObjectType("a"));
+        //need to somehow get the name of "this" class
+
+        n.setType(new ObjectType(currClass));
         return n.getType();
     }
 
@@ -417,18 +436,25 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(NewObject n) {
-        //TODO check if this object type n.typeName exsits in table as a class
-        n.setType(new ObjectType(n.typeName));
-        return n.getType();
+        // check if this object type n.typeName exsits in table as a class
+        Type type = classes.lookup(n.typeName);
+        if(type == null){
+            throw new Error("invalid type name");
+        }
+        else{
+            n.setType(new ObjectType(n.typeName));
+            return n.getType();
+        }
+
     }
 
     @Override
     public Type visit(ClassType classType) {
-        return null;
+        return classType;
     }
 
     @Override
     public Type visit(MethodType methodType) {
-        return null;
+        return methodType;
     }
 }
