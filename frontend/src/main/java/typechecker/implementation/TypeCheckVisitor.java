@@ -339,7 +339,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(MainClass n) {
-        dumpTable(this.mainTable);
+//        dumpTable(this.mainTable);
         this.mainClassArgsName = n.argName;
         n.statement.accept(this);
         this.mainClassArgsName = null;
@@ -348,6 +348,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(ClassDecl n) {
+        dumpTable(this.classes);
         currClass = n.name;
         n.vars.accept(this);
         n.methods.accept(this);

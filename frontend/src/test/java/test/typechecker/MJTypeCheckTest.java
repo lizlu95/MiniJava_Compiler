@@ -39,42 +39,6 @@ public class MJTypeCheckTest {
                 "}");
     }
 
-    @Test
-    public void simplestProgramPossible() throws Exception {
-//        expectError("class Main {\n" +
-//                "\tpublic static void main(String[]args){\n" +
-//                "\t\tSystem.out.println( true );\n" +
-//                "\t}\n" +
-//                "}");
-//        accept("class Main {\n" +
-//                "\tpublic static void main(String[]args){\n" +
-//                "\t\tSystem.out.println( 1 );\n" +
-//                "\t}\n" +
-//                "}");
-        expectError("class Main {\n" +
-                "\tpublic static void main(String[]args){\n" +
-                "\t\t args[0] = 1;\n" +
-                "\t}\n" +
-                "}");
-        expectError("class Main {\n" +
-                "\tpublic static void main(String[]args){\n" +
-                "\t\tSystem.out.println(args);\n" +
-                "\t}\n" +
-                "}\n");
-    }
-
-    @Test
-    public void oneClassNoMethods() throws Exception {
-        accept("class Main {\n" +
-                "\tpublic static void main(String[]args){\n" +
-                "\t\tSystem.out.println(1);\n" +
-                "\t}\n" +
-                "}\n" +
-                "class A {\n" +
-                "\t\n" +
-                "}");
-    }
-
     //only main with print
     @Test
     public void goodMainWithPrint() throws Exception {
@@ -116,7 +80,60 @@ public class MJTypeCheckTest {
                 "}");
     }
 
+    //shouldn't be allowed to use main args
+    @Test
+    public void usingMainArgs() throws Exception {
+        expectError("class Main {\n" +
+                "\tpublic static void main(String[]args){\n" +
+                "\t\t args[0] = 1;\n" +
+                "\t}\n" +
+                "}");
+        expectError("class Main {\n" +
+                "\tpublic static void main(String[]args){\n" +
+                "\t\tSystem.out.println(args);\n" +
+                "\t}\n" +
+                "}\n");
+    }
 
+    //main with one empty class
+    @Test
+    public void oneClassNoMethods() throws Exception {
+        accept("class Main {\n" +
+                "\tpublic static void main(String[]args){\n" +
+                "\t\tSystem.out.println(1);\n" +
+                "\t}\n" +
+                "}\n" +
+                "class A {\n" +
+                "\t\n" +
+                "}");
+    }
+
+    //one class with methods
+    @Test
+    public void oneClassWithMethods() throws Exception {
+        accept("class Main{\n" +
+                "\tpublic static void main(String[] args) {\n" +
+                "\t\tSystem.out.println(1);\n" +
+                "\t}\n" +
+                "}\n" +
+                "class A{\n" +
+                "\tint x;\n" +
+                "\tboolean y;\n" +
+                "\tint[] a;\n" +
+                "\tpublic int foo(){\n" +
+                "\t\tint vx;\n" +
+                "\t\tboolean vy;\n" +
+                "\t\tint[] va;\n" +
+                "\t\tx = 3;\n" +
+                "\t\tvx = 4;\n" +
+                "\t\ta[0] = 1;\n" +
+                "\t\ty = true;\n" +
+                "\t\tvy = false;\n" +
+                "\t\tva[0] = 2;\n" +
+                "\t\treturn x;\n" +
+                "\t}\n" +
+                "}\n");
+    }
 
     // /////////////////////// Helpers
     // /////////////////////////////////////////////

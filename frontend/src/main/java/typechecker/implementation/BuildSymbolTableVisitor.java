@@ -284,8 +284,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         ClassType ct = new ClassType();
         thisFields = new ImpTable<Type>();
         thisMethods = new ImpTable<Type>();
-        ct.fields = thisFields;
-        ct.methds = thisMethods;
+
         ct.superName = n.superName;
         if(n.superName != null){
             ClassType sct = (ClassType) classes.lookup(n.superName);
@@ -300,6 +299,8 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         //todo maybe need fields inside classtype
         n.vars.accept(this);
         n.methods.accept(this);
+        ct.fields = thisFields;
+        ct.methds = thisMethods;
         n.type = ct;
         def(classes,n.name,ct);
         thisFields = null;
