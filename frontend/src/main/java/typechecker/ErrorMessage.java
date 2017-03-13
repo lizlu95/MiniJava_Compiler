@@ -47,6 +47,10 @@ public class ErrorMessage {
         return new ErrorMessage(exp + " has type " + actual + " expected one of " + expected);
     }
 
+    public static ErrorMessage cannotUseArgsInMain(){
+        return new ErrorMessage("MiniJava does not allow to use arguments in MainClass");
+    }
+
     @Override
     public String toString() {
         return "ERROR -- " + msg;
@@ -79,5 +83,9 @@ public class ErrorMessage {
 
     public static ErrorMessage wrongNumberOfArguments(int expected, int actual) {
         return new ErrorMessage("Expected " + expected + " arguments but found " + actual);
+    }
+
+    public static ErrorMessage errorsInExpression(Expression exp) {
+        return new ErrorMessage("Errors in Expression: "+exp.toString());
     }
 }

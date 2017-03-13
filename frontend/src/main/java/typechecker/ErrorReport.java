@@ -27,7 +27,7 @@ public class ErrorReport {
     void report(ErrorMessage msg) {
         if (firstError == null)
             firstError = msg;
-        System.out.println(msg);
+//        System.out.println(msg);
     }
 
     /**
@@ -65,5 +65,13 @@ public class ErrorReport {
 
     public void typeError(Expression exp, List<Type> expected, Type actual) {
         report(ErrorMessage.typeError(exp, expected, actual));
+    }
+
+    public void cannotUseArgsInMain(){
+        report(ErrorMessage.cannotUseArgsInMain());
+    }
+
+    public void errorsInExpression(Expression exp) {
+        report(ErrorMessage.errorsInExpression(exp));
     }
 }

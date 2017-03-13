@@ -1,11 +1,9 @@
 package typechecker.implementation;
 
 import ast.*;
-import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
 import typechecker.ErrorReport;
 import util.ImpTable;
 import util.ImpTable.DuplicateException;
-import util.Lookup;
 import util.Pair;
 import visitor.DefaultVisitor;
 
@@ -67,7 +65,6 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         thisMethods = new ImpTable<Type>();
         ct.fields = thisFields;
         ct.methds = thisMethods;
-        //todo do nothing for now.
         n.type = ct;
         def(mainTable,n.className,ct);
         def(classes,n.className,ct);

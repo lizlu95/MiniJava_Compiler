@@ -15,7 +15,7 @@ import java.io.File;
 import static parser.Parser.parseExp;
 
 /**
- * Created by Robin on 3/12/2017.
+ * Created by Robin,Liz on 3/12/2017.
  */
 public class MJTypeCheckTest {
 
@@ -36,6 +36,42 @@ public class MJTypeCheckTest {
                 "\tpublic static void main(String[]args){\n" +
                 "\t\tSystem.out.println(true);\n" +
                 "\t}\n" +
+                "}");
+    }
+
+    @Test
+    public void simplestProgramPossible() throws Exception {
+//        expectError("class Main {\n" +
+//                "\tpublic static void main(String[]args){\n" +
+//                "\t\tSystem.out.println( true );\n" +
+//                "\t}\n" +
+//                "}");
+//        accept("class Main {\n" +
+//                "\tpublic static void main(String[]args){\n" +
+//                "\t\tSystem.out.println( 1 );\n" +
+//                "\t}\n" +
+//                "}");
+        expectError("class Main {\n" +
+                "\tpublic static void main(String[]args){\n" +
+                "\t\t args[0] = 1;\n" +
+                "\t}\n" +
+                "}");
+        expectError("class Main {\n" +
+                "\tpublic static void main(String[]args){\n" +
+                "\t\tSystem.out.println(args);\n" +
+                "\t}\n" +
+                "}\n");
+    }
+
+    @Test
+    public void oneClassNoMethods() throws Exception {
+        accept("class Main {\n" +
+                "\tpublic static void main(String[]args){\n" +
+                "\t\tSystem.out.println(1);\n" +
+                "\t}\n" +
+                "}\n" +
+                "class A {\n" +
+                "\t\n" +
                 "}");
     }
 
@@ -120,9 +156,9 @@ public class MJTypeCheckTest {
             TypeChecker.parseAndCheck(input);
         } catch (TypeCheckerException e) {
             typeCheckError = true;
-//			System.out.println(e.getFirstMessage());
+			System.out.println(e.getFirstMessage());
         } catch (Exception ex) {
-            System.out.println(ex);
+//            System.out.println(ex);
             typeCheckError = false;
         }
 

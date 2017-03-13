@@ -48,6 +48,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
     private ImpTable<Type> thisSuperMethods;
     private ImpTable<Type> thisParams;
     private ImpTable<Type> thisLocals;
+    private String mainClassArgsName;
     private String currClass;
 
     // Lookup a name in the two symbol tables that it might be in
@@ -95,9 +96,12 @@ public class TypeCheckVisitor implements Visitor<Type> {
      */
     private void check(Expression exp, Type expected) {
         Type actual = exp.accept(this);
-        System.out.println(actual);
-        System.out.println(expected);
-        if (!assignableFrom(expected, actual))
+//        System.out.println(actual);
+//        System.out.println(expected);
+        if (actual == null){
+            errors.errorsInExpression(exp);
+        }
+        else if (!assignableFrom(expected, actual))
             errors.typeError(exp, expected, actual);
     }
 
@@ -168,6 +172,12 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(Assign n) {
+        //special case with MainClass
+        if (this.mainClassArgsName != null){
+            if (n.name.equals(this.mainClassArgsName)){
+                errors.cannotUseArgsInMain();
+            }
+        }
         //todo check name is assigned to same type exp or subtype exp
         Type n_type = lookup(n.name.name);
         //look up identifier name, if found
@@ -245,6 +255,15 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(IdentifierExp n) {
+        //special case with MainClass
+        if (this.mainClassArgsName != null){
+//            System.out.println("visiting IdentifierExp: "+n.name);
+            if (n.name.equals(this.mainClassArgsName)){
+//                System.out.println("throwing error now");
+                errors.cannotUseArgsInMain();
+                return null;
+            }
+        }
         Type type = lookup(n.name);
         if(type == null){
             errors.undefinedId(n.name);
@@ -321,7 +340,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(MainClass n) {
         dumpTable(this.mainTable);
+        this.mainClassArgsName = n.argName;
         n.statement.accept(this);
+        this.mainClassArgsName = null;
         return null;
     }
 
@@ -376,6 +397,12 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(ArrayAssign n) {
+        //special case with MainClass
+        if (this.mainClassArgsName != null){
+            if (n.name.equals(this.mainClassArgsName)){
+                errors.cannotUseArgsInMain();
+            }
+        }
         Type tn = lookup(n.name);
         if (tn != null){
             Type tv = n.value.accept(this);
@@ -411,7 +438,6 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(ArrayLength n) {
         check(n.array,new IntArrayType());
-        n.setType(new IntArrayType());
         return n.getType();
     }
 
