@@ -51,6 +51,15 @@ public class TypeCheckVisitor implements Visitor<Type> {
     private String mainClassArgsName;
     private String currClass;
 
+
+    public TypeCheckVisitor(Pair<ImpTable<Type>, ImpTable<Type>> variables, ErrorReport errors) {
+        this.mainTable = variables.first;
+        this.classes = variables.second;
+        this.errors = errors;
+    }
+
+    //// Helpers /////////////////////
+
     // Lookup a name in the two symbol tables that it might be in
     private Type lookup(String name) {
         Type t = null;
@@ -83,13 +92,19 @@ public class TypeCheckVisitor implements Visitor<Type> {
         return t;
     }
 
-    public TypeCheckVisitor(Pair<ImpTable<Type>, ImpTable<Type>> variables, ErrorReport errors) {
-        this.mainTable = variables.first;
-        this.classes = variables.second;
-        this.errors = errors;
+    private Type lookupmore(String var, String cls){
+        Type t = lookup(var);
+        ClassType ct = (ClassType) classes.lookup(cls);
+        if(t!=null) return t;
+        else if(ct!=null) {
+            String ctsuper = ct.superName;
+            ClassType cts = (ClassType) classes.lookup(ctsuper);
+            t = cts.fields.lookup(var);
+            if(t!=null) return t;
+            else return lookupmore(var,ctsuper);
+        } else return null;
     }
 
-    //// Helpers /////////////////////
 
     /**
      * Check whether the type of a particular expression is as expected.
