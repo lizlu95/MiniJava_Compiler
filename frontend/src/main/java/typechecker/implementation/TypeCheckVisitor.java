@@ -176,7 +176,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
             Type v_type = n.value.accept(this);
             //if the types are not equal
 
-            if(!assignableFrom(n_type,v_type) && n_type instanceof ObjectType && v_type instanceof ObjectType){
+            if(!assignableFrom(n_type,v_type) &&
+                    n_type instanceof ObjectType &&
+                    v_type instanceof ObjectType){
                 //cast both to objectType to see if valueType is subclass
                 ObjectType ov_type = (ObjectType)v_type;
                 ObjectType on_type = (ObjectType)n_type;
@@ -184,10 +186,11 @@ public class TypeCheckVisitor implements Visitor<Type> {
                ClassType ovc = (ClassType) classes.lookup(ov_type.name);
                 //if the class name is invalid or superType not equal identifier Type
                 //throw error
-               if(ovc==null || on_type.name != ovc.superName){
-                   throw new Error("Assign type undefined");
+               if(ovc==null){
+                   errors.undefinedId(n.name.name);
+               } else if (on_type.name != ovc.superName) {
+                   errors.typeError(n.name,n_type,v_type);
                }
-
             }
         }
         return null;
@@ -318,7 +321,6 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(MainClass n) {
         dumpTable(this.mainTable);
-//        throw new Error ("Not implemented");
         n.statement.accept(this);
         return null;
     }
@@ -396,7 +398,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         if(n.array instanceof IdentifierExp){
             Type ti = lookup(((IdentifierExp) n.array).name);
             if(ti == null){
-                throw new Error("undefined Identifier");
+                errors.undefinedId(((IdentifierExp) n.array).name);
             }
             check(n.index,new IntegerType());
             n.setType(new IntegerType());
@@ -436,16 +438,16 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(NewObject n) {
-        // check if this object type n.typeName exsits in table as a class
+        // check if this object type n.typeName exists in table as a class
         Type type = classes.lookup(n.typeName);
         if(type == null){
-            throw new Error("invalid type name");
+            errors.undefinedId(n.typeName);
         }
         else{
             n.setType(new ObjectType(n.typeName));
             return n.getType();
         }
-
+        return type;
     }
 
     @Override

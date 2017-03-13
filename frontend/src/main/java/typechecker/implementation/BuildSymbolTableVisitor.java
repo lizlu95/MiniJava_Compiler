@@ -51,9 +51,6 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         n.mainClass.accept(this);//todo
         n.classes.accept(this);//todo
         return new Pair(mainTable,classes);
-//        n.statements.accept(this);
-//        n.print.accept(this); // process all the "normal" classes.
-//        return new Pair(globals,functions);
     }
 
     @Override
@@ -76,13 +73,6 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         def(classes,n.className,ct);
         thisFields = null;
         thisMethods = null;
-//
-//        MethodType mt = new MethodType();
-//        thisParams = new ImpTable<Type>();
-//        thisLocals = null;
-//        mt.params = thisParams;
-//        mt.locals = null;
-        //assume no typecheck is needed
 
         return null;
     }
@@ -90,9 +80,6 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(Assign n) {
         lookup(n.name.name);
-//        ImpTable<Type> t = thisFunction != null ? thisFunction : globals;
-//        def(t, n.name.name, new UnknownType());
-//        n.value.accept(this);
         return null;
     }
 
@@ -102,14 +89,6 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         lookup(n.name);// modified lookup to suit new implementation
         return null;
     }
-
-/*    @Override
-    public Pair<ImpTable<Type>, ImpTable<Type>> visit(Conditional n) {
-        n.e1.accept(this);
-        n.e2.accept(this);
-        n.e3.accept(this);
-        return null;
-    }*/
 
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(BooleanType n) {
@@ -170,22 +149,6 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(UnknownType n) {
         return null;
     }
-
-/*    @Override
-    public Pair<ImpTable<Type>, ImpTable<Type>> visit(FunctionDecl n) {
-        FunctionType ft = new FunctionType();
-        thisFunction = new ImpTable<Type>();
-        ft.locals = thisFunction;
-        ft.formals = n.formals;
-        ft.returnType = n.returnType;
-        n.formals.accept(this);
-        n.statements.accept(this);
-        n.returnExp.accept(this);
-        n.type = ft;
-        def(functions, n.name, ft);
-        thisFunction = null;
-        return null;
-    }*/
 
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(IntArrayType n){
@@ -399,12 +362,6 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
             }
         }
 
-//        if (thisFunction != null) {
-//            t = thisFunction.lookup(name);
-//            if (t != null)
-//                return t;
-//        }
-//        t = globals.lookup(name);
         if (t == null)
             errors.undefinedId(name);
         return t;
@@ -423,7 +380,5 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
             errors.duplicateDefinition(name);
         }
     }
-
-
 
 }

@@ -28,32 +28,59 @@ public class MJTypeCheckTest {
         }
     }
 
+    //INVALID only main with print
+    //can only print integer
     @Test
-    public void simplestProgramPossible() throws Exception {
+    public void badMainWithPrint() throws Exception {
+        expectError("class Main {\n" +
+                "\tpublic static void main(String[]args){\n" +
+                "\t\tSystem.out.println(true);\n" +
+                "\t}\n" +
+                "}");
+    }
+
+    //only main with print
+    @Test
+    public void goodMainWithPrint() throws Exception {
         accept("class Main {\n" +
                 "\tpublic static void main(String[]args){\n" +
-                "\t\tSystem.out.println( true );\n" +
+                "\t\tSystem.out.println(1);\n" +
                 "\t}\n" +
                 "}");
     }
 
     @Test
-    public void simplestProgramPossible() throws Exception {
-        accept("class Main {\n" +
-                "\tpublic static void main(String[]args){\n" +
-                "\t\tSystem.out.println( true );\n" +
+    public void mainWithIf() throws Exception {
+        accept("class Main{\n" +
+                "\tpublic static void main(String[] args) {\n" +
+                "\t\tif(1<2) System.out.println(1);\n" +
+                "\t\telse System.out.println(2);\n" +
                 "\t}\n" +
                 "}");
     }
 
     @Test
-    public void simplestProgramPossible() throws Exception {
-        accept("class Main {\n" +
-                "\tpublic static void main(String[]args){\n" +
-                "\t\tSystem.out.println( true );\n" +
+    public void mainWithWhile() throws Exception {
+        accept("class Main{\n" +
+                "\tpublic static void main(String[] args) {\n" +
+                "\t\twhile(!(3<2)) System.out.println(1);\n" +
                 "\t}\n" +
                 "}");
     }
+
+    @Test
+    public void mainWithMoreStatements() throws Exception {
+        accept("class Main{\n" +
+                "\tpublic static void main(String[] args) {\n" +
+                "\t\t{\n" +
+                "\t\twhile(!(3<2)) System.out.println(2);\n" +
+                "\t\tSystem.out.println(1);\n" +
+                "\t\t}\n" +
+                "\t}\n" +
+                "}");
+    }
+
+
 
     // /////////////////////// Helpers
     // /////////////////////////////////////////////
