@@ -8,6 +8,7 @@ import parser.jcc.ParseException;
 import typechecker.ErrorMessage;
 import typechecker.TypeChecker;
 import typechecker.TypeCheckerException;
+import util.SampleCode;
 
 import java.io.File;
 
@@ -17,9 +18,33 @@ import static parser.Parser.parseExp;
  * Created by Robin on 3/12/2017.
  */
 public class MJTypeCheckTest {
-    ///////////////////////////
-    // minijava
-    //////////////////////////
+
+    @Test
+    public void testSampleCode() throws Exception {
+        File[] sampleFiles = SampleCode.sampleFiles("java");
+        for (int i = 0; i < sampleFiles.length; i++) {
+            System.out.println("parsing: " + sampleFiles[i]);
+            accept(sampleFiles[i]);
+        }
+    }
+
+    @Test
+    public void simplestProgramPossible() throws Exception {
+        accept("class Main {\n" +
+                "\tpublic static void main(String[]args){\n" +
+                "\t\tSystem.out.println( true );\n" +
+                "\t}\n" +
+                "}");
+    }
+
+    @Test
+    public void simplestProgramPossible() throws Exception {
+        accept("class Main {\n" +
+                "\tpublic static void main(String[]args){\n" +
+                "\t\tSystem.out.println( true );\n" +
+                "\t}\n" +
+                "}");
+    }
 
     @Test
     public void simplestProgramPossible() throws Exception {

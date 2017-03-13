@@ -162,12 +162,6 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(Print n) {
         /*minijava only prints integer types*/
         check(n.exp,new IntegerType());
-//        if (!assignableFrom(new IntegerType(), actual) && !assignableFrom(new BooleanType(), actual)) {
-//            List<Type> l = new ArrayList<Type>();
-//            l.add(new IntegerType());
-//            l.add(new BooleanType());
-//            errors.typeError(n.exp, l, actual);
-//        }
         return null;
     }
 
@@ -195,13 +189,6 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
             }
         }
-//        boolean isLocal = thisFunction != null && thisFunction.lookup(n.name.name) != null;
-//        Type expressionType = n.value.accept(this);
-//        if (isLocal) {
-//            thisFunction.set(n.name.name, expressionType);
-//        } else {
-//            globals.set(n.name.name, expressionType);
-//        }
         return null;
     }
 
@@ -256,19 +243,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(IdentifierExp n) {
         Type type = lookup(n.name);
         if(type == null){
-            throw new Error("undefined identifier");
+            errors.undefinedId(n.name);
         }
         return type;
-//        List<Type> l = new ArrayList<Type>();
-//        Type type = lookup(n.name);
-//        if (type == null)
-//            type = new UnknownType();
-//        if (type instanceof FunctionType) {
-//            l.add(new IntegerType());
-//            l.add(new BooleanType());
-//            errors.typeError(n, l, type);
-//        }
-//        return type;
     }
 
     @Override

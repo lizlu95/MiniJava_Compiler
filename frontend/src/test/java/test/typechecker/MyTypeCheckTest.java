@@ -54,20 +54,6 @@ public class MyTypeCheckTest {
         }
     }
 
-    ///////////////////////////
-    // minijava
-    //////////////////////////
-
-    @Test
-    public void simplestProgramPossible() throws Exception {
-        accept("class Main {\n" +
-                "\tpublic static void main(String[]args){\n" +
-                "\t\tSystem.out.println( true );\n" +
-                "\t}\n" +
-                "}");
-    }
-
-
 
     @Test
     public void badFunctionDeclaration() throws Exception {
