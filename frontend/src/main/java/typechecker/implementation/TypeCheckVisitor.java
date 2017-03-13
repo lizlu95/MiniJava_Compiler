@@ -51,6 +51,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
     private String mainClassArgsName;
     private String currClass;
 
+    //lookup
+
+
     // Lookup a name in the two symbol tables that it might be in
     private Type lookup(String name) {
         Type t = null;
@@ -307,34 +310,39 @@ public class TypeCheckVisitor implements Visitor<Type> {
         // get resultType
         //
         //n.receiver has type c, then look up method defination in class C
-        Expression e = n.name;
-        FunctionType ft = null;
-        String functionName = "unknown";
-        if (e instanceof IdentifierExp)
-            functionName = ((IdentifierExp) e).name;
-        Type t = functions.lookup(functionName);
-        if (t == null) {
-            errors.undefinedId(functionName);
+        Expression name = n.name;
+        Expression recv = n.receiver;
+        MethodType mt = null;
+        String methodName = "unknown";
+        String className = "unknown";
+        if (!(name instanceof IdentifierExp)) {
+            errors.errorsInExpression(name);
             n.setType(new UnknownType());
-        } else if (!(t instanceof FunctionType)) {
-            errors.typeError(n, new FunctionType(), t);
-            n.setType(new UnknownType());
-        } else {
-            ft = (FunctionType) t;
-            n.setType(ft.returnType);
         }
-        // Check number and types of arguments
+        methodName = ((IdentifierExp) name).name;
+        ObjectType recob = (ObjectType) recv.accept(this);
+        className = recob.name;
+        //lookup classType from classes with className
+        ClassType ct = (ClassType) classes.lookup(className);
+        if(ct == null){
+            errors.undefinedId(className);
+        }
+        MethodType mtd = (MethodType) ct.methds.lookup(methodName);
+        if(mtd == null){
+            errors.undefinedId(methodName);
+        }
 
-        if (ft != null) {
-            if (n.rands.size() != ft.formals.size()) {
-                errors.wrongNumberOfArguments(ft.formals.size(), n.rands.size());
-            }
-            for (int i = 0; i < n.rands.size(); ++i) {
-                if (i < ft.formals.size()) {
-                    Expression actual = n.rands.elementAt(i);
-                    Type formal = ft.formals.elementAt(i).type;
-                    check(actual, formal);
-                }
+        n.setType(mtd.returnType);
+
+        // check formal numbers and formal types
+        if (n.rands.size() != mtd.formals.size()) {
+            errors.wrongNumberOfArguments(mtd.formals.size(), n.rands.size());
+        }
+        for (int i = 0; i < n.rands.size(); ++i) {
+            if (i < mtd.formals.size()) {
+                Expression actual = n.rands.elementAt(i);
+                Type formal = mtd.formals.elementAt(i).type;
+                check(actual, formal);
             }
         }
         return n.getType();
@@ -505,7 +513,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
             n.setType(new ObjectType(n.typeName));
             return n.getType();
         }
-        return type;
+        return new ObjectType(n.typeName);
     }
 
     @Override
