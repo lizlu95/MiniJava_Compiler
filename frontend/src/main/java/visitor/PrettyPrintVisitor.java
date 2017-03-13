@@ -422,21 +422,35 @@ public class PrettyPrintVisitor implements Visitor<Void> {
 
     @Override
     public Void visit(ClassType classType) {
+        out.indent();
         out.println("\nclass fields table: ");
         StringWriter out_inner = new StringWriter();
         classType.fields.dump(new IndentingWriter(out_inner));
-        out.println(out_inner.toString());
-
+        out.println(out_inner);
+        out.outdent();
         out.println("class methods table: ");
+        out.indent();
         out_inner = new StringWriter();
-        classType.fields.dump(new IndentingWriter(out_inner));
+        classType.methds.dump(new IndentingWriter(out_inner));
         out.println(out_inner.toString());
-
+        out.outdent();
         return null;
     }
 
     @Override
-    public Void visit(MethodType methodType) {
-        throw new Error("Not implemented");
+    public Void visit(MethodType mt) {
+        out.println("Method local table: ");
+        out.indent();
+        StringWriter out_inner = new StringWriter();
+        mt.locals.dump(new IndentingWriter(out_inner));
+        out.println(out_inner.toString());
+        out.outdent();
+        out.println("Method param table: ");
+        out.indent();
+        out_inner = new StringWriter();
+        mt.params.dump(new IndentingWriter(out_inner));
+        out.println(out_inner.toString());
+        out.outdent();
+        return null;
     }
 }

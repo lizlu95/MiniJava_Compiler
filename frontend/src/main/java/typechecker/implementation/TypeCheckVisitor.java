@@ -172,6 +172,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(Assign n) {
+        System.out.println("I'm in Assign, trying to find the variable: "+n.name);
         //special case with MainClass
         if (this.mainClassArgsName != null){
             if (n.name.equals(this.mainClassArgsName)){
@@ -180,6 +181,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         }
         //todo check name is assigned to same type exp or subtype exp
         Type n_type = lookup(n.name.name);
+        System.out.println("Type of above is: "+n_type);
         //look up identifier name, if found
         if(n_type != null){
             //get type of n.value
@@ -350,18 +352,26 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(ClassDecl n) {
         dumpTable(this.classes);
         currClass = n.name;
+        this.thisFields = n.type.fields;
+        this.thisMethods = n.type.methds;
         n.vars.accept(this);
         n.methods.accept(this);
+        this.thisFields = null;
+        this.thisMethods = null;
         currClass = null;
         return null;
     }
 
     @Override
     public Type visit(MethodDecl n) {
+        this.thisParams = n.type.params;
+        this.thisLocals = n.type.locals;
         n.formals.accept(this);
         n.vars.accept(this);
         n.statements.accept(this);
         check(n.returnExp,n.returnType);
+        this.thisParams = null;
+        this.thisLocals = null;
         return null;
     }
 
