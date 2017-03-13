@@ -59,6 +59,17 @@ public class MyTypeCheckTest {
     //////////////////////////
 
     @Test
+    public void simplestProgramPossible() throws Exception {
+        accept("class Main {\n" +
+                "\tpublic static void main(String[]args){\n" +
+                "\t\tSystem.out.println( true );\n" +
+                "\t}\n" +
+                "}");
+    }
+
+
+
+    @Test
     public void badFunctionDeclaration() throws Exception {
         expect(typeError("1 < 2", new IntegerType(), new BooleanType()),
                 progWithFunc("int x() { return 1 < 2; }"));

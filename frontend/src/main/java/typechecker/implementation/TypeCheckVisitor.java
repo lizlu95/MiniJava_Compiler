@@ -3,11 +3,11 @@ package typechecker.implementation;
 import ast.*;
 import typechecker.ErrorReport;
 import util.ImpTable;
+import util.IndentingWriter;
 import util.Pair;
 import visitor.Visitor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.StringWriter;
 
 
 /**
@@ -94,6 +94,8 @@ public class TypeCheckVisitor implements Visitor<Type> {
      */
     private void check(Expression exp, Type expected) {
         Type actual = exp.accept(this);
+        System.out.println(actual);
+        System.out.println(expected);
         if (!assignableFrom(expected, actual))
             errors.typeError(exp, expected, actual);
     }
@@ -108,6 +110,14 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     private boolean assignableFrom(Type varType, Type valueType) {
         return varType.equals(valueType);
+    }
+
+    private void dumpTable(ImpTable<Type> table){
+        System.out.println("====================");
+        StringWriter out = new StringWriter();
+        table.dump(new IndentingWriter(out));
+        System.out.println(out.toString());
+        System.out.println("====================");
     }
 
     ///////// Visitor implementation //////////////////////////////////////
@@ -329,18 +339,20 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(MainClass n) {
-        // todo do nothing for now since
+        dumpTable(this.mainTable);
+//        throw new Error ("Not implemented");
+        n.statement.accept(this);
         return null;
     }
 
     @Override
     public Type visit(ClassDecl n) {
-        return null;
+        throw new Error ("Not implemented");
     }
 
     @Override
     public Type visit(MethodDecl n) {
-        return null;
+        throw new Error ("Not implemented");
     }
 
     @Override
@@ -401,36 +413,45 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(ArrayLength n) {
-        throw new Error("Not implemented");
+        check(n.array,new IntArrayType());
+        n.setType(new IntArrayType());
+        return n.getType();
     }
 
     @Override
     public Type visit(BooleanLiteral n) {
-        throw new Error("Not implemented");
+        n.setType(new BooleanType());
+        return n.getType();
     }
 
     @Override
     public Type visit(This n) {
-        throw new Error("Not implemented");
+        //TODO need to somehow get the name of "this" class
+        n.setType(new ObjectType("a"));
+        return n.getType();
     }
 
     @Override
     public Type visit(NewArray n) {
-        throw new Error("Not implemented");
+        check(n.size,new IntegerType());
+        n.setType(new IntArrayType());
+        return n.getType();
     }
 
     @Override
     public Type visit(NewObject n) {
-        throw new Error("Not implemented");
+        //TODO check if this object type n.typeName exsits in table as a class
+        n.setType(new ObjectType(n.typeName));
+        return n.getType();
     }
 
     @Override
     public Type visit(ClassType classType) {
-        throw new Error("Not implemented");
+        return null;
     }
 
     @Override
     public Type visit(MethodType methodType) {
-        throw new Error("Not implemented");
+        return null;
     }
 }

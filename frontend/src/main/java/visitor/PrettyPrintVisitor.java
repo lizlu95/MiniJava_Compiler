@@ -4,6 +4,7 @@ import ast.*;
 import util.IndentingWriter;
 
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 
 /**
@@ -421,7 +422,17 @@ public class PrettyPrintVisitor implements Visitor<Void> {
 
     @Override
     public Void visit(ClassType classType) {
-        throw new Error("Not implemented");
+        out.println("\nclass fields table: ");
+        StringWriter out_inner = new StringWriter();
+        classType.fields.dump(new IndentingWriter(out_inner));
+        out.println(out_inner.toString());
+
+        out.println("class methods table: ");
+        out_inner = new StringWriter();
+        classType.fields.dump(new IndentingWriter(out_inner));
+        out.println(out_inner.toString());
+
+        return null;
     }
 
     @Override

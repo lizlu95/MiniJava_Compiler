@@ -42,6 +42,7 @@ public class ImpTable<V> extends DefaultIndentable
      * thrown.
      * <p>
      * Note: the name "put" different from the name "insert" in the
+
      * FunTable is deliberate. This will make sure you get compile
      * errors when you try to change code using imperative puts
      * to use functional inserts instead.
