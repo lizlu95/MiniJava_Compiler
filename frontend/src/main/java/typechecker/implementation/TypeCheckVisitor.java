@@ -96,8 +96,8 @@ public class TypeCheckVisitor implements Visitor<Type> {
      */
     private void check(Expression exp, Type expected) {
         Type actual = exp.accept(this);
-//        System.out.println(actual);
-//        System.out.println(expected);
+        System.out.println(actual);
+        System.out.println(expected);
         if (actual == null){
             errors.errorsInExpression(exp);
         }
@@ -114,7 +114,13 @@ public class TypeCheckVisitor implements Visitor<Type> {
     }
 
     private boolean assignableFrom(Type varType, Type valueType) {
-        return varType.equals(valueType);
+        if (varType == null || valueType == null) {
+            errors.assignableFromError(varType,valueType);
+        }
+        else {
+            return varType.equals(valueType);
+        }
+        return false; //placeholder by this time it will be an error in errors and therefore error will be thrown instead
     }
 
     private void dumpTable(ImpTable<Type> table){
@@ -409,17 +415,31 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(ArrayAssign n) {
         //special case with MainClass
+        System.out.println("special case: "+this.mainClassArgsName + " "+n.name);
         if (this.mainClassArgsName != null){
             if (n.name.equals(this.mainClassArgsName)){
+                System.out.println("throwing error!");
                 errors.cannotUseArgsInMain();
             }
         }
+//        System.out.println("in ArrayAssign trying to assign to variable: "+n.name);
         Type tn = lookup(n.name);
-        if (tn != null){
-            Type tv = n.value.accept(this);
-            check(n.value,tn,tv);
+        System.out.println("Found variable type to be: "+tn);
+        if (! assignableFrom(tn,new IntArrayType())){
+            errors.typeError(n.name,new IntArrayType(),tn);
         }
-        check(n.index, new IntegerType());
+        Type tv = n.value.accept(this);
+//        System.out.println("Found value type to be: "+tv);
+        if (! assignableFrom(tv,new IntegerType())){
+            errors.typeError(n.value,new IntegerType(),tv);
+        }
+//        System.out.println("finished checking n.value type");
+//        check(n.index, new IntegerType());
+        Type ti = n.index.accept(this);
+        if (! assignableFrom(ti,new IntegerType())){
+            errors.typeError(n.index,new IntegerType(),ti);
+        }
+//        System.out.println("finished array assign");
         return null;
     }
 
@@ -433,6 +453,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(ArrayLookup n) {
+        System.out.println("In ArrayLookup: "+n.array);
         if(n.array instanceof IdentifierExp){
             Type ti = lookup(((IdentifierExp) n.array).name);
             if(ti == null){

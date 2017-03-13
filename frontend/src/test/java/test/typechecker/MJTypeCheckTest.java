@@ -151,48 +151,48 @@ public class MJTypeCheckTest {
                 "\t\treturn x;\n" +
                 "\t}\n" +
                 "}\n");
-        //two methods with call
-        accept("class Main{\n" +
-                "\tpublic static void main(String[] args) {\n" +
-                "\t\tSystem.out.println(1);\n" +
-                "\t}\n" +
-                "}\n" +
-                "class A{\n" +
-                "\tint x;\n" +
-                "\tboolean y;\n" +
-                "\tint[] a;\n" +
-                "\tpublic int foo(int x1,boolean y1){\n" +
-                "\t\tx = x1;\n" +
-                "\t\ty = y1;\n" +
-                "\t\treturn x;\n" +
-                "\t}\n" +
-                "\tpublic boolean bar(int x){\n" +
-                "\t\tif(this.foo(3,4)<3)\n" +
-                "\t\t\ty=true;\n" +
-                "\t\telse y=false;\n" +
-                "\t\treturn y;\n" +
-                "\t}\n" +
-                "}");
-        //overloading
-        expectError("class Main{\n" +
-                "\tpublic static void main(String[] args) {\n" +
-                "\t\tSystem.out.println(1);\n" +
-                "\t}\n" +
-                "}\n" +
-                "class A(){\n" +
-                "\tint x;\n" +
-                "\tboolean y;\n" +
-                "\tint[] a;\n" +
-                "\tpublic int foo(int x1,boolean y1){\n" +
-                "\t\tx = x1;\n" +
-                "\t\ty = y1;\n" +
-                "\t\treturn x;\n" +
-                "\t}\n" +
-                "\tpublic int foo(int x1){\n" +
-                "\t\tx = x1;\n" +
-                "\t\treturn y;\n" +
-                "\t}\n" +
-                "}");
+//        //two methods with call
+//        accept("class Main{\n" +
+//                "\tpublic static void main(String[] args) {\n" +
+//                "\t\tSystem.out.println(1);\n" +
+//                "\t}\n" +
+//                "}\n" +
+//                "class A{\n" +
+//                "\tint x;\n" +
+//                "\tboolean y;\n" +
+//                "\tint[] a;\n" +
+//                "\tpublic int foo(int x1,boolean y1){\n" +
+//                "\t\tx = x1;\n" +
+//                "\t\ty = y1;\n" +
+//                "\t\treturn x;\n" +
+//                "\t}\n" +
+//                "\tpublic boolean bar(int x){\n" +
+//                "\t\tif(this.foo(3,4)<3)\n" +
+//                "\t\t\ty=true;\n" +
+//                "\t\telse y=false;\n" +
+//                "\t\treturn y;\n" +
+//                "\t}\n" +
+//                "}");
+//        //overloading
+//        expectError("class Main{\n" +
+//                "\tpublic static void main(String[] args) {\n" +
+//                "\t\tSystem.out.println(1);\n" +
+//                "\t}\n" +
+//                "}\n" +
+//                "class A(){\n" +
+//                "\tint x;\n" +
+//                "\tboolean y;\n" +
+//                "\tint[] a;\n" +
+//                "\tpublic int foo(int x1,boolean y1){\n" +
+//                "\t\tx = x1;\n" +
+//                "\t\ty = y1;\n" +
+//                "\t\treturn x;\n" +
+//                "\t}\n" +
+//                "\tpublic int foo(int x1){\n" +
+//                "\t\tx = x1;\n" +
+//                "\t\treturn y;\n" +
+//                "\t}\n" +
+//                "}");
     }
 
     //two classes with methods

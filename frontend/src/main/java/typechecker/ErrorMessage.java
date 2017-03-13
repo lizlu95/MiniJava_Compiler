@@ -88,4 +88,12 @@ public class ErrorMessage {
     public static ErrorMessage errorsInExpression(Expression exp) {
         return new ErrorMessage("Errors in Expression: "+exp.toString());
     }
+
+    public static ErrorMessage typeError(String name, Type expcted, Type actual) {
+        return new ErrorMessage(name+" has type " +actual+" , expected "+expcted);
+    }
+
+    public static ErrorMessage assignableFromError(Type varType, Type valueType) {
+        return new ErrorMessage("Cannot check assign because one of the following is null: "+varType+", "+valueType);
+    }
 }
