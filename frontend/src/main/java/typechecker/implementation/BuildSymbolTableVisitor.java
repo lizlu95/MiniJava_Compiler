@@ -103,13 +103,13 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         return null;
     }
 
-    @Override
+/*    @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(Conditional n) {
         n.e1.accept(this);
         n.e2.accept(this);
         n.e3.accept(this);
         return null;
-    }
+    }*/
 
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(BooleanType n) {
@@ -171,7 +171,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         return null;
     }
 
-    @Override
+/*    @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(FunctionDecl n) {
         FunctionType ft = new FunctionType();
         thisFunction = new ImpTable<Type>();
@@ -185,7 +185,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         def(functions, n.name, ft);
         thisFunction = null;
         return null;
-    }
+    }*/
 
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(IntArrayType n){
@@ -275,22 +275,22 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
             if(thisFields != null) {
                 def(thisFields, n.name, n.type);
             }
-            else{throw  new Error("no class field table allocated");}
+            else{errors.undefinedId(n.name);}
         }
         else if(kind == VarDecl.Kind.FORMAL){
             if(thisParams != null) {
                 def(thisParams, n.name, n.type);
             }
-            else{throw  new Error("no class formal table allocated");}
+            else{errors.undefinedId(n.name);}
         }
         else if(kind == VarDecl.Kind.LOCAL){
             if(thisLocals != null) {
                 def(thisLocals, n.name, n.type);
             }
-            else{throw  new Error("no class field table allocated");}
+            else{errors.undefinedId(n.name);}
         }
         else{
-            throw new Error("variable kind invalid");
+            errors.undefinedId(n.name);
         }
 
         return null;
@@ -334,7 +334,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
                 thisSuperMethods = sct.methds;
             }
             else{
-                throw new Error("super class not found");
+                errors.undefinedId(n.superName);
             }
         }
         //todo maybe need fields inside classtype
