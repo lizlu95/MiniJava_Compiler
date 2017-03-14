@@ -179,7 +179,7 @@ public class MJTypeCheckTest {
                 "\t\tSystem.out.println(1);\n" +
                 "\t}\n" +
                 "}\n" +
-                "class A(){\n" +
+                "class A{\n" +
                 "\tint x;\n" +
                 "\tboolean y;\n" +
                 "\tint[] a;\n" +
@@ -188,7 +188,7 @@ public class MJTypeCheckTest {
                 "\t\ty = y1;\n" +
                 "\t\treturn x;\n" +
                 "\t}\n" +
-                "\tpublic int foo(int x1){\n" +
+                "\tpublic boolean foo(int x1){\n" +
                 "\t\tx = x1;\n" +
                 "\t\treturn y;\n" +
                 "\t}\n" +

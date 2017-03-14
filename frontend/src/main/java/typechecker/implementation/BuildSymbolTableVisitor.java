@@ -1,6 +1,7 @@
 package typechecker.implementation;
 
 import ast.*;
+import typechecker.ErrorMessage;
 import typechecker.ErrorReport;
 import util.ImpTable;
 import util.ImpTable.DuplicateException;
@@ -332,43 +333,13 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         n.returnExp.accept(this);
         n.type = mt;
         def(thisMethods,n.name,mt);
-        dumpTable(thisMethods);
+        //dumpTable(thisMethods);
         thisParams = null;
         thisLocals = null;
         thisVarDecls = null;
         return null;
     }
     ///////////////////// Helpers ///////////////////////////////////////////////
-    // Lookup a name in the two symbol tables that it might be in
-/*    private Type lookup(String name) {
-        Type t = null;
-        if(thisLocals != null){
-            t = thisLocals.lookup(name);
-            if(t!= null){
-                return t;
-            }
-        }
-        if(thisParams != null){
-            t = thisParams.lookup(name);
-            if(t!= null){
-                return t;
-            }
-        }
-        if(thisFields != null){
-            t = thisFields.lookup(name);
-            if(t!= null){
-                return t;
-            }
-        }
-        if(thisSuperFields != null){
-            t = thisSuperFields.lookup(name);
-            if(t!= null){
-                return t;
-            }
-        }
-
-        return t;
-    }*/
 
 
     /**
@@ -379,7 +350,6 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
     private <V> void def(ImpTable<V> tab, String name, V value) {
         try {
             tab.put(name, value);
-            System.out.println("what did u put "+ name);
         } catch (DuplicateException e) {
             errors.duplicateDefinition(name);
         }

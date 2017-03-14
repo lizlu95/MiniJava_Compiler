@@ -34,9 +34,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
     /**
      * The symbol table from Phase 1.
      */
-//    private ImpTable<Type> globals;
-//    private ImpTable<Type> functions;
-//    private ImpTable<Type> thisFunction;
+
     private final ImpTable<Type> globals = null;
     private final ImpTable<Type> functions = null;
     private final ImpTable<Type> mainTable;
@@ -104,8 +102,8 @@ public class TypeCheckVisitor implements Visitor<Type> {
      */
     private void check(Expression exp, Type expected) {
         Type actual = exp.accept(this);
-        System.out.println(actual);
-        System.out.println(expected);
+/*        System.out.println(actual);
+        System.out.println(expected);*/
         if (actual == null){
             errors.errorsInExpression(exp);
         }
@@ -186,7 +184,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(Assign n) {
-        System.out.println("I'm in Assign, trying to find the variable: "+n.name);
+        //System.out.println("I'm in Assign, trying to find the variable: "+n.name);
         //special case with MainClass
         if (this.mainClassArgsName != null){
             if (n.name.equals(this.mainClassArgsName)){
@@ -197,7 +195,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         ImpTable<Type> tf = thisFields;
         Type n_type = lookupmore(n.name.name,currClass);
         thisFields = tf;
-        System.out.println("Type of above is: "+n_type);
+        //System.out.println("Type of above is: "+n_type);
         //look up identifier name, if found
         if(n_type != null){
             //get type of n.value
@@ -370,7 +368,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(ClassDecl n) {
-        dumpTable(this.classes);
+        //dumpTable(this.classes);
         currClass = n.name;
         this.thisFields = n.type.fields;
         this.thisMethods = n.type.methds;
@@ -440,7 +438,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         ImpTable<Type> tf = thisFields;
         Type tn = lookupmore(n.name,currClass);
         thisFields = tf;
-        System.out.println("Found variable type to be: "+tn);
+        //System.out.println("Found variable type to be: "+tn);
         if (! assignableFrom(tn,new IntArrayType())){
             errors.typeError(n.name,new IntArrayType(),tn);
         }
@@ -468,24 +466,17 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(ArrayLookup n) {
-        System.out.println("In ArrayLookup: "+n.array);
-        if(n.array instanceof IdentifierExp){
-            ImpTable<Type> tf = thisFields;
-            Type t = lookupmore(((IdentifierExp) n.array).name,currClass);
-            thisFields = tf;
-            check(n.index,new IntegerType());
-            n.setType(new IntegerType());
-            return n.getType();
-        }
-
-        return null;
+        //System.out.println("In ArrayLookup: "+n.array);
+        check(n.index,new IntegerType());
+        n.setType(new IntegerType());
+        return new IntegerType();
     }
 
     @Override
     public Type visit(ArrayLength n) {
         check(n.array,new IntArrayType());
         n.setType(new IntegerType());
-        return n.getType();
+        return new IntegerType();
     }
 
     @Override
@@ -497,14 +488,14 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(This n) {
         //need to somehow get the name of "this" class
         n.setType(new ObjectType(currClass));
-        return n.getType();
+        return new ObjectType(currClass);
     }
 
     @Override
     public Type visit(NewArray n) {
         check(n.size,new IntegerType());
         n.setType(new IntArrayType());
-        return n.getType();
+        return new IntArrayType();
     }
 
     @Override
@@ -516,7 +507,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         }
         else{
             n.setType(new ObjectType(n.typeName));
-            return n.getType();
+            return new ObjectType(n.typeName);
         }
         return new ObjectType(n.typeName);
     }
