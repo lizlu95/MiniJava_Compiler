@@ -151,48 +151,48 @@ public class MJTypeCheckTest {
                 "\t\treturn x;\n" +
                 "\t}\n" +
                 "}\n");
-//        //two methods with call
-//        accept("class Main{\n" +
-//                "\tpublic static void main(String[] args) {\n" +
-//                "\t\tSystem.out.println(1);\n" +
-//                "\t}\n" +
-//                "}\n" +
-//                "class A{\n" +
-//                "\tint x;\n" +
-//                "\tboolean y;\n" +
-//                "\tint[] a;\n" +
-//                "\tpublic int foo(int x1,boolean y1){\n" +
-//                "\t\tx = x1;\n" +
-//                "\t\ty = y1;\n" +
-//                "\t\treturn x;\n" +
-//                "\t}\n" +
-//                "\tpublic boolean bar(int x){\n" +
-//                "\t\tif(this.foo(3,4)<3)\n" +
-//                "\t\t\ty=true;\n" +
-//                "\t\telse y=false;\n" +
-//                "\t\treturn y;\n" +
-//                "\t}\n" +
-//                "}");
-//        //overloading
-//        expectError("class Main{\n" +
-//                "\tpublic static void main(String[] args) {\n" +
-//                "\t\tSystem.out.println(1);\n" +
-//                "\t}\n" +
-//                "}\n" +
-//                "class A(){\n" +
-//                "\tint x;\n" +
-//                "\tboolean y;\n" +
-//                "\tint[] a;\n" +
-//                "\tpublic int foo(int x1,boolean y1){\n" +
-//                "\t\tx = x1;\n" +
-//                "\t\ty = y1;\n" +
-//                "\t\treturn x;\n" +
-//                "\t}\n" +
-//                "\tpublic int foo(int x1){\n" +
-//                "\t\tx = x1;\n" +
-//                "\t\treturn y;\n" +
-//                "\t}\n" +
-//                "}");
+        //two methods with call
+        accept("class Main{\n" +
+                "\tpublic static void main(String[] args) {\n" +
+                "\t\tSystem.out.println(1);\n" +
+                "\t}\n" +
+                "}\n" +
+                "class A{\n" +
+                "\tint x;\n" +
+                "\tboolean y;\n" +
+                "\tint[] a;\n" +
+                "\tpublic int foo(int x1,boolean y1){\n" +
+                "\t\tx = x1;\n" +
+                "\t\ty = y1;\n" +
+                "\t\treturn x;\n" +
+                "\t}\n" +
+                "\tpublic boolean bar(int x){\n" +
+                "\t\tif(this.foo(3,true)<3)\n" +
+                "\t\t\ty=true;\n" +
+                "\t\telse y=false;\n" +
+                "\t\treturn y;\n" +
+                "\t}\n" +
+                "}");
+        //overloading
+        expectError("class Main{\n" +
+                "\tpublic static void main(String[] args) {\n" +
+                "\t\tSystem.out.println(1);\n" +
+                "\t}\n" +
+                "}\n" +
+                "class A(){\n" +
+                "\tint x;\n" +
+                "\tboolean y;\n" +
+                "\tint[] a;\n" +
+                "\tpublic int foo(int x1,boolean y1){\n" +
+                "\t\tx = x1;\n" +
+                "\t\ty = y1;\n" +
+                "\t\treturn x;\n" +
+                "\t}\n" +
+                "\tpublic int foo(int x1){\n" +
+                "\t\tx = x1;\n" +
+                "\t\treturn y;\n" +
+                "\t}\n" +
+                "}");
     }
 
     //two classes with methods
@@ -216,76 +216,98 @@ public class MJTypeCheckTest {
                 "}\n" +
                 "class B{\n" +
                 "\tA a;\n" +
+                "\tboolean y;\n" +
                 "\tpublic int foo(int x1,boolean y1){\n" +
                 "\t\ta = new A();\n" +
                 "\t\treturn a.foo(x1,y1);\n" +
                 "\t}\n" +
                 "\tpublic boolean bar(int x){\n" +
-                "\t\tif(this.foo(3,4)<3)\n" +
+                "\t\tif(this.foo(3,true)<3)\n" +
                 "\t\t\ty=true;\n" +
                 "\t\telse y=false;\n" +
                 "\t\treturn y;\n" +
                 "\t}\n" +
                 "}");
-//        //with extends and override
-//        accept("class Main{\n" +
-//                "\tpublic static void main(String[] args) {\n" +
-//                "\t\tSystem.out.println(1);\n" +
-//                "\t}\n" +
-//                "}\n" +
-//                "class A{\n" +
-//                "\tint x;\n" +
-//                "\tboolean y;\n" +
-//                "\tint[] a;\n" +
-//                "\tpublic int foo(int x1,boolean y1){\n" +
-//                "\t\tx = x1;\n" +
-//                "\t\ty = y1;\n" +
-//                "\t\treturn x;\n" +
-//                "\t}\n" +
-//                "}\n" +
-//                "class B extends A{\n" +
-//                "\tA a;\n" +
-//                "\tpublic int foo(int x1,boolean y1){\n" +
-//                "\t\treturn x1;\n" +
-//                "\t}\n" +
-//                "\tpublic boolean bar(int x){\n" +
-//                "\t\t{\n" +
-//                "\t\t\ta = new B();\n" +
-//                "\t\t\tif(a.foo(3,4)<3)\n" +
-//                "\t\t\t\ty=true;\n" +
-//                "\t\t\telse y=false;\n" +
-//                "\t\t}\n" +
-//                "\t\treturn y;\n" +
-//                "\t}\n" +
-//                "}");
-//        //with extends no override
-//        accept("class Main{\n" +
-//                "\tpublic static void main(String[] args) {\n" +
-//                "\t\tSystem.out.println(1);\n" +
-//                "\t}\n" +
-//                "}\n" +
-//                "class A{\n" +
-//                "\tint x;\n" +
-//                "\tboolean y;\n" +
-//                "\tint[] a;\n" +
-//                "\tpublic int foo(int x1,boolean y1){\n" +
-//                "\t\tx = x1;\n" +
-//                "\t\ty = y1;\n" +
-//                "\t\treturn x;\n" +
-//                "\t}\n" +
-//                "}\n" +
-//                "class B extends A{\n" +
-//                "\tA a;\n" +
-//                "\tpublic boolean bar(int x){\n" +
-//                "\t\t{\n" +
-//                "\t\t\ta = new B();\n" +
-//                "\t\t\tif(a.foo(3,4)<3)\n" +
-//                "\t\t\t\ty=true;\n" +
-//                "\t\t\telse y=false;\n" +
-//                "\t\t}\n" +
-//                "\t\treturn y;\n" +
-//                "\t}\n" +
-//                "}");
+        //with extends and override
+        accept("class Main{\n" +
+                "\tpublic static void main(String[] args) {\n" +
+                "\t\tSystem.out.println(1);\n" +
+                "\t}\n" +
+                "}\n" +
+                "class A{\n" +
+                "\tint x;\n" +
+                "\tboolean y;\n" +
+                "\tint[] a;\n" +
+                "\tpublic int foo(int x1,boolean y1){\n" +
+                "\t\tx = x1;\n" +
+                "\t\ty = y1;\n" +
+                "\t\treturn x;\n" +
+                "\t}\n" +
+                "}\n" +
+                "class B extends A{\n" +
+                "\tA a;\n" +
+                "\tpublic int foo(int x1,boolean y1){\n" +
+                "\t\treturn x1;\n" +
+                "\t}\n" +
+                "\tpublic boolean bar(int x){\n" +
+                "\t\t{\n" +
+                "\t\t\ta = new B();\n" +
+                "\t\t\tif(a.foo(3,true)<3)\n" +
+                "\t\t\t\ty=true;\n" +
+                "\t\t\telse y=false;\n" +
+                "\t\t}\n" +
+                "\t\treturn y;\n" +
+                "\t}\n" +
+                "}");
+        //with extends no override
+        accept("class Main{\n" +
+                "\tpublic static void main(String[] args) {\n" +
+                "\t\tSystem.out.println(1);\n" +
+                "\t}\n" +
+                "}\n" +
+                "class A{\n" +
+                "\tint x;\n" +
+                "\tboolean y;\n" +
+                "\tint[] a;\n" +
+                "\tpublic int foo(int x1,boolean y1){\n" +
+                "\t\tx = x1;\n" +
+                "\t\ty = y1;\n" +
+                "\t\treturn x;\n" +
+                "\t}\n" +
+                "}\n" +
+                "class B extends A{\n" +
+                "\tA a;\n" +
+                "\tpublic boolean bar(int x){\n" +
+                "\t\t{\n" +
+                "\t\t\ta = new B();\n" +
+                "\t\t\tif(a.foo(3,true)<3)\n" +
+                "\t\t\t\ty=true;\n" +
+                "\t\t\telse y=false;\n" +
+                "\t\t}\n" +
+                "\t\treturn y;\n" +
+                "\t}\n" +
+                "}");
+    }
+
+    @Test
+    public void multipleExtends() throws Exception {
+        accept("class Main{\n" +
+                "\tpublic static void main(String[] args) {\n" +
+                "\t\tSystem.out.println(new C().c());\n" +
+                "\t}\n" +
+                "}\n" +
+                "class A{\n" +
+                "\tint x;\n" +
+                "}\n" +
+                "class B extends A{\n" +
+
+                "}\n" +
+                "class C extends B{\n" +
+                "\tpublic int c(){\n" +
+                "\t\tx=3;\n" +
+                "\t\treturn x;\n" +
+                "\t}\n" +
+                "}");
     }
 
     // /////////////////////// Helpers

@@ -80,28 +80,22 @@ public class TypeCheckVisitor implements Visitor<Type> {
                 return t;
             }
         }
-        if(thisSuperFields != null){
-            t = thisSuperFields.lookup(name);
-            if(t!= null){
-                return t;
-            }
-        }
 
-        errors.undefinedId(name);
         return t;
     }
 
     private Type lookupmore(String var, String cls){
-        Type t = lookup(var);
         ClassType ct = (ClassType) classes.lookup(cls);
-        if(t!=null) return t;
-        else if(ct!=null) {
-            String ctsuper = ct.superName;
-            ClassType cts = (ClassType) classes.lookup(ctsuper);
-            t = cts.fields.lookup(var);
-            if(t!=null) return t;
-            else return lookupmore(var,ctsuper);
-        } else return null;
+        if (ct==null) errors.undefinedId(cls);
+        thisFields = ct.fields;
+        String ctsuper = ct.superName;
+        Type t = lookup(var);
+        Type tt = null;
+        if (t==null && ct!=null && ctsuper!=null) {
+            tt = lookupmore(var, ctsuper);
+        } else if (t!=null) return t;
+        else errors.undefinedId(var);
+        return tt;
     }
 
 
@@ -200,7 +194,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
             }
         }
         //todo check name is assigned to same type exp or subtype exp
-        Type n_type = lookup(n.name.name);
+        ImpTable<Type> tf = thisFields;
+        Type n_type = lookupmore(n.name.name,currClass);
+        thisFields = tf;
         System.out.println("Type of above is: "+n_type);
         //look up identifier name, if found
         if(n_type != null){
@@ -218,9 +214,10 @@ public class TypeCheckVisitor implements Visitor<Type> {
                ClassType ovc = (ClassType) classes.lookup(ov_type.name);
                 //if the class name is invalid or superType not equal identifier Type
                 //throw error
+
                if(ovc==null){
                    errors.undefinedId(n.name.name);
-               } else if (on_type.name != ovc.superName) {
+               } else if (!on_type.name.equals(ovc.superName)) {
                    errors.typeError(n.name,n_type,v_type);
                }
             }
@@ -271,8 +268,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(IntegerLiteral n) {
-        n.setType(new IntegerType());
-        return n.getType();
+        return new IntegerType();
     }
 
     @Override
@@ -286,10 +282,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
                 return null;
             }
         }
-        Type type = lookup(n.name);
-        if(type == null){
-            errors.undefinedId(n.name);
-        }
+        ImpTable<Type> tf = thisFields;
+        Type type = lookupmore(n.name,currClass);
+        thisFields = tf;
         return type;
     }
 
@@ -434,31 +429,32 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(ArrayAssign n) {
         //special case with MainClass
-        System.out.println("special case: "+this.mainClassArgsName + " "+n.name);
+        //System.out.println("special case: "+this.mainClassArgsName + " "+n.name);
         if (this.mainClassArgsName != null){
             if (n.name.equals(this.mainClassArgsName)){
-                System.out.println("throwing error!");
+                //System.out.println("throwing error!");
                 errors.cannotUseArgsInMain();
+                return null;
             }
         }
-//        System.out.println("in ArrayAssign trying to assign to variable: "+n.name);
-        Type tn = lookup(n.name);
+        ImpTable<Type> tf = thisFields;
+        Type tn = lookupmore(n.name,currClass);
+        thisFields = tf;
         System.out.println("Found variable type to be: "+tn);
         if (! assignableFrom(tn,new IntArrayType())){
             errors.typeError(n.name,new IntArrayType(),tn);
         }
         Type tv = n.value.accept(this);
-//        System.out.println("Found value type to be: "+tv);
+
         if (! assignableFrom(tv,new IntegerType())){
             errors.typeError(n.value,new IntegerType(),tv);
         }
-//        System.out.println("finished checking n.value type");
-//        check(n.index, new IntegerType());
+
         Type ti = n.index.accept(this);
         if (! assignableFrom(ti,new IntegerType())){
             errors.typeError(n.index,new IntegerType(),ti);
         }
-//        System.out.println("finished array assign");
+
         return null;
     }
 
@@ -474,10 +470,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(ArrayLookup n) {
         System.out.println("In ArrayLookup: "+n.array);
         if(n.array instanceof IdentifierExp){
-            Type ti = lookup(((IdentifierExp) n.array).name);
-            if(ti == null){
-                errors.undefinedId(((IdentifierExp) n.array).name);
-            }
+            ImpTable<Type> tf = thisFields;
+            Type t = lookupmore(((IdentifierExp) n.array).name,currClass);
+            thisFields = tf;
             check(n.index,new IntegerType());
             n.setType(new IntegerType());
             return n.getType();
@@ -489,19 +484,18 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(ArrayLength n) {
         check(n.array,new IntArrayType());
+        n.setType(new IntegerType());
         return n.getType();
     }
 
     @Override
     public Type visit(BooleanLiteral n) {
-        n.setType(new BooleanType());
-        return n.getType();
+        return new BooleanType();
     }
 
     @Override
     public Type visit(This n) {
         //need to somehow get the name of "this" class
-
         n.setType(new ObjectType(currClass));
         return n.getType();
     }

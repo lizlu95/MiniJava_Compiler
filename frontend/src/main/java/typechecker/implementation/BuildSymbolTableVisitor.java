@@ -30,7 +30,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
     private ImpTable<Type> thisParams = null;
     private ImpTable<Type> thisLocals = null;
     private ImpTable<Type> thisVarDecls = null;// can either be param or local table
-
+    private String currClass;
 
 
 
@@ -79,14 +79,13 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
 
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(Assign n) {
-        lookup(n.name.name);
         return null;
     }
 
 
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(IdentifierExp n) {
-        lookup(n.name);// modified lookup to suit new implementation
+
         return null;
     }
 
@@ -177,7 +176,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
 
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(ArrayAssign n){
-        lookup(n.name);
+        //lookup(n.name);
         return null;
     }
 
@@ -287,8 +286,10 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         ClassType ct = new ClassType();
         thisFields = new ImpTable<Type>();
         thisMethods = new ImpTable<Type>();
-
+        currClass = n.name;
         ct.superName = n.superName;
+        ct.fields = thisFields;
+        ct.methds = thisMethods;
         if(n.superName != null){
             ClassType sct = (ClassType) classes.lookup(n.superName);
             if(sct != null){
@@ -302,14 +303,14 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         //todo maybe need fields inside classtype
         n.vars.accept(this);
         n.methods.accept(this);
-        ct.fields = thisFields;
-        ct.methds = thisMethods;
+
         n.type = ct;
         def(classes,n.name,ct);
         thisFields = null;
         thisMethods = null;
         thisSuperFields = null;
         thisSuperMethods = null;
+        currClass = null;
         return null;
     }
 
@@ -339,7 +340,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
     }
     ///////////////////// Helpers ///////////////////////////////////////////////
     // Lookup a name in the two symbol tables that it might be in
-    private Type lookup(String name) {
+/*    private Type lookup(String name) {
         Type t = null;
         if(thisLocals != null){
             t = thisLocals.lookup(name);
@@ -366,10 +367,8 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
             }
         }
 
-        if (t == null)
-            errors.undefinedId(name);
         return t;
-    }
+    }*/
 
 
     /**
@@ -380,6 +379,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
     private <V> void def(ImpTable<V> tab, String name, V value) {
         try {
             tab.put(name, value);
+            System.out.println("what did u put "+ name);
         } catch (DuplicateException e) {
             errors.duplicateDefinition(name);
         }
