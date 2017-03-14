@@ -105,7 +105,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         MethodType mt = (MethodType) thisMethods.lookup(mtd);
         Type tt = null;
         if (mt==null && ct!=null && ctsuper!=null) {
-            tt = lookupmore(mtd, ctsuper);
+            tt = lookupMethod(mtd, ctsuper);
         } else if (mt!=null) return mt;
         else errors.undefinedId(mtd);
         return tt;
