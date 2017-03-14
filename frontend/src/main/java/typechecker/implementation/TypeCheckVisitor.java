@@ -51,7 +51,6 @@ public class TypeCheckVisitor implements Visitor<Type> {
     private String mainClassArgsName;
     private String currClass;
 
-
     public TypeCheckVisitor(Pair<ImpTable<Type>, ImpTable<Type>> variables, ErrorReport errors) {
         this.mainTable = variables.first;
         this.classes = variables.second;
@@ -111,8 +110,8 @@ public class TypeCheckVisitor implements Visitor<Type> {
      */
     private void check(Expression exp, Type expected) {
         Type actual = exp.accept(this);
-//        System.out.println(actual);
-//        System.out.println(expected);
+        System.out.println(actual);
+        System.out.println(expected);
         if (actual == null){
             errors.errorsInExpression(exp);
         }
@@ -129,7 +128,13 @@ public class TypeCheckVisitor implements Visitor<Type> {
     }
 
     private boolean assignableFrom(Type varType, Type valueType) {
-        return varType.equals(valueType);
+        if (varType == null || valueType == null) {
+            errors.assignableFromError(varType,valueType);
+        }
+        else {
+            return varType.equals(valueType);
+        }
+        return false; //placeholder by this time it will be an error in errors and therefore error will be thrown instead
     }
 
     private void dumpTable(ImpTable<Type> table){
@@ -316,34 +321,39 @@ public class TypeCheckVisitor implements Visitor<Type> {
         // get resultType
         //
         //n.receiver has type c, then look up method defination in class C
-        Expression e = n.name;
-        FunctionType ft = null;
-        String functionName = "unknown";
-        if (e instanceof IdentifierExp)
-            functionName = ((IdentifierExp) e).name;
-        Type t = functions.lookup(functionName);
-        if (t == null) {
-            errors.undefinedId(functionName);
+        Expression name = n.name;
+        Expression recv = n.receiver;
+        MethodType mt = null;
+        String methodName = "unknown";
+        String className = "unknown";
+        if (!(name instanceof IdentifierExp)) {
+            errors.errorsInExpression(name);
             n.setType(new UnknownType());
-        } else if (!(t instanceof FunctionType)) {
-            errors.typeError(n, new FunctionType(), t);
-            n.setType(new UnknownType());
-        } else {
-            ft = (FunctionType) t;
-            n.setType(ft.returnType);
         }
-        // Check number and types of arguments
+        methodName = ((IdentifierExp) name).name;
+        ObjectType recob = (ObjectType) recv.accept(this);
+        className = recob.name;
+        //lookup classType from classes with className
+        ClassType ct = (ClassType) classes.lookup(className);
+        if(ct == null){
+            errors.undefinedId(className);
+        }
+        MethodType mtd = (MethodType) ct.methds.lookup(methodName);
+        if(mtd == null){
+            errors.undefinedId(methodName);
+        }
 
-        if (ft != null) {
-            if (n.rands.size() != ft.formals.size()) {
-                errors.wrongNumberOfArguments(ft.formals.size(), n.rands.size());
-            }
-            for (int i = 0; i < n.rands.size(); ++i) {
-                if (i < ft.formals.size()) {
-                    Expression actual = n.rands.elementAt(i);
-                    Type formal = ft.formals.elementAt(i).type;
-                    check(actual, formal);
-                }
+        n.setType(mtd.returnType);
+
+        // check formal numbers and formal types
+        if (n.rands.size() != mtd.formals.size()) {
+            errors.wrongNumberOfArguments(mtd.formals.size(), n.rands.size());
+        }
+        for (int i = 0; i < n.rands.size(); ++i) {
+            if (i < mtd.formals.size()) {
+                Expression actual = n.rands.elementAt(i);
+                Type formal = mtd.formals.elementAt(i).type;
+                check(actual, formal);
             }
         }
         return n.getType();
@@ -424,17 +434,31 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(ArrayAssign n) {
         //special case with MainClass
+        System.out.println("special case: "+this.mainClassArgsName + " "+n.name);
         if (this.mainClassArgsName != null){
             if (n.name.equals(this.mainClassArgsName)){
+                System.out.println("throwing error!");
                 errors.cannotUseArgsInMain();
             }
         }
+//        System.out.println("in ArrayAssign trying to assign to variable: "+n.name);
         Type tn = lookup(n.name);
-        if (tn != null){
-            Type tv = n.value.accept(this);
-            check(n.value,tn,tv);
+        System.out.println("Found variable type to be: "+tn);
+        if (! assignableFrom(tn,new IntArrayType())){
+            errors.typeError(n.name,new IntArrayType(),tn);
         }
-        check(n.index, new IntegerType());
+        Type tv = n.value.accept(this);
+//        System.out.println("Found value type to be: "+tv);
+        if (! assignableFrom(tv,new IntegerType())){
+            errors.typeError(n.value,new IntegerType(),tv);
+        }
+//        System.out.println("finished checking n.value type");
+//        check(n.index, new IntegerType());
+        Type ti = n.index.accept(this);
+        if (! assignableFrom(ti,new IntegerType())){
+            errors.typeError(n.index,new IntegerType(),ti);
+        }
+//        System.out.println("finished array assign");
         return null;
     }
 
@@ -448,6 +472,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(ArrayLookup n) {
+        System.out.println("In ArrayLookup: "+n.array);
         if(n.array instanceof IdentifierExp){
             Type ti = lookup(((IdentifierExp) n.array).name);
             if(ti == null){
@@ -499,7 +524,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
             n.setType(new ObjectType(n.typeName));
             return n.getType();
         }
-        return type;
+        return new ObjectType(n.typeName);
     }
 
     @Override

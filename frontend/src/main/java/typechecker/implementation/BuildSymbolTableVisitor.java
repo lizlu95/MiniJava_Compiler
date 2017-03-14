@@ -4,8 +4,11 @@ import ast.*;
 import typechecker.ErrorReport;
 import util.ImpTable;
 import util.ImpTable.DuplicateException;
+import util.IndentingWriter;
 import util.Pair;
 import visitor.DefaultVisitor;
+
+import java.io.StringWriter;
 
 /**
  * This visitor implements Phase 1 of the TypeChecker. It constructs the symboltable.
@@ -318,6 +321,8 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         thisLocals = new ImpTable<Type>();
         mt.params = thisParams;
         mt.locals = thisLocals;
+        mt.returnType = n.returnType;
+        mt.formals = n.formals;
         thisVarDecls = thisParams;
         thisVarDecls = thisLocals;
         n.formals.accept(this);
@@ -326,6 +331,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         n.returnExp.accept(this);
         n.type = mt;
         def(thisMethods,n.name,mt);
+        dumpTable(thisMethods);
         thisParams = null;
         thisLocals = null;
         thisVarDecls = null;
@@ -377,6 +383,14 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         } catch (DuplicateException e) {
             errors.duplicateDefinition(name);
         }
+    }
+
+    private void dumpTable(ImpTable<Type> table){
+        System.out.println("====================");
+        StringWriter out = new StringWriter();
+        table.dump(new IndentingWriter(out));
+        System.out.println(out.toString());
+        System.out.println("====================");
     }
 
 }

@@ -74,4 +74,12 @@ public class ErrorReport {
     public void errorsInExpression(Expression exp) {
         report(ErrorMessage.errorsInExpression(exp));
     }
+
+    public void typeError(String name, Type expcted, Type actual) {
+        report(ErrorMessage.typeError(name,expcted,actual));
+    }
+
+    public void assignableFromError(Type varType, Type valueType) {
+        report(ErrorMessage.assignableFromError(varType,valueType));
+    }
 }

@@ -10,6 +10,7 @@ public class MethodType extends Type {
     public ImpTable<Type> params = new ImpTable<Type>();
     public ImpTable<Type> locals = new ImpTable<Type>();
     public Type returnType;
+    public NodeList<VarDecl> formals;
 
     @Override
     public boolean equals(Object other) {
