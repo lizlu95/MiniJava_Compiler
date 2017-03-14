@@ -177,7 +177,6 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
 
     @Override
     public Pair<ImpTable<Type>, ImpTable<Type>> visit(ArrayAssign n){
-        //lookup(n.name);
         return null;
     }
 
@@ -301,7 +300,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
                 errors.undefinedId(n.superName);
             }
         }
-        //todo maybe need fields inside classtype
+
         n.vars.accept(this);
         n.methods.accept(this);
 
@@ -333,7 +332,7 @@ public class BuildSymbolTableVisitor extends DefaultVisitor<Pair<ImpTable<Type>,
         n.returnExp.accept(this);
         n.type = mt;
         def(thisMethods,n.name,mt);
-        //dumpTable(thisMethods);
+
         thisParams = null;
         thisLocals = null;
         thisVarDecls = null;

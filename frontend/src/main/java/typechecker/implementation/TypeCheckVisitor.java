@@ -101,11 +101,10 @@ public class TypeCheckVisitor implements Visitor<Type> {
         if (ct==null) errors.undefinedId(cls);
         thisMethods = ct.methds;
         String ctsuper = ct.superName;
-        //Type t = lookup(var);
         MethodType mt = (MethodType) thisMethods.lookup(mtd);
         Type tt = null;
         if (mt==null && ct!=null && ctsuper!=null) {
-            tt = lookupmore(mtd, ctsuper);
+            tt = lookupMethod(mtd, ctsuper);
         } else if (mt!=null) return mt;
         else errors.undefinedId(mtd);
         return tt;
@@ -117,8 +116,6 @@ public class TypeCheckVisitor implements Visitor<Type> {
      */
     private void check(Expression exp, Type expected) {
         Type actual = exp.accept(this);
-/*        System.out.println(actual);
-        System.out.println(expected);*/
         if (actual == null){
             errors.errorsInExpression(exp);
         }
@@ -132,6 +129,36 @@ public class TypeCheckVisitor implements Visitor<Type> {
     private void check(Expression exp, Type t1, Type t2) {
         if (!t1.equals(t2))
             errors.typeError(exp, t1, t2);
+    }
+
+    private boolean checkSuper(Expression e, Type t){
+        Type actual = e.accept(this);
+
+        if (actual == null){
+            errors.errorsInExpression(e);
+            return false;
+        }
+        if(!assignableFrom(t,actual) &&
+                t instanceof ObjectType &&
+                actual instanceof ObjectType){
+
+            ObjectType ot = (ObjectType) t;
+            ObjectType oactual = (ObjectType) actual;
+
+            ClassType oac = (ClassType) classes.lookup(oactual.name);
+            do {
+
+                if (oac == null) {
+                    errors.undefinedId(oactual.name);
+                    return false;
+                } else if (!ot.name.equals(oac.superName)) {
+                    oac = (ClassType) classes.lookup(oac.superName);
+                } else if(ot.name.equals(oac.superName)) return true;
+            }while(oac.superName!=null);
+            errors.typeError(e,t,actual);
+            return false;
+        } else if(assignableFrom(t,actual)) return true;
+        return false;
     }
 
     private boolean assignableFrom(Type varType, Type valueType) {
@@ -164,11 +191,8 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(Program n) {
-        //		variables = applyInheritance(variables);
-        n.mainClass.accept(this);//todo
-        n.classes.accept(this);//todo
-//        n.statements.accept(this);
-//        n.print.accept(this);
+        n.mainClass.accept(this);
+        n.classes.accept(this);
         return null;
     }
 
@@ -199,41 +223,22 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(Assign n) {
-        //System.out.println("I'm in Assign, trying to find the variable: "+n.name);
         //special case with MainClass
         if (this.mainClassArgsName != null){
             if (n.name.equals(this.mainClassArgsName)){
                 errors.cannotUseArgsInMain();
             }
         }
-        //todo check name is assigned to same type exp or subtype exp
+
         ImpTable<Type> tf = thisFields;
         Type n_type = lookupmore(n.name.name,currClass);
         thisFields = tf;
-        //System.out.println("Type of above is: "+n_type);
         //look up identifier name, if found
         if(n_type != null){
             //get type of n.value
             Type v_type = n.value.accept(this);
             //if the types are not equal
-
-            if(!assignableFrom(n_type,v_type) &&
-                    n_type instanceof ObjectType &&
-                    v_type instanceof ObjectType){
-                //cast both to objectType to see if valueType is subclass
-                ObjectType ov_type = (ObjectType)v_type;
-                ObjectType on_type = (ObjectType)n_type;
-                //get v_type's supertype from its ClassType
-               ClassType ovc = (ClassType) classes.lookup(ov_type.name);
-                //if the class name is invalid or superType not equal identifier Type
-                //throw error
-
-               if(ovc==null){
-                   errors.undefinedId(n.name.name);
-               } else if (!on_type.name.equals(ovc.superName)) {
-                   errors.typeError(n.name,n_type,v_type);
-               }
-            }
+            checkSuper(n.value,n_type);
         }
         return null;
     }
@@ -242,8 +247,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(LessThan n) {
         check(n.e1, new IntegerType());
         check(n.e2, new IntegerType());
-        n.setType(new BooleanType());
-        return n.getType();
+        return new BooleanType();
     }
 
     @Override
@@ -259,24 +263,21 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(Plus n) {
         check(n.e1, new IntegerType());
         check(n.e2, new IntegerType());
-        n.setType(new IntegerType());
-        return n.getType();
+        return new IntegerType();
     }
 
     @Override
     public Type visit(Minus n) {
         check(n.e1, new IntegerType());
         check(n.e2, new IntegerType());
-        n.setType(new IntegerType());
-        return n.getType();
+        return new IntegerType();
     }
 
     @Override
     public Type visit(Times n) {
         check(n.e1, new IntegerType());
         check(n.e2, new IntegerType());
-        n.setType(new IntegerType());
-        return n.getType();
+        return new IntegerType();
     }
 
     @Override
@@ -288,9 +289,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(IdentifierExp n) {
         //special case with MainClass
         if (this.mainClassArgsName != null){
-//            System.out.println("visiting IdentifierExp: "+n.name);
             if (n.name.equals(this.mainClassArgsName)){
-//                System.out.println("throwing error now");
                 errors.cannotUseArgsInMain();
                 return null;
             }
@@ -304,8 +303,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(Not n) {
         check(n.e, new BooleanType());
-        n.setType(new BooleanType());
-        return n.getType();
+        return new BooleanType();
     }
 
     @Override
@@ -345,20 +343,6 @@ public class TypeCheckVisitor implements Visitor<Type> {
         ImpTable<Type> tmpt = thisMethods;
         MethodType mtd = (MethodType) lookupMethod(methodName,className);
         thisMethods = tmpt;
-        System.out.print("call methodlookup result mtd ="+ mtd.toString());
-//        ///////////////////////////
-//        ClassType ct = (ClassType) classes.lookup(className);
-//        if(ct == null){
-//            errors.undefinedId(className);
-//        }
-//
-//        //todo need to lookupmethod in all superclasses
-//        MethodType mtd = (MethodType) ct.methds.lookup(methodName);
-//        if(mtd == null){
-//            errors.undefinedId(methodName);
-//        }
-//        ///////////////////////////
-        n.setType(mtd.returnType);
 
         // check formal numbers and formal types
         if (n.rands.size() != mtd.formals.size()) {
@@ -368,10 +352,10 @@ public class TypeCheckVisitor implements Visitor<Type> {
             if (i < mtd.formals.size()) {
                 Expression actual = n.rands.elementAt(i);
                 Type formal = mtd.formals.elementAt(i).type;
-                check(actual, formal);
+                checkSuper(actual, formal);
             }
         }
-        return n.getType();
+        return mtd.returnType;
     }
 
     @Override
@@ -381,7 +365,6 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(MainClass n) {
-//        dumpTable(this.mainTable);
         this.mainClassArgsName = n.argName;
         n.statement.accept(this);
         this.mainClassArgsName = null;
@@ -390,7 +373,6 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     @Override
     public Type visit(ClassDecl n) {
-        //dumpTable(this.classes);
         currClass = n.name;
         this.thisFields = n.type.fields;
         this.thisMethods = n.type.methds;
@@ -449,10 +431,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(ArrayAssign n) {
         //special case with MainClass
-        //System.out.println("special case: "+this.mainClassArgsName + " "+n.name);
+
         if (this.mainClassArgsName != null){
             if (n.name.equals(this.mainClassArgsName)){
-                //System.out.println("throwing error!");
                 errors.cannotUseArgsInMain();
                 return null;
             }
@@ -460,7 +441,6 @@ public class TypeCheckVisitor implements Visitor<Type> {
         ImpTable<Type> tf = thisFields;
         Type tn = lookupmore(n.name,currClass);
         thisFields = tf;
-        //System.out.println("Found variable type to be: "+tn);
         if (! assignableFrom(tn,new IntArrayType())){
             errors.typeError(n.name,new IntArrayType(),tn);
         }
@@ -482,23 +462,19 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(And n) {
         check(n.e1, new BooleanType());
         check(n.e2, new BooleanType());
-        n.setType(new BooleanType());
-        return n.getType();
+        return new BooleanType();
     }
 
     @Override
     public Type visit(ArrayLookup n) {
-        //System.out.println("In ArrayLookup: "+n.array);
         check(n.index,new IntegerType());
-        n.setType(new IntegerType());
         return new IntegerType();
     }
 
     @Override
     public Type visit(ArrayLength n) {
         check(n.array,new IntArrayType());
-        n.setType(new IntegerType());
-        return n.getType();
+        return new IntegerType();
     }
 
     @Override
@@ -509,15 +485,13 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(This n) {
         //need to somehow get the name of "this" class
-        n.setType(new ObjectType(currClass));
-        return n.getType();
+        return new ObjectType(currClass);
     }
 
     @Override
     public Type visit(NewArray n) {
         check(n.size,new IntegerType());
-        n.setType(new IntArrayType());
-        return n.getType();
+        return new IntArrayType();
     }
 
     @Override
@@ -528,8 +502,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
             errors.undefinedId(n.typeName);
         }
         else{
-            n.setType(new ObjectType(n.typeName));
-            return n.getType();
+            return new ObjectType(n.typeName);
         }
         return new ObjectType(n.typeName);
     }
