@@ -96,6 +96,21 @@ public class TypeCheckVisitor implements Visitor<Type> {
         return tt;
     }
 
+    private Type lookupMethod(String mtd, String cls){
+        ClassType ct = (ClassType) classes.lookup(cls);
+        if (ct==null) errors.undefinedId(cls);
+        thisMethods = ct.methds;
+        String ctsuper = ct.superName;
+        //Type t = lookup(var);
+        MethodType mt = (MethodType) thisMethods.lookup(mtd);
+        Type tt = null;
+        if (mt==null && ct!=null && ctsuper!=null) {
+            tt = lookupmore(mtd, ctsuper);
+        } else if (mt!=null) return mt;
+        else errors.undefinedId(mtd);
+        return tt;
+    }
+
 
     /**
      * Check whether the type of a particular expression is as expected.
@@ -327,15 +342,22 @@ public class TypeCheckVisitor implements Visitor<Type> {
         ObjectType recob = (ObjectType) recv.accept(this);
         className = recob.name;
         //lookup classType from classes with className
-        ClassType ct = (ClassType) classes.lookup(className);
-        if(ct == null){
-            errors.undefinedId(className);
-        }
-        MethodType mtd = (MethodType) ct.methds.lookup(methodName);
-        if(mtd == null){
-            errors.undefinedId(methodName);
-        }
-
+        ImpTable<Type> tmpt = thisMethods;
+        MethodType mtd = (MethodType) lookupMethod(methodName,className);
+        thisMethods = tmpt;
+        System.out.print("call methodlookup result mtd ="+ mtd.toString());
+//        ///////////////////////////
+//        ClassType ct = (ClassType) classes.lookup(className);
+//        if(ct == null){
+//            errors.undefinedId(className);
+//        }
+//
+//        //todo need to lookupmethod in all superclasses
+//        MethodType mtd = (MethodType) ct.methds.lookup(methodName);
+//        if(mtd == null){
+//            errors.undefinedId(methodName);
+//        }
+//        ///////////////////////////
         n.setType(mtd.returnType);
 
         // check formal numbers and formal types
@@ -476,7 +498,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(ArrayLength n) {
         check(n.array,new IntArrayType());
         n.setType(new IntegerType());
-        return new IntegerType();
+        return n.getType();
     }
 
     @Override
@@ -488,14 +510,14 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(This n) {
         //need to somehow get the name of "this" class
         n.setType(new ObjectType(currClass));
-        return new ObjectType(currClass);
+        return n.getType();
     }
 
     @Override
     public Type visit(NewArray n) {
         check(n.size,new IntegerType());
         n.setType(new IntArrayType());
-        return new IntArrayType();
+        return n.getType();
     }
 
     @Override
@@ -507,7 +529,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         }
         else{
             n.setType(new ObjectType(n.typeName));
-            return new ObjectType(n.typeName);
+            return n.getType();
         }
         return new ObjectType(n.typeName);
     }
