@@ -62,6 +62,7 @@ public class TranslateVisitor implements Visitor<TRExp> {
     }
 
     /////// Helpers //////////////////////////////////////////////
+    //TODO we need lookupparent or something like that. I'll do that
 
     private boolean atGlobalScope() {
         return frame.getLabel().equals(L_MAIN);
@@ -82,7 +83,6 @@ public class TranslateVisitor implements Visitor<TRExp> {
     private Label functionLabel(String functionName) {
         return Label.get("_" + functionName);
     }
-
 
     private void putEnv(String name, Access access) {
         currentEnv = currentEnv.insert(name, access.exp(frame.FP()));
@@ -108,19 +108,96 @@ public class TranslateVisitor implements Visitor<TRExp> {
         return new Nx(result);
     }
 
+    private TRExp visitStatements(NodeList<Statement> statements) {
+        IRStm result = IR.NOP;
+        for (int i = 0; i < statements.size(); i++) {
+            Statement nextStm = statements.elementAt(i);
+            result = IR.SEQ(result, nextStm.accept(this).unNx());
+        }
+        return new Nx(result);
+    }
+
+    /////////////////main related stuff/////////////////////////////////////////
+
+    // This is Goal := MainClass (ClassDeclaration)* <EOF>
+    // LIZ - I dont think we need frame/frag here, but so not sure
     @Override
     public TRExp visit(Program n) {
-        frame = newFrame(L_MAIN, 0);
-        currentEnv = FunTable.theEmpty();
-        TRExp statements = n.statements.accept(this);
-        TRExp print = n.print.accept(this);
-        IRStm body = IR.SEQ(
-                statements.unNx(),
-                print.unNx());
+        /*frame = newFrame(L_MAIN, 0);
+        currentEnv = FunTable.theEmpty();*/
+        TRExp main = n.mainClass.accept(this);
+        TRExp classes = n.classes.accept(this);
+        /*IRStm body = IR.SEQ(
+                main.unNx(),
+                classes.unNx());
         body = frame.procEntryExit1(body);
-        frags.add(new ProcFragment(frame, body));
+        frags.add(new ProcFragment(frame, body));*/
         return null;
     }
+
+    @Override
+    public TRExp visit(MainClass n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    // data frag for fields, proc frags for methods
+    // then copy super fields and super methods, create more frags
+    @Override
+    public TRExp visit(ClassDecl n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public TRExp visit(Block n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /////////////////////print & assigns//////////////////////////////////////////////
+
+    // does L_PRINT do system.out, or just print?
+    @Override
+    public TRExp visit(Print n) {
+        TRExp arg = n.exp.accept(this);
+        return new Ex(IR.CALL(L_PRINT, arg.unEx()));
+    }
+
+    //TODO for both assign and arrayassign, we need to do error checking for array memory access.
+    //TODO they can appear on either lhs(assign) and/or rhs(assign & arrayassign).
+    //TODO instructions suggest we do this last, so assume they are never out of bound for now.
+    @Override
+    public TRExp visit(Assign n) {
+        IRExp lhs;
+        /* TODO we shouldn't have any assign in global scope, either in main or in classes.
+        * TODO assigns only happens in methoddecl, thus i think we only need the else part below.
+        * */
+        /*if (atGlobalScope()) {
+            Label g = Label.get(n.name.name);
+            IRExp zero = IR.CONST(0);
+            IRData data = new IRData(g, List.list(zero));
+            DataFragment decl = new DataFragment(frame, data);
+            frags.add(decl);
+            lhs = IR.MEM(IR.NAME(g));
+            putEnv(n.name.name, lhs);
+        } else {*/
+        Access var = frame.allocLocal(false);
+        putEnv(n.name.name, var);
+        lhs = var.exp(frame.FP());
+        //}
+        TRExp val = n.value.accept(this);
+        return new Nx(IR.MOVE(lhs, val.unEx()));
+    }
+
+    // TODO see above
+    @Override
+    public TRExp visit(ArrayAssign n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    ///////////////////////types////////////////////////////////////////////
 
     @Override
     public TRExp visit(BooleanType n) {
@@ -137,15 +214,36 @@ public class TranslateVisitor implements Visitor<TRExp> {
         throw new Error("Not implemented");
     }
 
-    private TRExp visitStatements(NodeList<Statement> statements) {
-        IRStm result = IR.NOP;
-        for (int i = 0; i < statements.size(); i++) {
-            Statement nextStm = statements.elementAt(i);
-            result = IR.SEQ(result, nextStm.accept(this).unNx());
-        }
-        return new Nx(result);
+    @Override
+    public TRExp visit(IntArrayType n) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
+    @Override
+    public TRExp visit(ObjectType n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public TRExp visit(ClassType classType) {
+        throw new Error("Not implemented");
+    }
+
+    @Override
+    public TRExp visit(MethodType methodType) {
+        throw new Error("Not implemented");
+    }
+
+    @Override
+    public TRExp visit(FunctionType n) {
+        throw new Error("Not implemented");
+    }
+
+    /////////////////////conditional//////////////////////////////////
+
+    // this is ?: in function language
     @Override
     public TRExp visit(Conditional n) {
         Temp temp = new Temp();
@@ -164,31 +262,20 @@ public class TranslateVisitor implements Visitor<TRExp> {
         return new Ex(IR.ESEQ(IR.SEQ(tst, thn, els, IR.LABEL(join)), IR.TEMP(temp)));
     }
 
+    // these two should look like the one above
     @Override
-    public TRExp visit(Print n) {
-        TRExp arg = n.exp.accept(this);
-        return new Ex(IR.CALL(L_PRINT, arg.unEx()));
+    public TRExp visit(If n) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
-    public TRExp visit(Assign n) {
-        IRExp lhs;
-        if (atGlobalScope()) {
-            Label g = Label.get(n.name.name);
-            IRExp zero = IR.CONST(0);
-            IRData data = new IRData(g, List.list(zero));
-            DataFragment decl = new DataFragment(frame, data);
-            frags.add(decl);
-            lhs = IR.MEM(IR.NAME(g));
-            putEnv(n.name.name, lhs);
-        } else {
-            Access var = frame.allocLocal(false);
-            putEnv(n.name.name, var);
-            lhs = var.exp(frame.FP());
-        }
-        TRExp val = n.value.accept(this);
-        return new Nx(IR.MOVE(lhs, val.unEx()));
+    public TRExp visit(While n) {
+        // TODO Auto-generated method stub
+        return null;
     }
+
+    ////////////////////////binops/////////////////////////////////////
 
     private TRExp relOp(final CJUMP.RelOp op, AST ltree, AST rtree) {
         final TRExp l = ltree.accept(this);
@@ -229,7 +316,13 @@ public class TranslateVisitor implements Visitor<TRExp> {
         return relOp(RelOp.LT, n.e1, n.e2);
     }
 
-    //////////////////////////////////////////////////////////////
+    @Override
+    public TRExp visit(And n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    //////////////////////more binops////////////////////////////////////////
 
     private TRExp numericOp(Op op, Expression e1, Expression e2) {
         TRExp l = e1.accept(this);
@@ -252,11 +345,83 @@ public class TranslateVisitor implements Visitor<TRExp> {
         return numericOp(Op.MUL, n.e1, n.e2);
     }
 
-    //////////////////////////////////////////////////////////////////
+    //////////////////////method stuff////////////////////////////////////////////
+
+    @Override
+    public TRExp visit(FunctionDecl n) {
+        Frame oldframe = frame;
+        frame = newFrame(functionLabel(n.name), n.formals.size());
+        FunTable<IRExp> saveEnv = currentEnv;
+
+        //Get the access information for each regular formal and add it to the environment.
+        for (int i = 0; i < n.formals.size(); i++) {
+            putEnv(n.formals.elementAt(i).name, frame.getFormal(i));
+        }
+
+        TRExp stats = visitStatements(n.statements);
+        TRExp exp = n.returnExp.accept(this);
+
+        IRStm body = IR.SEQ(
+                stats.unNx(),
+                IR.MOVE(frame.RV(), exp.unEx()));
+        body = frame.procEntryExit1(body);
+        frags.add(new ProcFragment(frame, body));
+
+        frame = oldframe;
+        currentEnv = saveEnv;
+
+        return null;
+    }
+
+    // should be pretty much the same as above.
+    // TODO data frag for locals (and params?), partial proc frag for calls?
+    @Override
+    public TRExp visit(MethodDecl n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    @Override
+    public TRExp visit(VarDecl n) {
+        Access var = frame.getInArg(n.index);
+        putEnv(n.name, var);
+        return null;
+    }
+
+    // TODO add receiver in args
+    @Override
+    public TRExp visit(Call n) {
+        String functionName = "unknown";
+        if (n.name instanceof IdentifierExp) {
+            functionName = ((IdentifierExp) n.name).name;
+        }
+        List<IRExp> args = List.list();
+
+        for (int i = 0; i < n.rands.size(); i++) {
+            TRExp arg = n.rands.elementAt(i).accept(this);
+            args.add(arg.unEx());
+        }
+        return new Ex(IR.CALL(functionLabel(functionName), args));
+    }
+
+    //////////////////////primary exps/////////////////////////////////
 
     @Override
     public TRExp visit(IntegerLiteral n) {
         return new Ex(IR.CONST(n.value));
+    }
+
+    @Override
+    public TRExp visit(This n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public TRExp visit(BooleanLiteral n) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
@@ -286,129 +451,7 @@ public class TranslateVisitor implements Visitor<TRExp> {
         };
     }
 
-    @Override
-    public TRExp visit(FunctionDecl n) {
-        Frame oldframe = frame;
-        frame = newFrame(functionLabel(n.name), n.formals.size());
-        FunTable<IRExp> saveEnv = currentEnv;
-
-        //Get the access information for each regular formal and add it to the environment.
-        for (int i = 0; i < n.formals.size(); i++) {
-            putEnv(n.formals.elementAt(i).name, frame.getFormal(i));
-        }
-
-        TRExp stats = visitStatements(n.statements);
-        TRExp exp = n.returnExp.accept(this);
-
-        IRStm body = IR.SEQ(
-                stats.unNx(),
-                IR.MOVE(frame.RV(), exp.unEx()));
-        body = frame.procEntryExit1(body);
-        frags.add(new ProcFragment(frame, body));
-
-        frame = oldframe;
-        currentEnv = saveEnv;
-
-        return null;
-    }
-
-
-    @Override
-    public TRExp visit(VarDecl n) {
-        Access var = frame.getInArg(n.index);
-        putEnv(n.name, var);
-        return null;
-    }
-
-
-    @Override
-    public TRExp visit(Call n) {
-        String functionName = "unknown";
-        if (n.name instanceof IdentifierExp) {
-            functionName = ((IdentifierExp) n.name).name;
-        }
-        List<IRExp> args = List.list();
-
-        for (int i = 0; i < n.rands.size(); i++) {
-            TRExp arg = n.rands.elementAt(i).accept(this);
-            args.add(arg.unEx());
-        }
-        return new Ex(IR.CALL(functionLabel(functionName), args));
-    }
-
-
-    @Override
-    public TRExp visit(FunctionType n) {
-        throw new Error("Not implemented");
-    }
-
-    /**
-     * After the visitor successfully traversed the program,
-     * retrieve the built-up list of Fragments with this method.
-     */
-    public Fragments getResult() {
-        return frags;
-    }
-
-    @Override
-    public TRExp visit(MainClass n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TRExp visit(ClassDecl n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TRExp visit(MethodDecl n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TRExp visit(IntArrayType n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TRExp visit(ObjectType n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TRExp visit(Block n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TRExp visit(If n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TRExp visit(While n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TRExp visit(ArrayAssign n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TRExp visit(And n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    ////////////////////array & alloc/////////////////////////////////////////
 
     @Override
     public TRExp visit(ArrayLookup n) {
@@ -423,36 +466,27 @@ public class TranslateVisitor implements Visitor<TRExp> {
     }
 
     @Override
-    public TRExp visit(BooleanLiteral n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TRExp visit(This n) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public TRExp visit(NewArray n) {
         // TODO Auto-generated method stub
+        // use L_NEW_ARRAY
         return null;
     }
 
     @Override
     public TRExp visit(NewObject n) {
         // TODO Auto-generated method stub
+        // use L_NEW_OBJECT
         return null;
     }
 
-    @Override
-    public TRExp visit(ClassType classType) {
-        throw new Error("Not implemented");
+
+    /**
+     * After the visitor successfully traversed the program,
+     * retrieve the built-up list of Fragments with this method.
+     */
+    public Fragments getResult() {
+        return frags;
     }
 
-    @Override
-    public TRExp visit(MethodType methodType) {
-        throw new Error("Not implemented");
-    }
+
 }
