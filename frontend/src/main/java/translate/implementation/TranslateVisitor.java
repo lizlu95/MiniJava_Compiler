@@ -63,9 +63,9 @@ public class TranslateVisitor implements Visitor<TRExp> {
     /////// Helpers //////////////////////////////////////////////
 
 
-    private boolean atGlobalScope() {
+/*    private boolean atGlobalScope() {
         return frame.getLabel().equals(L_MAIN);
-    }
+    }*/
 
     /**
      * Create a frame with a given number of formals. We assume that
@@ -91,19 +91,19 @@ public class TranslateVisitor implements Visitor<TRExp> {
         currentEnv = currentEnv.insert(name, exp);
     }
 
-//    private ArrayList<DataFragment> findFrame(String n) {
-//        Iterator<translate.Fragment> iterator = frags.iterator();
-//        while(iterator.hasNext()) {
-//////            Fragment t = iterator.next();
-//////            if (t instanceof DataFragment) {
-//////                DataFragment p = (DataFragment)t;
-//////                if (p.getLabel().toString().contains(Label.get(n).toString() + "_"))
-//////                    list.add(p);
-//////            }
-//            iterator.next();
-//        }
-//        return list;
-//    }
+/*    private ArrayList<DataFragment> findFrame(String n) {
+        Iterator<translate.Fragment> iterator = frags.iterator();
+        while(iterator.hasNext()) {
+            Fragment t = iterator.next();
+            if (t instanceof DataFragment) {
+                DataFragment p = (DataFragment)t;
+                if (p.getLabel().toString().contains(Label.get(n).toString() + "_"))
+                    list.add(p);
+            }
+            iterator.next();
+        }
+        return list;
+    }*/
 
     ////// Visitor ///////////////////////////////////////////////
 
@@ -165,6 +165,8 @@ public class TranslateVisitor implements Visitor<TRExp> {
     public TRExp visit(ClassDecl n) {
         //TODO we DONOT support superclass, nope nope nope
         //n.superName
+        FunTable<IRExp> oldEnv = currentEnv;
+
         className = n.name;
         Label g = Label.get(className);
         List ph = List.theEmpty();
@@ -180,8 +182,12 @@ public class TranslateVisitor implements Visitor<TRExp> {
             putEnv(n.vars.elementAt(i).name,v);
             v = IR.BINOP(Op.PLUS,v,CONST(frame.wordSize()));
         }
-
         n.methods.accept(this);
+        if(n.superName!=null){
+            currentEnv.merge(oldEnv);
+        }
+        //currentEnv = oldEnv;
+
         return null;
     }
 
@@ -275,7 +281,7 @@ public class TranslateVisitor implements Visitor<TRExp> {
     // this is ?: in function language
     @Override
     public TRExp visit(Conditional n) {
-        Temp temp = new Temp();
+        /*Temp temp = new Temp();
         Label t = Label.gen();
         Label f = Label.gen();
         Label join = Label.gen();
@@ -288,7 +294,8 @@ public class TranslateVisitor implements Visitor<TRExp> {
                 IR.LABEL(f),
                 new Nx(IR.MOVE(temp, n.e3.accept(this).unEx())).unNx());
 
-        return new Ex(IR.ESEQ(IR.SEQ(tst, thn, els, IR.LABEL(join)), IR.TEMP(temp)));
+        return new Ex(IR.ESEQ(IR.SEQ(tst, thn, els, IR.LABEL(join)), IR.TEMP(temp)));*/
+        return null;
     }
 
 
@@ -438,7 +445,6 @@ public class TranslateVisitor implements Visitor<TRExp> {
         frame = newFrame(methodLabel(n.name), n.formals.size()+1);
         FunTable<IRExp> saveEnv = currentEnv;
 
-        //TODO somehow use ptr which is frame.getFormal(0)
         //Change env
         Access ptr = frame.getFormal(0);
         Label g = Label.get(className);
@@ -482,7 +488,7 @@ public class TranslateVisitor implements Visitor<TRExp> {
                 putEnv(n.name, var);
                 break;
             case FORMAL:
-                //TODO later
+
                 break;
             case FIELD:
 
@@ -499,7 +505,6 @@ public class TranslateVisitor implements Visitor<TRExp> {
         }
         List<IRExp> args = List.list();
 
-        //args.add(n.receiver.accept(this).unEx());
         // two cases for receiver: 1. new object 2. identifierExp
         IRExp ptr = null;
         String old_className = className;
@@ -510,16 +515,18 @@ public class TranslateVisitor implements Visitor<TRExp> {
         else if (n.receiver instanceof IdentifierExp){
             IdentifierExp tmp = (IdentifierExp)n.receiver;
             ptr = currentEnv.lookup(tmp.name);
-            //TODO don't know how to find className of identifier
+            if(tmp.getType() instanceof ObjectType){
+                className = ((ObjectType) tmp.getType()).name;
+            } else throw new Error("you should be an object =(");
         }
         else if (n.receiver instanceof This){
             //TODO do something IDK
             //change what is in class
         }
         else{
-            throw new Error("cannot happen :O receiver must be newObject or IdentifierExp");
+            throw new Error("cannot happen :O receiver must be newObject or IdentifierExp or This");
         }
-        //TODO somehow use ptr
+
         args.add(ptr);
         for (int i = 0; i < n.rands.size(); i++) {
             TRExp arg = n.rands.elementAt(i).accept(this);

@@ -311,7 +311,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
         ImpTable<Type> tf = thisFields;
         Type type = lookupmore(n.name,currClass);
         thisFields = tf;
-        return type;
+        if(!n.typed())
+            n.setType(type);
+        return n.getType();
     }
 
     @Override
@@ -491,7 +493,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(ArrayLookup n) {
         check(n.index,new IntegerType());
-        return new IntegerType();
+        if(!n.typed())
+            n.setType(new IntegerType());
+        return n.getType();
     }
 
     @Override
@@ -508,13 +512,17 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(This n) {
         //need to somehow get the name of "this" class
-        return new ObjectType(currClass);
+        if (!n.typed())
+            n.setType(new ObjectType(currClass));
+        return n.getType();
     }
 
     @Override
     public Type visit(NewArray n) {
         check(n.size,new IntegerType());
-        return new IntArrayType();
+        if (!n.typed())
+            n.setType(new IntArrayType());
+        return n.getType();
     }
 
     @Override
@@ -526,7 +534,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
             return null;
         }
         else{
-            return new ObjectType(n.typeName);
+            if (!n.typed())
+                n.setType(new ObjectType(n.typeName));
+            return n.getType();
         }
     }
 

@@ -19,4 +19,8 @@ public abstract class Expression extends AST {
         type = theType;
     }
 
+    public boolean typed() {
+        return type!=null;
+    }
+
 }
