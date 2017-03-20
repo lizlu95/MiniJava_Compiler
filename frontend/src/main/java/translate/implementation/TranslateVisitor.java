@@ -138,8 +138,8 @@ public class TranslateVisitor implements Visitor<TRExp> {
 
     @Override
     public TRExp visit(Program n) {
-        /*frame = newFrame(L_MAIN, 0);
-        currentEnv = FunTable.theEmpty();*/
+        /*frame = newFrame(L_MAIN, 0);*/
+        currentEnv = FunTable.theEmpty();
         TRExp main = n.mainClass.accept(this);
         TRExp classes = n.classes.accept(this);
         /*IRStm body = IR.SEQ(
@@ -198,11 +198,13 @@ public class TranslateVisitor implements Visitor<TRExp> {
             lhs = IR.MEM(IR.NAME(g));
             putEnv(n.name.name, lhs);
         } else {*/
+
         Access var = frame.allocLocal(false);
         putEnv(n.name.name, var);
         lhs = var.exp(frame.FP());
         //}
         TRExp val = n.value.accept(this);
+
         return new Nx(IR.MOVE(lhs, val.unEx()));
     }
 
@@ -458,12 +460,12 @@ public class TranslateVisitor implements Visitor<TRExp> {
             functionName = ((IdentifierExp) n.name).name;
         }
         List<IRExp> args = List.list();
-
+        args.add(n.receiver.accept(this).unEx());
         for (int i = 0; i < n.rands.size(); i++) {
             TRExp arg = n.rands.elementAt(i).accept(this);
             args.add(arg.unEx());
         }
-        return new Ex(IR.CALL(functionLabel(functionName), args));
+        return new Ex(IR.CALL(methodLabel(functionName), args));
     }
 
     //////////////////////primary exps/////////////////////////////////
@@ -533,14 +535,22 @@ public class TranslateVisitor implements Visitor<TRExp> {
 
     @Override
     public TRExp visit(ArrayLength n) {
-        
-        return null;
+        Temp t = new Temp();
+        Temp t2 = new Temp();
+        TRExp arr = n.array.accept(this);
+        //assuming identifier TODO
+        IRExp p = currentEnv.lookup(((IdentifierExp)n.array).name);
+        IRStm p1 = IR.MOVE(TEMP(t),p);
+        IRStm p2 = new Ex(IR.BINOP(Op.MINUS,TEMP(t),CONST(8))).unNx();
+        IRStm size = IR.MOVE(TEMP(t2),IR.MEM(TEMP(t)));
+        return new Ex(IR.ESEQ(SEQ(p1,p2,size),TEMP(t2)));
     }
 
     @Override
     public TRExp visit(NewArray n) {
         // use L_NEW_ARRAY
-        return new Ex(IR.CALL(L_NEW_ARRAY,n.size.accept(this).unEx()));
+        IRExp size = n.size.accept(this).unEx();
+        return new Ex(IR.CALL(L_NEW_ARRAY,size));
     }
 
     @Override
