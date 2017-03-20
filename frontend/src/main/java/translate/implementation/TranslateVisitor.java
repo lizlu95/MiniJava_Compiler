@@ -170,7 +170,21 @@ public class TranslateVisitor implements Visitor<TRExp> {
         //TODO we DONOT support superclass, nope nope nope
         //n.superName
         className = n.name;
-        n.vars.accept(this);
+        Label g = Label.get(className);
+        List ph = List.theEmpty();
+        for(int i=0;i<n.vars.size();i++){
+            ph.add(IR.CONST(0));
+        }
+        IRData data = new IRData(g, ph);
+
+        DataFragment decl = new DataFragment(frame, data);
+        frags.add(decl);
+        IRExp v = IR.MEM(IR.NAME(g));
+        for (int i = 0; i < n.vars.size(); i++) {
+            putEnv(n.vars.elementAt(i).name,v);
+            v = IR.BINOP(Op.PLUS,v,CONST(frame.wordSize()));
+        }
+
         n.methods.accept(this);
         return null;
     }
@@ -431,15 +445,17 @@ public class TranslateVisitor implements Visitor<TRExp> {
         //TODO somehow use ptr which is frame.getFormal(0)
         //Change env
         Access ptr = frame.getFormal(0);
-        ArrayList<DataFragment> flist = findFrame(className);
-//        Iterator<DataFragment> itr = flist.iterator();
-//        while (itr.hasNext()){
-//            DataFragment f = itr.next();
-//            Label l = f.getLabel();
-//            putEnv(l.toString(),ptr);
-//            //TODO somehow why FP()?
-//            IR.BINOP(Op.PLUS,ptr.exp(frame.FP()),IR.CONST(frame.wordSize()));
-//        }
+        Label g = Label.get(className);
+        IRExp v = IR.MEM(IR.NAME(g));
+        //ArrayList<DataFragment> flist = findFrame(className);
+        /*Iterator<DataFragment> itr = flist.iterator();
+        while (itr.hasNext()){
+            DataFragment f = itr.next();
+            Label l = f.getLabel();
+            putEnv(l.toString(),ptr);
+
+            IR.BINOP(Op.PLUS,ptr.exp(frame.FP()),IR.CONST(frame.wordSize()));
+        }*/
         //Get the access information for each regular formal and add it to the environment.
         for (int i = 1; i < n.formals.size()+1; i++) {
             putEnv(n.formals.elementAt(i).name, frame.getFormal(i));
@@ -473,13 +489,7 @@ public class TranslateVisitor implements Visitor<TRExp> {
                 //TODO later
                 break;
             case FIELD:
-                Label g = Label.get(className+"_"+n.name);
-                IRExp zero = IR.CONST(0);
-                IRData data = new IRData(g, List.list(zero));
-                DataFragment decl = new DataFragment(frame, data);
-                frags.add(decl);
-                IRExp v = IR.MEM(IR.NAME(g));
-                putEnv(n.name,v);
+
                 break;
         }
         return null;
