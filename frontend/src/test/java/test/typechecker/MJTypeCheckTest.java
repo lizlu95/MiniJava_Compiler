@@ -310,6 +310,67 @@ public class MJTypeCheckTest {
                 "}");
     }
 
+    @Test
+    public void shouldAcceptButWeDidnt() throws Exception {
+        accept("class Main {\n" +
+                "\tpublic static void main (String[] args){\n" +
+                "\t\tSystem.out.println(new C().bar());\n" +
+                "\t}\n" +
+                "}\n" +
+                "\n" +
+                "class A {\n" +
+                "\tint x;\n" +
+                "}\n" +
+                "class B extends A {\n" +
+                "\tpublic int foo(){\n" +
+                "\t\tx = 1;\n" +
+                "\t\treturn x;\n" +
+                "\t}\n" +
+                "}\n" +
+                "class C {\n" +
+                "\tpublic int bar(){\t\t\t\n" +
+                "\t\tint y;\n" +
+                "\t\tA a;\n" +
+                "\t\ta = new B();\n" +
+                "\t\ty = a.foo();\n" + //we don't know if we should change this, now it won't accept
+                "\t\tSystem.out.println(1);\n" +
+                "\t\treturn 1;\n" +
+                "\t}\n" +
+                "}");
+    }
+
+    @Test
+    public void ACallsBNotYetDefined() throws Exception {
+        expectError("class Main {\n" +
+                "\tpublic static void main (String[] args){\n" +
+                "\t\tSystem.out.println(1);\n" +
+                "\t}\n" +
+                "}\n" +
+                "\n" +
+                "class A {\n" +
+                "\tpublic int bar(){\n" +
+                "\t\treturn new B().foo();\n" +
+                "\t}\n" +
+                "}\n");
+        accept("class Main {\n" +
+                "\tpublic static void main (String[] args){\n" +
+                "\t\tSystem.out.println(1);\n" +
+                "\t}\n" +
+                "}\n" +
+                "\n" +
+                "class A {\n" +
+                "\tB b;\n" +
+                "\tpublic int bar(){\n" +
+                "\t\treturn 1;\n" +
+                "\t}\n" +
+                "}\n" +
+                "class B {\n" +
+                "\tpublic int foo(){\n" +
+                "\t\treturn 1;\n" +
+                "\t}\n" +
+                "}");
+    }
+
     // /////////////////////// Helpers
     // /////////////////////////////////////////////
 
