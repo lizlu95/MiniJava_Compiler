@@ -5,7 +5,7 @@
 
 /*
  * The runtime defines a main function which calls the compiler generated main
- * function.
+ * function.888
  */
 int main() {
   cs411main();

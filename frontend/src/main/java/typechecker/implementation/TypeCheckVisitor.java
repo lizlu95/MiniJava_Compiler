@@ -84,7 +84,10 @@ public class TypeCheckVisitor implements Visitor<Type> {
 
     private Type lookupmore(String var, String cls){
         ClassType ct = (ClassType) classes.lookup(cls);
-        if (ct==null) errors.undefinedId(cls);
+        if (ct==null) {
+            errors.undefinedId(cls);
+            return null;
+        }
         thisFields = ct.fields;
         String ctsuper = ct.superName;
         Type t = lookup(var);
@@ -92,21 +95,30 @@ public class TypeCheckVisitor implements Visitor<Type> {
         if (t==null && ct!=null && ctsuper!=null) {
             tt = lookupmore(var, ctsuper);
         } else if (t!=null) return t;
-        else errors.undefinedId(var);
+        else {
+            errors.undefinedId(var);
+            return null;
+        }
         return tt;
     }
 
     private Type lookupMethod(String mtd, String cls){
         ClassType ct = (ClassType) classes.lookup(cls);
-        if (ct==null) errors.undefinedId(cls);
+        if (ct==null){
+            errors.undefinedId(cls);
+            return null;
+        }
         thisMethods = ct.methds;
         String ctsuper = ct.superName;
         MethodType mt = (MethodType) thisMethods.lookup(mtd);
-        Type tt = null;
+        Type tt;
         if (mt==null && ct!=null && ctsuper!=null) {
             tt = lookupMethod(mtd, ctsuper);
         } else if (mt!=null) return mt;
-        else errors.undefinedId(mtd);
+        else {
+            errors.undefinedId(mtd);
+            return null;
+        }
         return tt;
     }
 
@@ -118,6 +130,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         Type actual = exp.accept(this);
         if (actual == null){
             errors.errorsInExpression(exp);
+            return;
         }
         else if (!assignableFrom(expected, actual))
             errors.typeError(exp, expected, actual);
@@ -164,11 +177,11 @@ public class TypeCheckVisitor implements Visitor<Type> {
     private boolean assignableFrom(Type varType, Type valueType) {
         if (varType == null || valueType == null) {
             errors.assignableFromError(varType,valueType);
+            return false;
         }
         else {
             return varType.equals(valueType);
         }
-        return false; //placeholder by this time it will be an error in errors and therefore error will be thrown instead
     }
 
     private void dumpTable(ImpTable<Type> table){
@@ -227,6 +240,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         if (this.mainClassArgsName != null){
             if (n.name.equals(this.mainClassArgsName)){
                 errors.cannotUseArgsInMain();
+                return null;
             }
         }
 
@@ -335,9 +349,14 @@ public class TypeCheckVisitor implements Visitor<Type> {
         if (!(name instanceof IdentifierExp)) {
             errors.errorsInExpression(name);
             n.setType(new UnknownType());
+            return null;
         }
         methodName = ((IdentifierExp) name).name;
         ObjectType recob = (ObjectType) recv.accept(this);
+        if (recob == null){
+            errors.undefinedId(recv.toString());
+            return null;
+        }
         className = recob.name;
         //lookup classType from classes with className
         ImpTable<Type> tmpt = thisMethods;
@@ -347,6 +366,7 @@ public class TypeCheckVisitor implements Visitor<Type> {
         // check formal numbers and formal types
         if (n.rands.size() != mtd.formals.size()) {
             errors.wrongNumberOfArguments(mtd.formals.size(), n.rands.size());
+            return null;
         }
         for (int i = 0; i < n.rands.size(); ++i) {
             if (i < mtd.formals.size()) {
@@ -443,16 +463,19 @@ public class TypeCheckVisitor implements Visitor<Type> {
         thisFields = tf;
         if (! assignableFrom(tn,new IntArrayType())){
             errors.typeError(n.name,new IntArrayType(),tn);
+            return null;
         }
         Type tv = n.value.accept(this);
 
         if (! assignableFrom(tv,new IntegerType())){
             errors.typeError(n.value,new IntegerType(),tv);
+            return null;
         }
 
         Type ti = n.index.accept(this);
         if (! assignableFrom(ti,new IntegerType())){
             errors.typeError(n.index,new IntegerType(),ti);
+            return null;
         }
 
         return null;
@@ -500,11 +523,11 @@ public class TypeCheckVisitor implements Visitor<Type> {
         Type type = classes.lookup(n.typeName);
         if(type == null){
             errors.undefinedId(n.typeName);
+            return null;
         }
         else{
             return new ObjectType(n.typeName);
         }
-        return new ObjectType(n.typeName);
     }
 
     @Override
