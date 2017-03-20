@@ -10,7 +10,6 @@ import ir.tree.*;
 import ir.tree.CJUMP.RelOp;
 import ir.tree.TEMP;
 import translate.DataFragment;
-import translate.Fragment;
 import translate.Fragments;
 import translate.ProcFragment;
 import util.FunTable;
@@ -18,9 +17,6 @@ import util.List;
 import util.Lookup;
 import util.Pair;
 import visitor.Visitor;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import static ir.tree.IR.*;
 import static translate.TranslatorLabels.*;
@@ -95,19 +91,19 @@ public class TranslateVisitor implements Visitor<TRExp> {
         currentEnv = currentEnv.insert(name, exp);
     }
 
-    private ArrayList<DataFragment> findFrame(String n) {
-        ArrayList<DataFragment> list = new ArrayList<>();
-        Iterator<Fragment> iterator = frags.iterator();
-        while(iterator.hasNext()) {
-            Fragment t = iterator.next();
-            if (t instanceof DataFragment) {
-                DataFragment p = (DataFragment)t;
-                if (p.getLabel().toString().contains(Label.get(n).toString() + "_"))
-                    list.add(p);
-            }
-        }
-        return list;
-    }
+//    private ArrayList<DataFragment> findFrame(String n) {
+//        Iterator<translate.Fragment> iterator = frags.iterator();
+//        while(iterator.hasNext()) {
+//////            Fragment t = iterator.next();
+//////            if (t instanceof DataFragment) {
+//////                DataFragment p = (DataFragment)t;
+//////                if (p.getLabel().toString().contains(Label.get(n).toString() + "_"))
+//////                    list.add(p);
+//////            }
+//            iterator.next();
+//        }
+//        return list;
+//    }
 
     ////// Visitor ///////////////////////////////////////////////
 
@@ -458,7 +454,7 @@ public class TranslateVisitor implements Visitor<TRExp> {
         }*/
         //Get the access information for each regular formal and add it to the environment.
         for (int i = 1; i < n.formals.size()+1; i++) {
-            putEnv(n.formals.elementAt(i).name, frame.getFormal(i));
+            putEnv(n.formals.elementAt(i-1).name, frame.getFormal(i));
         }
         n.vars.accept(this);
 
@@ -573,12 +569,12 @@ public class TranslateVisitor implements Visitor<TRExp> {
 
             @Override
             public IRStm unCx(IRExp dst, IRExp src) {
-                return new Ex(IR.BINOP(Op.MINUS, IR.CONST(1), negated.unEx())).unCx(dst, src);
+                return new Ex(IR.BINOP(Op.PLUS, IR.CONST(-1), negated.unEx())).unCx(dst, src);
             }
 
             @Override
             public IRExp unEx() {
-                return new Ex(IR.BINOP(Op.MINUS, IR.CONST(1), negated.unEx())).unEx();
+                return new Ex(IR.BINOP(Op.PLUS, IR.CONST(-1), negated.unEx())).unEx();
             }
         };
     }
@@ -624,17 +620,17 @@ public class TranslateVisitor implements Visitor<TRExp> {
         // use L_NEW_OBJECT
         String cn = n.typeName;
         //TODO need to find all global variables in this class cn
-        ArrayList<DataFragment> flist = findFrame(cn);
+//        ArrayList<DataFragment> flist = findFrame(cn);
         int size = 0;
-        Iterator<DataFragment> itr = flist.iterator();
-        while(itr.hasNext()){
-            DataFragment f = itr.next();
-            Iterator<IRExp> iterator = f.getBody().iterator();
-            while (iterator.hasNext()) {
-                size += f.wordSize;
-                iterator.next();
-            }
-        }
+//        Iterator<DataFragment> itr = flist.iterator();
+//        while(itr.hasNext()){
+//            DataFragment f = itr.next();
+//            Iterator<IRExp> iterator = f.getBody().iterator();
+//            while (iterator.hasNext()) {
+//                size += f.wordSize;
+//                iterator.next();
+//            }
+//        }
         TRExp ptr = new Ex(IR.CALL(L_NEW_OBJECT,CONST(size)));
 
         return ptr;
