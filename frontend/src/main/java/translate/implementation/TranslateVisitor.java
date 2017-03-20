@@ -8,20 +8,18 @@ import ir.temp.Temp;
 import ir.tree.BINOP.Op;
 import ir.tree.*;
 import ir.tree.CJUMP.RelOp;
+import ir.tree.TEMP;
 import translate.DataFragment;
 import translate.Fragment;
 import translate.Fragments;
 import translate.ProcFragment;
-import translate.implementation.Cx;
-import translate.implementation.Ex;
-import translate.implementation.Nx;
-import translate.implementation.TRExp;
 import util.FunTable;
 import util.List;
 import util.Lookup;
 import util.Pair;
 import visitor.Visitor;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import static ir.tree.IR.*;
@@ -97,14 +95,18 @@ public class TranslateVisitor implements Visitor<TRExp> {
         currentEnv = currentEnv.insert(name, exp);
     }
 
-    private DataFragment findFrame(String n) {
+    private ArrayList<DataFragment> findFrame(String n) {
+        ArrayList<DataFragment> list = new ArrayList<>();
         Iterator<Fragment> iterator = frags.iterator();
         while(iterator.hasNext()) {
-            DataFragment p = (DataFragment) iterator.next();
-            if(p.getLabel().equals(Label.get(n)))
-                return p;
+            Fragment t = iterator.next();
+            if (t instanceof DataFragment) {
+                DataFragment p = (DataFragment)t;
+                if (p.getLabel().toString().contains(Label.get(n).toString() + "_"))
+                    list.add(p);
+            }
         }
-        return null;
+        return list;
     }
 
     ////// Visitor ///////////////////////////////////////////////
@@ -165,8 +167,11 @@ public class TranslateVisitor implements Visitor<TRExp> {
     // then copy super fields and super methods, create more frags
     @Override
     public TRExp visit(ClassDecl n) {
-        // TODO Auto-generated method stub
+        //TODO we DONOT support superclass, nope nope nope
+        //n.superName
         className = n.name;
+        n.vars.accept(this);
+        n.methods.accept(this);
         return null;
     }
 
@@ -420,11 +425,23 @@ public class TranslateVisitor implements Visitor<TRExp> {
     @Override
     public TRExp visit(MethodDecl n) {
         Frame oldframe = frame;
-        frame = newFrame(methodLabel(n.name), n.formals.size());
+        frame = newFrame(methodLabel(n.name), n.formals.size()+1);
         FunTable<IRExp> saveEnv = currentEnv;
 
+        //TODO somehow use ptr which is frame.getFormal(0)
+        //Change env
+        Access ptr = frame.getFormal(0);
+        ArrayList<DataFragment> flist = findFrame(className);
+//        Iterator<DataFragment> itr = flist.iterator();
+//        while (itr.hasNext()){
+//            DataFragment f = itr.next();
+//            Label l = f.getLabel();
+//            putEnv(l.toString(),ptr);
+//            //TODO somehow why FP()?
+//            IR.BINOP(Op.PLUS,ptr.exp(frame.FP()),IR.CONST(frame.wordSize()));
+//        }
         //Get the access information for each regular formal and add it to the environment.
-        for (int i = 0; i < n.formals.size(); i++) {
+        for (int i = 1; i < n.formals.size()+1; i++) {
             putEnv(n.formals.elementAt(i).name, frame.getFormal(i));
         }
         n.vars.accept(this);
@@ -447,12 +464,27 @@ public class TranslateVisitor implements Visitor<TRExp> {
 
     @Override
     public TRExp visit(VarDecl n) {
-        Access var = frame.allocLocal(false);
-        putEnv(n.name, var);
+        switch(n.kind) {
+            case LOCAL:
+                Access var = frame.allocLocal(false);
+                putEnv(n.name, var);
+                break;
+            case FORMAL:
+                //TODO later
+                break;
+            case FIELD:
+                Label g = Label.get(className+"_"+n.name);
+                IRExp zero = IR.CONST(0);
+                IRData data = new IRData(g, List.list(zero));
+                DataFragment decl = new DataFragment(frame, data);
+                frags.add(decl);
+                IRExp v = IR.MEM(IR.NAME(g));
+                putEnv(n.name,v);
+                break;
+        }
         return null;
     }
 
-    // TODO add receiver in args
     @Override
     public TRExp visit(Call n) {
         String functionName = "unknown";
@@ -460,12 +492,36 @@ public class TranslateVisitor implements Visitor<TRExp> {
             functionName = ((IdentifierExp) n.name).name;
         }
         List<IRExp> args = List.list();
-        args.add(n.receiver.accept(this).unEx());
+
+        //args.add(n.receiver.accept(this).unEx());
+        // two cases for receiver: 1. new object 2. identifierExp
+        IRExp ptr = null;
+        String old_className = className;
+        if (n.receiver instanceof NewObject){
+            ptr = n.receiver.accept(this).unEx();
+            className = ((NewObject)n.receiver).typeName;
+        }
+        else if (n.receiver instanceof IdentifierExp){
+            IdentifierExp tmp = (IdentifierExp)n.receiver;
+            ptr = currentEnv.lookup(tmp.name);
+            //TODO don't know how to find className of identifier
+        }
+        else if (n.receiver instanceof This){
+            //TODO do something IDK
+            //change what is in class
+        }
+        else{
+            throw new Error("cannot happen :O receiver must be newObject or IdentifierExp");
+        }
+        //TODO somehow use ptr
+        args.add(ptr);
         for (int i = 0; i < n.rands.size(); i++) {
             TRExp arg = n.rands.elementAt(i).accept(this);
             args.add(arg.unEx());
         }
-        return new Ex(IR.CALL(methodLabel(functionName), args));
+        TRExp ret = new Ex(IR.CALL(methodLabel(functionName), args));
+        className = old_className;
+        return ret;
     }
 
     //////////////////////primary exps/////////////////////////////////
@@ -557,13 +613,21 @@ public class TranslateVisitor implements Visitor<TRExp> {
     public TRExp visit(NewObject n) {
         // use L_NEW_OBJECT
         String cn = n.typeName;
-        DataFragment f = findFrame(cn);
+        //TODO need to find all global variables in this class cn
+        ArrayList<DataFragment> flist = findFrame(cn);
         int size = 0;
-        Iterator<IRExp> iterator = f.getBody().iterator();
-        while(iterator.hasNext()) {
-            size+=f.wordSize;
+        Iterator<DataFragment> itr = flist.iterator();
+        while(itr.hasNext()){
+            DataFragment f = itr.next();
+            Iterator<IRExp> iterator = f.getBody().iterator();
+            while (iterator.hasNext()) {
+                size += f.wordSize;
+                iterator.next();
+            }
         }
-        return new Ex(IR.CALL(L_NEW_OBJECT,CONST(size)));
+        TRExp ptr = new Ex(IR.CALL(L_NEW_OBJECT,CONST(size)));
+
+        return ptr;
     }
 
 

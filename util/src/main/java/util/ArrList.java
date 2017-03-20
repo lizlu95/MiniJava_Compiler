@@ -60,6 +60,8 @@ class ArrList<E> extends List<E> implements Iterable<E> {
      * @see util.List#add(E)
      */
     public void add(E e) {
+//        System.out.println("e: "+e);
+//        System.out.println("allowMutation: "+allowMutation);
         assert (allowMutation);
         elements.add(e);
     }
@@ -69,6 +71,7 @@ class ArrList<E> extends List<E> implements Iterable<E> {
      * stop working).
      */
     public void makeImmutable() {
+
         allowMutation = false;
     }
 
