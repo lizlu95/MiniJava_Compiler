@@ -227,7 +227,7 @@ public class TranslateVisitor implements Visitor<TRExp> {
         } else{
             IRExp value = currentEnv.lookup(n.name.name);
             //if I already found it, just return
-            System.out.println("Assign n: name, value is: "+n.name.name+" "+value);
+           // System.out.println("Assign n: name, value is: "+n.name.name+" "+value);
             if (value == null) {
                 Access var = frame.allocLocal(false);
                 putEnv(n.name.name, var);
@@ -326,12 +326,6 @@ public class TranslateVisitor implements Visitor<TRExp> {
         TRExp tst = n.tst.accept(this);
         TRExp thn = n.thn.accept(this);
         TRExp els = n.els.accept(this);
-        System.out.println("If n: tst: "+tst);
-        System.out.println("If n: thn: "+thn);
-        System.out.println("If n: els: "+els);
-        System.out.println("If Label t: "+t);
-        System.out.println("If Label f: "+f);
-        System.out.println("If Label end: "+endLabel);
         IRStm body = IR.SEQ(
                 tst.unCx(t,f),
                 IR.LABEL(t),
@@ -352,8 +346,8 @@ public class TranslateVisitor implements Visitor<TRExp> {
         IRStm body = IR.SEQ(
                 IR.LABEL(start),
                 n.body.accept(this).unNx(),
-                n.tst.accept(this).unCx(start, end),
-                IR.JUMP(end));
+                tst,
+                IR.LABEL(end));
 
         return new Nx(IR.SEQ(tst,body));
     }

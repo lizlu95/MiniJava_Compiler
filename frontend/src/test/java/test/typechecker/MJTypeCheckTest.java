@@ -188,7 +188,7 @@ public class MJTypeCheckTest {
                 "\t\ty = y1;\n" +
                 "\t\treturn x;\n" +
                 "\t}\n" +
-                "\tpublic boolean foo(int x1){\n" +
+                "\tpublic int foo(int x1){\n" +
                 "\t\tx = x1;\n" +
                 "\t\treturn y;\n" +
                 "\t}\n" +
