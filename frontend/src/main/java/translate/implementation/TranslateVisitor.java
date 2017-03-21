@@ -180,7 +180,7 @@ public class TranslateVisitor implements Visitor<TRExp> {
         if(n.superName!=null){
             currentEnv.merge(oldEnv);
         }
-        //currentEnv = oldEnv;
+
 
         return null;
     }
@@ -327,14 +327,13 @@ public class TranslateVisitor implements Visitor<TRExp> {
         Label end = Label.gen();
 
         IRStm tst = n.tst.accept(this).unCx(start, end);
-//        System.out.println(n.body.accept(this).unNx());
+
         IRStm innerBody = n.body.accept(this).unNx();
         IRStm body = IR.SEQ(
                 tst,
                 IR.LABEL(start),
                 innerBody,
                 tst,
-//                IR.JUMP(end),
                 IR.LABEL(end));
 
         return new Nx(body);
@@ -541,7 +540,6 @@ public class TranslateVisitor implements Visitor<TRExp> {
         if (n.receiver instanceof NewObject){
             ptr = n.receiver.accept(this).unEx();
             className = ((NewObject)n.receiver).typeName;
-            //System.out.println("ptr is: "+ptr);
         }
         else if (n.receiver instanceof IdentifierExp){
             IdentifierExp tmp = (IdentifierExp)n.receiver;
@@ -551,13 +549,10 @@ public class TranslateVisitor implements Visitor<TRExp> {
             } else throw new Error("you should be an object =(");
         }
         else if (n.receiver instanceof This){
-            //System.out.println("classname is: "+className);
+
             n.receiver.accept(this);
             ptr = currentEnv.lookup(className);
-            //System.out.println("ptr is: "+ptr);
-//            if (ptr == null){
-//                ptr = IR.MEM(CONST(0));
-//            }
+
         }
         else{
             throw new Error("receiver must be newObject or IdentifierExp or This");
@@ -574,10 +569,8 @@ public class TranslateVisitor implements Visitor<TRExp> {
             TRExp arg = n.rands.elementAt(i).accept(this);
             args.add(arg.unEx());
         }
-//        System.out.println("call n: args are: "+args);
-//        System.out.println("call n: methodLabel is: "+methodLabel(functionName));
+
         TRExp ret = new Ex(IR.CALL(methodLabel(functionName), args));
-//        System.out.println("call n: ret: "+ret.unEx());
         className = old_className;
         return ret;
     }
@@ -649,54 +642,35 @@ public class TranslateVisitor implements Visitor<TRExp> {
 
         IRExp ptr = n.array.accept(this).unEx();
         IRExp index = n.index.accept(this).unEx();
-        IRExp p = IR.BINOP(Op.PLUS, ptr, IR.BINOP(Op.MUL, index, IR.CONST(frame.wordSize())));
-        TRExp r = new Ex(IR.MEM(p));
+
+        TRExp r = new Ex(IR.MEM(IR.BINOP(Op.PLUS, ptr,
+                IR.BINOP(Op.MUL, index, IR.CONST(frame.wordSize())))));
         return r;
     }
 
     @Override
     public TRExp visit(ArrayLength n) {
-        Temp t = new Temp();
-        Temp t2 = new Temp();
+
         TRExp arr = n.array.accept(this);
-        //assuming identifier TODO
-        IRExp p = currentEnv.lookup(((IdentifierExp)n.array).name);
-        IRStm p1 = IR.MOVE(TEMP(t),p);
-        IRStm p2 = new Ex(IR.BINOP(Op.MINUS,TEMP(t),CONST(frame.wordSize()))).unNx();
-        IRStm size = IR.MOVE(TEMP(t2),IR.MEM(TEMP(t)));
-        return new Ex(IR.ESEQ(SEQ(p1,p2,size),TEMP(t2)));
+        return new Ex(IR.MEM(IR.BINOP(Op.MINUS, arr.unEx(), IR.CONST(frame.wordSize()))));
     }
 
     @Override
     public TRExp visit(NewArray n) {
         // use L_NEW_ARRAY
-        Frame oldf = frame;
+        TRExp size = n.size.accept(this);
+        return new Ex(IR.CALL(L_NEW_ARRAY, size.unEx()));
 
-        if(n.size instanceof IntegerLiteral){
-            frame = newFrame(L_NEW_ARRAY,Integer.parseInt(n.size.toString()));
-        }
-        else{
-            TRExp size = n.size.accept(this);
-            return new Ex(IR.CALL(L_NEW_ARRAY, size.unEx()));
-
-        }
-        //TRExp ptr = new Ex(IR.CALL(L_NEW_ARRAY,size));
-        frame = oldf;
-        return new Ex(frame.FP());
 
     }
 
     @Override
     public TRExp visit(NewObject n) {
         // use L_NEW_OBJECT
-        //String cn = n.typeName;
-        //TODO need to find all global variables in this class cn
-        Frame oldf = frame;
+
         int size = (currentEnv.size() - frame.getFormals().size())*frame.wordSize();
-        frame = newFrame(L_NEW_OBJECT,size);
-        //TRExp ptr = new Ex(IR.CALL(L_NEW_OBJECT,CONST(size)));
-        frame = oldf;
-        return new Ex(frame.FP());
+        TRExp ptr = new Ex(IR.CALL(L_NEW_OBJECT,CONST(size)));
+        return ptr;
     }
 
 
