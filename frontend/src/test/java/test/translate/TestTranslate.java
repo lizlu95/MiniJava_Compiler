@@ -424,9 +424,17 @@ public class TestTranslate {
                         "  } }\n" +
                         "}\n" +
                         "class Foo {\n " +
+//                        "   int z;\n"+
                         "   public int doit(int x, int y) {\n" +
                         "      int result;\n" +
-                        "      if (this.ordered(x, y))\n" +
+//                        "      boolean r;\n" +
+//                        "       result = 1;" +
+//                        "       result = 2;" +
+//                        "      r = this.ordered(x,y);\n"+
+//                        "      System.out.println(r);\n"+
+//                        "       r=true;"+
+//                        "      if (r)\n" +
+                        "       if(this.ordered(x,y))"+
                         "         result = 99;\n" +
                         "      else\n" +
                         "         result = 22;\n" +
