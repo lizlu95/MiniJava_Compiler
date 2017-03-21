@@ -343,13 +343,17 @@ public class TranslateVisitor implements Visitor<TRExp> {
         Label end = Label.gen();
 
         IRStm tst = n.tst.accept(this).unCx(start, end);
+//        System.out.println(n.body.accept(this).unNx());
+        IRStm innerBody = n.body.accept(this).unNx();
         IRStm body = IR.SEQ(
-                IR.LABEL(start),
-                n.body.accept(this).unNx(),
                 tst,
+                IR.LABEL(start),
+                innerBody,
+                tst,
+//                IR.JUMP(end),
                 IR.LABEL(end));
 
-        return new Nx(IR.SEQ(tst,body));
+        return new Nx(body);
     }
 
     ////////////////////////binops/////////////////////////////////////

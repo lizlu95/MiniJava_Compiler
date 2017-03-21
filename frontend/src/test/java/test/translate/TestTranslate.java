@@ -461,10 +461,12 @@ public class TestTranslate {
                         "      int count;\n" +
                         "      result = 0;\n" +
                         "      count = 1;\n" +
+//                        "      System.out.println(x);\n"+
                         "      while (count<x) {\n" +
                         "          result = result + count;\n" +
                         "          count = count + 1;\n" +
                         "      }\n" +
+//                        "      System.out.println(count);\n"+
                         "      return result;\n" +
                         "   }\n" +
                         "}"
