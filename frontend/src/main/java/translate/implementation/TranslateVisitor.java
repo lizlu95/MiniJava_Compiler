@@ -222,19 +222,18 @@ public class TranslateVisitor implements Visitor<TRExp> {
             return new Nx(IR.MOVE(lhs, val.unEx()));
         }
 
-
-
     }
 
     //TODO bound check
     @Override
     public TRExp visit(ArrayAssign n) {
-        n.name
-                n.index
-                        n.value
+        IRExp base = currentEnv.lookup(n.name);
+        IRExp offset = IR.BINOP(Op.MUL,n.index.accept(this).unEx(),CONST(frame.wordSize()));
+        IRExp ptr = IR.BINOP(Op.PLUS,base,offset);
 
+        IRStm rs = IR.MOVE(IR.MEM(ptr),n.value.accept(this).unEx());
 
-        return null;
+        return new Nx(rs);
     }
 
     ///////////////////////types////////////////////////////////////////////
@@ -615,14 +614,16 @@ public class TranslateVisitor implements Visitor<TRExp> {
 
     @Override
     public TRExp visit(ArrayLookup n) {
+
         IRExp ptr = n.array.accept(this).unEx();
         IRExp index = n.index.accept(this).unEx();
         Temp t = new Temp();
         Temp t2 = new Temp();
-        TRExp r = new Ex(IR.MEM(ESEQ(SEQ(IR.MOVE(TEMP(t),ptr),
-                    IR.MOVE(TEMP(t2),index),
-                    new Ex(IR.MUL(TEMP(t2),8)).unNx()
-                    ),IR.BINOP(Op.PLUS,TEMP(t),TEMP(t2)))));
+        IRExp p = ESEQ(SEQ(IR.MOVE(TEMP(t),ptr),
+                IR.MOVE(TEMP(t2),index),
+                new Ex(IR.BINOP(Op.MUL,TEMP(t2),CONST(frame.wordSize()))).unNx()),
+                IR.BINOP(Op.PLUS,TEMP(t),TEMP(t2)));
+        TRExp r = new Ex(IR.MEM(p));
         return r;
     }
 
@@ -634,7 +635,7 @@ public class TranslateVisitor implements Visitor<TRExp> {
         //assuming identifier TODO
         IRExp p = currentEnv.lookup(((IdentifierExp)n.array).name);
         IRStm p1 = IR.MOVE(TEMP(t),p);
-        IRStm p2 = new Ex(IR.BINOP(Op.MINUS,TEMP(t),CONST(8))).unNx();
+        IRStm p2 = new Ex(IR.BINOP(Op.MINUS,TEMP(t),CONST(frame.wordSize()))).unNx();
         IRStm size = IR.MOVE(TEMP(t2),IR.MEM(TEMP(t)));
         return new Ex(IR.ESEQ(SEQ(p1,p2,size),TEMP(t2)));
     }
@@ -642,9 +643,13 @@ public class TranslateVisitor implements Visitor<TRExp> {
     @Override
     public TRExp visit(NewArray n) {
         // use L_NEW_ARRAY
-        IRExp size = n.size.accept(this).unEx();
-        TRExp ptr = new Ex(IR.CALL(L_NEW_ARRAY,size));
-        return ptr;
+        Frame oldf = frame;
+        //IRExp size = n.size.accept(this).unEx();
+        frame = newFrame(L_NEW_ARRAY,Integer.parseInt(n.size.toString()));
+
+        //TRExp ptr = new Ex(IR.CALL(L_NEW_ARRAY,size));
+        frame = oldf;
+        return new Ex(frame.FP());
     }
 
     @Override
@@ -652,20 +657,12 @@ public class TranslateVisitor implements Visitor<TRExp> {
         // use L_NEW_OBJECT
         //String cn = n.typeName;
         //TODO need to find all global variables in this class cn
+        Frame oldf = frame;
         int size = (currentEnv.size() - frame.getFormals().size())*frame.wordSize();
-/*        ArrayList<DataFragment> flist = findFrame(cn);
-        Iterator<DataFragment> itr = flist.iterator();
-        while(itr.hasNext()){
-            DataFragment f = itr.next();
-            Iterator<IRExp> iterator = f.getBody().iterator();
-            while (iterator.hasNext()) {
-                size += f.wordSize;
-                iterator.next();
-            }
-        }*/
-        TRExp ptr = new Ex(IR.CALL(L_NEW_OBJECT,CONST(size)));
-
-        return ptr;
+        frame = newFrame(L_NEW_OBJECT,size);
+        //TRExp ptr = new Ex(IR.CALL(L_NEW_OBJECT,CONST(size)));
+        frame = oldf;
+        return new Ex(frame.FP());
     }
 
 
