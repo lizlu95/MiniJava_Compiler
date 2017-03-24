@@ -103,4 +103,12 @@ public class Label {
         return newLabel;
     }
 
+    public static int counts(String name, int n){
+        int count = 0;
+        for(String k : labels.keySet())
+            if (k.length()>name.length() && k.substring(n).equals(name))
+                count++;
+        return count;
+    }
+
 }

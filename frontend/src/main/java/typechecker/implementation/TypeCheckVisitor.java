@@ -261,7 +261,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(LessThan n) {
         check(n.e1, new IntegerType());
         check(n.e2, new IntegerType());
-        return new BooleanType();
+        if(!n.typed())
+            n.setType(new BooleanType());
+        return n.getType();
     }
 
     @Override
@@ -277,26 +279,34 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(Plus n) {
         check(n.e1, new IntegerType());
         check(n.e2, new IntegerType());
-        return new IntegerType();
+        if(!n.typed())
+            n.setType(new IntegerType());
+        return n.getType();
     }
 
     @Override
     public Type visit(Minus n) {
         check(n.e1, new IntegerType());
         check(n.e2, new IntegerType());
-        return new IntegerType();
+        if(!n.typed())
+            n.setType(new IntegerType());
+        return n.getType();
     }
 
     @Override
     public Type visit(Times n) {
         check(n.e1, new IntegerType());
         check(n.e2, new IntegerType());
-        return new IntegerType();
+        if(!n.typed())
+            n.setType(new IntegerType());
+        return n.getType();
     }
 
     @Override
     public Type visit(IntegerLiteral n) {
-        return new IntegerType();
+        if(!n.typed())
+            n.setType(new IntegerType());
+        return n.getType();
     }
 
     @Override
@@ -319,7 +329,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(Not n) {
         check(n.e, new BooleanType());
-        return new BooleanType();
+        if(!n.typed())
+            n.setType(new BooleanType());
+        return n.getType();
     }
 
     @Override
@@ -487,7 +499,9 @@ public class TypeCheckVisitor implements Visitor<Type> {
     public Type visit(And n) {
         check(n.e1, new BooleanType());
         check(n.e2, new BooleanType());
-        return new BooleanType();
+        if(!n.typed())
+            n.setType(new BooleanType());
+        return n.getType();
     }
 
     @Override
@@ -501,12 +515,16 @@ public class TypeCheckVisitor implements Visitor<Type> {
     @Override
     public Type visit(ArrayLength n) {
         check(n.array,new IntArrayType());
-        return new IntegerType();
+        if(!n.typed())
+            n.setType(new IntegerType());
+        return n.getType();
     }
 
     @Override
     public Type visit(BooleanLiteral n) {
-        return new BooleanType();
+        if(!n.typed())
+            n.setType(new BooleanType());
+        return n.getType();
     }
 
     @Override
