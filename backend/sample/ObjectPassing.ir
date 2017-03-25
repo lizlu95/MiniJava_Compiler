@@ -2,178 +2,178 @@ MethodFragment {
    X86_64Frame { label = Foo_doit
       nextLocalOffset = -8
       formals = List {
-         t6757
+         t2298
       }
    }
    List {
-      LABEL L_2275
+      LABEL L_818
       MOVE(
-         t6759 <-
+         t2300 <-
          %rbx:%rbx)
       MOVE(
-         t6760 <-
+         t2301 <-
          %r12:%r12)
       MOVE(
-         t6761 <-
+         t2302 <-
          %r13:%r13)
       MOVE(
-         t6762 <-
+         t2303 <-
          %r14:%r14)
       MOVE(
-         t6763 <-
+         t2304 <-
          %r15:%r15)
       MOVE(
-         t6757 <-
+         t2298 <-
          %rdi:%rdi)
       MOVE(
-         MEM(t6757) <-
+         MEM(t2298) <-
          CONST 10)
       MOVE(
-         t6758 <-
+         t2299 <-
          CALL(
             NAME(Foo_ident),
-            t6757,
-            t6757))
+            t2298,
+            t2298))
       CJUMP(EQ,
-         t6758,
+         t2299,
          CONST 0,
-         invokebad_2271, invokeok_2270)
-      LABEL invokeok_2270
+         invokebad_814, invokeok_813)
+      LABEL invokeok_813
       MOVE(
-         t6782 <-
+         t2323 <-
          CALL(
             NAME(Foo_getField),
-            t6758))
+            t2299))
       MOVE(
          %rax:%rax <-
-         t6782)
-      LABEL bail_2269
+         t2323)
+      LABEL bail_812
       MOVE(
          %rbx:%rbx <-
-         t6759)
+         t2300)
       MOVE(
          %r12:%r12 <-
-         t6760)
+         t2301)
       MOVE(
          %r13:%r13 <-
-         t6761)
+         t2302)
       MOVE(
          %r14:%r14 <-
-         t6762)
+         t2303)
       MOVE(
          %r15:%r15 <-
-         t6763)
-      JUMP(NAME(DONE_2276))
-      LABEL invokebad_2271
+         t2304)
+      JUMP(NAME(DONE_819))
+      LABEL invokebad_814
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 2))
-      JUMP(NAME(bail_2269))
-      LABEL DONE_2276
+      JUMP(NAME(bail_812))
+      LABEL DONE_819
    }
 }
 MethodFragment {
    X86_64Frame { label = Foo_ident
       nextLocalOffset = -8
       formals = List {
-         t6764
-         t6765
+         t2305
+         t2306
       }
    }
    List {
-      LABEL L_2277
+      LABEL L_820
       MOVE(
-         t6766 <-
+         t2307 <-
          %rbx:%rbx)
       MOVE(
-         t6767 <-
+         t2308 <-
          %r12:%r12)
       MOVE(
-         t6768 <-
+         t2309 <-
          %r13:%r13)
       MOVE(
-         t6769 <-
+         t2310 <-
          %r14:%r14)
       MOVE(
-         t6770 <-
+         t2311 <-
          %r15:%r15)
       MOVE(
-         t6764 <-
+         t2305 <-
          %rdi:%rdi)
       MOVE(
-         t6765 <-
+         t2306 <-
          %rsi:%rsi)
       MOVE(
          %rax:%rax <-
-         t6765)
-      LABEL bail_2272
+         t2306)
+      LABEL bail_815
       MOVE(
          %rbx:%rbx <-
-         t6766)
+         t2307)
       MOVE(
          %r12:%r12 <-
-         t6767)
+         t2308)
       MOVE(
          %r13:%r13 <-
-         t6768)
+         t2309)
       MOVE(
          %r14:%r14 <-
-         t6769)
+         t2310)
       MOVE(
          %r15:%r15 <-
-         t6770)
-      LABEL DONE_2278
+         t2311)
+      LABEL DONE_821
    }
 }
 MethodFragment {
    X86_64Frame { label = Foo_getField
       nextLocalOffset = -8
       formals = List {
-         t6771
+         t2312
       }
    }
    List {
-      LABEL L_2279
+      LABEL L_822
       MOVE(
-         t6772 <-
+         t2313 <-
          %rbx:%rbx)
       MOVE(
-         t6773 <-
+         t2314 <-
          %r12:%r12)
       MOVE(
-         t6774 <-
+         t2315 <-
          %r13:%r13)
       MOVE(
-         t6775 <-
+         t2316 <-
          %r14:%r14)
       MOVE(
-         t6776 <-
+         t2317 <-
          %r15:%r15)
       MOVE(
-         t6771 <-
+         t2312 <-
          %rdi:%rdi)
       MOVE(
          %rax:%rax <-
-         MEM(t6771))
-      LABEL bail_2273
+         MEM(t2312))
+      LABEL bail_816
       MOVE(
          %rbx:%rbx <-
-         t6772)
+         t2313)
       MOVE(
          %r12:%r12 <-
-         t6773)
+         t2314)
       MOVE(
          %r13:%r13 <-
-         t6774)
+         t2315)
       MOVE(
          %r14:%r14 <-
-         t6775)
+         t2316)
       MOVE(
          %r15:%r15 <-
-         t6776)
-      LABEL DONE_2280
+         t2317)
+      LABEL DONE_823
    }
 }
 MethodFragment {
@@ -183,51 +183,51 @@ MethodFragment {
       }
    }
    List {
-      LABEL L_2281
+      LABEL L_824
       MOVE(
-         t6777 <-
+         t2318 <-
          %rbx:%rbx)
       MOVE(
-         t6778 <-
+         t2319 <-
          %r12:%r12)
       MOVE(
-         t6779 <-
+         t2320 <-
          %r13:%r13)
       MOVE(
-         t6780 <-
+         t2321 <-
          %r14:%r14)
       MOVE(
-         t6781 <-
+         t2322 <-
          %r15:%r15)
       MOVE(
-         t6784 <-
+         t2325 <-
          CALL(
             NAME(cs411newobject),
             CONST 8))
       MOVE(
-         t6783 <-
+         t2324 <-
          CALL(
             NAME(Foo_doit),
-            t6784))
+            t2325))
       EXP(CALL(
          NAME(cs411println),
-         t6783))
-      LABEL bail_2274
+         t2324))
+      LABEL bail_817
       MOVE(
          %rbx:%rbx <-
-         t6777)
+         t2318)
       MOVE(
          %r12:%r12 <-
-         t6778)
+         t2319)
       MOVE(
          %r13:%r13 <-
-         t6779)
+         t2320)
       MOVE(
          %r14:%r14 <-
-         t6780)
+         t2321)
       MOVE(
          %r15:%r15 <-
-         t6781)
-      LABEL DONE_2282
+         t2322)
+      LABEL DONE_825
    }
 }

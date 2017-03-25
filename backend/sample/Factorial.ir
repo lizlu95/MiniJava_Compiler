@@ -2,81 +2,81 @@ MethodFragment {
    X86_64Frame { label = Fac_ComputeFac
       nextLocalOffset = -8
       formals = List {
-         t5898
-         t5899
+         t1461
+         t1462
       }
    }
    List {
-      LABEL L_1983
+      LABEL L_526
       MOVE(
-         t5901 <-
+         t1464 <-
          %rbx:%rbx)
       MOVE(
-         t5902 <-
+         t1465 <-
          %r12:%r12)
       MOVE(
-         t5903 <-
+         t1466 <-
          %r13:%r13)
       MOVE(
-         t5904 <-
+         t1467 <-
          %r14:%r14)
       MOVE(
-         t5905 <-
+         t1468 <-
          %r15:%r15)
       MOVE(
-         t5898 <-
+         t1461 <-
          %rdi:%rdi)
       MOVE(
-         t5899 <-
+         t1462 <-
          %rsi:%rsi)
       CJUMP(GE,
-         t5899,
+         t1462,
          CONST 1,
-         iffalse_1980, iftrue_1979)
-      LABEL iftrue_1979
+         iffalse_523, iftrue_522)
+      LABEL iftrue_522
       MOVE(
-         t5900 <-
+         t1463 <-
          CONST 1)
-      LABEL endif_1981
+      LABEL endif_524
       MOVE(
          %rax:%rax <-
-         t5900)
-      LABEL bail_1978
+         t1463)
+      LABEL bail_521
       MOVE(
          %rbx:%rbx <-
-         t5901)
+         t1464)
       MOVE(
          %r12:%r12 <-
-         t5902)
+         t1465)
       MOVE(
          %r13:%r13 <-
-         t5903)
+         t1466)
       MOVE(
          %r14:%r14 <-
-         t5904)
+         t1467)
       MOVE(
          %r15:%r15 <-
-         t5905)
-      JUMP(NAME(DONE_1984))
-      LABEL iffalse_1980
+         t1468)
+      JUMP(NAME(DONE_527))
+      LABEL iffalse_523
       MOVE(
-         t5912 <-
-         t5899)
+         t1475 <-
+         t1462)
       MOVE(
-         t5911 <-
+         t1474 <-
          CALL(
             NAME(Fac_ComputeFac),
-            t5898,
+            t1461,
             BINOP(MINUS,
-               t5899, 
+               t1462, 
                CONST 1)))
       MOVE(
-         t5900 <-
+         t1463 <-
          BINOP(MUL,
-            t5912, 
-            t5911))
-      JUMP(NAME(endif_1981))
-      LABEL DONE_1984
+            t1475, 
+            t1474))
+      JUMP(NAME(endif_524))
+      LABEL DONE_527
    }
 }
 MethodFragment {
@@ -86,52 +86,52 @@ MethodFragment {
       }
    }
    List {
-      LABEL L_1985
+      LABEL L_528
       MOVE(
-         t5906 <-
+         t1469 <-
          %rbx:%rbx)
       MOVE(
-         t5907 <-
+         t1470 <-
          %r12:%r12)
       MOVE(
-         t5908 <-
+         t1471 <-
          %r13:%r13)
       MOVE(
-         t5909 <-
+         t1472 <-
          %r14:%r14)
       MOVE(
-         t5910 <-
+         t1473 <-
          %r15:%r15)
       MOVE(
-         t5914 <-
+         t1477 <-
          CALL(
             NAME(cs411newobject),
             CONST 0))
       MOVE(
-         t5913 <-
+         t1476 <-
          CALL(
             NAME(Fac_ComputeFac),
-            t5914,
+            t1477,
             CONST 10))
       EXP(CALL(
          NAME(cs411println),
-         t5913))
-      LABEL bail_1982
+         t1476))
+      LABEL bail_525
       MOVE(
          %rbx:%rbx <-
-         t5906)
+         t1469)
       MOVE(
          %r12:%r12 <-
-         t5907)
+         t1470)
       MOVE(
          %r13:%r13 <-
-         t5908)
+         t1471)
       MOVE(
          %r14:%r14 <-
-         t5909)
+         t1472)
       MOVE(
          %r15:%r15 <-
-         t5910)
-      LABEL DONE_1986
+         t1473)
+      LABEL DONE_529
    }
 }

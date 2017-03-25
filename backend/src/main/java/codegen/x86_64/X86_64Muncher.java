@@ -1,36 +1,5 @@
 package codegen.x86_64;
 
-import static codegen.patterns.IRPat.CALL;
-import static codegen.patterns.IRPat.CJUMP;
-import static codegen.patterns.IRPat.CMOVE;
-import static codegen.patterns.IRPat.CONST;
-import static codegen.patterns.IRPat.EXP;
-import static codegen.patterns.IRPat.JUMP;
-import static codegen.patterns.IRPat.LABEL;
-import static codegen.patterns.IRPat.MEM;
-import static codegen.patterns.IRPat.MINUS;
-import static codegen.patterns.IRPat.MOVE;
-import static codegen.patterns.IRPat.MUL;
-import static codegen.patterns.IRPat.NAME;
-import static codegen.patterns.IRPat.PLUS;
-import static codegen.patterns.IRPat.TEMP;
-import static ir.frame.x86_64.X86_64Frame.RAX;
-import static ir.frame.x86_64.X86_64Frame.RDX;
-import static ir.frame.x86_64.X86_64Frame.RV;
-import static ir.frame.x86_64.X86_64Frame.arguments;
-import static ir.frame.x86_64.X86_64Frame.callerSave;
-import static ir.frame.x86_64.X86_64Frame.special;
-import static util.List.list;
-
-import util.IndentingWriter;
-import util.List;
-import ir.frame.Frame;
-import ir.temp.Label;
-import ir.temp.Temp;
-import ir.tree.IR;
-import ir.tree.IRExp;
-import ir.tree.IRStm;
-import ir.tree.CJUMP.RelOp;
 import codegen.assem.A_LABEL;
 import codegen.assem.A_MOVE;
 import codegen.assem.A_OPER;
@@ -41,6 +10,19 @@ import codegen.muncher.MuncherRules;
 import codegen.patterns.Matched;
 import codegen.patterns.Pat;
 import codegen.patterns.Wildcard;
+import ir.frame.Frame;
+import ir.temp.Label;
+import ir.temp.Temp;
+import ir.tree.CJUMP.RelOp;
+import ir.tree.IR;
+import ir.tree.IRExp;
+import ir.tree.IRStm;
+import util.IndentingWriter;
+import util.List;
+
+import static codegen.patterns.IRPat.*;
+import static ir.frame.x86_64.X86_64Frame.*;
+import static util.List.list;
 
 /**
  * This Muncher implements the munching rules for a subset
@@ -242,6 +224,20 @@ public class X86_64Muncher extends Muncher {
                 return t;
             }
         });
+        em.add(new MunchRule<IRExp, Temp>(MEM(PLUS(_l_,CONST(_i_)))) {
+            @Override
+            protected Temp trigger(Muncher m, Matched c) {
+                Temp result = new Temp();
+                Temp tmp = new Temp();
+                m.emit(A_MOV(tmp,m.munch(c.get(_l_))));
+                m.emit(A_QUAD(c.get(_i_)));
+                m.emit(A_MOV(result,c.get(_i_)));
+                m.emit(A_ADD(tmp,result)); //saved in r
+                m.emit(A_MOV_FROM_MEM(result,tmp));
+                return result;
+            }
+        });
+
         em.add(new MunchRule<IRExp, Temp>(MEM(_e_)) {
             @Override
             protected Temp trigger(Muncher m, Matched c) {

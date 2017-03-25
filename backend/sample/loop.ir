@@ -2,83 +2,83 @@ MethodFragment {
    X86_64Frame { label = Test_do
       nextLocalOffset = -8
       formals = List {
-         t6709
+         t2250
       }
    }
    List {
-      LABEL L_2256
+      LABEL L_799
       MOVE(
-         t6712 <-
+         t2253 <-
          %rbx:%rbx)
       MOVE(
-         t6713 <-
+         t2254 <-
          %r12:%r12)
       MOVE(
-         t6714 <-
+         t2255 <-
          %r13:%r13)
       MOVE(
-         t6715 <-
+         t2256 <-
          %r14:%r14)
       MOVE(
-         t6716 <-
+         t2257 <-
          %r15:%r15)
       MOVE(
-         t6709 <-
+         t2250 <-
          %rdi:%rdi)
       MOVE(
-         t6710 <-
+         t2251 <-
          CONST 0)
-      LABEL looptest_2251
+      LABEL looptest_794
       CJUMP(GE,
-         t6710,
+         t2251,
          CONST 10,
-         loopend_2249, loopbody_2250)
-      LABEL loopbody_2250
+         loopend_792, loopbody_793)
+      LABEL loopbody_793
       MOVE(
-         t6711 <-
+         t2252 <-
          CONST 0)
-      LABEL looptest_2254
+      LABEL looptest_797
       CJUMP(GE,
-         t6711,
+         t2252,
          CONST 10,
-         loopend_2252, loopbody_2253)
-      LABEL loopbody_2253
+         loopend_795, loopbody_796)
+      LABEL loopbody_796
       MOVE(
-         t6711 <-
+         t2252 <-
          BINOP(PLUS,
-            t6711, 
+            t2252, 
             CONST 1))
-      JUMP(NAME(looptest_2254))
-      LABEL loopend_2252
+      JUMP(NAME(looptest_797))
+      LABEL loopend_795
       MOVE(
-         t6710 <-
+         t2251 <-
          BINOP(PLUS,
-            t6710, 
+            t2251, 
             CONST 1))
-      JUMP(NAME(looptest_2251))
-      LABEL loopend_2249
+      JUMP(NAME(looptest_794))
+      LABEL loopend_792
       MOVE(
          %rax:%rax <-
          BINOP(MUL,
-            t6710, 
-            t6711))
-      LABEL bail_2248
+            t2251, 
+            t2252))
+      LABEL bail_791
       MOVE(
          %rbx:%rbx <-
-         t6712)
+         t2253)
       MOVE(
          %r12:%r12 <-
-         t6713)
+         t2254)
       MOVE(
          %r13:%r13 <-
-         t6714)
+         t2255)
       MOVE(
          %r14:%r14 <-
-         t6715)
+         t2256)
       MOVE(
          %r15:%r15 <-
-         t6716)
-      LABEL DONE_2257
+         t2257)
+      LABEL DONE_800
    }
 }
 MethodFragment {
@@ -88,51 +88,51 @@ MethodFragment {
       }
    }
    List {
-      LABEL L_2258
+      LABEL L_801
       MOVE(
-         t6717 <-
+         t2258 <-
          %rbx:%rbx)
       MOVE(
-         t6718 <-
+         t2259 <-
          %r12:%r12)
       MOVE(
-         t6719 <-
+         t2260 <-
          %r13:%r13)
       MOVE(
-         t6720 <-
+         t2261 <-
          %r14:%r14)
       MOVE(
-         t6721 <-
+         t2262 <-
          %r15:%r15)
       MOVE(
-         t6723 <-
+         t2264 <-
          CALL(
             NAME(cs411newobject),
             CONST 0))
       MOVE(
-         t6722 <-
+         t2263 <-
          CALL(
             NAME(Test_do),
-            t6723))
+            t2264))
       EXP(CALL(
          NAME(cs411println),
-         t6722))
-      LABEL bail_2255
+         t2263))
+      LABEL bail_798
       MOVE(
          %rbx:%rbx <-
-         t6717)
+         t2258)
       MOVE(
          %r12:%r12 <-
-         t6718)
+         t2259)
       MOVE(
          %r13:%r13 <-
-         t6719)
+         t2260)
       MOVE(
          %r14:%r14 <-
-         t6720)
+         t2261)
       MOVE(
          %r15:%r15 <-
-         t6721)
-      LABEL DONE_2259
+         t2262)
+      LABEL DONE_802
    }
 }

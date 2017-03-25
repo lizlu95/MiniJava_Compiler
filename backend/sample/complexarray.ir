@@ -2,177 +2,177 @@ MethodFragment {
    X86_64Frame { label = Foo_do
       nextLocalOffset = -8
       formals = List {
-         t5715
-         t5716
+         t1281
+         t1282
       }
    }
    List {
-      LABEL L_1918
+      LABEL L_461
       MOVE(
-         t5719 <-
+         t1285 <-
          %rbx:%rbx)
       MOVE(
-         t5720 <-
+         t1286 <-
          %r12:%r12)
       MOVE(
-         t5721 <-
+         t1287 <-
          %r13:%r13)
       MOVE(
-         t5722 <-
+         t1288 <-
          %r14:%r14)
       MOVE(
-         t5723 <-
+         t1289 <-
          %r15:%r15)
       MOVE(
-         t5715 <-
+         t1281 <-
          %rdi:%rdi)
       MOVE(
-         t5716 <-
+         t1282 <-
          %rsi:%rsi)
       MOVE(
-         t5717 <-
+         t1283 <-
          CALL(
             NAME(Foo_n),
-            t5715,
+            t1281,
             CONST 5))
       CJUMP(UGE,
          CONST 0,
          MEM(BINOP(PLUS,
-            t5717, 
+            t1283, 
             CONST -8)),
-         boundsbad_1912, boundsok_1911)
-      LABEL boundsok_1911
+         boundsbad_455, boundsok_454)
+      LABEL boundsok_454
       MOVE(
-         t5737 <-
-         MEM(t5717))
+         t1303 <-
+         MEM(t1283))
       MOVE(
-         t5718 <-
+         t1284 <-
          CALL(
             NAME(Foo_n),
-            t5715,
+            t1281,
             CONST 15))
       CJUMP(UGE,
          CONST 0,
          MEM(BINOP(PLUS,
-            t5718, 
+            t1284, 
             CONST -8)),
-         boundsbad_1912, boundsok_1913)
-      LABEL boundsok_1913
+         boundsbad_455, boundsok_456)
+      LABEL boundsok_456
       MOVE(
          %rax:%rax <-
          BINOP(PLUS,
-            t5737, 
-            MEM(t5718)))
-      LABEL bail_1910
+            t1303, 
+            MEM(t1284)))
+      LABEL bail_453
       MOVE(
          %rbx:%rbx <-
-         t5719)
+         t1285)
       MOVE(
          %r12:%r12 <-
-         t5720)
+         t1286)
       MOVE(
          %r13:%r13 <-
-         t5721)
+         t1287)
       MOVE(
          %r14:%r14 <-
-         t5722)
+         t1288)
       MOVE(
          %r15:%r15 <-
-         t5723)
-      JUMP(NAME(DONE_1919))
-      LABEL boundsbad_1912
+         t1289)
+      JUMP(NAME(DONE_462))
+      LABEL boundsbad_455
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      JUMP(NAME(bail_1910))
-      LABEL DONE_1919
+      JUMP(NAME(bail_453))
+      LABEL DONE_462
    }
 }
 MethodFragment {
    X86_64Frame { label = Foo_n
       nextLocalOffset = -8
       formals = List {
-         t5724
-         t5725
+         t1290
+         t1291
       }
    }
    List {
-      LABEL L_1920
+      LABEL L_463
       MOVE(
-         t5727 <-
+         t1293 <-
          %rbx:%rbx)
       MOVE(
-         t5728 <-
+         t1294 <-
          %r12:%r12)
       MOVE(
-         t5729 <-
+         t1295 <-
          %r13:%r13)
       MOVE(
-         t5730 <-
+         t1296 <-
          %r14:%r14)
       MOVE(
-         t5731 <-
+         t1297 <-
          %r15:%r15)
       MOVE(
-         t5724 <-
+         t1290 <-
          %rdi:%rdi)
       MOVE(
-         t5725 <-
+         t1291 <-
          %rsi:%rsi)
       MOVE(
-         t5739 <-
-         t5724)
+         t1305 <-
+         t1290)
       MOVE(
-         t5738 <-
+         t1304 <-
          CALL(
             NAME(cs411newarray),
-            t5725))
+            t1291))
       MOVE(
-         MEM(t5739) <-
-         t5738)
+         MEM(t1305) <-
+         t1304)
       MOVE(
-         t5726 <-
-         MEM(t5724))
+         t1292 <-
+         MEM(t1290))
       CJUMP(UGE,
          CONST 0,
          MEM(BINOP(PLUS,
-            t5726, 
+            t1292, 
             CONST -8)),
-         boundsbad_1916, boundsok_1915)
-      LABEL boundsok_1915
+         boundsbad_459, boundsok_458)
+      LABEL boundsok_458
       MOVE(
-         MEM(t5726) <-
-         t5725)
+         MEM(t1292) <-
+         t1291)
       MOVE(
          %rax:%rax <-
-         MEM(t5724))
-      LABEL bail_1914
+         MEM(t1290))
+      LABEL bail_457
       MOVE(
          %rbx:%rbx <-
-         t5727)
+         t1293)
       MOVE(
          %r12:%r12 <-
-         t5728)
+         t1294)
       MOVE(
          %r13:%r13 <-
-         t5729)
+         t1295)
       MOVE(
          %r14:%r14 <-
-         t5730)
+         t1296)
       MOVE(
          %r15:%r15 <-
-         t5731)
-      JUMP(NAME(DONE_1921))
-      LABEL boundsbad_1916
+         t1297)
+      JUMP(NAME(DONE_464))
+      LABEL boundsbad_459
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      JUMP(NAME(bail_1914))
-      LABEL DONE_1921
+      JUMP(NAME(bail_457))
+      LABEL DONE_464
    }
 }
 MethodFragment {
@@ -182,52 +182,52 @@ MethodFragment {
       }
    }
    List {
-      LABEL L_1922
+      LABEL L_465
       MOVE(
-         t5732 <-
+         t1298 <-
          %rbx:%rbx)
       MOVE(
-         t5733 <-
+         t1299 <-
          %r12:%r12)
       MOVE(
-         t5734 <-
+         t1300 <-
          %r13:%r13)
       MOVE(
-         t5735 <-
+         t1301 <-
          %r14:%r14)
       MOVE(
-         t5736 <-
+         t1302 <-
          %r15:%r15)
       MOVE(
-         t5741 <-
+         t1307 <-
          CALL(
             NAME(cs411newobject),
             CONST 8))
       MOVE(
-         t5740 <-
+         t1306 <-
          CALL(
             NAME(Foo_do),
-            t5741,
+            t1307,
             CONST 2))
       EXP(CALL(
          NAME(cs411println),
-         t5740))
-      LABEL bail_1917
+         t1306))
+      LABEL bail_460
       MOVE(
          %rbx:%rbx <-
-         t5732)
+         t1298)
       MOVE(
          %r12:%r12 <-
-         t5733)
+         t1299)
       MOVE(
          %r13:%r13 <-
-         t5734)
+         t1300)
       MOVE(
          %r14:%r14 <-
-         t5735)
+         t1301)
       MOVE(
          %r15:%r15 <-
-         t5736)
-      LABEL DONE_1923
+         t1302)
+      LABEL DONE_466
    }
 }

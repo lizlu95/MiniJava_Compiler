@@ -2,799 +2,799 @@ MethodFragment {
    X86_64Frame { label = QS_Start
       nextLocalOffset = -8
       formals = List {
-         t6904
-         t6905
+         t2445
+         t2446
       }
    }
    List {
-      LABEL L_2374
+      LABEL L_917
       MOVE(
-         t6907 <-
+         t2448 <-
          %rbx:%rbx)
       MOVE(
-         t6908 <-
+         t2449 <-
          %r12:%r12)
       MOVE(
-         t6909 <-
+         t2450 <-
          %r13:%r13)
       MOVE(
-         t6910 <-
+         t2451 <-
          %r14:%r14)
       MOVE(
-         t6911 <-
+         t2452 <-
          %r15:%r15)
       MOVE(
-         t6904 <-
+         t2445 <-
          %rdi:%rdi)
       MOVE(
-         t6905 <-
+         t2446 <-
          %rsi:%rsi)
       MOVE(
-         t6906 <-
+         t2447 <-
          CALL(
             NAME(QS_Init),
-            t6904,
-            t6905))
+            t2445,
+            t2446))
       MOVE(
-         t6906 <-
+         t2447 <-
          CALL(
             NAME(QS_Print),
-            t6904))
+            t2445))
       EXP(CALL(
          NAME(cs411println),
          CONST 9999))
       MOVE(
-         t6906 <-
+         t2447 <-
          BINOP(MINUS,
             MEM(BINOP(PLUS,
-               t6904, 
+               t2445, 
                CONST 8)), 
             CONST 1))
       MOVE(
-         t6906 <-
+         t2447 <-
          CALL(
             NAME(QS_Sort),
-            t6904,
+            t2445,
             CONST 0,
-            t6906))
+            t2447))
       MOVE(
-         t6906 <-
+         t2447 <-
          CALL(
             NAME(QS_Print),
-            t6904))
+            t2445))
       MOVE(
          %rax:%rax <-
          CONST 0)
-      LABEL bail_2319
+      LABEL bail_862
       MOVE(
          %rbx:%rbx <-
-         t6907)
+         t2448)
       MOVE(
          %r12:%r12 <-
-         t6908)
+         t2449)
       MOVE(
          %r13:%r13 <-
-         t6909)
+         t2450)
       MOVE(
          %r14:%r14 <-
-         t6910)
+         t2451)
       MOVE(
          %r15:%r15 <-
-         t6911)
-      LABEL DONE_2375
+         t2452)
+      LABEL DONE_918
    }
 }
 MethodFragment {
    X86_64Frame { label = QS_Sort
       nextLocalOffset = -8
       formals = List {
-         t6912
-         t6913
-         t6914
+         t2453
+         t2454
+         t2455
       }
    }
    List {
-      LABEL L_2376
+      LABEL L_919
       MOVE(
-         t6938 <-
+         t2479 <-
          %rbx:%rbx)
       MOVE(
-         t6939 <-
+         t2480 <-
          %r12:%r12)
       MOVE(
-         t6940 <-
+         t2481 <-
          %r13:%r13)
       MOVE(
-         t6941 <-
+         t2482 <-
          %r14:%r14)
       MOVE(
-         t6942 <-
+         t2483 <-
          %r15:%r15)
       MOVE(
-         t6912 <-
+         t2453 <-
          %rdi:%rdi)
       MOVE(
-         t6913 <-
+         t2454 <-
          %rsi:%rsi)
       MOVE(
-         t6914 <-
+         t2455 <-
          %rdx:%rdx)
       MOVE(
-         t6919 <-
+         t2460 <-
          CONST 0)
       CJUMP(GE,
-         t6913,
-         t6914,
-         iffalse_2322, iftrue_2321)
-      LABEL iftrue_2321
+         t2454,
+         t2455,
+         iffalse_865, iftrue_864)
+      LABEL iftrue_864
       MOVE(
-         t6923 <-
-         MEM(t6912))
+         t2464 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6914,
+         t2455,
          MEM(BINOP(PLUS,
-            t6923, 
+            t2464, 
             CONST -8)),
-         boundsbad_2325, boundsok_2324)
-      LABEL boundsok_2324
+         boundsbad_868, boundsok_867)
+      LABEL boundsok_867
       MOVE(
-         t6915 <-
+         t2456 <-
          MEM(BINOP(PLUS,
-            t6923, 
+            t2464, 
             BINOP(MUL,
-               t6914, 
+               t2455, 
                CONST 8))))
       MOVE(
-         t6916 <-
+         t2457 <-
          BINOP(MINUS,
-            t6913, 
+            t2454, 
             CONST 1))
       MOVE(
-         t6917 <-
-         t6914)
+         t2458 <-
+         t2455)
       MOVE(
-         t6920 <-
+         t2461 <-
          CONST 1)
-      LABEL looptest_2328
+      LABEL looptest_871
       CJUMP(EQ,
-         t6920,
+         t2461,
          CONST 0,
-         loopend_2326, loopbody_2327)
-      LABEL loopbody_2327
+         loopend_869, loopbody_870)
+      LABEL loopbody_870
       MOVE(
-         t6921 <-
+         t2462 <-
          CONST 1)
-      LABEL looptest_2331
+      LABEL looptest_874
       CJUMP(EQ,
-         t6921,
+         t2462,
          CONST 0,
-         loopend_2329, loopbody_2330)
-      LABEL loopbody_2330
+         loopend_872, loopbody_873)
+      LABEL loopbody_873
       MOVE(
-         t6916 <-
+         t2457 <-
          BINOP(PLUS,
-            t6916, 
+            t2457, 
             CONST 1))
       MOVE(
-         t6924 <-
-         MEM(t6912))
+         t2465 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6916,
+         t2457,
          MEM(BINOP(PLUS,
-            t6924, 
+            t2465, 
             CONST -8)),
-         boundsbad_2325, boundsok_2332)
-      LABEL boundsok_2332
+         boundsbad_868, boundsok_875)
+      LABEL boundsok_875
       MOVE(
-         t6922 <-
+         t2463 <-
          MEM(BINOP(PLUS,
-            t6924, 
+            t2465, 
             BINOP(MUL,
-               t6916, 
+               t2457, 
                CONST 8))))
       CJUMP(GE,
-         t6922,
-         t6915,
-         iftrue_2333, iffalse_2334)
-      LABEL iffalse_2334
+         t2463,
+         t2456,
+         iftrue_876, iffalse_877)
+      LABEL iffalse_877
       MOVE(
-         t6921 <-
+         t2462 <-
          CONST 1)
-      LABEL endif_2335
-      JUMP(NAME(looptest_2331))
-      LABEL boundsbad_2325
+      LABEL endif_878
+      JUMP(NAME(looptest_874))
+      LABEL boundsbad_868
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      LABEL bail_2320
+      LABEL bail_863
       MOVE(
          %rbx:%rbx <-
-         t6938)
+         t2479)
       MOVE(
          %r12:%r12 <-
-         t6939)
+         t2480)
       MOVE(
          %r13:%r13 <-
-         t6940)
+         t2481)
       MOVE(
          %r14:%r14 <-
-         t6941)
+         t2482)
       MOVE(
          %r15:%r15 <-
-         t6942)
-      JUMP(NAME(DONE_2377))
-      LABEL iftrue_2333
+         t2483)
+      JUMP(NAME(DONE_920))
+      LABEL iftrue_876
       MOVE(
-         t6921 <-
+         t2462 <-
          CONST 0)
-      JUMP(NAME(endif_2335))
-      LABEL loopend_2329
+      JUMP(NAME(endif_878))
+      LABEL loopend_872
       MOVE(
-         t6921 <-
+         t2462 <-
          CONST 1)
-      LABEL looptest_2338
+      LABEL looptest_881
       CJUMP(EQ,
-         t6921,
+         t2462,
          CONST 0,
-         loopend_2336, loopbody_2337)
-      LABEL loopbody_2337
+         loopend_879, loopbody_880)
+      LABEL loopbody_880
       MOVE(
-         t6917 <-
+         t2458 <-
          BINOP(MINUS,
-            t6917, 
+            t2458, 
             CONST 1))
       MOVE(
-         t6925 <-
-         MEM(t6912))
+         t2466 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6917,
+         t2458,
          MEM(BINOP(PLUS,
-            t6925, 
+            t2466, 
             CONST -8)),
-         boundsbad_2325, boundsok_2339)
-      LABEL boundsok_2339
+         boundsbad_868, boundsok_882)
+      LABEL boundsok_882
       MOVE(
-         t6922 <-
+         t2463 <-
          MEM(BINOP(PLUS,
-            t6925, 
+            t2466, 
             BINOP(MUL,
-               t6917, 
+               t2458, 
                CONST 8))))
       CJUMP(GE,
-         t6915,
-         t6922,
-         iftrue_2340, iffalse_2341)
-      LABEL iffalse_2341
+         t2456,
+         t2463,
+         iftrue_883, iffalse_884)
+      LABEL iffalse_884
       MOVE(
-         t6921 <-
+         t2462 <-
          CONST 1)
-      LABEL endif_2342
-      JUMP(NAME(looptest_2338))
-      LABEL iftrue_2340
+      LABEL endif_885
+      JUMP(NAME(looptest_881))
+      LABEL iftrue_883
       MOVE(
-         t6921 <-
+         t2462 <-
          CONST 0)
-      JUMP(NAME(endif_2342))
-      LABEL loopend_2336
+      JUMP(NAME(endif_885))
+      LABEL loopend_879
       MOVE(
-         t6926 <-
-         MEM(t6912))
+         t2467 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6916,
+         t2457,
          MEM(BINOP(PLUS,
-            t6926, 
+            t2467, 
             CONST -8)),
-         boundsbad_2325, boundsok_2343)
-      LABEL boundsok_2343
+         boundsbad_868, boundsok_886)
+      LABEL boundsok_886
       MOVE(
-         t6919 <-
+         t2460 <-
          MEM(BINOP(PLUS,
-            t6926, 
+            t2467, 
             BINOP(MUL,
-               t6916, 
+               t2457, 
                CONST 8))))
       MOVE(
-         t6928 <-
-         MEM(t6912))
+         t2469 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6916,
+         t2457,
          MEM(BINOP(PLUS,
-            t6928, 
+            t2469, 
             CONST -8)),
-         boundsbad_2325, boundsok_2345)
-      LABEL boundsok_2345
+         boundsbad_868, boundsok_888)
+      LABEL boundsok_888
       MOVE(
-         t6927 <-
-         MEM(t6912))
+         t2468 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6917,
+         t2458,
          MEM(BINOP(PLUS,
-            t6927, 
+            t2468, 
             CONST -8)),
-         boundsbad_2325, boundsok_2344)
-      LABEL boundsok_2344
+         boundsbad_868, boundsok_887)
+      LABEL boundsok_887
       MOVE(
-         t6929 <-
+         t2470 <-
          MEM(BINOP(PLUS,
-            t6927, 
+            t2468, 
             BINOP(MUL,
-               t6917, 
+               t2458, 
                CONST 8))))
       MOVE(
          MEM(BINOP(PLUS,
-            t6928, 
+            t2469, 
             BINOP(MUL,
-               t6916, 
+               t2457, 
                CONST 8))) <-
-         t6929)
+         t2470)
       MOVE(
-         t6930 <-
-         MEM(t6912))
+         t2471 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6917,
+         t2458,
          MEM(BINOP(PLUS,
-            t6930, 
+            t2471, 
             CONST -8)),
-         boundsbad_2325, boundsok_2346)
-      LABEL boundsok_2346
+         boundsbad_868, boundsok_889)
+      LABEL boundsok_889
       MOVE(
          MEM(BINOP(PLUS,
-            t6930, 
+            t2471, 
             BINOP(MUL,
-               t6917, 
+               t2458, 
                CONST 8))) <-
-         t6919)
+         t2460)
       CJUMP(GE,
-         t6917,
+         t2458,
          BINOP(PLUS,
-            t6916, 
+            t2457, 
             CONST 1),
-         iffalse_2348, iftrue_2347)
-      LABEL iftrue_2347
+         iffalse_891, iftrue_890)
+      LABEL iftrue_890
       MOVE(
-         t6920 <-
+         t2461 <-
          CONST 0)
-      LABEL endif_2349
-      JUMP(NAME(looptest_2328))
-      LABEL iffalse_2348
+      LABEL endif_892
+      JUMP(NAME(looptest_871))
+      LABEL iffalse_891
       MOVE(
-         t6920 <-
+         t2461 <-
          CONST 1)
-      JUMP(NAME(endif_2349))
-      LABEL loopend_2326
+      JUMP(NAME(endif_892))
+      LABEL loopend_869
       MOVE(
-         t6932 <-
-         MEM(t6912))
+         t2473 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6917,
+         t2458,
          MEM(BINOP(PLUS,
-            t6932, 
+            t2473, 
             CONST -8)),
-         boundsbad_2325, boundsok_2351)
-      LABEL boundsok_2351
+         boundsbad_868, boundsok_894)
+      LABEL boundsok_894
       MOVE(
-         t6931 <-
-         MEM(t6912))
+         t2472 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6916,
+         t2457,
          MEM(BINOP(PLUS,
-            t6931, 
+            t2472, 
             CONST -8)),
-         boundsbad_2325, boundsok_2350)
-      LABEL boundsok_2350
+         boundsbad_868, boundsok_893)
+      LABEL boundsok_893
       MOVE(
-         t6933 <-
+         t2474 <-
          MEM(BINOP(PLUS,
-            t6931, 
+            t2472, 
             BINOP(MUL,
-               t6916, 
+               t2457, 
                CONST 8))))
       MOVE(
          MEM(BINOP(PLUS,
-            t6932, 
+            t2473, 
             BINOP(MUL,
-               t6917, 
+               t2458, 
                CONST 8))) <-
-         t6933)
+         t2474)
       MOVE(
-         t6935 <-
-         MEM(t6912))
+         t2476 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6916,
+         t2457,
          MEM(BINOP(PLUS,
-            t6935, 
+            t2476, 
             CONST -8)),
-         boundsbad_2325, boundsok_2353)
-      LABEL boundsok_2353
+         boundsbad_868, boundsok_896)
+      LABEL boundsok_896
       MOVE(
-         t6934 <-
-         MEM(t6912))
+         t2475 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6914,
+         t2455,
          MEM(BINOP(PLUS,
-            t6934, 
+            t2475, 
             CONST -8)),
-         boundsbad_2325, boundsok_2352)
-      LABEL boundsok_2352
+         boundsbad_868, boundsok_895)
+      LABEL boundsok_895
       MOVE(
-         t6936 <-
+         t2477 <-
          MEM(BINOP(PLUS,
-            t6934, 
+            t2475, 
             BINOP(MUL,
-               t6914, 
+               t2455, 
                CONST 8))))
       MOVE(
          MEM(BINOP(PLUS,
-            t6935, 
+            t2476, 
             BINOP(MUL,
-               t6916, 
+               t2457, 
                CONST 8))) <-
-         t6936)
+         t2477)
       MOVE(
-         t6937 <-
-         MEM(t6912))
+         t2478 <-
+         MEM(t2453))
       CJUMP(UGE,
-         t6914,
+         t2455,
          MEM(BINOP(PLUS,
-            t6937, 
+            t2478, 
             CONST -8)),
-         boundsbad_2325, boundsok_2354)
-      LABEL boundsok_2354
+         boundsbad_868, boundsok_897)
+      LABEL boundsok_897
       MOVE(
          MEM(BINOP(PLUS,
-            t6937, 
+            t2478, 
             BINOP(MUL,
-               t6914, 
+               t2455, 
                CONST 8))) <-
-         t6919)
+         t2460)
       MOVE(
-         t6918 <-
+         t2459 <-
          CALL(
             NAME(QS_Sort),
-            t6912,
-            t6913,
+            t2453,
+            t2454,
             BINOP(MINUS,
-               t6916, 
+               t2457, 
                CONST 1)))
       MOVE(
-         t6918 <-
+         t2459 <-
          CALL(
             NAME(QS_Sort),
-            t6912,
+            t2453,
             BINOP(PLUS,
-               t6916, 
+               t2457, 
                CONST 1),
-            t6914))
-      LABEL endif_2323
+            t2455))
+      LABEL endif_866
       MOVE(
          %rax:%rax <-
          CONST 0)
-      JUMP(NAME(bail_2320))
-      LABEL iffalse_2322
+      JUMP(NAME(bail_863))
+      LABEL iffalse_865
       MOVE(
-         t6918 <-
+         t2459 <-
          CONST 0)
-      JUMP(NAME(endif_2323))
-      LABEL DONE_2377
+      JUMP(NAME(endif_866))
+      LABEL DONE_920
    }
 }
 MethodFragment {
    X86_64Frame { label = QS_Print
       nextLocalOffset = -8
       formals = List {
-         t6943
+         t2484
       }
    }
    List {
-      LABEL L_2378
+      LABEL L_921
       MOVE(
-         t6946 <-
+         t2487 <-
          %rbx:%rbx)
       MOVE(
-         t6947 <-
+         t2488 <-
          %r12:%r12)
       MOVE(
-         t6948 <-
+         t2489 <-
          %r13:%r13)
       MOVE(
-         t6949 <-
+         t2490 <-
          %r14:%r14)
       MOVE(
-         t6950 <-
+         t2491 <-
          %r15:%r15)
       MOVE(
-         t6943 <-
+         t2484 <-
          %rdi:%rdi)
       MOVE(
-         t6944 <-
+         t2485 <-
          CONST 0)
-      LABEL looptest_2358
+      LABEL looptest_901
       CJUMP(GE,
-         t6944,
+         t2485,
          MEM(BINOP(PLUS,
-            t6943, 
+            t2484, 
             CONST 8)),
-         loopend_2356, loopbody_2357)
-      LABEL loopbody_2357
+         loopend_899, loopbody_900)
+      LABEL loopbody_900
       MOVE(
-         t6945 <-
-         MEM(t6943))
+         t2486 <-
+         MEM(t2484))
       CJUMP(UGE,
-         t6944,
+         t2485,
          MEM(BINOP(PLUS,
-            t6945, 
+            t2486, 
             CONST -8)),
-         boundsbad_2360, boundsok_2359)
-      LABEL boundsok_2359
+         boundsbad_903, boundsok_902)
+      LABEL boundsok_902
       EXP(CALL(
          NAME(cs411println),
          MEM(BINOP(PLUS,
-            t6945, 
+            t2486, 
             BINOP(MUL,
-               t6944, 
+               t2485, 
                CONST 8)))))
       MOVE(
-         t6944 <-
+         t2485 <-
          BINOP(PLUS,
-            t6944, 
+            t2485, 
             CONST 1))
-      JUMP(NAME(looptest_2358))
-      LABEL boundsbad_2360
+      JUMP(NAME(looptest_901))
+      LABEL boundsbad_903
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      LABEL bail_2355
+      LABEL bail_898
       MOVE(
          %rbx:%rbx <-
-         t6946)
+         t2487)
       MOVE(
          %r12:%r12 <-
-         t6947)
+         t2488)
       MOVE(
          %r13:%r13 <-
-         t6948)
+         t2489)
       MOVE(
          %r14:%r14 <-
-         t6949)
+         t2490)
       MOVE(
          %r15:%r15 <-
-         t6950)
-      JUMP(NAME(DONE_2379))
-      LABEL loopend_2356
+         t2491)
+      JUMP(NAME(DONE_922))
+      LABEL loopend_899
       MOVE(
          %rax:%rax <-
          CONST 0)
-      JUMP(NAME(bail_2355))
-      LABEL DONE_2379
+      JUMP(NAME(bail_898))
+      LABEL DONE_922
    }
 }
 MethodFragment {
    X86_64Frame { label = QS_Init
       nextLocalOffset = -8
       formals = List {
-         t6951
-         t6952
+         t2492
+         t2493
       }
    }
    List {
-      LABEL L_2380
+      LABEL L_923
       MOVE(
-         t6963 <-
+         t2504 <-
          %rbx:%rbx)
       MOVE(
-         t6964 <-
+         t2505 <-
          %r12:%r12)
       MOVE(
-         t6965 <-
+         t2506 <-
          %r13:%r13)
       MOVE(
-         t6966 <-
+         t2507 <-
          %r14:%r14)
       MOVE(
-         t6967 <-
+         t2508 <-
          %r15:%r15)
       MOVE(
-         t6951 <-
+         t2492 <-
          %rdi:%rdi)
       MOVE(
-         t6952 <-
+         t2493 <-
          %rsi:%rsi)
       MOVE(
          MEM(BINOP(PLUS,
-            t6951, 
+            t2492, 
             CONST 8)) <-
-         t6952)
+         t2493)
       MOVE(
-         t6974 <-
-         t6951)
+         t2515 <-
+         t2492)
       MOVE(
-         t6973 <-
+         t2514 <-
          CALL(
             NAME(cs411newarray),
-            t6952))
+            t2493))
       MOVE(
-         MEM(t6974) <-
-         t6973)
+         MEM(t2515) <-
+         t2514)
       MOVE(
-         t6953 <-
-         MEM(t6951))
+         t2494 <-
+         MEM(t2492))
       CJUMP(UGE,
          CONST 0,
          MEM(BINOP(PLUS,
-            t6953, 
+            t2494, 
             CONST -8)),
-         boundsbad_2363, boundsok_2362)
-      LABEL boundsok_2362
+         boundsbad_906, boundsok_905)
+      LABEL boundsok_905
       MOVE(
-         MEM(t6953) <-
+         MEM(t2494) <-
          CONST 20)
       MOVE(
-         t6954 <-
-         MEM(t6951))
+         t2495 <-
+         MEM(t2492))
       CJUMP(UGE,
          CONST 1,
          MEM(BINOP(PLUS,
-            t6954, 
+            t2495, 
             CONST -8)),
-         boundsbad_2363, boundsok_2364)
-      LABEL boundsok_2364
+         boundsbad_906, boundsok_907)
+      LABEL boundsok_907
       MOVE(
          MEM(BINOP(PLUS,
-            t6954, 
+            t2495, 
             CONST 8)) <-
          CONST 7)
       MOVE(
-         t6955 <-
-         MEM(t6951))
+         t2496 <-
+         MEM(t2492))
       CJUMP(UGE,
          CONST 2,
          MEM(BINOP(PLUS,
-            t6955, 
+            t2496, 
             CONST -8)),
-         boundsbad_2363, boundsok_2365)
-      LABEL boundsok_2365
+         boundsbad_906, boundsok_908)
+      LABEL boundsok_908
       MOVE(
          MEM(BINOP(PLUS,
-            t6955, 
+            t2496, 
             CONST 16)) <-
          CONST 12)
       MOVE(
-         t6956 <-
-         MEM(t6951))
+         t2497 <-
+         MEM(t2492))
       CJUMP(UGE,
          CONST 3,
          MEM(BINOP(PLUS,
-            t6956, 
+            t2497, 
             CONST -8)),
-         boundsbad_2363, boundsok_2366)
-      LABEL boundsok_2366
+         boundsbad_906, boundsok_909)
+      LABEL boundsok_909
       MOVE(
          MEM(BINOP(PLUS,
-            t6956, 
+            t2497, 
             CONST 24)) <-
          CONST 18)
       MOVE(
-         t6957 <-
-         MEM(t6951))
+         t2498 <-
+         MEM(t2492))
       CJUMP(UGE,
          CONST 4,
          MEM(BINOP(PLUS,
-            t6957, 
+            t2498, 
             CONST -8)),
-         boundsbad_2363, boundsok_2367)
-      LABEL boundsok_2367
+         boundsbad_906, boundsok_910)
+      LABEL boundsok_910
       MOVE(
          MEM(BINOP(PLUS,
-            t6957, 
+            t2498, 
             CONST 32)) <-
          CONST 2)
       MOVE(
-         t6958 <-
-         MEM(t6951))
+         t2499 <-
+         MEM(t2492))
       CJUMP(UGE,
          CONST 5,
          MEM(BINOP(PLUS,
-            t6958, 
+            t2499, 
             CONST -8)),
-         boundsbad_2363, boundsok_2368)
-      LABEL boundsok_2368
+         boundsbad_906, boundsok_911)
+      LABEL boundsok_911
       MOVE(
          MEM(BINOP(PLUS,
-            t6958, 
+            t2499, 
             CONST 40)) <-
          CONST 11)
       MOVE(
-         t6959 <-
-         MEM(t6951))
+         t2500 <-
+         MEM(t2492))
       CJUMP(UGE,
          CONST 6,
          MEM(BINOP(PLUS,
-            t6959, 
+            t2500, 
             CONST -8)),
-         boundsbad_2363, boundsok_2369)
-      LABEL boundsok_2369
+         boundsbad_906, boundsok_912)
+      LABEL boundsok_912
       MOVE(
          MEM(BINOP(PLUS,
-            t6959, 
+            t2500, 
             CONST 48)) <-
          CONST 6)
       MOVE(
-         t6960 <-
-         MEM(t6951))
+         t2501 <-
+         MEM(t2492))
       CJUMP(UGE,
          CONST 7,
          MEM(BINOP(PLUS,
-            t6960, 
+            t2501, 
             CONST -8)),
-         boundsbad_2363, boundsok_2370)
-      LABEL boundsok_2370
+         boundsbad_906, boundsok_913)
+      LABEL boundsok_913
       MOVE(
          MEM(BINOP(PLUS,
-            t6960, 
+            t2501, 
             CONST 56)) <-
          CONST 9)
       MOVE(
-         t6961 <-
-         MEM(t6951))
+         t2502 <-
+         MEM(t2492))
       CJUMP(UGE,
          CONST 8,
          MEM(BINOP(PLUS,
-            t6961, 
+            t2502, 
             CONST -8)),
-         boundsbad_2363, boundsok_2371)
-      LABEL boundsok_2371
+         boundsbad_906, boundsok_914)
+      LABEL boundsok_914
       MOVE(
          MEM(BINOP(PLUS,
-            t6961, 
+            t2502, 
             CONST 64)) <-
          CONST 19)
       MOVE(
-         t6962 <-
-         MEM(t6951))
+         t2503 <-
+         MEM(t2492))
       CJUMP(UGE,
          CONST 9,
          MEM(BINOP(PLUS,
-            t6962, 
+            t2503, 
             CONST -8)),
-         boundsbad_2363, boundsok_2372)
-      LABEL boundsok_2372
+         boundsbad_906, boundsok_915)
+      LABEL boundsok_915
       MOVE(
          MEM(BINOP(PLUS,
-            t6962, 
+            t2503, 
             CONST 72)) <-
          CONST 5)
       MOVE(
          %rax:%rax <-
          CONST 0)
-      LABEL bail_2361
+      LABEL bail_904
       MOVE(
          %rbx:%rbx <-
-         t6963)
+         t2504)
       MOVE(
          %r12:%r12 <-
-         t6964)
+         t2505)
       MOVE(
          %r13:%r13 <-
-         t6965)
+         t2506)
       MOVE(
          %r14:%r14 <-
-         t6966)
+         t2507)
       MOVE(
          %r15:%r15 <-
-         t6967)
-      JUMP(NAME(DONE_2381))
-      LABEL boundsbad_2363
+         t2508)
+      JUMP(NAME(DONE_924))
+      LABEL boundsbad_906
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      JUMP(NAME(bail_2361))
-      LABEL DONE_2381
+      JUMP(NAME(bail_904))
+      LABEL DONE_924
    }
 }
 MethodFragment {
@@ -804,52 +804,52 @@ MethodFragment {
       }
    }
    List {
-      LABEL L_2382
+      LABEL L_925
       MOVE(
-         t6968 <-
+         t2509 <-
          %rbx:%rbx)
       MOVE(
-         t6969 <-
+         t2510 <-
          %r12:%r12)
       MOVE(
-         t6970 <-
+         t2511 <-
          %r13:%r13)
       MOVE(
-         t6971 <-
+         t2512 <-
          %r14:%r14)
       MOVE(
-         t6972 <-
+         t2513 <-
          %r15:%r15)
       MOVE(
-         t6976 <-
+         t2517 <-
          CALL(
             NAME(cs411newobject),
             CONST 16))
       MOVE(
-         t6975 <-
+         t2516 <-
          CALL(
             NAME(QS_Start),
-            t6976,
+            t2517,
             CONST 10))
       EXP(CALL(
          NAME(cs411println),
-         t6975))
-      LABEL bail_2373
+         t2516))
+      LABEL bail_916
       MOVE(
          %rbx:%rbx <-
-         t6968)
+         t2509)
       MOVE(
          %r12:%r12 <-
-         t6969)
+         t2510)
       MOVE(
          %r13:%r13 <-
-         t6970)
+         t2511)
       MOVE(
          %r14:%r14 <-
-         t6971)
+         t2512)
       MOVE(
          %r15:%r15 <-
-         t6972)
-      LABEL DONE_2383
+         t2513)
+      LABEL DONE_926
    }
 }
