@@ -38,6 +38,7 @@ public class X86_64Muncher extends Muncher {
      * generates a lot of instructions (all things operated on are
      * first loaded into a temp).
      */
+    //test leaderboard
     private static final List<Temp> noTemps = List.empty();
 
     private static MuncherRules<IRStm, Void> sm = new MuncherRules<IRStm, Void>();
@@ -417,12 +418,14 @@ public class X86_64Muncher extends Muncher {
     }
 
     private static Instr A_SUB(Temp dst, Temp src) {
+        int i;
         return new A_OPER("subq    `s0, `d0",
                 list(dst),
                 list(src, dst));
     }
 
     public static void dumpRules() {
+        int i;
         System.out.println("StmMunchers: " + sm);
         System.out.println("ExpMunchers: " + em);
     }
