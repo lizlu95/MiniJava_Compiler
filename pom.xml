@@ -18,7 +18,7 @@
 
     <modules>
         <module>ir</module>
-        <module>frontend</module>
+        <!-- <module>frontend</module> -->
         <module>backend</module>
         <module>util</module>
         <module>x86_64sim</module>

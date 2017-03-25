@@ -33,7 +33,7 @@ int main() {
 #define TRAMP(x) \
 asm("	.globl	" EXTRA #x "\n" \
     "	" EXTRA #x ":\n" \
-    "	subq	$8, %rsp\n" \
+    "	subq	$16, %rsp\n" \
     "	pushq	%rdi\n" \
     "	pushq	%rsi\n" \
     "	pushq	%rdx\n" \
@@ -51,7 +51,7 @@ asm("	.globl	" EXTRA #x "\n" \
     "	popq	%rdx\n" \
     "	popq	%rsi\n" \
     "	popq	%rdi\n" \
-    "	addq	$8, %rsp\n" \
+    "	addq	$16, %rsp\n" \
     "	ret"); 
 
 TRAMP(cs411println)

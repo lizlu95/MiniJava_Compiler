@@ -28,14 +28,8 @@
             <groupId>ca.ubc.cs411</groupId>
             <artifactId>frontend</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ca.ubc.cs411</groupId>
-            <artifactId>frontend</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>test-jar</type>
-            <scope>test</scope>
+						<scope>system</scope>
+						<systemPath>${basedir}/lib/frontend-1.0-SNAPSHOT-obf.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -43,7 +37,14 @@
             <artifactId>x86_64sim</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+				
+        <dependency>
+          <groupId>ca.ubc.cs411</groupId>
+          <artifactId>ir</artifactId>
+          <version>1.0-SNAPSHOT</version>
+        </dependency>
 
+				
     </dependencies>
 
     <build>
@@ -58,6 +59,10 @@
                 <include>**/*Tests.java</include>
                 <include>**/*TestCase.java</include>
             </includes>
+	    <excludes>
+		<exclude>**/TestRunning.java</exclude>
+		<exclude>**/TestSimulateFinal.java</exclude>
+	    </excludes>
         </configuration>
         <dependencies>
             <dependency>
@@ -76,6 +81,14 @@
                 <artifactId>ir</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
+						<dependency>
+							<groupId>ca.ubc.cs411</groupId>
+							<artifactId>frontend</artifactId>
+							<version>1.0-SNAPSHOT</version>
+							<scope>system</scope>
+							<systemPath>${basedir}/lib/frontend-1.0-SNAPSHOT-obf.jar</systemPath>
+						</dependency>
+
         </dependencies>
     </plugin>
     </plugins>

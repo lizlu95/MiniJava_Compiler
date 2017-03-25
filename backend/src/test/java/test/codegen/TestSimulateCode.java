@@ -3,6 +3,7 @@ package test.codegen;
 import ir.interp.InterpMode;
 
 import java.io.File;
+import java.util.Objects;
 
 import org.junit.jupiter.api.AfterAll;
 import test.translate.TestTranslate;
@@ -39,7 +40,7 @@ public class TestSimulateCode extends TestTranslate {
             System.out.println("Output:");
             System.out.print(result);
         }
-        assert(expected == result);
+        assert(Objects.equals(expected, result));
     }
 
     @Override

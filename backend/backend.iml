@@ -16,11 +16,17 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.0.0-M3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.0.0-M1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.0.0-M3" level="project" />
-    <orderEntry type="module" module-name="frontend" />
-    <orderEntry type="library" name="Maven: net.java.dev.javacc:javacc:6.1.0" level="project" />
-    <orderEntry type="module" module-name="ir" />
-    <orderEntry type="module" module-name="frontend" scope="TEST" production-on-test="" />
+    <orderEntry type="module-library">
+      <library name="Maven: ca.ubc.cs411:frontend:1.0-SNAPSHOT">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/frontend-1.0-SNAPSHOT-obf.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="module" module-name="x86_64sim" />
     <orderEntry type="module" module-name="util" />
+    <orderEntry type="module" module-name="ir" />
   </component>
 </module>

@@ -1,166 +1,196 @@
 MethodFragment {
-   X86_64Frame { label = _A_m
+   X86_64Frame { label = A_m
       nextLocalOffset = -8
       formals = List {
-         t2943
+         t6053
       }
    }
    List {
-      LABEL _L_936
+      LABEL L_2043
       MOVE(
-         t2944 <-
+         t6054 <-
          %rbx:%rbx)
       MOVE(
-         t2945 <-
+         t6055 <-
          %r12:%r12)
       MOVE(
-         t2946 <-
+         t6056 <-
          %r13:%r13)
       MOVE(
-         t2947 <-
+         t6057 <-
          %r14:%r14)
       MOVE(
-         t2948 <-
+         t6058 <-
          %r15:%r15)
       MOVE(
-         t2943 <-
+         t6053 <-
          %rdi:%rdi)
       MOVE(
          %rax:%rax <-
          CONST 0)
-      LABEL _bail_933
+      LABEL bail_2037
       MOVE(
          %rbx:%rbx <-
-         t2944)
+         t6054)
       MOVE(
          %r12:%r12 <-
-         t2945)
+         t6055)
       MOVE(
          %r13:%r13 <-
-         t2946)
+         t6056)
       MOVE(
          %r14:%r14 <-
-         t2947)
+         t6057)
       MOVE(
          %r15:%r15 <-
-         t2948)
-      LABEL _DONE_937
+         t6058)
+      LABEL DONE_2044
    }
 }
 MethodFragment {
-   X86_64Frame { label = _Test_do
+   X86_64Frame { label = Test_do
       nextLocalOffset = -8
       formals = List {
-         t2949
+         t6059
       }
    }
    List {
-      LABEL _L_938
+      LABEL L_2045
       MOVE(
-         t2952 <-
+         t6064 <-
          %rbx:%rbx)
       MOVE(
-         t2953 <-
+         t6065 <-
          %r12:%r12)
       MOVE(
-         t2954 <-
+         t6066 <-
          %r13:%r13)
       MOVE(
-         t2955 <-
+         t6067 <-
          %r14:%r14)
       MOVE(
-         t2956 <-
+         t6068 <-
          %r15:%r15)
       MOVE(
-         t2949 <-
+         t6059 <-
          %rdi:%rdi)
       MOVE(
-         t2950 <-
+         t6060 <-
          CONST 0)
       MOVE(
-         t2951 <-
-         CALL(
-            NAME(_A_m),
-            MEM(t2949)))
+         t6062 <-
+         MEM(t6059))
+      CJUMP(EQ,
+         t6062,
+         CONST 0,
+         invokebad_2040, invokeok_2039)
+      LABEL invokeok_2039
       MOVE(
-         t2951 <-
+         t6074 <-
          CALL(
-            NAME(_A_m),
-            t2950))
+            NAME(A_m),
+            t6062))
+      MOVE(
+         t6061 <-
+         t6074)
+      MOVE(
+         t6063 <-
+         t6060)
+      CJUMP(EQ,
+         t6063,
+         CONST 0,
+         invokebad_2040, invokeok_2041)
+      LABEL invokeok_2041
+      MOVE(
+         t6075 <-
+         CALL(
+            NAME(A_m),
+            t6063))
+      MOVE(
+         t6061 <-
+         t6075)
       MOVE(
          %rax:%rax <-
          CONST 0)
-      LABEL _bail_934
+      LABEL bail_2038
       MOVE(
          %rbx:%rbx <-
-         t2952)
+         t6064)
       MOVE(
          %r12:%r12 <-
-         t2953)
+         t6065)
       MOVE(
          %r13:%r13 <-
-         t2954)
+         t6066)
       MOVE(
          %r14:%r14 <-
-         t2955)
+         t6067)
       MOVE(
          %r15:%r15 <-
-         t2956)
-      LABEL _DONE_939
+         t6068)
+      JUMP(NAME(DONE_2046))
+      LABEL invokebad_2040
+      MOVE(
+         %rax:%rax <-
+         CALL(
+            NAME(cs411error),
+            CONST 2))
+      JUMP(NAME(bail_2038))
+      LABEL DONE_2046
    }
 }
 MethodFragment {
-   X86_64Frame { label = _cs411main
+   X86_64Frame { label = cs411main
       nextLocalOffset = -8
       formals = List {
       }
    }
    List {
-      LABEL _L_940
+      LABEL L_2047
       MOVE(
-         t2957 <-
+         t6069 <-
          %rbx:%rbx)
       MOVE(
-         t2958 <-
+         t6070 <-
          %r12:%r12)
       MOVE(
-         t2959 <-
+         t6071 <-
          %r13:%r13)
       MOVE(
-         t2960 <-
+         t6072 <-
          %r14:%r14)
       MOVE(
-         t2961 <-
+         t6073 <-
          %r15:%r15)
       MOVE(
-         t2963 <-
+         t6077 <-
          CALL(
-            NAME(_cs411newobject),
+            NAME(cs411newobject),
             CONST 8))
       MOVE(
-         t2962 <-
+         t6076 <-
          CALL(
-            NAME(_Test_do),
-            t2963))
+            NAME(Test_do),
+            t6077))
       EXP(CALL(
-         NAME(_cs411println),
-         t2962))
-      LABEL _bail_935
+         NAME(cs411println),
+         t6076))
+      LABEL bail_2042
       MOVE(
          %rbx:%rbx <-
-         t2957)
+         t6069)
       MOVE(
          %r12:%r12 <-
-         t2958)
+         t6070)
       MOVE(
          %r13:%r13 <-
-         t2959)
+         t6071)
       MOVE(
          %r14:%r14 <-
-         t2960)
+         t6072)
       MOVE(
          %r15:%r15 <-
-         t2961)
-      LABEL _DONE_941
+         t6073)
+      LABEL DONE_2048
    }
 }
