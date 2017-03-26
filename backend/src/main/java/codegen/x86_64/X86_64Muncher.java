@@ -146,6 +146,13 @@ public class X86_64Muncher extends Muncher {
                 return null;
             }
         });
+        sm.add(new MunchRule<IRStm,Void>(MOVE(MEM(TEMP(_t_)),CONST(_i_))){
+            @Override
+            protected Void trigger(Muncher m, Matched c) {
+                m.emit(A_MOV_TO_MEM(c.get(_t_), c.get(_i_)));
+                return null;
+            }
+        });
         sm.add(new MunchRule<IRStm, Void>(JUMP(NAME(_lab_))) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
@@ -225,19 +232,17 @@ public class X86_64Muncher extends Muncher {
                 return t;
             }
         });
-        em.add(new MunchRule<IRExp, Temp>(MEM(PLUS(_l_,CONST(_i_)))) {
-            @Override
-            protected Temp trigger(Muncher m, Matched c) {
-                Temp result = new Temp();
-                Temp tmp = new Temp();
-                m.emit(A_MOV(tmp,m.munch(c.get(_l_))));
-                m.emit(A_QUAD(c.get(_i_)));
-                m.emit(A_MOV(result,c.get(_i_)));
-                m.emit(A_ADD(tmp,result)); //saved in r
-                m.emit(A_MOV_FROM_MEM(result,tmp));
-                return result;
-            }
-        });
+//        em.add(new MunchRule<IRExp, Temp>(MEM(PLUS(_l_,CONST(_i_)))) {
+//            @Override
+//            protected Temp trigger(Muncher m, Matched c) {
+//                Temp result = new Temp();
+//                Temp tmp = new Temp();
+//                m.emit(A_MOV(result,m.munch(c.get(_l_))));
+//                m.emit(A_ADD(c.get(_i_),result)); //saved in r
+//                m.emit(A_MOV_FROM_MEM(result,tmp));
+//                return result;
+//            }
+//        });
 
         em.add(new MunchRule<IRExp, Temp>(MEM(_e_)) {
             @Override
@@ -272,6 +277,10 @@ public class X86_64Muncher extends Muncher {
 
     private static Instr A_QUAD(Label l) {
         return new A_OPER(".quad    " + l, noTemps, noTemps);
+    }
+
+    private static Instr A_ADD(int value, Temp dst) {
+        return new A_OPER("addq     $"+value+", `d0",list(dst),noTemps);
     }
 
     private static Instr A_ADD(Temp dst, Temp src) {
@@ -411,6 +420,10 @@ public class X86_64Muncher extends Muncher {
 
     private static Instr A_MOV_TO_MEM(Temp ptr, Temp s) {
         return new A_OPER("movq    `s1, (`s0)", noTemps, list(ptr, s));
+    }
+
+    private static Instr A_MOV_TO_MEM(Temp ptr, int value) {
+        return new A_OPER("movq    $"+value+", (`s0)", noTemps, list(ptr));
     }
 
     private static Instr A_MOV_FROM_MEM(Temp d, Temp ptr) {
