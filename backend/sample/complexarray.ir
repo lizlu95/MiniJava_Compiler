@@ -2,177 +2,177 @@ MethodFragment {
    X86_64Frame { label = Foo_do
       nextLocalOffset = -8
       formals = List {
-         t1281
-         t1282
+         t1779
+         t1780
       }
    }
    List {
-      LABEL L_461
+      LABEL L_631
       MOVE(
-         t1285 <-
+         t1783 <-
          %rbx:%rbx)
       MOVE(
-         t1286 <-
+         t1784 <-
          %r12:%r12)
       MOVE(
-         t1287 <-
+         t1785 <-
          %r13:%r13)
       MOVE(
-         t1288 <-
+         t1786 <-
          %r14:%r14)
       MOVE(
-         t1289 <-
+         t1787 <-
          %r15:%r15)
       MOVE(
-         t1281 <-
+         t1779 <-
          %rdi:%rdi)
       MOVE(
-         t1282 <-
+         t1780 <-
          %rsi:%rsi)
       MOVE(
-         t1283 <-
+         t1781 <-
          CALL(
             NAME(Foo_n),
-            t1281,
+            t1779,
             CONST 5))
       CJUMP(UGE,
          CONST 0,
          MEM(BINOP(PLUS,
-            t1283, 
+            t1781, 
             CONST -8)),
-         boundsbad_455, boundsok_454)
-      LABEL boundsok_454
+         boundsbad_625, boundsok_624)
+      LABEL boundsok_624
       MOVE(
-         t1303 <-
-         MEM(t1283))
+         t1801 <-
+         MEM(t1781))
       MOVE(
-         t1284 <-
+         t1782 <-
          CALL(
             NAME(Foo_n),
-            t1281,
+            t1779,
             CONST 15))
       CJUMP(UGE,
          CONST 0,
          MEM(BINOP(PLUS,
-            t1284, 
+            t1782, 
             CONST -8)),
-         boundsbad_455, boundsok_456)
-      LABEL boundsok_456
+         boundsbad_625, boundsok_626)
+      LABEL boundsok_626
       MOVE(
          %rax:%rax <-
          BINOP(PLUS,
-            t1303, 
-            MEM(t1284)))
-      LABEL bail_453
+            t1801, 
+            MEM(t1782)))
+      LABEL bail_623
       MOVE(
          %rbx:%rbx <-
-         t1285)
+         t1783)
       MOVE(
          %r12:%r12 <-
-         t1286)
+         t1784)
       MOVE(
          %r13:%r13 <-
-         t1287)
+         t1785)
       MOVE(
          %r14:%r14 <-
-         t1288)
+         t1786)
       MOVE(
          %r15:%r15 <-
-         t1289)
-      JUMP(NAME(DONE_462))
-      LABEL boundsbad_455
+         t1787)
+      JUMP(NAME(DONE_632))
+      LABEL boundsbad_625
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      JUMP(NAME(bail_453))
-      LABEL DONE_462
+      JUMP(NAME(bail_623))
+      LABEL DONE_632
    }
 }
 MethodFragment {
    X86_64Frame { label = Foo_n
       nextLocalOffset = -8
       formals = List {
-         t1290
-         t1291
+         t1788
+         t1789
       }
    }
    List {
-      LABEL L_463
+      LABEL L_633
       MOVE(
-         t1293 <-
+         t1791 <-
          %rbx:%rbx)
       MOVE(
-         t1294 <-
+         t1792 <-
          %r12:%r12)
       MOVE(
-         t1295 <-
+         t1793 <-
          %r13:%r13)
       MOVE(
-         t1296 <-
+         t1794 <-
          %r14:%r14)
       MOVE(
-         t1297 <-
+         t1795 <-
          %r15:%r15)
       MOVE(
-         t1290 <-
+         t1788 <-
          %rdi:%rdi)
       MOVE(
-         t1291 <-
+         t1789 <-
          %rsi:%rsi)
       MOVE(
-         t1305 <-
-         t1290)
+         t1803 <-
+         t1788)
       MOVE(
-         t1304 <-
+         t1802 <-
          CALL(
             NAME(cs411newarray),
-            t1291))
+            t1789))
       MOVE(
-         MEM(t1305) <-
-         t1304)
+         MEM(t1803) <-
+         t1802)
       MOVE(
-         t1292 <-
-         MEM(t1290))
+         t1790 <-
+         MEM(t1788))
       CJUMP(UGE,
          CONST 0,
          MEM(BINOP(PLUS,
-            t1292, 
+            t1790, 
             CONST -8)),
-         boundsbad_459, boundsok_458)
-      LABEL boundsok_458
+         boundsbad_629, boundsok_628)
+      LABEL boundsok_628
       MOVE(
-         MEM(t1292) <-
-         t1291)
+         MEM(t1790) <-
+         t1789)
       MOVE(
          %rax:%rax <-
-         MEM(t1290))
-      LABEL bail_457
+         MEM(t1788))
+      LABEL bail_627
       MOVE(
          %rbx:%rbx <-
-         t1293)
+         t1791)
       MOVE(
          %r12:%r12 <-
-         t1294)
+         t1792)
       MOVE(
          %r13:%r13 <-
-         t1295)
+         t1793)
       MOVE(
          %r14:%r14 <-
-         t1296)
+         t1794)
       MOVE(
          %r15:%r15 <-
-         t1297)
-      JUMP(NAME(DONE_464))
-      LABEL boundsbad_459
+         t1795)
+      JUMP(NAME(DONE_634))
+      LABEL boundsbad_629
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      JUMP(NAME(bail_457))
-      LABEL DONE_464
+      JUMP(NAME(bail_627))
+      LABEL DONE_634
    }
 }
 MethodFragment {
@@ -182,52 +182,52 @@ MethodFragment {
       }
    }
    List {
-      LABEL L_465
+      LABEL L_635
       MOVE(
-         t1298 <-
+         t1796 <-
          %rbx:%rbx)
       MOVE(
-         t1299 <-
+         t1797 <-
          %r12:%r12)
       MOVE(
-         t1300 <-
+         t1798 <-
          %r13:%r13)
       MOVE(
-         t1301 <-
+         t1799 <-
          %r14:%r14)
       MOVE(
-         t1302 <-
+         t1800 <-
          %r15:%r15)
       MOVE(
-         t1307 <-
+         t1805 <-
          CALL(
             NAME(cs411newobject),
             CONST 8))
       MOVE(
-         t1306 <-
+         t1804 <-
          CALL(
             NAME(Foo_do),
-            t1307,
+            t1805,
             CONST 2))
       EXP(CALL(
          NAME(cs411println),
-         t1306))
-      LABEL bail_460
+         t1804))
+      LABEL bail_630
       MOVE(
          %rbx:%rbx <-
-         t1298)
+         t1796)
       MOVE(
          %r12:%r12 <-
-         t1299)
+         t1797)
       MOVE(
          %r13:%r13 <-
-         t1300)
+         t1798)
       MOVE(
          %r14:%r14 <-
-         t1301)
+         t1799)
       MOVE(
          %r15:%r15 <-
-         t1302)
-      LABEL DONE_466
+         t1800)
+      LABEL DONE_636
    }
 }

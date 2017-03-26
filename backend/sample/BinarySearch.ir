@@ -2,825 +2,825 @@ MethodFragment {
    X86_64Frame { label = BS_Start
       nextLocalOffset = -8
       formals = List {
-         t310
-         t311
+         t797
+         t798
       }
    }
    List {
-      LABEL L_161
+      LABEL L_331
       MOVE(
-         t314 <-
+         t801 <-
          %rbx:%rbx)
       MOVE(
-         t315 <-
+         t802 <-
          %r12:%r12)
       MOVE(
-         t316 <-
+         t803 <-
          %r13:%r13)
       MOVE(
-         t317 <-
+         t804 <-
          %r14:%r14)
       MOVE(
-         t318 <-
+         t805 <-
          %r15:%r15)
       MOVE(
-         t310 <-
+         t797 <-
          %rdi:%rdi)
       MOVE(
-         t311 <-
+         t798 <-
          %rsi:%rsi)
       MOVE(
-         t312 <-
+         t799 <-
          CALL(
             NAME(BS_Init),
-            t310,
-            t311))
+            t797,
+            t798))
       MOVE(
-         t313 <-
+         t800 <-
          CALL(
             NAME(BS_Print),
-            t310))
+            t797))
       MOVE(
-         t380 <-
+         t867 <-
          CALL(
             NAME(BS_Search),
-            t310,
+            t797,
             CONST 8))
       CJUMP(EQ,
-         t380,
+         t867,
          CONST 0,
-         iffalse_96, iftrue_95)
-      LABEL iftrue_95
+         iffalse_266, iftrue_265)
+      LABEL iftrue_265
       EXP(CALL(
          NAME(cs411println),
          CONST 1))
-      LABEL endif_97
+      LABEL endif_267
       MOVE(
-         t381 <-
+         t868 <-
          CALL(
             NAME(BS_Search),
-            t310,
+            t797,
             CONST 19))
       CJUMP(EQ,
-         t381,
+         t868,
          CONST 0,
-         iffalse_99, iftrue_98)
-      LABEL iftrue_98
+         iffalse_269, iftrue_268)
+      LABEL iftrue_268
       EXP(CALL(
          NAME(cs411println),
          CONST 1))
-      LABEL endif_100
+      LABEL endif_270
       MOVE(
-         t382 <-
+         t869 <-
          CALL(
             NAME(BS_Search),
-            t310,
+            t797,
             CONST 20))
       CJUMP(EQ,
-         t382,
+         t869,
          CONST 0,
-         iffalse_102, iftrue_101)
-      LABEL iftrue_101
+         iffalse_272, iftrue_271)
+      LABEL iftrue_271
       EXP(CALL(
          NAME(cs411println),
          CONST 1))
-      LABEL endif_103
+      LABEL endif_273
       MOVE(
-         t383 <-
+         t870 <-
          CALL(
             NAME(BS_Search),
-            t310,
+            t797,
             CONST 21))
       CJUMP(EQ,
-         t383,
+         t870,
          CONST 0,
-         iffalse_105, iftrue_104)
-      LABEL iftrue_104
+         iffalse_275, iftrue_274)
+      LABEL iftrue_274
       EXP(CALL(
          NAME(cs411println),
          CONST 1))
-      LABEL endif_106
+      LABEL endif_276
       MOVE(
-         t384 <-
+         t871 <-
          CALL(
             NAME(BS_Search),
-            t310,
+            t797,
             CONST 37))
       CJUMP(EQ,
-         t384,
+         t871,
          CONST 0,
-         iffalse_108, iftrue_107)
-      LABEL iftrue_107
+         iffalse_278, iftrue_277)
+      LABEL iftrue_277
       EXP(CALL(
          NAME(cs411println),
          CONST 1))
-      LABEL endif_109
+      LABEL endif_279
       MOVE(
-         t385 <-
+         t872 <-
          CALL(
             NAME(BS_Search),
-            t310,
+            t797,
             CONST 38))
       CJUMP(EQ,
-         t385,
+         t872,
          CONST 0,
-         iffalse_111, iftrue_110)
-      LABEL iftrue_110
+         iffalse_281, iftrue_280)
+      LABEL iftrue_280
       EXP(CALL(
          NAME(cs411println),
          CONST 1))
-      LABEL endif_112
+      LABEL endif_282
       MOVE(
-         t386 <-
+         t873 <-
          CALL(
             NAME(BS_Search),
-            t310,
+            t797,
             CONST 39))
       CJUMP(EQ,
-         t386,
+         t873,
          CONST 0,
-         iffalse_114, iftrue_113)
-      LABEL iftrue_113
+         iffalse_284, iftrue_283)
+      LABEL iftrue_283
       EXP(CALL(
          NAME(cs411println),
          CONST 1))
-      LABEL endif_115
+      LABEL endif_285
       MOVE(
-         t387 <-
+         t874 <-
          CALL(
             NAME(BS_Search),
-            t310,
+            t797,
             CONST 50))
       CJUMP(EQ,
-         t387,
+         t874,
          CONST 0,
-         iffalse_117, iftrue_116)
-      LABEL iftrue_116
+         iffalse_287, iftrue_286)
+      LABEL iftrue_286
       EXP(CALL(
          NAME(cs411println),
          CONST 1))
-      LABEL endif_118
+      LABEL endif_288
       MOVE(
          %rax:%rax <-
          CONST 999)
-      LABEL bail_94
+      LABEL bail_264
       MOVE(
          %rbx:%rbx <-
-         t314)
+         t801)
       MOVE(
          %r12:%r12 <-
-         t315)
+         t802)
       MOVE(
          %r13:%r13 <-
-         t316)
+         t803)
       MOVE(
          %r14:%r14 <-
-         t317)
+         t804)
       MOVE(
          %r15:%r15 <-
-         t318)
-      JUMP(NAME(DONE_162))
-      LABEL iffalse_96
+         t805)
+      JUMP(NAME(DONE_332))
+      LABEL iffalse_266
       EXP(CALL(
          NAME(cs411println),
          CONST 0))
-      JUMP(NAME(endif_97))
-      LABEL iffalse_99
+      JUMP(NAME(endif_267))
+      LABEL iffalse_269
       EXP(CALL(
          NAME(cs411println),
          CONST 0))
-      JUMP(NAME(endif_100))
-      LABEL iffalse_102
+      JUMP(NAME(endif_270))
+      LABEL iffalse_272
       EXP(CALL(
          NAME(cs411println),
          CONST 0))
-      JUMP(NAME(endif_103))
-      LABEL iffalse_105
+      JUMP(NAME(endif_273))
+      LABEL iffalse_275
       EXP(CALL(
          NAME(cs411println),
          CONST 0))
-      JUMP(NAME(endif_106))
-      LABEL iffalse_108
+      JUMP(NAME(endif_276))
+      LABEL iffalse_278
       EXP(CALL(
          NAME(cs411println),
          CONST 0))
-      JUMP(NAME(endif_109))
-      LABEL iffalse_111
+      JUMP(NAME(endif_279))
+      LABEL iffalse_281
       EXP(CALL(
          NAME(cs411println),
          CONST 0))
-      JUMP(NAME(endif_112))
-      LABEL iffalse_114
+      JUMP(NAME(endif_282))
+      LABEL iffalse_284
       EXP(CALL(
          NAME(cs411println),
          CONST 0))
-      JUMP(NAME(endif_115))
-      LABEL iffalse_117
+      JUMP(NAME(endif_285))
+      LABEL iffalse_287
       EXP(CALL(
          NAME(cs411println),
          CONST 0))
-      JUMP(NAME(endif_118))
-      LABEL DONE_162
+      JUMP(NAME(endif_288))
+      LABEL DONE_332
    }
 }
 MethodFragment {
    X86_64Frame { label = BS_Search
       nextLocalOffset = -8
       formals = List {
-         t319
-         t320
+         t806
+         t807
       }
    }
    List {
-      LABEL L_163
+      LABEL L_333
       MOVE(
-         t329 <-
+         t816 <-
          %rbx:%rbx)
       MOVE(
-         t330 <-
+         t817 <-
          %r12:%r12)
       MOVE(
-         t331 <-
+         t818 <-
          %r13:%r13)
       MOVE(
-         t332 <-
+         t819 <-
          %r14:%r14)
       MOVE(
-         t333 <-
+         t820 <-
          %r15:%r15)
       MOVE(
-         t319 <-
+         t806 <-
          %rdi:%rdi)
       MOVE(
-         t320 <-
+         t807 <-
          %rsi:%rsi)
       MOVE(
-         t326 <-
+         t813 <-
          CONST 0)
       MOVE(
-         t321 <-
+         t808 <-
          CONST 0)
       MOVE(
-         t322 <-
+         t809 <-
          MEM(BINOP(PLUS,
-            MEM(t319), 
+            MEM(t806), 
             CONST -8)))
       MOVE(
-         t322 <-
+         t809 <-
          BINOP(MINUS,
-            t322, 
+            t809, 
             CONST 1))
       MOVE(
-         t323 <-
+         t810 <-
          CONST 0)
       MOVE(
-         t324 <-
+         t811 <-
          CONST 1)
-      LABEL looptest_122
+      LABEL looptest_292
       CJUMP(EQ,
-         t324,
+         t811,
          CONST 0,
-         loopend_120, loopbody_121)
-      LABEL loopbody_121
+         loopend_290, loopbody_291)
+      LABEL loopbody_291
       MOVE(
-         t325 <-
+         t812 <-
          BINOP(PLUS,
-            t323, 
-            t322))
+            t810, 
+            t809))
       MOVE(
-         t325 <-
+         t812 <-
          CALL(
             NAME(BS_Div),
-            t319,
-            t325))
+            t806,
+            t812))
       MOVE(
-         t328 <-
-         MEM(t319))
+         t815 <-
+         MEM(t806))
       CJUMP(UGE,
-         t325,
+         t812,
          MEM(BINOP(PLUS,
-            t328, 
+            t815, 
             CONST -8)),
-         boundsbad_124, boundsok_123)
-      LABEL boundsok_123
+         boundsbad_294, boundsok_293)
+      LABEL boundsok_293
       MOVE(
-         t326 <-
+         t813 <-
          MEM(BINOP(PLUS,
-            t328, 
+            t815, 
             BINOP(MUL,
-               t325, 
+               t812, 
                CONST 8))))
       CJUMP(GE,
-         t320,
-         t326,
-         iffalse_126, iftrue_125)
-      LABEL iftrue_125
+         t807,
+         t813,
+         iffalse_296, iftrue_295)
+      LABEL iftrue_295
       MOVE(
-         t322 <-
+         t809 <-
          BINOP(MINUS,
-            t325, 
+            t812, 
             CONST 1))
-      LABEL endif_127
+      LABEL endif_297
       MOVE(
-         t388 <-
+         t875 <-
          CALL(
             NAME(BS_Compare),
-            t319,
-            t326,
-            t320))
+            t806,
+            t813,
+            t807))
       CJUMP(EQ,
-         t388,
+         t875,
          CONST 0,
-         iffalse_129, iftrue_128)
-      LABEL iftrue_128
+         iffalse_299, iftrue_298)
+      LABEL iftrue_298
       MOVE(
-         t324 <-
+         t811 <-
          CONST 0)
-      LABEL endif_130
+      LABEL endif_300
       CJUMP(GE,
-         t322,
-         t323,
-         iffalse_132, iftrue_131)
-      LABEL iftrue_131
+         t809,
+         t810,
+         iffalse_302, iftrue_301)
+      LABEL iftrue_301
       MOVE(
-         t324 <-
+         t811 <-
          CONST 0)
-      LABEL endif_133
-      JUMP(NAME(looptest_122))
-      LABEL boundsbad_124
+      LABEL endif_303
+      JUMP(NAME(looptest_292))
+      LABEL boundsbad_294
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      LABEL bail_119
+      LABEL bail_289
       MOVE(
          %rbx:%rbx <-
-         t329)
+         t816)
       MOVE(
          %r12:%r12 <-
-         t330)
+         t817)
       MOVE(
          %r13:%r13 <-
-         t331)
+         t818)
       MOVE(
          %r14:%r14 <-
-         t332)
+         t819)
       MOVE(
          %r15:%r15 <-
-         t333)
-      JUMP(NAME(DONE_164))
-      LABEL iffalse_126
+         t820)
+      JUMP(NAME(DONE_334))
+      LABEL iffalse_296
       MOVE(
-         t323 <-
+         t810 <-
          BINOP(PLUS,
-            t325, 
+            t812, 
             CONST 1))
-      JUMP(NAME(endif_127))
-      LABEL iffalse_129
+      JUMP(NAME(endif_297))
+      LABEL iffalse_299
       MOVE(
-         t324 <-
+         t811 <-
          CONST 1)
-      JUMP(NAME(endif_130))
-      LABEL iffalse_132
+      JUMP(NAME(endif_300))
+      LABEL iffalse_302
       MOVE(
-         t327 <-
+         t814 <-
          CONST 0)
-      JUMP(NAME(endif_133))
-      LABEL loopend_120
+      JUMP(NAME(endif_303))
+      LABEL loopend_290
       MOVE(
-         t389 <-
+         t876 <-
          CALL(
             NAME(BS_Compare),
-            t319,
-            t326,
-            t320))
+            t806,
+            t813,
+            t807))
       CJUMP(EQ,
-         t389,
+         t876,
          CONST 0,
-         iffalse_135, iftrue_134)
-      LABEL iftrue_134
+         iffalse_305, iftrue_304)
+      LABEL iftrue_304
       MOVE(
-         t321 <-
+         t808 <-
          CONST 1)
-      LABEL endif_136
+      LABEL endif_306
       MOVE(
          %rax:%rax <-
-         t321)
-      JUMP(NAME(bail_119))
-      LABEL iffalse_135
+         t808)
+      JUMP(NAME(bail_289))
+      LABEL iffalse_305
       MOVE(
-         t321 <-
+         t808 <-
          CONST 0)
-      JUMP(NAME(endif_136))
-      LABEL DONE_164
+      JUMP(NAME(endif_306))
+      LABEL DONE_334
    }
 }
 MethodFragment {
    X86_64Frame { label = BS_Div
       nextLocalOffset = -8
       formals = List {
-         t334
-         t335
+         t821
+         t822
       }
    }
    List {
-      LABEL L_165
+      LABEL L_335
       MOVE(
-         t339 <-
+         t826 <-
          %rbx:%rbx)
       MOVE(
-         t340 <-
+         t827 <-
          %r12:%r12)
       MOVE(
-         t341 <-
+         t828 <-
          %r13:%r13)
       MOVE(
-         t342 <-
+         t829 <-
          %r14:%r14)
       MOVE(
-         t343 <-
+         t830 <-
          %r15:%r15)
       MOVE(
-         t334 <-
+         t821 <-
          %rdi:%rdi)
       MOVE(
-         t335 <-
+         t822 <-
          %rsi:%rsi)
       MOVE(
-         t336 <-
+         t823 <-
          CONST 0)
       MOVE(
-         t337 <-
+         t824 <-
          CONST 0)
       MOVE(
-         t338 <-
+         t825 <-
          BINOP(MINUS,
-            t335, 
+            t822, 
             CONST 1))
-      LABEL looptest_140
+      LABEL looptest_310
       CJUMP(GE,
-         t337,
-         t338,
-         loopend_138, loopbody_139)
-      LABEL loopbody_139
+         t824,
+         t825,
+         loopend_308, loopbody_309)
+      LABEL loopbody_309
       MOVE(
-         t336 <-
+         t823 <-
          BINOP(PLUS,
-            t336, 
+            t823, 
             CONST 1))
       MOVE(
-         t337 <-
+         t824 <-
          BINOP(PLUS,
-            t337, 
+            t824, 
             CONST 2))
-      JUMP(NAME(looptest_140))
-      LABEL loopend_138
+      JUMP(NAME(looptest_310))
+      LABEL loopend_308
       MOVE(
          %rax:%rax <-
-         t336)
-      LABEL bail_137
+         t823)
+      LABEL bail_307
       MOVE(
          %rbx:%rbx <-
-         t339)
+         t826)
       MOVE(
          %r12:%r12 <-
-         t340)
+         t827)
       MOVE(
          %r13:%r13 <-
-         t341)
+         t828)
       MOVE(
          %r14:%r14 <-
-         t342)
+         t829)
       MOVE(
          %r15:%r15 <-
-         t343)
-      LABEL DONE_166
+         t830)
+      LABEL DONE_336
    }
 }
 MethodFragment {
    X86_64Frame { label = BS_Compare
       nextLocalOffset = -8
       formals = List {
-         t344
-         t345
-         t346
+         t831
+         t832
+         t833
       }
    }
    List {
-      LABEL L_167
+      LABEL L_337
       MOVE(
-         t349 <-
+         t836 <-
          %rbx:%rbx)
       MOVE(
-         t350 <-
+         t837 <-
          %r12:%r12)
       MOVE(
-         t351 <-
+         t838 <-
          %r13:%r13)
       MOVE(
-         t352 <-
+         t839 <-
          %r14:%r14)
       MOVE(
-         t353 <-
+         t840 <-
          %r15:%r15)
       MOVE(
-         t344 <-
+         t831 <-
          %rdi:%rdi)
       MOVE(
-         t345 <-
+         t832 <-
          %rsi:%rsi)
       MOVE(
-         t346 <-
+         t833 <-
          %rdx:%rdx)
       MOVE(
-         t347 <-
+         t834 <-
          CONST 0)
       MOVE(
-         t348 <-
+         t835 <-
          BINOP(PLUS,
-            t346, 
+            t833, 
             CONST 1))
       CJUMP(GE,
-         t345,
-         t346,
-         iffalse_143, iftrue_142)
-      LABEL iftrue_142
+         t832,
+         t833,
+         iffalse_313, iftrue_312)
+      LABEL iftrue_312
       MOVE(
-         t347 <-
+         t834 <-
          CONST 0)
-      LABEL endif_144
+      LABEL endif_314
       MOVE(
          %rax:%rax <-
-         t347)
-      LABEL bail_141
+         t834)
+      LABEL bail_311
       MOVE(
          %rbx:%rbx <-
-         t349)
+         t836)
       MOVE(
          %r12:%r12 <-
-         t350)
+         t837)
       MOVE(
          %r13:%r13 <-
-         t351)
+         t838)
       MOVE(
          %r14:%r14 <-
-         t352)
+         t839)
       MOVE(
          %r15:%r15 <-
-         t353)
-      JUMP(NAME(DONE_168))
-      LABEL iffalse_143
+         t840)
+      JUMP(NAME(DONE_338))
+      LABEL iffalse_313
       CJUMP(GE,
-         t345,
-         t348,
-         iftrue_145, iffalse_146)
-      LABEL iffalse_146
+         t832,
+         t835,
+         iftrue_315, iffalse_316)
+      LABEL iffalse_316
       MOVE(
-         t347 <-
+         t834 <-
          CONST 1)
-      LABEL endif_147
-      JUMP(NAME(endif_144))
-      LABEL iftrue_145
+      LABEL endif_317
+      JUMP(NAME(endif_314))
+      LABEL iftrue_315
       MOVE(
-         t347 <-
+         t834 <-
          CONST 0)
-      JUMP(NAME(endif_147))
-      LABEL DONE_168
+      JUMP(NAME(endif_317))
+      LABEL DONE_338
    }
 }
 MethodFragment {
    X86_64Frame { label = BS_Print
       nextLocalOffset = -8
       formals = List {
-         t354
+         t841
       }
    }
    List {
-      LABEL L_169
+      LABEL L_339
       MOVE(
-         t357 <-
+         t844 <-
          %rbx:%rbx)
       MOVE(
-         t358 <-
+         t845 <-
          %r12:%r12)
       MOVE(
-         t359 <-
+         t846 <-
          %r13:%r13)
       MOVE(
-         t360 <-
+         t847 <-
          %r14:%r14)
       MOVE(
-         t361 <-
+         t848 <-
          %r15:%r15)
       MOVE(
-         t354 <-
+         t841 <-
          %rdi:%rdi)
       MOVE(
-         t355 <-
+         t842 <-
          CONST 1)
-      LABEL looptest_151
+      LABEL looptest_321
       CJUMP(GE,
-         t355,
+         t842,
          MEM(BINOP(PLUS,
-            t354, 
+            t841, 
             CONST 8)),
-         loopend_149, loopbody_150)
-      LABEL loopbody_150
+         loopend_319, loopbody_320)
+      LABEL loopbody_320
       MOVE(
-         t356 <-
-         MEM(t354))
+         t843 <-
+         MEM(t841))
       CJUMP(UGE,
-         t355,
+         t842,
          MEM(BINOP(PLUS,
-            t356, 
+            t843, 
             CONST -8)),
-         boundsbad_153, boundsok_152)
-      LABEL boundsok_152
+         boundsbad_323, boundsok_322)
+      LABEL boundsok_322
       EXP(CALL(
          NAME(cs411println),
          MEM(BINOP(PLUS,
-            t356, 
+            t843, 
             BINOP(MUL,
-               t355, 
+               t842, 
                CONST 8)))))
       MOVE(
-         t355 <-
+         t842 <-
          BINOP(PLUS,
-            t355, 
+            t842, 
             CONST 1))
-      JUMP(NAME(looptest_151))
-      LABEL boundsbad_153
+      JUMP(NAME(looptest_321))
+      LABEL boundsbad_323
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      LABEL bail_148
+      LABEL bail_318
       MOVE(
          %rbx:%rbx <-
-         t357)
+         t844)
       MOVE(
          %r12:%r12 <-
-         t358)
+         t845)
       MOVE(
          %r13:%r13 <-
-         t359)
+         t846)
       MOVE(
          %r14:%r14 <-
-         t360)
+         t847)
       MOVE(
          %r15:%r15 <-
-         t361)
-      JUMP(NAME(DONE_170))
-      LABEL loopend_149
+         t848)
+      JUMP(NAME(DONE_340))
+      LABEL loopend_319
       EXP(CALL(
          NAME(cs411println),
          CONST 99999))
       MOVE(
          %rax:%rax <-
          CONST 0)
-      JUMP(NAME(bail_148))
-      LABEL DONE_170
+      JUMP(NAME(bail_318))
+      LABEL DONE_340
    }
 }
 MethodFragment {
    X86_64Frame { label = BS_Init
       nextLocalOffset = -8
       formals = List {
-         t362
-         t363
+         t849
+         t850
       }
    }
    List {
-      LABEL L_171
+      LABEL L_341
       MOVE(
-         t370 <-
+         t857 <-
          %rbx:%rbx)
       MOVE(
-         t371 <-
+         t858 <-
          %r12:%r12)
       MOVE(
-         t372 <-
+         t859 <-
          %r13:%r13)
       MOVE(
-         t373 <-
+         t860 <-
          %r14:%r14)
       MOVE(
-         t374 <-
+         t861 <-
          %r15:%r15)
       MOVE(
-         t362 <-
+         t849 <-
          %rdi:%rdi)
       MOVE(
-         t363 <-
+         t850 <-
          %rsi:%rsi)
       MOVE(
          MEM(BINOP(PLUS,
-            t362, 
+            t849, 
             CONST 8)) <-
-         t363)
+         t850)
       MOVE(
-         t391 <-
-         t362)
+         t878 <-
+         t849)
       MOVE(
-         t390 <-
+         t877 <-
          CALL(
             NAME(cs411newarray),
-            t363))
+            t850))
       MOVE(
-         MEM(t391) <-
-         t390)
+         MEM(t878) <-
+         t877)
       MOVE(
-         t364 <-
+         t851 <-
          CONST 1)
       MOVE(
-         t365 <-
+         t852 <-
          BINOP(PLUS,
             MEM(BINOP(PLUS,
-               t362, 
+               t849, 
                CONST 8)), 
             CONST 1))
-      LABEL looptest_157
+      LABEL looptest_327
       CJUMP(GE,
-         t364,
+         t851,
          MEM(BINOP(PLUS,
-            t362, 
+            t849, 
             CONST 8)),
-         loopend_155, loopbody_156)
-      LABEL loopbody_156
+         loopend_325, loopbody_326)
+      LABEL loopbody_326
       MOVE(
-         t367 <-
+         t854 <-
          BINOP(MUL,
             CONST 2, 
-            t364))
+            t851))
       MOVE(
-         t366 <-
+         t853 <-
          BINOP(MINUS,
-            t365, 
+            t852, 
             CONST 3))
       MOVE(
-         t368 <-
-         MEM(t362))
+         t855 <-
+         MEM(t849))
       CJUMP(UGE,
-         t364,
+         t851,
          MEM(BINOP(PLUS,
-            t368, 
+            t855, 
             CONST -8)),
-         boundsbad_159, boundsok_158)
-      LABEL boundsok_158
+         boundsbad_329, boundsok_328)
+      LABEL boundsok_328
       MOVE(
-         t369 <-
+         t856 <-
          BINOP(PLUS,
-            t367, 
-            t366))
+            t854, 
+            t853))
       MOVE(
          MEM(BINOP(PLUS,
-            t368, 
+            t855, 
             BINOP(MUL,
-               t364, 
+               t851, 
                CONST 8))) <-
-         t369)
+         t856)
       MOVE(
-         t364 <-
+         t851 <-
          BINOP(PLUS,
-            t364, 
+            t851, 
             CONST 1))
       MOVE(
-         t365 <-
+         t852 <-
          BINOP(MINUS,
-            t365, 
+            t852, 
             CONST 1))
-      JUMP(NAME(looptest_157))
-      LABEL boundsbad_159
+      JUMP(NAME(looptest_327))
+      LABEL boundsbad_329
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      LABEL bail_154
+      LABEL bail_324
       MOVE(
          %rbx:%rbx <-
-         t370)
+         t857)
       MOVE(
          %r12:%r12 <-
-         t371)
+         t858)
       MOVE(
          %r13:%r13 <-
-         t372)
+         t859)
       MOVE(
          %r14:%r14 <-
-         t373)
+         t860)
       MOVE(
          %r15:%r15 <-
-         t374)
-      JUMP(NAME(DONE_172))
-      LABEL loopend_155
+         t861)
+      JUMP(NAME(DONE_342))
+      LABEL loopend_325
       MOVE(
          %rax:%rax <-
          CONST 0)
-      JUMP(NAME(bail_154))
-      LABEL DONE_172
+      JUMP(NAME(bail_324))
+      LABEL DONE_342
    }
 }
 MethodFragment {
@@ -830,52 +830,52 @@ MethodFragment {
       }
    }
    List {
-      LABEL L_173
+      LABEL L_343
       MOVE(
-         t375 <-
+         t862 <-
          %rbx:%rbx)
       MOVE(
-         t376 <-
+         t863 <-
          %r12:%r12)
       MOVE(
-         t377 <-
+         t864 <-
          %r13:%r13)
       MOVE(
-         t378 <-
+         t865 <-
          %r14:%r14)
       MOVE(
-         t379 <-
+         t866 <-
          %r15:%r15)
       MOVE(
-         t393 <-
+         t880 <-
          CALL(
             NAME(cs411newobject),
             CONST 16))
       MOVE(
-         t392 <-
+         t879 <-
          CALL(
             NAME(BS_Start),
-            t393,
+            t880,
             CONST 20))
       EXP(CALL(
          NAME(cs411println),
-         t392))
-      LABEL bail_160
+         t879))
+      LABEL bail_330
       MOVE(
          %rbx:%rbx <-
-         t375)
+         t862)
       MOVE(
          %r12:%r12 <-
-         t376)
+         t863)
       MOVE(
          %r13:%r13 <-
-         t377)
+         t864)
       MOVE(
          %r14:%r14 <-
-         t378)
+         t865)
       MOVE(
          %r15:%r15 <-
-         t379)
-      LABEL DONE_174
+         t866)
+      LABEL DONE_344
    }
 }

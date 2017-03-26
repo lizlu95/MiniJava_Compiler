@@ -2,2022 +2,2022 @@ MethodFragment {
    X86_64Frame { label = Element_Init
       nextLocalOffset = -8
       formals = List {
-         t1772
-         t1773
-         t1774
-         t1775
+         t2281
+         t2282
+         t2283
+         t2284
       }
    }
    List {
-      LABEL L_737
+      LABEL L_907
       MOVE(
-         t1776 <-
+         t2285 <-
          %rbx:%rbx)
       MOVE(
-         t1777 <-
+         t2286 <-
          %r12:%r12)
       MOVE(
-         t1778 <-
+         t2287 <-
          %r13:%r13)
       MOVE(
-         t1779 <-
+         t2288 <-
          %r14:%r14)
       MOVE(
-         t1780 <-
+         t2289 <-
          %r15:%r15)
       MOVE(
-         t1772 <-
+         t2281 <-
          %rdi:%rdi)
       MOVE(
-         t1773 <-
+         t2282 <-
          %rsi:%rsi)
       MOVE(
-         t1774 <-
+         t2283 <-
          %rdx:%rdx)
       MOVE(
-         t1775 <-
+         t2284 <-
          %rcx:%rcx)
       MOVE(
-         MEM(t1772) <-
-         t1773)
+         MEM(t2281) <-
+         t2282)
       MOVE(
          MEM(BINOP(PLUS,
-            t1772, 
+            t2281, 
             CONST 8)) <-
-         t1774)
+         t2283)
       MOVE(
          MEM(BINOP(PLUS,
-            t1772, 
+            t2281, 
             CONST 16)) <-
-         t1775)
+         t2284)
       MOVE(
          %rax:%rax <-
          CONST 1)
-      LABEL bail_628
+      LABEL bail_798
       MOVE(
          %rbx:%rbx <-
-         t1776)
+         t2285)
       MOVE(
          %r12:%r12 <-
-         t1777)
+         t2286)
       MOVE(
          %r13:%r13 <-
-         t1778)
+         t2287)
       MOVE(
          %r14:%r14 <-
-         t1779)
+         t2288)
       MOVE(
          %r15:%r15 <-
-         t1780)
-      LABEL DONE_738
+         t2289)
+      LABEL DONE_908
    }
 }
 MethodFragment {
    X86_64Frame { label = Element_GetAge
       nextLocalOffset = -8
       formals = List {
-         t1781
+         t2290
       }
    }
    List {
-      LABEL L_739
+      LABEL L_909
       MOVE(
-         t1782 <-
+         t2291 <-
          %rbx:%rbx)
       MOVE(
-         t1783 <-
+         t2292 <-
          %r12:%r12)
       MOVE(
-         t1784 <-
+         t2293 <-
          %r13:%r13)
       MOVE(
-         t1785 <-
+         t2294 <-
          %r14:%r14)
       MOVE(
-         t1786 <-
+         t2295 <-
          %r15:%r15)
       MOVE(
-         t1781 <-
+         t2290 <-
          %rdi:%rdi)
       MOVE(
          %rax:%rax <-
-         MEM(t1781))
-      LABEL bail_629
+         MEM(t2290))
+      LABEL bail_799
       MOVE(
          %rbx:%rbx <-
-         t1782)
+         t2291)
       MOVE(
          %r12:%r12 <-
-         t1783)
+         t2292)
       MOVE(
          %r13:%r13 <-
-         t1784)
+         t2293)
       MOVE(
          %r14:%r14 <-
-         t1785)
+         t2294)
       MOVE(
          %r15:%r15 <-
-         t1786)
-      LABEL DONE_740
+         t2295)
+      LABEL DONE_910
    }
 }
 MethodFragment {
    X86_64Frame { label = Element_GetSalary
       nextLocalOffset = -8
       formals = List {
-         t1787
+         t2296
       }
    }
    List {
-      LABEL L_741
+      LABEL L_911
       MOVE(
-         t1788 <-
+         t2297 <-
          %rbx:%rbx)
       MOVE(
-         t1789 <-
+         t2298 <-
          %r12:%r12)
       MOVE(
-         t1790 <-
+         t2299 <-
          %r13:%r13)
       MOVE(
-         t1791 <-
+         t2300 <-
          %r14:%r14)
       MOVE(
-         t1792 <-
+         t2301 <-
          %r15:%r15)
       MOVE(
-         t1787 <-
+         t2296 <-
          %rdi:%rdi)
       MOVE(
          %rax:%rax <-
          MEM(BINOP(PLUS,
-            t1787, 
+            t2296, 
             CONST 8)))
-      LABEL bail_630
+      LABEL bail_800
       MOVE(
          %rbx:%rbx <-
-         t1788)
+         t2297)
       MOVE(
          %r12:%r12 <-
-         t1789)
+         t2298)
       MOVE(
          %r13:%r13 <-
-         t1790)
+         t2299)
       MOVE(
          %r14:%r14 <-
-         t1791)
+         t2300)
       MOVE(
          %r15:%r15 <-
-         t1792)
-      LABEL DONE_742
+         t2301)
+      LABEL DONE_912
    }
 }
 MethodFragment {
    X86_64Frame { label = Element_GetMarried
       nextLocalOffset = -8
       formals = List {
-         t1793
+         t2302
       }
    }
    List {
-      LABEL L_743
+      LABEL L_913
       MOVE(
-         t1794 <-
+         t2303 <-
          %rbx:%rbx)
       MOVE(
-         t1795 <-
+         t2304 <-
          %r12:%r12)
       MOVE(
-         t1796 <-
+         t2305 <-
          %r13:%r13)
       MOVE(
-         t1797 <-
+         t2306 <-
          %r14:%r14)
       MOVE(
-         t1798 <-
+         t2307 <-
          %r15:%r15)
       MOVE(
-         t1793 <-
+         t2302 <-
          %rdi:%rdi)
       MOVE(
          %rax:%rax <-
          MEM(BINOP(PLUS,
-            t1793, 
+            t2302, 
             CONST 16)))
-      LABEL bail_631
+      LABEL bail_801
       MOVE(
          %rbx:%rbx <-
-         t1794)
+         t2303)
       MOVE(
          %r12:%r12 <-
-         t1795)
+         t2304)
       MOVE(
          %r13:%r13 <-
-         t1796)
+         t2305)
       MOVE(
          %r14:%r14 <-
-         t1797)
+         t2306)
       MOVE(
          %r15:%r15 <-
-         t1798)
-      LABEL DONE_744
+         t2307)
+      LABEL DONE_914
    }
 }
 MethodFragment {
    X86_64Frame { label = Element_Equal
       nextLocalOffset = -8
       formals = List {
-         t1799
-         t1800
+         t2308
+         t2309
       }
    }
    List {
-      LABEL L_745
+      LABEL L_915
       MOVE(
-         t1809 <-
+         t2318 <-
          %rbx:%rbx)
       MOVE(
-         t1810 <-
+         t2319 <-
          %r12:%r12)
       MOVE(
-         t1811 <-
+         t2320 <-
          %r13:%r13)
       MOVE(
-         t1812 <-
+         t2321 <-
          %r14:%r14)
       MOVE(
-         t1813 <-
+         t2322 <-
          %r15:%r15)
       MOVE(
-         t1799 <-
+         t2308 <-
          %rdi:%rdi)
       MOVE(
-         t1800 <-
+         t2309 <-
          %rsi:%rsi)
       MOVE(
-         t1801 <-
+         t2310 <-
          CONST 1)
       MOVE(
-         t1805 <-
-         t1800)
+         t2314 <-
+         t2309)
       CJUMP(EQ,
-         t1805,
+         t2314,
          CONST 0,
-         invokebad_634, invokeok_633)
-      LABEL invokeok_633
+         invokebad_804, invokeok_803)
+      LABEL invokeok_803
       MOVE(
-         t1966 <-
+         t2475 <-
          CALL(
             NAME(Element_GetAge),
-            t1805))
+            t2314))
       MOVE(
-         t1802 <-
-         t1966)
+         t2311 <-
+         t2475)
       MOVE(
-         t1967 <-
+         t2476 <-
          CALL(
             NAME(Element_Compare),
-            t1799,
-            t1802,
-            MEM(t1799)))
+            t2308,
+            t2311,
+            MEM(t2308)))
       CJUMP(EQ,
-         t1967,
+         t2476,
          CONST 0,
-         iftrue_635, iffalse_636)
-      LABEL iffalse_636
+         iftrue_805, iffalse_806)
+      LABEL iffalse_806
       MOVE(
-         t1806 <-
-         t1800)
+         t2315 <-
+         t2309)
       CJUMP(EQ,
-         t1806,
+         t2315,
          CONST 0,
-         invokebad_634, invokeok_638)
-      LABEL invokeok_638
+         invokebad_804, invokeok_808)
+      LABEL invokeok_808
       MOVE(
-         t1968 <-
+         t2477 <-
          CALL(
             NAME(Element_GetSalary),
-            t1806))
+            t2315))
       MOVE(
-         t1803 <-
-         t1968)
+         t2312 <-
+         t2477)
       MOVE(
-         t1969 <-
+         t2478 <-
          CALL(
             NAME(Element_Compare),
-            t1799,
-            t1803,
+            t2308,
+            t2312,
             MEM(BINOP(PLUS,
-               t1799, 
+               t2308, 
                CONST 8))))
       CJUMP(EQ,
-         t1969,
+         t2478,
          CONST 0,
-         iftrue_639, iffalse_640)
-      LABEL iffalse_640
+         iftrue_809, iffalse_810)
+      LABEL iffalse_810
       CJUMP(EQ,
          MEM(BINOP(PLUS,
-            t1799, 
+            t2308, 
             CONST 16)),
          CONST 0,
-         iffalse_643, iftrue_642)
-      LABEL iftrue_642
+         iffalse_813, iftrue_812)
+      LABEL iftrue_812
       MOVE(
-         t1807 <-
-         t1800)
+         t2316 <-
+         t2309)
       CJUMP(EQ,
-         t1807,
+         t2316,
          CONST 0,
-         invokebad_634, invokeok_648)
-      LABEL invokeok_648
+         invokebad_804, invokeok_818)
+      LABEL invokeok_818
       MOVE(
-         t1970 <-
+         t2479 <-
          CALL(
             NAME(Element_GetMarried),
-            t1807))
+            t2316))
       CJUMP(EQ,
-         t1970,
+         t2479,
          CONST 0,
-         iftrue_645, iffalse_646)
-      LABEL iffalse_646
+         iftrue_815, iffalse_816)
+      LABEL iffalse_816
       MOVE(
-         t1804 <-
+         t2313 <-
          CONST 0)
-      LABEL endif_647
-      LABEL endif_644
-      LABEL endif_641
-      LABEL endif_637
+      LABEL endif_817
+      LABEL endif_814
+      LABEL endif_811
+      LABEL endif_807
       MOVE(
          %rax:%rax <-
-         t1801)
-      LABEL bail_632
+         t2310)
+      LABEL bail_802
       MOVE(
          %rbx:%rbx <-
-         t1809)
+         t2318)
       MOVE(
          %r12:%r12 <-
-         t1810)
+         t2319)
       MOVE(
          %r13:%r13 <-
-         t1811)
+         t2320)
       MOVE(
          %r14:%r14 <-
-         t1812)
+         t2321)
       MOVE(
          %r15:%r15 <-
-         t1813)
-      JUMP(NAME(DONE_746))
-      LABEL invokebad_634
+         t2322)
+      JUMP(NAME(DONE_916))
+      LABEL invokebad_804
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 2))
-      JUMP(NAME(bail_632))
-      LABEL iftrue_635
+      JUMP(NAME(bail_802))
+      LABEL iftrue_805
       MOVE(
-         t1801 <-
+         t2310 <-
          CONST 0)
-      JUMP(NAME(endif_637))
-      LABEL iftrue_639
+      JUMP(NAME(endif_807))
+      LABEL iftrue_809
       MOVE(
-         t1801 <-
+         t2310 <-
          CONST 0)
-      JUMP(NAME(endif_641))
-      LABEL iftrue_645
+      JUMP(NAME(endif_811))
+      LABEL iftrue_815
       MOVE(
-         t1801 <-
+         t2310 <-
          CONST 0)
-      JUMP(NAME(endif_647))
-      LABEL iffalse_643
+      JUMP(NAME(endif_817))
+      LABEL iffalse_813
       MOVE(
-         t1808 <-
-         t1800)
+         t2317 <-
+         t2309)
       CJUMP(EQ,
-         t1808,
+         t2317,
          CONST 0,
-         invokebad_634, invokeok_652)
-      LABEL invokeok_652
+         invokebad_804, invokeok_822)
+      LABEL invokeok_822
       MOVE(
-         t1971 <-
+         t2480 <-
          CALL(
             NAME(Element_GetMarried),
-            t1808))
+            t2317))
       CJUMP(EQ,
-         t1971,
+         t2480,
          CONST 0,
-         iffalse_650, iftrue_649)
-      LABEL iftrue_649
+         iffalse_820, iftrue_819)
+      LABEL iftrue_819
       MOVE(
-         t1801 <-
+         t2310 <-
          CONST 0)
-      LABEL endif_651
-      JUMP(NAME(endif_644))
-      LABEL iffalse_650
+      LABEL endif_821
+      JUMP(NAME(endif_814))
+      LABEL iffalse_820
       MOVE(
-         t1804 <-
+         t2313 <-
          CONST 0)
-      JUMP(NAME(endif_651))
-      LABEL DONE_746
+      JUMP(NAME(endif_821))
+      LABEL DONE_916
    }
 }
 MethodFragment {
    X86_64Frame { label = Element_Compare
       nextLocalOffset = -8
       formals = List {
-         t1814
-         t1815
-         t1816
+         t2323
+         t2324
+         t2325
       }
    }
    List {
-      LABEL L_747
+      LABEL L_917
       MOVE(
-         t1819 <-
+         t2328 <-
          %rbx:%rbx)
       MOVE(
-         t1820 <-
+         t2329 <-
          %r12:%r12)
       MOVE(
-         t1821 <-
+         t2330 <-
          %r13:%r13)
       MOVE(
-         t1822 <-
+         t2331 <-
          %r14:%r14)
       MOVE(
-         t1823 <-
+         t2332 <-
          %r15:%r15)
       MOVE(
-         t1814 <-
+         t2323 <-
          %rdi:%rdi)
       MOVE(
-         t1815 <-
+         t2324 <-
          %rsi:%rsi)
       MOVE(
-         t1816 <-
+         t2325 <-
          %rdx:%rdx)
       MOVE(
-         t1817 <-
+         t2326 <-
          CONST 0)
       MOVE(
-         t1818 <-
+         t2327 <-
          BINOP(PLUS,
-            t1816, 
+            t2325, 
             CONST 1))
       CJUMP(GE,
-         t1815,
-         t1816,
-         iffalse_655, iftrue_654)
-      LABEL iftrue_654
+         t2324,
+         t2325,
+         iffalse_825, iftrue_824)
+      LABEL iftrue_824
       MOVE(
-         t1817 <-
+         t2326 <-
          CONST 0)
-      LABEL endif_656
+      LABEL endif_826
       MOVE(
          %rax:%rax <-
-         t1817)
-      LABEL bail_653
+         t2326)
+      LABEL bail_823
       MOVE(
          %rbx:%rbx <-
-         t1819)
+         t2328)
       MOVE(
          %r12:%r12 <-
-         t1820)
+         t2329)
       MOVE(
          %r13:%r13 <-
-         t1821)
+         t2330)
       MOVE(
          %r14:%r14 <-
-         t1822)
+         t2331)
       MOVE(
          %r15:%r15 <-
-         t1823)
-      JUMP(NAME(DONE_748))
-      LABEL iffalse_655
+         t2332)
+      JUMP(NAME(DONE_918))
+      LABEL iffalse_825
       CJUMP(GE,
-         t1815,
-         t1818,
-         iftrue_657, iffalse_658)
-      LABEL iffalse_658
+         t2324,
+         t2327,
+         iftrue_827, iffalse_828)
+      LABEL iffalse_828
       MOVE(
-         t1817 <-
+         t2326 <-
          CONST 1)
-      LABEL endif_659
-      JUMP(NAME(endif_656))
-      LABEL iftrue_657
+      LABEL endif_829
+      JUMP(NAME(endif_826))
+      LABEL iftrue_827
       MOVE(
-         t1817 <-
+         t2326 <-
          CONST 0)
-      JUMP(NAME(endif_659))
-      LABEL DONE_748
+      JUMP(NAME(endif_829))
+      LABEL DONE_918
    }
 }
 MethodFragment {
    X86_64Frame { label = List_Init
       nextLocalOffset = -8
       formals = List {
-         t1824
+         t2333
       }
    }
    List {
-      LABEL L_749
+      LABEL L_919
       MOVE(
-         t1825 <-
+         t2334 <-
          %rbx:%rbx)
       MOVE(
-         t1826 <-
+         t2335 <-
          %r12:%r12)
       MOVE(
-         t1827 <-
+         t2336 <-
          %r13:%r13)
       MOVE(
-         t1828 <-
+         t2337 <-
          %r14:%r14)
       MOVE(
-         t1829 <-
+         t2338 <-
          %r15:%r15)
       MOVE(
-         t1824 <-
+         t2333 <-
          %rdi:%rdi)
       MOVE(
          MEM(BINOP(PLUS,
-            t1824, 
+            t2333, 
             CONST 16)) <-
          CONST 1)
       MOVE(
          %rax:%rax <-
          CONST 1)
-      LABEL bail_660
+      LABEL bail_830
       MOVE(
          %rbx:%rbx <-
-         t1825)
+         t2334)
       MOVE(
          %r12:%r12 <-
-         t1826)
+         t2335)
       MOVE(
          %r13:%r13 <-
-         t1827)
+         t2336)
       MOVE(
          %r14:%r14 <-
-         t1828)
+         t2337)
       MOVE(
          %r15:%r15 <-
-         t1829)
-      LABEL DONE_750
+         t2338)
+      LABEL DONE_920
    }
 }
 MethodFragment {
    X86_64Frame { label = List_InitNew
       nextLocalOffset = -8
       formals = List {
-         t1830
-         t1831
-         t1832
-         t1833
+         t2339
+         t2340
+         t2341
+         t2342
       }
    }
    List {
-      LABEL L_751
+      LABEL L_921
       MOVE(
-         t1834 <-
+         t2343 <-
          %rbx:%rbx)
       MOVE(
-         t1835 <-
+         t2344 <-
          %r12:%r12)
       MOVE(
-         t1836 <-
+         t2345 <-
          %r13:%r13)
       MOVE(
-         t1837 <-
+         t2346 <-
          %r14:%r14)
       MOVE(
-         t1838 <-
+         t2347 <-
          %r15:%r15)
       MOVE(
-         t1830 <-
+         t2339 <-
          %rdi:%rdi)
       MOVE(
-         t1831 <-
+         t2340 <-
          %rsi:%rsi)
       MOVE(
-         t1832 <-
+         t2341 <-
          %rdx:%rdx)
       MOVE(
-         t1833 <-
+         t2342 <-
          %rcx:%rcx)
       MOVE(
          MEM(BINOP(PLUS,
-            t1830, 
+            t2339, 
             CONST 16)) <-
-         t1833)
+         t2342)
       MOVE(
-         MEM(t1830) <-
-         t1831)
+         MEM(t2339) <-
+         t2340)
       MOVE(
          MEM(BINOP(PLUS,
-            t1830, 
+            t2339, 
             CONST 8)) <-
-         t1832)
+         t2341)
       MOVE(
          %rax:%rax <-
          CONST 1)
-      LABEL bail_661
+      LABEL bail_831
       MOVE(
          %rbx:%rbx <-
-         t1834)
+         t2343)
       MOVE(
          %r12:%r12 <-
-         t1835)
+         t2344)
       MOVE(
          %r13:%r13 <-
-         t1836)
+         t2345)
       MOVE(
          %r14:%r14 <-
-         t1837)
+         t2346)
       MOVE(
          %r15:%r15 <-
-         t1838)
-      LABEL DONE_752
+         t2347)
+      LABEL DONE_922
    }
 }
 MethodFragment {
    X86_64Frame { label = List_Insert
       nextLocalOffset = -8
       formals = List {
-         t1839
-         t1840
+         t2348
+         t2349
       }
    }
    List {
-      LABEL L_753
+      LABEL L_923
       MOVE(
-         t1845 <-
+         t2354 <-
          %rbx:%rbx)
       MOVE(
-         t1846 <-
+         t2355 <-
          %r12:%r12)
       MOVE(
-         t1847 <-
+         t2356 <-
          %r13:%r13)
       MOVE(
-         t1848 <-
+         t2357 <-
          %r14:%r14)
       MOVE(
-         t1849 <-
+         t2358 <-
          %r15:%r15)
       MOVE(
-         t1839 <-
+         t2348 <-
          %rdi:%rdi)
       MOVE(
-         t1840 <-
+         t2349 <-
          %rsi:%rsi)
       MOVE(
-         t1842 <-
+         t2351 <-
          CONST 0)
       MOVE(
-         t1843 <-
+         t2352 <-
          CONST 0)
       MOVE(
-         t1842 <-
-         t1839)
+         t2351 <-
+         t2348)
       MOVE(
-         t1843 <-
+         t2352 <-
          CALL(
             NAME(cs411newobject),
             CONST 24))
       MOVE(
-         t1844 <-
-         t1843)
+         t2353 <-
+         t2352)
       CJUMP(EQ,
-         t1844,
+         t2353,
          CONST 0,
-         invokebad_664, invokeok_663)
-      LABEL invokeok_663
+         invokebad_834, invokeok_833)
+      LABEL invokeok_833
       MOVE(
-         t1972 <-
+         t2481 <-
          CALL(
             NAME(List_InitNew),
-            t1844,
-            t1840,
-            t1842,
+            t2353,
+            t2349,
+            t2351,
             CONST 0))
       MOVE(
-         t1841 <-
-         t1972)
+         t2350 <-
+         t2481)
       MOVE(
          %rax:%rax <-
-         t1843)
-      LABEL bail_662
+         t2352)
+      LABEL bail_832
       MOVE(
          %rbx:%rbx <-
-         t1845)
+         t2354)
       MOVE(
          %r12:%r12 <-
-         t1846)
+         t2355)
       MOVE(
          %r13:%r13 <-
-         t1847)
+         t2356)
       MOVE(
          %r14:%r14 <-
-         t1848)
+         t2357)
       MOVE(
          %r15:%r15 <-
-         t1849)
-      JUMP(NAME(DONE_754))
-      LABEL invokebad_664
+         t2358)
+      JUMP(NAME(DONE_924))
+      LABEL invokebad_834
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 2))
-      JUMP(NAME(bail_662))
-      LABEL DONE_754
+      JUMP(NAME(bail_832))
+      LABEL DONE_924
    }
 }
 MethodFragment {
    X86_64Frame { label = List_SetNext
       nextLocalOffset = -8
       formals = List {
-         t1850
-         t1851
+         t2359
+         t2360
       }
    }
    List {
-      LABEL L_755
+      LABEL L_925
       MOVE(
-         t1852 <-
+         t2361 <-
          %rbx:%rbx)
       MOVE(
-         t1853 <-
+         t2362 <-
          %r12:%r12)
       MOVE(
-         t1854 <-
+         t2363 <-
          %r13:%r13)
       MOVE(
-         t1855 <-
+         t2364 <-
          %r14:%r14)
       MOVE(
-         t1856 <-
+         t2365 <-
          %r15:%r15)
       MOVE(
-         t1850 <-
+         t2359 <-
          %rdi:%rdi)
       MOVE(
-         t1851 <-
+         t2360 <-
          %rsi:%rsi)
       MOVE(
          MEM(BINOP(PLUS,
-            t1850, 
+            t2359, 
             CONST 8)) <-
-         t1851)
+         t2360)
       MOVE(
          %rax:%rax <-
          CONST 1)
-      LABEL bail_665
+      LABEL bail_835
       MOVE(
          %rbx:%rbx <-
-         t1852)
+         t2361)
       MOVE(
          %r12:%r12 <-
-         t1853)
+         t2362)
       MOVE(
          %r13:%r13 <-
-         t1854)
+         t2363)
       MOVE(
          %r14:%r14 <-
-         t1855)
+         t2364)
       MOVE(
          %r15:%r15 <-
-         t1856)
-      LABEL DONE_756
+         t2365)
+      LABEL DONE_926
    }
 }
 MethodFragment {
    X86_64Frame { label = List_Delete
       nextLocalOffset = -8
       formals = List {
-         t1857
-         t1858
+         t2366
+         t2367
       }
    }
    List {
-      LABEL L_757
+      LABEL L_927
       MOVE(
-         t1875 <-
+         t2384 <-
          %rbx:%rbx)
       MOVE(
-         t1876 <-
+         t2385 <-
          %r12:%r12)
       MOVE(
-         t1877 <-
+         t2386 <-
          %r13:%r13)
       MOVE(
-         t1878 <-
+         t2387 <-
          %r14:%r14)
       MOVE(
-         t1879 <-
+         t2388 <-
          %r15:%r15)
       MOVE(
-         t1857 <-
+         t2366 <-
          %rdi:%rdi)
       MOVE(
-         t1858 <-
+         t2367 <-
          %rsi:%rsi)
       MOVE(
-         t1859 <-
+         t2368 <-
          CONST 0)
       MOVE(
-         t1862 <-
+         t2371 <-
          CONST 0)
       MOVE(
-         t1863 <-
+         t2372 <-
          CONST 0)
       MOVE(
-         t1865 <-
+         t2374 <-
          CONST 0)
       MOVE(
-         t1859 <-
-         t1857)
+         t2368 <-
+         t2366)
       MOVE(
-         t1860 <-
+         t2369 <-
          CONST 0)
       MOVE(
-         t1866 <-
+         t2375 <-
          CONST -1)
       MOVE(
-         t1862 <-
-         t1857)
+         t2371 <-
+         t2366)
       MOVE(
-         t1863 <-
-         t1857)
+         t2372 <-
+         t2366)
       MOVE(
-         t1864 <-
+         t2373 <-
          MEM(BINOP(PLUS,
-            t1857, 
+            t2366, 
             CONST 16)))
       MOVE(
-         t1865 <-
-         MEM(t1857))
-      LABEL looptest_669
+         t2374 <-
+         MEM(t2366))
+      LABEL looptest_839
       CJUMP(EQ,
-         t1864,
+         t2373,
          CONST 0,
-         doright_687, loopend_667)
-      LABEL loopend_667
+         doright_857, loopend_837)
+      LABEL loopend_837
       MOVE(
          %rax:%rax <-
-         t1859)
-      LABEL bail_666
+         t2368)
+      LABEL bail_836
       MOVE(
          %rbx:%rbx <-
-         t1875)
+         t2384)
       MOVE(
          %r12:%r12 <-
-         t1876)
+         t2385)
       MOVE(
          %r13:%r13 <-
-         t1877)
+         t2386)
       MOVE(
          %r14:%r14 <-
-         t1878)
+         t2387)
       MOVE(
          %r15:%r15 <-
-         t1879)
-      JUMP(NAME(DONE_758))
-      LABEL doright_687
+         t2388)
+      JUMP(NAME(DONE_928))
+      LABEL doright_857
       CJUMP(NE,
-         t1860,
+         t2369,
          CONST 0,
-         loopend_667, loopbody_668)
-      LABEL loopbody_668
+         loopend_837, loopbody_838)
+      LABEL loopbody_838
       MOVE(
-         t1868 <-
-         t1858)
+         t2377 <-
+         t2367)
       CJUMP(EQ,
-         t1868,
+         t2377,
          CONST 0,
-         invokebad_674, invokeok_673)
-      LABEL invokeok_673
+         invokebad_844, invokeok_843)
+      LABEL invokeok_843
       MOVE(
-         t1973 <-
+         t2482 <-
          CALL(
             NAME(Element_Equal),
-            t1868,
-            t1865))
+            t2377,
+            t2374))
       CJUMP(EQ,
-         t1973,
+         t2482,
          CONST 0,
-         iffalse_671, iftrue_670)
-      LABEL iftrue_670
+         iffalse_841, iftrue_840)
+      LABEL iftrue_840
       MOVE(
-         t1860 <-
+         t2369 <-
          CONST 1)
       CJUMP(GE,
-         t1866,
+         t2375,
          CONST 0,
-         iffalse_676, iftrue_675)
-      LABEL iftrue_675
+         iffalse_846, iftrue_845)
+      LABEL iftrue_845
       MOVE(
-         t1869 <-
-         t1862)
+         t2378 <-
+         t2371)
       CJUMP(EQ,
-         t1869,
+         t2378,
          CONST 0,
-         invokebad_674, invokeok_678)
-      LABEL invokeok_678
+         invokebad_844, invokeok_848)
+      LABEL invokeok_848
       MOVE(
-         t1974 <-
+         t2483 <-
          CALL(
             NAME(List_GetNext),
-            t1869))
+            t2378))
       MOVE(
-         t1859 <-
-         t1974)
-      LABEL endif_677
-      LABEL endif_672
+         t2368 <-
+         t2483)
+      LABEL endif_847
+      LABEL endif_842
       CJUMP(EQ,
-         t1860,
+         t2369,
          CONST 0,
-         iftrue_681, iffalse_682)
-      LABEL iffalse_682
+         iftrue_851, iffalse_852)
+      LABEL iffalse_852
       MOVE(
-         t1867 <-
+         t2376 <-
          CONST 0)
-      LABEL endif_683
-      JUMP(NAME(looptest_669))
-      LABEL invokebad_674
+      LABEL endif_853
+      JUMP(NAME(looptest_839))
+      LABEL invokebad_844
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 2))
-      JUMP(NAME(bail_666))
-      LABEL iffalse_676
+      JUMP(NAME(bail_836))
+      LABEL iffalse_846
       EXP(CALL(
          NAME(cs411println),
          CONST -555))
       MOVE(
-         t1870 <-
-         t1863)
+         t2379 <-
+         t2372)
       CJUMP(EQ,
-         t1870,
+         t2379,
          CONST 0,
-         invokebad_674, invokeok_679)
-      LABEL invokeok_679
+         invokebad_844, invokeok_849)
+      LABEL invokeok_849
       MOVE(
-         t1977 <-
-         t1870)
+         t2486 <-
+         t2379)
       MOVE(
-         t1871 <-
-         t1862)
+         t2380 <-
+         t2371)
       CJUMP(EQ,
-         t1871,
+         t2380,
          CONST 0,
-         invokebad_674, invokeok_680)
-      LABEL invokeok_680
+         invokebad_844, invokeok_850)
+      LABEL invokeok_850
       MOVE(
-         t1976 <-
+         t2485 <-
          CALL(
             NAME(List_GetNext),
-            t1871))
+            t2380))
       MOVE(
-         t1975 <-
+         t2484 <-
          CALL(
             NAME(List_SetNext),
-            t1977,
-            t1976))
+            t2486,
+            t2485))
       MOVE(
-         t1861 <-
-         t1975)
+         t2370 <-
+         t2484)
       EXP(CALL(
          NAME(cs411println),
          CONST -555))
-      JUMP(NAME(endif_677))
-      LABEL iffalse_671
+      JUMP(NAME(endif_847))
+      LABEL iffalse_841
       MOVE(
-         t1867 <-
+         t2376 <-
          CONST 0)
-      JUMP(NAME(endif_672))
-      LABEL iftrue_681
+      JUMP(NAME(endif_842))
+      LABEL iftrue_851
       MOVE(
-         t1863 <-
-         t1862)
+         t2372 <-
+         t2371)
       MOVE(
-         t1872 <-
-         t1862)
+         t2381 <-
+         t2371)
       CJUMP(EQ,
-         t1872,
+         t2381,
          CONST 0,
-         invokebad_674, invokeok_684)
-      LABEL invokeok_684
+         invokebad_844, invokeok_854)
+      LABEL invokeok_854
       MOVE(
-         t1978 <-
+         t2487 <-
          CALL(
             NAME(List_GetNext),
-            t1872))
+            t2381))
       MOVE(
-         t1862 <-
-         t1978)
+         t2371 <-
+         t2487)
       MOVE(
-         t1873 <-
-         t1862)
+         t2382 <-
+         t2371)
       CJUMP(EQ,
-         t1873,
+         t2382,
          CONST 0,
-         invokebad_674, invokeok_685)
-      LABEL invokeok_685
+         invokebad_844, invokeok_855)
+      LABEL invokeok_855
       MOVE(
-         t1979 <-
+         t2488 <-
          CALL(
             NAME(List_GetEnd),
-            t1873))
+            t2382))
       MOVE(
-         t1864 <-
-         t1979)
+         t2373 <-
+         t2488)
       MOVE(
-         t1874 <-
-         t1862)
+         t2383 <-
+         t2371)
       CJUMP(EQ,
-         t1874,
+         t2383,
          CONST 0,
-         invokebad_674, invokeok_686)
-      LABEL invokeok_686
+         invokebad_844, invokeok_856)
+      LABEL invokeok_856
       MOVE(
-         t1980 <-
+         t2489 <-
          CALL(
             NAME(List_GetElem),
-            t1874))
+            t2383))
       MOVE(
-         t1865 <-
-         t1980)
+         t2374 <-
+         t2489)
       MOVE(
-         t1866 <-
+         t2375 <-
          CONST 1)
-      JUMP(NAME(endif_683))
-      LABEL DONE_758
+      JUMP(NAME(endif_853))
+      LABEL DONE_928
    }
 }
 MethodFragment {
    X86_64Frame { label = List_Search
       nextLocalOffset = -8
       formals = List {
-         t1880
-         t1881
+         t2389
+         t2390
       }
    }
    List {
-      LABEL L_759
+      LABEL L_929
       MOVE(
-         t1891 <-
+         t2400 <-
          %rbx:%rbx)
       MOVE(
-         t1892 <-
+         t2401 <-
          %r12:%r12)
       MOVE(
-         t1893 <-
+         t2402 <-
          %r13:%r13)
       MOVE(
-         t1894 <-
+         t2403 <-
          %r14:%r14)
       MOVE(
-         t1895 <-
+         t2404 <-
          %r15:%r15)
       MOVE(
-         t1880 <-
+         t2389 <-
          %rdi:%rdi)
       MOVE(
-         t1881 <-
+         t2390 <-
          %rsi:%rsi)
       MOVE(
-         t1883 <-
+         t2392 <-
          CONST 0)
       MOVE(
-         t1884 <-
+         t2393 <-
          CONST 0)
       MOVE(
-         t1882 <-
+         t2391 <-
          CONST 0)
       MOVE(
-         t1883 <-
-         t1880)
+         t2392 <-
+         t2389)
       MOVE(
-         t1885 <-
+         t2394 <-
          MEM(BINOP(PLUS,
-            t1880, 
+            t2389, 
             CONST 16)))
       MOVE(
-         t1884 <-
-         MEM(t1880))
-      LABEL looptest_691
+         t2393 <-
+         MEM(t2389))
+      LABEL looptest_861
       CJUMP(EQ,
-         t1885,
+         t2394,
          CONST 0,
-         loopbody_690, loopend_689)
-      LABEL loopend_689
+         loopbody_860, loopend_859)
+      LABEL loopend_859
       MOVE(
          %rax:%rax <-
-         t1882)
-      LABEL bail_688
+         t2391)
+      LABEL bail_858
       MOVE(
          %rbx:%rbx <-
-         t1891)
+         t2400)
       MOVE(
          %r12:%r12 <-
-         t1892)
+         t2401)
       MOVE(
          %r13:%r13 <-
-         t1893)
+         t2402)
       MOVE(
          %r14:%r14 <-
-         t1894)
+         t2403)
       MOVE(
          %r15:%r15 <-
-         t1895)
-      JUMP(NAME(DONE_760))
-      LABEL loopbody_690
+         t2404)
+      JUMP(NAME(DONE_930))
+      LABEL loopbody_860
       MOVE(
-         t1887 <-
-         t1881)
+         t2396 <-
+         t2390)
       CJUMP(EQ,
-         t1887,
+         t2396,
          CONST 0,
-         invokebad_696, invokeok_695)
-      LABEL invokeok_695
+         invokebad_866, invokeok_865)
+      LABEL invokeok_865
       MOVE(
-         t1981 <-
+         t2490 <-
          CALL(
             NAME(Element_Equal),
-            t1887,
-            t1884))
+            t2396,
+            t2393))
       CJUMP(EQ,
-         t1981,
+         t2490,
          CONST 0,
-         iffalse_693, iftrue_692)
-      LABEL iftrue_692
+         iffalse_863, iftrue_862)
+      LABEL iftrue_862
       MOVE(
-         t1882 <-
+         t2391 <-
          CONST 1)
-      LABEL endif_694
+      LABEL endif_864
       MOVE(
-         t1888 <-
-         t1883)
+         t2397 <-
+         t2392)
       CJUMP(EQ,
-         t1888,
+         t2397,
          CONST 0,
-         invokebad_696, invokeok_697)
-      LABEL invokeok_697
+         invokebad_866, invokeok_867)
+      LABEL invokeok_867
       MOVE(
-         t1982 <-
+         t2491 <-
          CALL(
             NAME(List_GetNext),
-            t1888))
+            t2397))
       MOVE(
-         t1883 <-
-         t1982)
+         t2392 <-
+         t2491)
       MOVE(
-         t1889 <-
-         t1883)
+         t2398 <-
+         t2392)
       CJUMP(EQ,
-         t1889,
+         t2398,
          CONST 0,
-         invokebad_696, invokeok_698)
-      LABEL invokeok_698
+         invokebad_866, invokeok_868)
+      LABEL invokeok_868
       MOVE(
-         t1983 <-
+         t2492 <-
          CALL(
             NAME(List_GetEnd),
-            t1889))
+            t2398))
       MOVE(
-         t1885 <-
-         t1983)
+         t2394 <-
+         t2492)
       MOVE(
-         t1890 <-
-         t1883)
+         t2399 <-
+         t2392)
       CJUMP(EQ,
-         t1890,
+         t2399,
          CONST 0,
-         invokebad_696, invokeok_699)
-      LABEL invokeok_699
+         invokebad_866, invokeok_869)
+      LABEL invokeok_869
       MOVE(
-         t1984 <-
+         t2493 <-
          CALL(
             NAME(List_GetElem),
-            t1890))
+            t2399))
       MOVE(
-         t1884 <-
-         t1984)
-      JUMP(NAME(looptest_691))
-      LABEL invokebad_696
+         t2393 <-
+         t2493)
+      JUMP(NAME(looptest_861))
+      LABEL invokebad_866
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 2))
-      JUMP(NAME(bail_688))
-      LABEL iffalse_693
+      JUMP(NAME(bail_858))
+      LABEL iffalse_863
       MOVE(
-         t1886 <-
+         t2395 <-
          CONST 0)
-      JUMP(NAME(endif_694))
-      LABEL DONE_760
+      JUMP(NAME(endif_864))
+      LABEL DONE_930
    }
 }
 MethodFragment {
    X86_64Frame { label = List_GetEnd
       nextLocalOffset = -8
       formals = List {
-         t1896
+         t2405
       }
    }
    List {
-      LABEL L_761
+      LABEL L_931
       MOVE(
-         t1897 <-
+         t2406 <-
          %rbx:%rbx)
       MOVE(
-         t1898 <-
+         t2407 <-
          %r12:%r12)
       MOVE(
-         t1899 <-
+         t2408 <-
          %r13:%r13)
       MOVE(
-         t1900 <-
+         t2409 <-
          %r14:%r14)
       MOVE(
-         t1901 <-
+         t2410 <-
          %r15:%r15)
       MOVE(
-         t1896 <-
+         t2405 <-
          %rdi:%rdi)
       MOVE(
          %rax:%rax <-
          MEM(BINOP(PLUS,
-            t1896, 
+            t2405, 
             CONST 16)))
-      LABEL bail_700
+      LABEL bail_870
       MOVE(
          %rbx:%rbx <-
-         t1897)
+         t2406)
       MOVE(
          %r12:%r12 <-
-         t1898)
+         t2407)
       MOVE(
          %r13:%r13 <-
-         t1899)
+         t2408)
       MOVE(
          %r14:%r14 <-
-         t1900)
+         t2409)
       MOVE(
          %r15:%r15 <-
-         t1901)
-      LABEL DONE_762
+         t2410)
+      LABEL DONE_932
    }
 }
 MethodFragment {
    X86_64Frame { label = List_GetElem
       nextLocalOffset = -8
       formals = List {
-         t1902
+         t2411
       }
    }
    List {
-      LABEL L_763
+      LABEL L_933
       MOVE(
-         t1903 <-
+         t2412 <-
          %rbx:%rbx)
       MOVE(
-         t1904 <-
+         t2413 <-
          %r12:%r12)
       MOVE(
-         t1905 <-
+         t2414 <-
          %r13:%r13)
       MOVE(
-         t1906 <-
+         t2415 <-
          %r14:%r14)
       MOVE(
-         t1907 <-
+         t2416 <-
          %r15:%r15)
       MOVE(
-         t1902 <-
+         t2411 <-
          %rdi:%rdi)
       MOVE(
          %rax:%rax <-
-         MEM(t1902))
-      LABEL bail_701
+         MEM(t2411))
+      LABEL bail_871
       MOVE(
          %rbx:%rbx <-
-         t1903)
+         t2412)
       MOVE(
          %r12:%r12 <-
-         t1904)
+         t2413)
       MOVE(
          %r13:%r13 <-
-         t1905)
+         t2414)
       MOVE(
          %r14:%r14 <-
-         t1906)
+         t2415)
       MOVE(
          %r15:%r15 <-
-         t1907)
-      LABEL DONE_764
+         t2416)
+      LABEL DONE_934
    }
 }
 MethodFragment {
    X86_64Frame { label = List_GetNext
       nextLocalOffset = -8
       formals = List {
-         t1908
+         t2417
       }
    }
    List {
-      LABEL L_765
+      LABEL L_935
       MOVE(
-         t1909 <-
+         t2418 <-
          %rbx:%rbx)
       MOVE(
-         t1910 <-
+         t2419 <-
          %r12:%r12)
       MOVE(
-         t1911 <-
+         t2420 <-
          %r13:%r13)
       MOVE(
-         t1912 <-
+         t2421 <-
          %r14:%r14)
       MOVE(
-         t1913 <-
+         t2422 <-
          %r15:%r15)
       MOVE(
-         t1908 <-
+         t2417 <-
          %rdi:%rdi)
       MOVE(
          %rax:%rax <-
          MEM(BINOP(PLUS,
-            t1908, 
+            t2417, 
             CONST 8)))
-      LABEL bail_702
+      LABEL bail_872
       MOVE(
          %rbx:%rbx <-
-         t1909)
+         t2418)
       MOVE(
          %r12:%r12 <-
-         t1910)
+         t2419)
       MOVE(
          %r13:%r13 <-
-         t1911)
+         t2420)
       MOVE(
          %r14:%r14 <-
-         t1912)
+         t2421)
       MOVE(
          %r15:%r15 <-
-         t1913)
-      LABEL DONE_766
+         t2422)
+      LABEL DONE_936
    }
 }
 MethodFragment {
    X86_64Frame { label = List_Print
       nextLocalOffset = -8
       formals = List {
-         t1914
+         t2423
       }
    }
    List {
-      LABEL L_767
+      LABEL L_937
       MOVE(
-         t1922 <-
+         t2431 <-
          %rbx:%rbx)
       MOVE(
-         t1923 <-
+         t2432 <-
          %r12:%r12)
       MOVE(
-         t1924 <-
+         t2433 <-
          %r13:%r13)
       MOVE(
-         t1925 <-
+         t2434 <-
          %r14:%r14)
       MOVE(
-         t1926 <-
+         t2435 <-
          %r15:%r15)
       MOVE(
-         t1914 <-
+         t2423 <-
          %rdi:%rdi)
       MOVE(
-         t1915 <-
+         t2424 <-
          CONST 0)
       MOVE(
-         t1917 <-
+         t2426 <-
          CONST 0)
       MOVE(
-         t1915 <-
-         t1914)
+         t2424 <-
+         t2423)
       MOVE(
-         t1916 <-
+         t2425 <-
          MEM(BINOP(PLUS,
-            t1914, 
+            t2423, 
             CONST 16)))
       MOVE(
-         t1917 <-
-         MEM(t1914))
-      LABEL looptest_706
+         t2426 <-
+         MEM(t2423))
+      LABEL looptest_876
       CJUMP(EQ,
-         t1916,
+         t2425,
          CONST 0,
-         loopbody_705, loopend_704)
-      LABEL loopend_704
+         loopbody_875, loopend_874)
+      LABEL loopend_874
       MOVE(
          %rax:%rax <-
          CONST 1)
-      LABEL bail_703
+      LABEL bail_873
       MOVE(
          %rbx:%rbx <-
-         t1922)
+         t2431)
       MOVE(
          %r12:%r12 <-
-         t1923)
+         t2432)
       MOVE(
          %r13:%r13 <-
-         t1924)
+         t2433)
       MOVE(
          %r14:%r14 <-
-         t1925)
+         t2434)
       MOVE(
          %r15:%r15 <-
-         t1926)
-      JUMP(NAME(DONE_768))
-      LABEL loopbody_705
+         t2435)
+      JUMP(NAME(DONE_938))
+      LABEL loopbody_875
       MOVE(
-         t1918 <-
-         t1917)
+         t2427 <-
+         t2426)
       CJUMP(EQ,
-         t1918,
+         t2427,
          CONST 0,
-         invokebad_708, invokeok_707)
-      LABEL invokeok_707
+         invokebad_878, invokeok_877)
+      LABEL invokeok_877
       MOVE(
-         t1985 <-
+         t2494 <-
          CALL(
             NAME(Element_GetAge),
-            t1918))
+            t2427))
       EXP(CALL(
          NAME(cs411println),
-         t1985))
+         t2494))
       MOVE(
-         t1919 <-
-         t1915)
+         t2428 <-
+         t2424)
       CJUMP(EQ,
-         t1919,
+         t2428,
          CONST 0,
-         invokebad_708, invokeok_709)
-      LABEL invokeok_709
+         invokebad_878, invokeok_879)
+      LABEL invokeok_879
       MOVE(
-         t1986 <-
+         t2495 <-
          CALL(
             NAME(List_GetNext),
-            t1919))
+            t2428))
       MOVE(
-         t1915 <-
-         t1986)
+         t2424 <-
+         t2495)
       MOVE(
-         t1920 <-
-         t1915)
+         t2429 <-
+         t2424)
       CJUMP(EQ,
-         t1920,
+         t2429,
          CONST 0,
-         invokebad_708, invokeok_710)
-      LABEL invokeok_710
+         invokebad_878, invokeok_880)
+      LABEL invokeok_880
       MOVE(
-         t1987 <-
+         t2496 <-
          CALL(
             NAME(List_GetEnd),
-            t1920))
+            t2429))
       MOVE(
-         t1916 <-
-         t1987)
+         t2425 <-
+         t2496)
       MOVE(
-         t1921 <-
-         t1915)
+         t2430 <-
+         t2424)
       CJUMP(EQ,
-         t1921,
+         t2430,
          CONST 0,
-         invokebad_708, invokeok_711)
-      LABEL invokeok_711
+         invokebad_878, invokeok_881)
+      LABEL invokeok_881
       MOVE(
-         t1988 <-
+         t2497 <-
          CALL(
             NAME(List_GetElem),
-            t1921))
+            t2430))
       MOVE(
-         t1917 <-
-         t1988)
-      JUMP(NAME(looptest_706))
-      LABEL invokebad_708
+         t2426 <-
+         t2497)
+      JUMP(NAME(looptest_876))
+      LABEL invokebad_878
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 2))
-      JUMP(NAME(bail_703))
-      LABEL DONE_768
+      JUMP(NAME(bail_873))
+      LABEL DONE_938
    }
 }
 MethodFragment {
    X86_64Frame { label = LL_Start
       nextLocalOffset = -8
       formals = List {
-         t1927
+         t2436
       }
    }
    List {
-      LABEL L_769
+      LABEL L_939
       MOVE(
-         t1956 <-
+         t2465 <-
          %rbx:%rbx)
       MOVE(
-         t1957 <-
+         t2466 <-
          %r12:%r12)
       MOVE(
-         t1958 <-
+         t2467 <-
          %r13:%r13)
       MOVE(
-         t1959 <-
+         t2468 <-
          %r14:%r14)
       MOVE(
-         t1960 <-
+         t2469 <-
          %r15:%r15)
       MOVE(
-         t1927 <-
+         t2436 <-
          %rdi:%rdi)
       MOVE(
-         t1928 <-
+         t2437 <-
          CONST 0)
       MOVE(
-         t1929 <-
+         t2438 <-
          CONST 0)
       MOVE(
-         t1931 <-
+         t2440 <-
          CONST 0)
       MOVE(
-         t1932 <-
+         t2441 <-
          CONST 0)
       MOVE(
-         t1933 <-
+         t2442 <-
          CONST 0)
       MOVE(
-         t1929 <-
+         t2438 <-
          CALL(
             NAME(cs411newobject),
             CONST 24))
       MOVE(
-         t1934 <-
-         t1929)
+         t2443 <-
+         t2438)
       CJUMP(EQ,
-         t1934,
+         t2443,
          CONST 0,
-         invokebad_714, invokeok_713)
-      LABEL invokeok_713
+         invokebad_884, invokeok_883)
+      LABEL invokeok_883
       MOVE(
-         t1989 <-
+         t2498 <-
          CALL(
             NAME(List_Init),
-            t1934))
+            t2443))
       MOVE(
-         t1930 <-
-         t1989)
+         t2439 <-
+         t2498)
       MOVE(
-         t1928 <-
-         t1929)
+         t2437 <-
+         t2438)
       MOVE(
-         t1935 <-
-         t1928)
+         t2444 <-
+         t2437)
       CJUMP(EQ,
-         t1935,
+         t2444,
          CONST 0,
-         invokebad_714, invokeok_715)
-      LABEL invokeok_715
+         invokebad_884, invokeok_885)
+      LABEL invokeok_885
       MOVE(
-         t1990 <-
+         t2499 <-
          CALL(
             NAME(List_Init),
-            t1935))
+            t2444))
       MOVE(
-         t1930 <-
-         t1990)
+         t2439 <-
+         t2499)
       MOVE(
-         t1936 <-
-         t1928)
+         t2445 <-
+         t2437)
       CJUMP(EQ,
-         t1936,
+         t2445,
          CONST 0,
-         invokebad_714, invokeok_716)
-      LABEL invokeok_716
+         invokebad_884, invokeok_886)
+      LABEL invokeok_886
       MOVE(
-         t1991 <-
+         t2500 <-
          CALL(
             NAME(List_Print),
-            t1936))
+            t2445))
       MOVE(
-         t1930 <-
-         t1991)
+         t2439 <-
+         t2500)
       MOVE(
-         t1931 <-
+         t2440 <-
          CALL(
             NAME(cs411newobject),
             CONST 24))
       MOVE(
-         t1937 <-
-         t1931)
+         t2446 <-
+         t2440)
       CJUMP(EQ,
-         t1937,
+         t2446,
          CONST 0,
-         invokebad_714, invokeok_717)
-      LABEL invokeok_717
+         invokebad_884, invokeok_887)
+      LABEL invokeok_887
       MOVE(
-         t1992 <-
+         t2501 <-
          CALL(
             NAME(Element_Init),
-            t1937,
+            t2446,
             CONST 25,
             CONST 37000,
             CONST 0))
       MOVE(
-         t1930 <-
-         t1992)
+         t2439 <-
+         t2501)
       MOVE(
-         t1938 <-
-         t1928)
+         t2447 <-
+         t2437)
       CJUMP(EQ,
-         t1938,
+         t2447,
          CONST 0,
-         invokebad_714, invokeok_718)
-      LABEL invokeok_718
+         invokebad_884, invokeok_888)
+      LABEL invokeok_888
       MOVE(
-         t1993 <-
+         t2502 <-
          CALL(
             NAME(List_Insert),
-            t1938,
-            t1931))
+            t2447,
+            t2440))
       MOVE(
-         t1928 <-
-         t1993)
+         t2437 <-
+         t2502)
       MOVE(
-         t1939 <-
-         t1928)
+         t2448 <-
+         t2437)
       CJUMP(EQ,
-         t1939,
+         t2448,
          CONST 0,
-         invokebad_714, invokeok_719)
-      LABEL invokeok_719
+         invokebad_884, invokeok_889)
+      LABEL invokeok_889
       MOVE(
-         t1994 <-
+         t2503 <-
          CALL(
             NAME(List_Print),
-            t1939))
+            t2448))
       MOVE(
-         t1930 <-
-         t1994)
+         t2439 <-
+         t2503)
       EXP(CALL(
          NAME(cs411println),
          CONST 10000000))
       MOVE(
-         t1931 <-
+         t2440 <-
          CALL(
             NAME(cs411newobject),
             CONST 24))
       MOVE(
-         t1940 <-
-         t1931)
+         t2449 <-
+         t2440)
       CJUMP(EQ,
-         t1940,
+         t2449,
          CONST 0,
-         invokebad_714, invokeok_720)
-      LABEL invokeok_720
+         invokebad_884, invokeok_890)
+      LABEL invokeok_890
       MOVE(
-         t1995 <-
+         t2504 <-
          CALL(
             NAME(Element_Init),
-            t1940,
+            t2449,
             CONST 39,
             CONST 42000,
             CONST 1))
       MOVE(
-         t1930 <-
-         t1995)
+         t2439 <-
+         t2504)
       MOVE(
-         t1932 <-
-         t1931)
+         t2441 <-
+         t2440)
       MOVE(
-         t1941 <-
-         t1928)
+         t2450 <-
+         t2437)
       CJUMP(EQ,
-         t1941,
+         t2450,
          CONST 0,
-         invokebad_714, invokeok_721)
-      LABEL invokeok_721
+         invokebad_884, invokeok_891)
+      LABEL invokeok_891
       MOVE(
-         t1996 <-
+         t2505 <-
          CALL(
             NAME(List_Insert),
-            t1941,
-            t1931))
+            t2450,
+            t2440))
       MOVE(
-         t1928 <-
-         t1996)
+         t2437 <-
+         t2505)
       MOVE(
-         t1942 <-
-         t1928)
+         t2451 <-
+         t2437)
       CJUMP(EQ,
-         t1942,
+         t2451,
          CONST 0,
-         invokebad_714, invokeok_722)
-      LABEL invokeok_722
+         invokebad_884, invokeok_892)
+      LABEL invokeok_892
       MOVE(
-         t1997 <-
+         t2506 <-
          CALL(
             NAME(List_Print),
-            t1942))
+            t2451))
       MOVE(
-         t1930 <-
-         t1997)
+         t2439 <-
+         t2506)
       EXP(CALL(
          NAME(cs411println),
          CONST 10000000))
       MOVE(
-         t1931 <-
+         t2440 <-
          CALL(
             NAME(cs411newobject),
             CONST 24))
       MOVE(
-         t1943 <-
-         t1931)
+         t2452 <-
+         t2440)
       CJUMP(EQ,
-         t1943,
+         t2452,
          CONST 0,
-         invokebad_714, invokeok_723)
-      LABEL invokeok_723
+         invokebad_884, invokeok_893)
+      LABEL invokeok_893
       MOVE(
-         t1998 <-
+         t2507 <-
          CALL(
             NAME(Element_Init),
-            t1943,
+            t2452,
             CONST 22,
             CONST 34000,
             CONST 0))
       MOVE(
-         t1930 <-
-         t1998)
+         t2439 <-
+         t2507)
       MOVE(
-         t1944 <-
-         t1928)
+         t2453 <-
+         t2437)
       CJUMP(EQ,
-         t1944,
+         t2453,
          CONST 0,
-         invokebad_714, invokeok_724)
-      LABEL invokeok_724
+         invokebad_884, invokeok_894)
+      LABEL invokeok_894
       MOVE(
-         t1999 <-
+         t2508 <-
          CALL(
             NAME(List_Insert),
-            t1944,
-            t1931))
+            t2453,
+            t2440))
       MOVE(
-         t1928 <-
-         t1999)
+         t2437 <-
+         t2508)
       MOVE(
-         t1945 <-
-         t1928)
+         t2454 <-
+         t2437)
       CJUMP(EQ,
-         t1945,
+         t2454,
          CONST 0,
-         invokebad_714, invokeok_725)
-      LABEL invokeok_725
+         invokebad_884, invokeok_895)
+      LABEL invokeok_895
       MOVE(
-         t2000 <-
+         t2509 <-
          CALL(
             NAME(List_Print),
-            t1945))
+            t2454))
       MOVE(
-         t1930 <-
-         t2000)
+         t2439 <-
+         t2509)
       MOVE(
-         t1933 <-
+         t2442 <-
          CALL(
             NAME(cs411newobject),
             CONST 24))
       MOVE(
-         t1946 <-
-         t1933)
+         t2455 <-
+         t2442)
       CJUMP(EQ,
-         t1946,
+         t2455,
          CONST 0,
-         invokebad_714, invokeok_726)
-      LABEL invokeok_726
+         invokebad_884, invokeok_896)
+      LABEL invokeok_896
       MOVE(
-         t2001 <-
+         t2510 <-
          CALL(
             NAME(Element_Init),
-            t1946,
+            t2455,
             CONST 27,
             CONST 34000,
             CONST 0))
       MOVE(
-         t1930 <-
-         t2001)
+         t2439 <-
+         t2510)
       MOVE(
-         t1947 <-
-         t1928)
+         t2456 <-
+         t2437)
       CJUMP(EQ,
-         t1947,
+         t2456,
          CONST 0,
-         invokebad_714, invokeok_727)
-      LABEL invokeok_727
+         invokebad_884, invokeok_897)
+      LABEL invokeok_897
       MOVE(
-         t2002 <-
+         t2511 <-
          CALL(
             NAME(List_Search),
-            t1947,
-            t1932))
+            t2456,
+            t2441))
       EXP(CALL(
          NAME(cs411println),
-         t2002))
+         t2511))
       MOVE(
-         t1948 <-
-         t1928)
+         t2457 <-
+         t2437)
       CJUMP(EQ,
-         t1948,
+         t2457,
          CONST 0,
-         invokebad_714, invokeok_728)
-      LABEL invokeok_728
+         invokebad_884, invokeok_898)
+      LABEL invokeok_898
       MOVE(
-         t2003 <-
+         t2512 <-
          CALL(
             NAME(List_Search),
-            t1948,
-            t1933))
+            t2457,
+            t2442))
       EXP(CALL(
          NAME(cs411println),
-         t2003))
+         t2512))
       EXP(CALL(
          NAME(cs411println),
          CONST 10000000))
       MOVE(
-         t1931 <-
+         t2440 <-
          CALL(
             NAME(cs411newobject),
             CONST 24))
       MOVE(
-         t1949 <-
-         t1931)
+         t2458 <-
+         t2440)
       CJUMP(EQ,
-         t1949,
+         t2458,
          CONST 0,
-         invokebad_714, invokeok_729)
-      LABEL invokeok_729
+         invokebad_884, invokeok_899)
+      LABEL invokeok_899
       MOVE(
-         t2004 <-
+         t2513 <-
          CALL(
             NAME(Element_Init),
-            t1949,
+            t2458,
             CONST 28,
             CONST 35000,
             CONST 0))
       MOVE(
-         t1930 <-
-         t2004)
+         t2439 <-
+         t2513)
       MOVE(
-         t1950 <-
-         t1928)
+         t2459 <-
+         t2437)
       CJUMP(EQ,
-         t1950,
+         t2459,
          CONST 0,
-         invokebad_714, invokeok_730)
-      LABEL invokeok_730
+         invokebad_884, invokeok_900)
+      LABEL invokeok_900
       MOVE(
-         t2005 <-
+         t2514 <-
          CALL(
             NAME(List_Insert),
-            t1950,
-            t1931))
+            t2459,
+            t2440))
       MOVE(
-         t1928 <-
-         t2005)
+         t2437 <-
+         t2514)
       MOVE(
-         t1951 <-
-         t1928)
+         t2460 <-
+         t2437)
       CJUMP(EQ,
-         t1951,
+         t2460,
          CONST 0,
-         invokebad_714, invokeok_731)
-      LABEL invokeok_731
+         invokebad_884, invokeok_901)
+      LABEL invokeok_901
       MOVE(
-         t2006 <-
+         t2515 <-
          CALL(
             NAME(List_Print),
-            t1951))
+            t2460))
       MOVE(
-         t1930 <-
-         t2006)
+         t2439 <-
+         t2515)
       EXP(CALL(
          NAME(cs411println),
          CONST 2220000))
       MOVE(
-         t1952 <-
-         t1928)
+         t2461 <-
+         t2437)
       CJUMP(EQ,
-         t1952,
+         t2461,
          CONST 0,
-         invokebad_714, invokeok_732)
-      LABEL invokeok_732
+         invokebad_884, invokeok_902)
+      LABEL invokeok_902
       MOVE(
-         t2007 <-
+         t2516 <-
          CALL(
             NAME(List_Delete),
-            t1952,
-            t1932))
+            t2461,
+            t2441))
       MOVE(
-         t1928 <-
-         t2007)
+         t2437 <-
+         t2516)
       MOVE(
-         t1953 <-
-         t1928)
+         t2462 <-
+         t2437)
       CJUMP(EQ,
-         t1953,
+         t2462,
          CONST 0,
-         invokebad_714, invokeok_733)
-      LABEL invokeok_733
+         invokebad_884, invokeok_903)
+      LABEL invokeok_903
       MOVE(
-         t2008 <-
+         t2517 <-
          CALL(
             NAME(List_Print),
-            t1953))
+            t2462))
       MOVE(
-         t1930 <-
-         t2008)
+         t2439 <-
+         t2517)
       EXP(CALL(
          NAME(cs411println),
          CONST 33300000))
       MOVE(
-         t1954 <-
-         t1928)
+         t2463 <-
+         t2437)
       CJUMP(EQ,
-         t1954,
+         t2463,
          CONST 0,
-         invokebad_714, invokeok_734)
-      LABEL invokeok_734
+         invokebad_884, invokeok_904)
+      LABEL invokeok_904
       MOVE(
-         t2009 <-
+         t2518 <-
          CALL(
             NAME(List_Delete),
-            t1954,
-            t1931))
+            t2463,
+            t2440))
       MOVE(
-         t1928 <-
-         t2009)
+         t2437 <-
+         t2518)
       MOVE(
-         t1955 <-
-         t1928)
+         t2464 <-
+         t2437)
       CJUMP(EQ,
-         t1955,
+         t2464,
          CONST 0,
-         invokebad_714, invokeok_735)
-      LABEL invokeok_735
+         invokebad_884, invokeok_905)
+      LABEL invokeok_905
       MOVE(
-         t2010 <-
+         t2519 <-
          CALL(
             NAME(List_Print),
-            t1955))
+            t2464))
       MOVE(
-         t1930 <-
-         t2010)
+         t2439 <-
+         t2519)
       EXP(CALL(
          NAME(cs411println),
          CONST 44440000))
       MOVE(
          %rax:%rax <-
          CONST 0)
-      LABEL bail_712
+      LABEL bail_882
       MOVE(
          %rbx:%rbx <-
-         t1956)
+         t2465)
       MOVE(
          %r12:%r12 <-
-         t1957)
+         t2466)
       MOVE(
          %r13:%r13 <-
-         t1958)
+         t2467)
       MOVE(
          %r14:%r14 <-
-         t1959)
+         t2468)
       MOVE(
          %r15:%r15 <-
-         t1960)
-      JUMP(NAME(DONE_770))
-      LABEL invokebad_714
+         t2469)
+      JUMP(NAME(DONE_940))
+      LABEL invokebad_884
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 2))
-      JUMP(NAME(bail_712))
-      LABEL DONE_770
+      JUMP(NAME(bail_882))
+      LABEL DONE_940
    }
 }
 MethodFragment {
@@ -2027,51 +2027,51 @@ MethodFragment {
       }
    }
    List {
-      LABEL L_771
+      LABEL L_941
       MOVE(
-         t1961 <-
+         t2470 <-
          %rbx:%rbx)
       MOVE(
-         t1962 <-
+         t2471 <-
          %r12:%r12)
       MOVE(
-         t1963 <-
+         t2472 <-
          %r13:%r13)
       MOVE(
-         t1964 <-
+         t2473 <-
          %r14:%r14)
       MOVE(
-         t1965 <-
+         t2474 <-
          %r15:%r15)
       MOVE(
-         t2012 <-
+         t2521 <-
          CALL(
             NAME(cs411newobject),
             CONST 0))
       MOVE(
-         t2011 <-
+         t2520 <-
          CALL(
             NAME(LL_Start),
-            t2012))
+            t2521))
       EXP(CALL(
          NAME(cs411println),
-         t2011))
-      LABEL bail_736
+         t2520))
+      LABEL bail_906
       MOVE(
          %rbx:%rbx <-
-         t1961)
+         t2470)
       MOVE(
          %r12:%r12 <-
-         t1962)
+         t2471)
       MOVE(
          %r13:%r13 <-
-         t1963)
+         t2472)
       MOVE(
          %r14:%r14 <-
-         t1964)
+         t2473)
       MOVE(
          %r15:%r15 <-
-         t1965)
-      LABEL DONE_772
+         t2474)
+      LABEL DONE_942
    }
 }

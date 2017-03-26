@@ -2,107 +2,107 @@ MethodFragment {
    X86_64Frame { label = Test_do
       nextLocalOffset = -8
       formals = List {
-         t2186
+         t2702
       }
    }
    List {
-      LABEL L_778
+      LABEL L_948
       MOVE(
-         t2190 <-
+         t2706 <-
          %rbx:%rbx)
       MOVE(
-         t2191 <-
+         t2707 <-
          %r12:%r12)
       MOVE(
-         t2192 <-
+         t2708 <-
          %r13:%r13)
       MOVE(
-         t2193 <-
+         t2709 <-
          %r14:%r14)
       MOVE(
-         t2194 <-
+         t2710 <-
          %r15:%r15)
       MOVE(
-         t2186 <-
+         t2702 <-
          %rdi:%rdi)
       MOVE(
-         t2188 <-
+         t2704 <-
          CONST 23)
       MOVE(
-         t2188 <-
+         t2704 <-
          BINOP(MINUS,
-            t2188, 
+            t2704, 
             CONST 6))
       MOVE(
-         t2188 <-
+         t2704 <-
          BINOP(MINUS,
             BINOP(MUL,
                CONST 5, 
-               t2188), 
+               t2704), 
             CONST 6))
       MOVE(
-         MEM(t2186) <-
+         MEM(t2702) <-
          CONST 7)
       MOVE(
          MEM(BINOP(PLUS,
-            t2186, 
+            t2702, 
             CONST 8)) <-
-         MEM(t2186))
+         MEM(t2702))
       MOVE(
-         t2187 <-
+         t2703 <-
          CALL(
             NAME(cs411newarray),
             CONST 4))
       CJUMP(UGE,
          CONST 0,
          MEM(BINOP(PLUS,
-            t2187, 
+            t2703, 
             CONST -8)),
-         boundsbad_775, boundsok_776)
-      LABEL boundsok_776
+         boundsbad_945, boundsok_946)
+      LABEL boundsok_946
       CJUMP(UGE,
          CONST 1,
          MEM(BINOP(PLUS,
-            t2187, 
+            t2703, 
             CONST -8)),
-         boundsbad_775, boundsok_774)
-      LABEL boundsok_774
+         boundsbad_945, boundsok_944)
+      LABEL boundsok_944
       MOVE(
-         t2189 <-
+         t2705 <-
          MEM(BINOP(PLUS,
-            t2187, 
+            t2703, 
             CONST 8)))
       MOVE(
-         MEM(t2187) <-
-         t2189)
+         MEM(t2703) <-
+         t2705)
       MOVE(
          %rax:%rax <-
          CONST 0)
-      LABEL bail_773
+      LABEL bail_943
       MOVE(
          %rbx:%rbx <-
-         t2190)
+         t2706)
       MOVE(
          %r12:%r12 <-
-         t2191)
+         t2707)
       MOVE(
          %r13:%r13 <-
-         t2192)
+         t2708)
       MOVE(
          %r14:%r14 <-
-         t2193)
+         t2709)
       MOVE(
          %r15:%r15 <-
-         t2194)
-      JUMP(NAME(DONE_779))
-      LABEL boundsbad_775
+         t2710)
+      JUMP(NAME(DONE_949))
+      LABEL boundsbad_945
       MOVE(
          %rax:%rax <-
          CALL(
             NAME(cs411error),
             CONST 1))
-      JUMP(NAME(bail_773))
-      LABEL DONE_779
+      JUMP(NAME(bail_943))
+      LABEL DONE_949
    }
 }
 MethodFragment {
@@ -112,51 +112,51 @@ MethodFragment {
       }
    }
    List {
-      LABEL L_780
+      LABEL L_950
       MOVE(
-         t2195 <-
+         t2711 <-
          %rbx:%rbx)
       MOVE(
-         t2196 <-
+         t2712 <-
          %r12:%r12)
       MOVE(
-         t2197 <-
+         t2713 <-
          %r13:%r13)
       MOVE(
-         t2198 <-
+         t2714 <-
          %r14:%r14)
       MOVE(
-         t2199 <-
+         t2715 <-
          %r15:%r15)
       MOVE(
-         t2201 <-
+         t2717 <-
          CALL(
             NAME(cs411newobject),
             CONST 16))
       MOVE(
-         t2200 <-
+         t2716 <-
          CALL(
             NAME(Test_do),
-            t2201))
+            t2717))
       EXP(CALL(
          NAME(cs411println),
-         t2200))
-      LABEL bail_777
+         t2716))
+      LABEL bail_947
       MOVE(
          %rbx:%rbx <-
-         t2195)
+         t2711)
       MOVE(
          %r12:%r12 <-
-         t2196)
+         t2712)
       MOVE(
          %r13:%r13 <-
-         t2197)
+         t2713)
       MOVE(
          %r14:%r14 <-
-         t2198)
+         t2714)
       MOVE(
          %r15:%r15 <-
-         t2199)
-      LABEL DONE_781
+         t2715)
+      LABEL DONE_951
    }
 }

@@ -74,6 +74,7 @@ public class X86_64Muncher extends Muncher {
         final Pat<Temp> _t_ = Pat.any();
 
         final Pat<Integer> _i_ = Pat.any();
+        final Pat<Integer> _i2_ = Pat.any();
 
         final Pat<Integer> _scale_ = new Wildcard<Integer>() {
             @Override
@@ -150,6 +151,16 @@ public class X86_64Muncher extends Muncher {
             @Override
             protected Void trigger(Muncher m, Matched c) {
                 m.emit(A_MOV_TO_MEM(c.get(_t_), c.get(_i_)));
+                return null;
+            }
+        });
+        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(PLUS(TEMP(_t_),CONST(_i_))),CONST(_i2_))){
+            @Override
+            protected Void trigger(Muncher m, Matched c) {
+                Temp new_t = new Temp();
+                m.emit(A_MOV(new_t,c.get(_t_)));
+                m.emit(A_ADD(c.get(_i_),new_t));
+                m.emit(A_MOV_TO_MEM(new_t,c.get(_i2_)));
                 return null;
             }
         });
@@ -232,7 +243,7 @@ public class X86_64Muncher extends Muncher {
                 return t;
             }
         });
-//        em.add(new MunchRule<IRExp, Temp>(MEM(PLUS(_l_,CONST(_i_)))) {
+//        em.add(new MunchRule<IRExp, Temp>(MEM(PLUS(TEMP(_t_),CONST(_i_)))) {
 //            @Override
 //            protected Temp trigger(Muncher m, Matched c) {
 //                Temp result = new Temp();
