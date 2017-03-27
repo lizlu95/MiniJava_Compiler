@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library name="Maven: ca.ubc.cs411:frontend:1.0-SNAPSHOT">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/frontend-1.0-SNAPSHOT-obf.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/frontend1.0SNAPSHOTobf.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

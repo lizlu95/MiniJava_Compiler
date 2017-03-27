@@ -29,7 +29,7 @@
             <artifactId>frontend</artifactId>
             <version>1.0-SNAPSHOT</version>
 						<scope>system</scope>
-						<systemPath>${basedir}/lib/frontend-1.0-SNAPSHOT-obf.jar</systemPath>
+						<systemPath>${basedir}/lib/frontend1.0SNAPSHOTobf.jar</systemPath>
         </dependency>
 
         <dependency>
