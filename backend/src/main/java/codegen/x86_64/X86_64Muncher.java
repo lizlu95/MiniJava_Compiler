@@ -179,7 +179,6 @@ public class X86_64Muncher extends Muncher {
                 m.emit(A_MOV_FROM_MEM(c.get(_t_),m.munch(c.get(_e_))));
                 m.emit(A_ADD(c.get(_i_),c.get(_t_)));
                 m.emit(A_MOV_FROM_MEM(c.get(_t_),c.get(_t_)));
-//                        A_INDEX_ACCESS(c.get(_t_),c.get(_i_),m.munch(c.get(_e_))));
                 return null;
             }
         });
