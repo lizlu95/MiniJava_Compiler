@@ -10,10 +10,10 @@ import codegen.muncher.MuncherRules;
 import codegen.patterns.Matched;
 import codegen.patterns.Pat;
 import codegen.patterns.Wildcard;
-import com.sun.org.apache.xpath.internal.operations.Plus;
 import ir.frame.Frame;
 import ir.temp.Label;
 import ir.temp.Temp;
+import ir.tree.BINOP;
 import ir.tree.CJUMP.RelOp;
 import ir.tree.IR;
 import ir.tree.IRExp;
@@ -71,8 +71,10 @@ public class X86_64Muncher extends Muncher {
         final Pat<Label> _els_ = Pat.any();
 
         final Pat<RelOp> _relOp_ = Pat.any();
+        final Pat<BINOP> _op_ = Pat.any();
 
         final Pat<Temp> _t_ = Pat.any();
+        final Pat<Temp> _t2_ = Pat.any();
 
         final Pat<Integer> _i_ = Pat.any();
         final Pat<Integer> _i2_ = Pat.any();
@@ -179,10 +181,47 @@ public class X86_64Muncher extends Muncher {
                 m.emit(A_MOV_FROM_MEM(c.get(_t_),m.munch(c.get(_e_))));
                 m.emit(A_ADD(c.get(_i_),c.get(_t_)));
                 m.emit(A_MOV_FROM_MEM(c.get(_t_),c.get(_t_)));
+//                        A_INDEX_ACCESS(c.get(_t_),c.get(_i_),m.munch(c.get(_e_))));
                 return null;
             }
         });
         //==================================================
+        sm.add(new MunchRule<IRStm, Void>(JUMP(NAME(_lab_))) {
+            @Override
+            protected Void trigger(Muncher m, Matched c) {
+                m.emit(A_JMP(c.get(_lab_)));
+                return null;
+            }
+        });
+//        movq    $8, t619
+//        movq    t619, t618
+//        addq    t489, t618
+//        movq    t490, (t618)
+        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(BINOP(BINOP.Op.PLUS, TEMP(_t_), CONST(_i_))), TEMP(_t2_))){
+            @Override
+            protected Void trigger(Muncher m, Matched c) {
+                Temp new_temp = new Temp();
+                m.emit(A_MOV(new_temp,c.get(_t_)));
+                m.emit(A_ADD(c.get(_i_),new_temp));
+                m.emit(A_MOV_TO_MEM(new_temp,c.get(_t2_)));
+                return null;
+            }
+        });
+//        MOVE(
+//                t055 <-
+//                        BINOP(PLUS,
+//                                MEM(BINOP(PLUS,
+//                                        t052,
+//                                        CONST 8)),
+//                                CONST 1))
+        sm.add(new MunchRule<IRStm, Void>(MOVE(TEMP(_t_),BINOP(BINOP.Op.PLUS,MEM(_e_),CONST(_i_)))) {
+            @Override
+            protected Void trigger(Muncher m, Matched c) {
+                m.emit(A_MOV_FROM_MEM(c.get(_t_),m.munch(c.get(_e_))));
+                m.emit(A_ADD(c.get(_i_),c.get(_t_)));
+                return null;
+            }
+        });
         sm.add(new MunchRule<IRStm, Void>(JUMP(NAME(_lab_))) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
@@ -219,6 +258,15 @@ public class X86_64Muncher extends Muncher {
                 Temp t = new Temp();
                 m.emit(A_MOV(t, c.get(_i_)));
                 return t;
+            }
+        });
+        em.add(new MunchRule<IRExp, Temp>(BINOP(BINOP.Op.PLUS, TEMP(_t_), CONST(_i_))) {
+            @Override
+            protected Temp trigger(Muncher m, Matched c) {
+                Temp sum = new Temp();
+                m.emit(A_MOV(sum,c.get(_t_)));
+                m.emit(A_ADD(c.get(_i_),sum));
+                return sum;
             }
         });
         em.add(new MunchRule<IRExp, Temp>(PLUS(_l_, _r_)) {
@@ -462,9 +510,9 @@ public class X86_64Muncher extends Muncher {
 
     private static Instr A_INDEX_ACCESS(Temp d, int v, Temp s) {
         return new A_OPER("movq    (`s0), `d0"+
-                            "addq    $"+v+", `d0\n"+
-                            "movq    `d0, (`d0)",
-                            list(d), list(s,d));
+                "addq    $"+v+", `d0\n"+
+                "movq    `d0, (`d0)",
+                list(d), list(s,d));
     }
 
     private static Instr A_SUB(Temp dst, Temp src) {
