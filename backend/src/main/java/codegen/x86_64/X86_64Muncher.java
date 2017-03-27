@@ -10,6 +10,7 @@ import codegen.muncher.MuncherRules;
 import codegen.patterns.Matched;
 import codegen.patterns.Pat;
 import codegen.patterns.Wildcard;
+import com.sun.org.apache.xpath.internal.operations.Plus;
 import ir.frame.Frame;
 import ir.temp.Label;
 import ir.temp.Temp;
@@ -138,6 +139,13 @@ public class X86_64Muncher extends Muncher {
                 return null;
             }
         });
+        sm.add(new MunchRule<IRStm, Void>(MOVE(TEMP(_t_), CONST(_i_))) {
+            @Override
+            protected Void trigger(Muncher m, Matched c) {
+                m.emit(A_MOV(c.get(_t_), c.get(_i_)));
+                return null;
+            }
+        });
         sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(_l_), _r_)) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
@@ -147,6 +155,7 @@ public class X86_64Muncher extends Muncher {
                 return null;
             }
         });
+        //================================================
         sm.add(new MunchRule<IRStm,Void>(MOVE(MEM(TEMP(_t_)),CONST(_i_))){
             @Override
             protected Void trigger(Muncher m, Matched c) {
@@ -164,6 +173,14 @@ public class X86_64Muncher extends Muncher {
                 return null;
             }
         });
+        sm.add(new MunchRule<IRStm,Void>(MOVE(TEMP(_t_),MEM(PLUS(MEM(_e_), CONST(_i_))))){
+            @Override
+            protected Void trigger(Muncher m, Matched c) {
+                m.emit(A_INDEX_ACCESS(c.get(_t_),c.get(_i_),m.munch(c.get(_e_))));
+                return null;
+            }
+        });
+        //==================================================
         sm.add(new MunchRule<IRStm, Void>(JUMP(NAME(_lab_))) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
@@ -439,6 +456,13 @@ public class X86_64Muncher extends Muncher {
 
     private static Instr A_MOV_FROM_MEM(Temp d, Temp ptr) {
         return new A_OPER("movq    (`s0), `d0", list(d), list(ptr));
+    }
+
+    private static Instr A_INDEX_ACCESS(Temp d, int v, Temp s) {
+        return new A_OPER("movq    (`s0), `d0"+
+                            "addq    $"+v+", `d0\n"+
+                            "movq    `d0, (`d0)",
+                            list(d), list(s,d));
     }
 
     private static Instr A_SUB(Temp dst, Temp src) {
