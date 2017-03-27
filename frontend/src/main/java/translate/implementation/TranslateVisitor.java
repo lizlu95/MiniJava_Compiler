@@ -431,15 +431,13 @@ public class TranslateVisitor implements Visitor<TRExp> {
         return null;
     }
 
-
+    Type tp;
     // TODO duplicate entry
     @Override
     public TRExp visit(MethodDecl n) {
         Frame oldframe = frame;
         frame = newFrame(methodLabel(n.name), n.formals.size()+1);
         //FunTable<IRExp> saveEnv = currentEnv;
-
-        //TODO use ptr
 
         //Get the access information for each regular formal and add it to the environment.
         for (int i = 1; i < n.formals.size()+1; i++) {
@@ -449,6 +447,8 @@ public class TranslateVisitor implements Visitor<TRExp> {
 
         TRExp stats = n.statements.accept(this);
         TRExp exp = n.returnExp.accept(this);
+
+        tp = n.returnType;
 
         IRStm body = IR.SEQ(
                 stats.unNx(),
@@ -493,8 +493,9 @@ public class TranslateVisitor implements Visitor<TRExp> {
         List<IRExp> args = List.list();
 
         // 3 cases for receiver: 1. new object 2. identifierExp 3.This
-        IRExp ptr = null;
+        IRExp ptr/* = n.receiver.accept(this).unEx()*/;
         String old_className = className;
+
         if (n.receiver instanceof NewObject){
             ptr = n.receiver.accept(this).unEx();
             className = ((NewObject)n.receiver).typeName;
@@ -509,9 +510,15 @@ public class TranslateVisitor implements Visitor<TRExp> {
         else if (n.receiver instanceof This){
             ptr = currentEnv.lookup(className);
         }
+        else if (n.receiver instanceof Call){
+            Call t = (Call)n.receiver;
+            n.receiver.accept(this);
+            ptr = frame.RV();
+            className = tp.toString();
+        }
         else{
             System.out.println("receiver is: "+ n.receiver.toString());
-            throw new Error("receiver must be newObject or IdentifierExp or This");
+            throw new Error("receiver must be newObject or IdentifierExp or This or Call");
         }
 
         args.add(ptr);
@@ -541,8 +548,9 @@ public class TranslateVisitor implements Visitor<TRExp> {
             className = ((ObjectType) n.getType()).name;
         }
         else throw new Error("hey you should be an object");
-
-        return new Ex(frame.getFormal(0).exp(frame.FP()));
+        IRExp ts = currentEnv.lookup(className);
+        TRExp r = new Ex(ts);
+        return r;
     }
 
     @Override

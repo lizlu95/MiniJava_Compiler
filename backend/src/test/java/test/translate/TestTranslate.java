@@ -63,6 +63,158 @@ public class TestTranslate {
     }
 
     @Test
+    public void BinaryS() throws Exception {
+        test("20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n" +
+                        "31\n32\n33\n34\n35\n36\n37\n38\n99999\n" +
+                        "0\n0\n1\n1\n1\n1\n0\n0\n999\n",
+                "class BinarySearch{\n" +
+                        "\tpublic static void main(String[] a){\n" +
+                        "\t\tSystem.out.println(new BS().Start(20));\n" +
+                        "\t}\n" +
+                        "}\n" +
+                        "// This class contains an array of integers and\n" +
+                        "// methods to initialize, print and search the array\n" +
+                        "// using Binary Search\n" +
+                        "\n" +
+                        "class BS {\n" +
+                        "\tint[] number ;\n" +
+                        "\tint size ;\n" +
+                        "\n" +
+                        "\t// Invoke methods to initialize, print and search\n" +
+                        "\t// for elements on the array\n" +
+                        "\tpublic int Start(int sz){\n" +
+                        "\t\tint aux01 ;\n" +
+                        "\t\tint aux02 ;\n" +
+                        "\t\taux01 = this.Init(sz);\n" +
+                        "\t\taux02 = this.Print();\n" +
+                        "\t\tif (this.Search(8)) System.out.println(1) ;\n" +
+                        "\t\telse System.out.println(0) ;\n" +
+                        "\t\tif (this.Search(19)) System.out.println(1) ;\n" +
+                        "\t\telse System.out.println(0) ;\n" +
+                        "\t\tif (this.Search(20)) System.out.println(1) ;\n" +
+                        "\t\telse System.out.println(0) ;\n" +
+                        "\t\tif (this.Search(21)) System.out.println(1) ;\n" +
+                        "\t\telse System.out.println(0) ;\n" +
+                        "\t\tif (this.Search(37)) System.out.println(1) ;\n" +
+                        "\t\telse System.out.println(0) ;\n" +
+                        "\t\tif (this.Search(38)) System.out.println(1) ;\n" +
+                        "\t\telse System.out.println(0) ;\n" +
+                        "\t\tif (this.Search(39)) System.out.println(1) ;\n" +
+                        "\t\telse System.out.println(0) ;\n" +
+                        "\t\tif (this.Search(50)) System.out.println(1) ;\n" +
+                        "\t\telse System.out.println(0) ;\n" +
+                        "\n" +
+                        "\t\treturn 999 ;\n" +
+                        "\t}\n" +
+                        "\n" +
+                        "\n" +
+                        "\t// Search for a specific value (num) using\n" +
+                        "\t// binary search\n" +
+                        "\tpublic boolean Search(int num){\n" +
+                        "\t\tboolean bs01 ;\n" +
+                        "\t\tint right ;\n" +
+                        "\t\tint left ;\n" +
+                        "\t\tboolean var_cont ;\n" +
+                        "\t\tint medium ;\n" +
+                        "\t\tint aux01 ;\n" +
+                        "\t\tint nt ;\n" +
+                        "\n" +
+                        "\t\taux01 = 0 ;\n" +
+                        "\t\tbs01 = false ;\n" +
+                        "\t\tright = number.length ;\n" +
+                        "\t\tright = right - 1 ;\n" +
+                        "\t\tleft = 0 ;\n" +
+                        "\t\tvar_cont = true ;\n" +
+                        "\t\twhile (var_cont){\n" +
+                        "\t\t\tmedium = left + right ;\n" +
+                        "\t\t\tmedium = this.Div(medium);\n" +
+                        "\t\t\taux01 = number[medium] ;\n" +
+                        "\t\t\tif (num < aux01) right = medium - 1 ;\n" +
+                        "\t\t\telse left = medium + 1 ;\n" +
+                        "\t\t\tif (this.Compare(aux01,num)) var_cont = false ;\n" +
+                        "\t\t\telse var_cont = true ;\n" +
+                        "\t\t\tif (right < left) var_cont = false ;\n" +
+                        "\t\t\telse nt = 0 ;\n" +
+                        "\t\t}\n" +
+                        "\n" +
+                        "\t\tif (this.Compare(aux01,num)) bs01 = true ;\n" +
+                        "\t\telse bs01 = false ;\n" +
+                        "\t\treturn bs01 ;\n" +
+                        "\t}\n" +
+                        "\n" +
+                        "\t// This method computes and returns the\n" +
+                        "\t// integer division of a number (num) by 2\n" +
+                        "\tpublic int Div(int num){\n" +
+                        "\t\tint count01 ;\n" +
+                        "\t\tint count02 ;\n" +
+                        "\t\tint aux03 ;\n" +
+                        "\n" +
+                        "\t\tcount01 = 0 ;\n" +
+                        "\t\tcount02 = 0 ;\n" +
+                        "\t\taux03 = num - 1 ;\n" +
+                        "\t\twhile (count02 < aux03) {\n" +
+                        "\t\t\tcount01 = count01 + 1 ;\n" +
+                        "\t\t\tcount02 = count02 + 2 ;\n" +
+                        "\t\t}\n" +
+                        "\t\treturn count01 ;\t\n" +
+                        "\t}\n" +
+                        "\n" +
+                        "\n" +
+                        "\t// This method compares two integers and\n" +
+                        "\t// returns true if they are equal and false\n" +
+                        "\t// otherwise\n" +
+                        "\tpublic boolean Compare(int num1 , int num2){\n" +
+                        "\t\tboolean retval ;\n" +
+                        "\t\tint aux02 ;\n" +
+                        "\n" +
+                        "\t\tretval = false ;\n" +
+                        "\t\taux02 = num2 + 1 ;\n" +
+                        "\t\tif (num1 < num2) retval = false ;\n" +
+                        "\t\telse if (!(num1 < aux02)) retval = false ;\n" +
+                        "\t\telse retval = true ;\n" +
+                        "\t\treturn retval ;\n" +
+                        "\t}\n" +
+                        "\n" +
+                        "\t// Print the integer array\n" +
+                        "\tpublic int Print(){\n" +
+                        "\t\tint j ;\n" +
+                        "\n" +
+                        "\t\tj = 1 ;\n" +
+                        "\t\twhile (j < (size)) {\n" +
+                        "\t\t\tSystem.out.println(number[j]);\n" +
+                        "\t\t\tj = j + 1 ;\n" +
+                        "\t\t}\n" +
+                        "\t\tSystem.out.println(99999);\n" +
+                        "\t\treturn 0 ;\n" +
+                        "\t}\n" +
+                        "\n" +
+                        "\n" +
+                        "\t// Initialize the integer array\n" +
+                        "\tpublic int Init(int sz){\n" +
+                        "\t\tint j ;\n" +
+                        "\t\tint k ;\n" +
+                        "\t\tint aux02 ;\n" +
+                        "\t\tint aux01 ;\n" +
+                        "\n" +
+                        "\t\tsize = sz ;\n" +
+                        "\t\tnumber = new int[sz] ;\n" +
+                        "\n" +
+                        "\t\tj = 1 ;\n" +
+                        "\t\tk = size + 1 ;\n" +
+                        "\t\twhile (j < (size)) {\n" +
+                        "\t\t\taux01 = 2 * j ;\n" +
+                        "\t\t\taux02 = k - 3 ;\n" +
+                        "\t\t\tnumber[j] = aux01 + aux02 ;\n" +
+                        "\t\t\tj = j + 1 ;\n" +
+                        "\t\t\tk = k - 1 ;\n" +
+                        "\t\t}\n" +
+                        "\t\treturn 0 ;\t\n" +
+                        "\t}\n" +
+                        "\n" +
+                        "}\n");
+    }
+
+    @Test
     public void simpleProgram() throws Exception {
         test("",
                 "class Main {\n" +
