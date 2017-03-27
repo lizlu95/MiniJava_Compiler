@@ -13,11 +13,8 @@ import codegen.patterns.Wildcard;
 import ir.frame.Frame;
 import ir.temp.Label;
 import ir.temp.Temp;
-import ir.tree.BINOP;
+import ir.tree.*;
 import ir.tree.CJUMP.RelOp;
-import ir.tree.IR;
-import ir.tree.IRExp;
-import ir.tree.IRStm;
 import util.IndentingWriter;
 import util.List;
 
@@ -78,6 +75,7 @@ public class X86_64Muncher extends Muncher {
 
         final Pat<Integer> _i_ = Pat.any();
         final Pat<Integer> _i2_ = Pat.any();
+
 
         final Pat<Integer> _scale_ = new Wildcard<Integer>() {
             @Override
@@ -371,6 +369,30 @@ public class X86_64Muncher extends Muncher {
                 return ptr;
             }
         });
+        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(PLUS(_l_,CONST(_i_))),_r_)) {
+            @Override
+            protected Void trigger(Muncher m, Matched c) {
+//                movq r, 4(l)
+                m.emit(A_MOV_TO_MEM(m.munch(c.get(_l_)),c.get(_i_),m.munch(c.get(_r_))));
+                return null;
+            }
+        });
+//        sm.add(new MunchRule<IRStm, Void>(MOVE(_l_,MEM(PLUS(_l_,CONST(_i_))))) {
+//            @Override
+//            protected Void trigger(Muncher m, Matched c) {
+//                //movq 4(l), r
+//                return null;
+//            }
+//        });
+        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(_l_),MEM(_r_))) {
+            @Override
+            protected Void trigger(Muncher m, Matched c) {
+                Temp r = new Temp();
+                m.emit(A_MOV_FROM_MEM(r,m.munch(c.get(_l_))));
+                m.emit(A_MOV_TO_MEM(m.munch(c.get(_r_)),r));
+                return null;
+            }
+        });
     }
 
     ///////// Helper methods to generate X86 assembly instructions //////////////////////////////////////
@@ -528,6 +550,10 @@ public class X86_64Muncher extends Muncher {
 
     private static Instr A_MOV_TO_MEM(Temp ptr, int value) {
         return new A_OPER("movq    $"+value+", (`s0)", noTemps, list(ptr));
+    }
+    //                movq r, 4(l)
+    private static Instr A_MOV_TO_MEM(Temp dst,int offset, Temp src){
+        return new A_OPER("movq `s0,    "+offset+"(`d0)",list(dst),list(src));
     }
 
     private static Instr A_MOV_FROM_MEM(Temp d, Temp ptr) {
