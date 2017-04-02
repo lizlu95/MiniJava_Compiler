@@ -18,17 +18,39 @@ public class LivenessImplementation<N> extends Liveness<N> {
 
     @Override
     public List<Temp> liveOut(Node<N> node) {
-//        List<Node<N>> s = node.succ();
-//        ActiveSet<Temp> set = new ActiveSet<Temp>();
-//
-//        for (int i = 0; i < s.size(); i++) {
-//            List<Temp> tmp = liveIn(s.get(i));
-//            ActiveSet<Temp> t = new ActiveSet<Temp>();
+        List<Node<N>> s = node.succ();
+/*        ActiveSet<Node<N>> ins = new ActiveSet<>();
+        ins.addAll(s);*/
+        ActiveSet<Temp> set = new ActiveSet<>();
+/*        ins.addListener(new ActiveSet.ASListener<Node<N>>() {
+            @Override
+            public void elementAdded(Node<N> nNode) {
+                ActiveSet<Temp> t = new ActiveSet<>();
+                List<Temp> in = liveIn(nNode);
+                t.addAll(in);
+                set.add(t);
+            }
+        });
+        ActiveSet<Temp> res = ActiveSet.union(set.getElements());*/
+
+        if (node.outDegree() == 0)
+            return List.empty();
+        else if (node.outDegree() == 1){
+            List<Temp> tmp = liveIn(s.get(0));
+            ActiveSet<Temp> t = new ActiveSet<>();
+            t.addAll(tmp);
+            set = ActiveSet.union(set,t);
+            return set.getElements();
+        }
+        else {
+            List<Temp> tmp = liveIn(s.get(1));
+            ActiveSet<Temp> t = new ActiveSet<>();
+            t.addAll(tmp);
+//            tmp = liveIn(s.get(1));
 //            t.addAll(tmp);
-//            set = ActiveSet.union(set,t);
-//        }
-//        return set.getElements();
-        return List.theEmpty();
+            set = ActiveSet.union(set,t);
+            return set.getElements();
+        }
     }
 
     private List<Temp> liveIn(Node<N> node) {
