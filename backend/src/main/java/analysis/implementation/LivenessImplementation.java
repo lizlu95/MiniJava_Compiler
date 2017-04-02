@@ -1,16 +1,13 @@
 package analysis.implementation;
 
-import ir.temp.Temp;
-
-import java.util.Collections;
-import java.util.HashMap;
-
-import util.List;
-
 import analysis.FlowGraph;
 import analysis.Liveness;
 import analysis.util.ActiveSet;
 import analysis.util.graph.Node;
+import ir.temp.Temp;
+import util.List;
+
+import java.util.Collections;
 
 
 public class LivenessImplementation<N> extends Liveness<N> {
@@ -21,16 +18,17 @@ public class LivenessImplementation<N> extends Liveness<N> {
 
     @Override
     public List<Temp> liveOut(Node<N> node) {
-        List<Node<N>> s = node.succ();
-        ActiveSet<Temp> set = new ActiveSet<Temp>();
-
-        for (int i = 0; i < s.size(); i++) {
-            List<Temp> tmp = liveIn(s.get(i));
-            ActiveSet<Temp> t = new ActiveSet<Temp>();
-            t.addAll(tmp);
-            set = ActiveSet.union(set,t);
-        }
-        return set.getElements();
+//        List<Node<N>> s = node.succ();
+//        ActiveSet<Temp> set = new ActiveSet<Temp>();
+//
+//        for (int i = 0; i < s.size(); i++) {
+//            List<Temp> tmp = liveIn(s.get(i));
+//            ActiveSet<Temp> t = new ActiveSet<Temp>();
+//            t.addAll(tmp);
+//            set = ActiveSet.union(set,t);
+//        }
+//        return set.getElements();
+        return List.theEmpty();
     }
 
     private List<Temp> liveIn(Node<N> node) {
