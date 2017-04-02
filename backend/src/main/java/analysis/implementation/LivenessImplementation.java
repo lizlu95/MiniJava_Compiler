@@ -21,13 +21,30 @@ public class LivenessImplementation<N> extends Liveness<N> {
 
     @Override
     public List<Temp> liveOut(Node<N> node) {
-        // This dummy implementation says that nothing is live
-        return List.empty();
+        List<Node<N>> s = node.succ();
+        ActiveSet<Temp> set = new ActiveSet<Temp>();
+
+        for (int i = 0; i < s.size(); i++) {
+            List<Temp> tmp = liveIn(s.get(i));
+            ActiveSet<Temp> t = new ActiveSet<Temp>();
+            t.addAll(tmp);
+            set = ActiveSet.union(set,t);
+        }
+        return set.getElements();
     }
 
     private List<Temp> liveIn(Node<N> node) {
-        // This dummy implementation says that nothing is live
-        return List.empty();
+
+        ActiveSet<Temp> set = new ActiveSet<Temp>();
+        List<Temp> o = liveOut(node);
+        set.addAll(o);
+        ActiveSet<Temp>tmp = set.remove(this.g.def(node));
+        List<Temp> u = this.g.use(node);
+        ActiveSet<Temp> us = new ActiveSet<Temp>();
+        us.addAll(u);
+        ActiveSet<Temp> r = ActiveSet.union(us,tmp);
+
+        return r.getElements();
     }
 
     private String shortList(List<Temp> l) {
