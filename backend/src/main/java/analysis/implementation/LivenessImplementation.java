@@ -8,6 +8,9 @@ import ir.temp.Temp;
 import util.List;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class LivenessImplementation<N> extends Liveness<N> {
@@ -16,54 +19,87 @@ public class LivenessImplementation<N> extends Liveness<N> {
         super(graph);
     }
 
+    public Map<Node<N>,List<Temp>> out = new ConcurrentHashMap<>();
+    public Map<Node<N>,List<Temp>> in = new ConcurrentHashMap<>();
+
     @Override
     public List<Temp> liveOut(Node<N> node) {
+        if (out.get(node)!=null) return out.get(node);
         List<Node<N>> s = node.succ();
-/*        ActiveSet<Node<N>> ins = new ActiveSet<>();
-        ins.addAll(s);*/
         ActiveSet<Temp> set = new ActiveSet<>();
-/*        ins.addListener(new ActiveSet.ASListener<Node<N>>() {
-            @Override
-            public void elementAdded(Node<N> nNode) {
+        List<Temp> tmp;
+        switch (s.size()){
+            case 0:
+                return List.empty();
+            case 1:
+                if(in.get(s.get(0)) != null)
+                    tmp = in.get(s.get(0));
+                else tmp = liveIn(s.get(0));
                 ActiveSet<Temp> t = new ActiveSet<>();
-                List<Temp> in = liveIn(nNode);
-                t.addAll(in);
-                set.add(t);
-            }
-        });
-        ActiveSet<Temp> res = ActiveSet.union(set.getElements());*/
+                t.addAll(tmp);
+                set = ActiveSet.union(set,t);
+                return set.getElements();
+            case 2:
+                ActiveSet<Temp> t2 = new ActiveSet<>();
+                /*if(in.get(s.get(0)) != null)
+                    tmp = in.get(s.get(0));
+                else tmp = liveIn(s.get(0));
+                t2.addAll(tmp);*/
+                if(in.get(s.get(1)) != null)
+                    tmp = in.get(s.get(1));
+                else tmp = liveIn(s.get(1));
+                t2.addAll(tmp);
+                set = ActiveSet.union(set,t2);
+                return set.getElements();
+            case 3:
+                ActiveSet<Temp> t3 = new ActiveSet<>();
+                /*if(in.get(s.get(0)) != null)
+                    tmp = in.get(s.get(0));
+                else tmp = liveIn(s.get(0));
+                t2.addAll(tmp);*/
+                if(in.get(s.get(1)) != null)
+                    tmp = in.get(s.get(1));
+                else tmp = liveIn(s.get(1));
+                t3.addAll(tmp);
+                if(in.get(s.get(2)) != null)
+                    tmp = in.get(s.get(2));
+                else tmp = liveIn(s.get(2));
+                t3.addAll(tmp);
+                set = ActiveSet.union(set,t3);
+                return set.getElements();
+            default:
+                return List.empty();
+        }
+        /*for (int i = 0; i < s.size(); i++) {
 
-        if (node.outDegree() == 0)
-            return List.empty();
-        else if (node.outDegree() == 1){
-            List<Temp> tmp = liveIn(s.get(0));
-            ActiveSet<Temp> t = new ActiveSet<>();
-            t.addAll(tmp);
-            set = ActiveSet.union(set,t);
-            return set.getElements();
-        }
-        else {
-            List<Temp> tmp = liveIn(s.get(1));
-            ActiveSet<Temp> t = new ActiveSet<>();
-            t.addAll(tmp);
-//            tmp = liveIn(s.get(1));
-//            t.addAll(tmp);
-            set = ActiveSet.union(set,t);
-            return set.getElements();
-        }
+            if(in.get(s.get(i)) != null) tmp = in.get(s.get(i));
+            else {
+                return List.empty();
+                *//*tmp = liveIn(s.get(i));
+                in.put(s.get(i),tmp);*//*
+            }*/
+
+        //}
+        //return set.getElements();
+
     }
 
     private List<Temp> liveIn(Node<N> node) {
-
-        ActiveSet<Temp> set = new ActiveSet<Temp>();
-        List<Temp> o = liveOut(node);
+        if (in.get(node)!=null) return in.get(node);
+        ActiveSet<Temp> set = new ActiveSet<>();
+        List<Temp> o;
+        if (out.get(node) != null) o = out.get(node);
+        else {
+            o = liveOut(node);
+            out.put(node,o);
+        }
         set.addAll(o);
         ActiveSet<Temp>tmp = set.remove(this.g.def(node));
         List<Temp> u = this.g.use(node);
-        ActiveSet<Temp> us = new ActiveSet<Temp>();
+        ActiveSet<Temp> us = new ActiveSet<>();
         us.addAll(u);
         ActiveSet<Temp> r = ActiveSet.union(us,tmp);
-
+        in.replace(node, r.getElements());
         return r.getElements();
     }
 
