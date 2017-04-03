@@ -1,10 +1,9 @@
 package test.analysis;
 
-import test.analysis.TestFlowGraphs;
-import codegen.AssemProc;
-import codegen.assem.Instr;
 import analysis.FlowGraph;
 import analysis.implementation.LivenessImplementation;
+import codegen.AssemProc;
+import codegen.assem.Instr;
 
 /**
  * Unfortunately, there's no good way that I can think of to test this phase
@@ -35,6 +34,9 @@ public class TestInternalLiveness extends TestFlowGraphs {
         LivenessImplementation<Instr> liveness = new LivenessImplementation<Instr>(flowGraph);
         System.out.println("Liveness:");
         System.out.println(liveness);
+//        StringBuffer out = new StringBuffer();
+//        liveness.displayMap(liveness.outMap,out);
+//        System.out.println(out.toString());
     }
 
 }

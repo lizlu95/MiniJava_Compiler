@@ -89,6 +89,19 @@ public class ActiveSet<E> extends DefaultIndentable {
         return union;
     }
 
+    public static <E> ActiveSet<E> union(List<ActiveSet<E>> sets) {
+        final ActiveSet<E> union = new ActiveSet<E>();
+        for (ActiveSet<E> e: sets){
+            union.addAll(e);
+        }
+        return union;
+    }
+
+//    public void addAll(List<E> add) {
+//        for (E e : add)
+//            add(e);
+//    }
+
     /**
      * Create an "active" intersection of two active sets (the receiver and
      * one other
