@@ -11,8 +11,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 public class LivenessImplementation<N> extends Liveness<N> {
@@ -70,15 +68,6 @@ public class LivenessImplementation<N> extends Liveness<N> {
             return true;
         }
         return false;
-//        for (int i=0;i<one.size();i++){
-//            if (one.get(i).equals(two.get(i))){
-//                //continue;
-//            }
-//            else{
-//                return false;
-//            }
-//        }
-//        return true;
     }
 
     public boolean isEnd(){
@@ -95,190 +84,13 @@ public class LivenessImplementation<N> extends Liveness<N> {
         return true;
     }
 
-    public List<Node<N>> getListOfSuccessor(Node<N> node){
-        List<Node<N>> allNodes = g.nodes();
-        List<Node<N>> succ = List.empty();
-        for (Node<N> n : allNodes){
-            if (node.goesTo(n)){
-                succ.add(n);
-            }
-        }
-        return succ;
-    }
-
-    //Liz
-    //public Map<Node<N>,List<Temp>> out = new ConcurrentHashMap<>();
-    //public Map<Node<N>,List<Temp>> in = new ConcurrentHashMap<>();
-
     @Override
     public List<Temp> liveOut(Node<N> node) {
-        // Liz Try #2
-//        if (out.get(node)!=null) return out.get(node);
-//        List<Node<N>> s = node.succ();
-//        ActiveSet<Temp> set = new ActiveSet<>();
-//        List<Temp> tmp;
-//        switch (s.size()){
-//            case 0:
-//                return List.empty();
-//            case 1:
-//                if(in.get(s.get(0)) != null)
-//                    tmp = in.get(s.get(0));
-//                else tmp = liveIn(s.get(0));
-//                ActiveSet<Temp> t = new ActiveSet<>();
-//                t.addAll(tmp);
-//                set = ActiveSet.union(set,t);
-//                return set.getElements();
-//            case 2:
-//                ActiveSet<Temp> t2 = new ActiveSet<>();
-//                /*if(in.get(s.get(0)) != null)
-//                    tmp = in.get(s.get(0));
-//                else tmp = liveIn(s.get(0));
-//                t2.addAll(tmp);*/
-//                if(in.get(s.get(1)) != null)
-//                    tmp = in.get(s.get(1));
-//                else tmp = liveIn(s.get(1));
-//                t2.addAll(tmp);
-//                set = ActiveSet.union(set,t2);
-//                return set.getElements();
-//            case 3:
-//                ActiveSet<Temp> t3 = new ActiveSet<>();
-//                /*if(in.get(s.get(0)) != null)
-//                    tmp = in.get(s.get(0));
-//                else tmp = liveIn(s.get(0));
-//                t2.addAll(tmp);*/
-//                if(in.get(s.get(1)) != null)
-//                    tmp = in.get(s.get(1));
-//                else tmp = liveIn(s.get(1));
-//                t3.addAll(tmp);
-//                if(in.get(s.get(2)) != null)
-//                    tmp = in.get(s.get(2));
-//                else tmp = liveIn(s.get(2));
-//                t3.addAll(tmp);
-//                set = ActiveSet.union(set,t3);
-//                return set.getElements();
-//            default:
-//                return List.empty();
-//        }
-//        /*for (int i = 0; i < s.size(); i++) {
-//
-//            if(in.get(s.get(i)) != null) tmp = in.get(s.get(i));
-//            else {
-//                return List.empty();
-//                *//*tmp = liveIn(s.get(i));
-//                in.put(s.get(i),tmp);*//*
-//            }*/
-//
-//        //}
-//        //return set.getElements();
-
-        //
-//        //Liz
-//        List<Node<N>> s = node.succ();
-///*        ActiveSet<Node<N>> ins = new ActiveSet<>();
-//        ins.addAll(s);*/
-//        ActiveSet<Temp> set = new ActiveSet<>();
-///*        ins.addListener(new ActiveSet.ASListener<Node<N>>() {
-//            @Override
-//            public void elementAdded(Node<N> nNode) {
-//                ActiveSet<Temp> t = new ActiveSet<>();
-//                List<Temp> in = liveIn(nNode);
-//                t.addAll(in);
-//                set.add(t);
-//            }
-//        });
-//        ActiveSet<Temp> res = ActiveSet.union(set.getElements());*/
-//
-//        if (node.outDegree() == 0)
-//            return List.empty();
-//        else if (node.outDegree() == 1){
-//            List<Temp> tmp = liveIn(s.get(0));
-//            ActiveSet<Temp> t = new ActiveSet<>();
-//            t.addAll(tmp);
-//            set = ActiveSet.union(set,t);
-//            return set.getElements();
-//        }
-//        else {
-//            List<Temp> tmp = liveIn(s.get(1));
-//            ActiveSet<Temp> t = new ActiveSet<>();
-//            t.addAll(tmp);
-////            tmp = liveIn(s.get(1));
-////            t.addAll(tmp);
-//            set = ActiveSet.union(set,t);
-//            return set.getElements();
-//        }
-
-        //Robin
-//        return outMap.get(node);
-        List<Temp> savedList = outMap.get(node);
-        if (savedList != null){
-            return savedList;
-        }
-        List<Node<N>> s = getListOfSuccessor(node);
-        //stop the repetitions
-        ActiveSet<Node<N>> sActive = new ActiveSet<>();
-        sActive.addAll(s);
-        s = sActive.getElements(); //make sure no repetitions
-
-        ActiveSet<Temp> set = new ActiveSet<Temp>();
-        List<ActiveSet<Temp>> list = List.empty();
-        for (Node<N> ss : s) {
-            if (ss.equals(node)){
-                break;
-            }
-            List<Temp> tmp = inMap.get(ss);
-            if (tmp == null) {
-                tmp = liveIn(ss);
-            }
-            ActiveSet<Temp> t = new ActiveSet<Temp>();
-            t.addAll(tmp);
-            list.add(t);
-//            set = ActiveSet.union(set,t);
-        }
-        set = ActiveSet.union(list);
-        outMap.put(node,set.getElements());
-        return set.getElements();
+        return outMap.get(node);
     }
 
     private List<Temp> liveIn(Node<N> node) {
-        //Liz try #2
-//        if (in.get(node)!=null) return in.get(node);
-//        ActiveSet<Temp> set = new ActiveSet<>();
-//        List<Temp> o;
-//        if (out.get(node) != null) o = out.get(node);
-//        else {
-//            o = liveOut(node);
-//            out.put(node,o);
-//        }
-//        set.addAll(o);
-//        ActiveSet<Temp>tmp = set.remove(this.g.def(node));
-//        List<Temp> u = this.g.use(node);
-//        ActiveSet<Temp> us = new ActiveSet<>();
-//        us.addAll(u);
-//        ActiveSet<Temp> r = ActiveSet.union(us,tmp);
-//        in.replace(node, r.getElements());
-//        return r.getElements();
-
-        //       return inMap.get(node);
-        List<Temp> savedList = inMap.get(node);
-        if (savedList != null){
-            return savedList;
-        }
-        ActiveSet<Temp> set = new ActiveSet<Temp>();
-        List<Temp> o = outMap.get(node);
-        if (o == null){
-            o = liveOut(node);
-//            o = List.empty(); <-- should not do this
-        }
-        set.addAll(o);
-        ActiveSet<Temp>tmp = set.remove(this.g.def(node));
-        List<Temp> u = this.g.use(node);
-
-        ActiveSet<Temp> us = new ActiveSet<Temp>();
-        us.addAll(u);
-        ActiveSet<Temp> r = ActiveSet.union(us,tmp);
-
-        inMap.put(node,r.getElements());
-        return r.getElements();
+        return inMap.get(node);
     }
 
     private String shortList(List<Temp> l) {
