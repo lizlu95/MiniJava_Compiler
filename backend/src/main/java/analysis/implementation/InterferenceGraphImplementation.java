@@ -23,30 +23,31 @@ public class InterferenceGraphImplementation<N> extends InterferenceGraph {
         this.fg = fg;
         this.liveness = new LivenessImplementation<N>(fg);
         // This "dummy" implementation just adds nodes, but no edges
-        for (Node<N> node : fg.nodes()) {
-            for (Temp def : fg.def(node)) {
-                Node<Temp> n = nodeFor(def);
-            }
-            for (Temp use : fg.use(node)) {
-                Node<Temp> n = nodeFor(use);
-            }
-        }
+//        for (Node<N> node : fg.nodes()) {
+//            for (Temp def : fg.def(node)) {
+//                Node<Temp> n = nodeFor(def);
+//            }
+//            for (Temp use : fg.use(node)) {
+//                Node<Temp> n = nodeFor(use);
+//            }
+//        }
         //add edges?
         //1. at any non-move instruction that defines a variable a
         // where the live-out variables are b1...bj, add edges (a,b1)
         // ...(a,bj)
         for (Node<N> node: fg.nodes()){
             if (fg.isMove(node)){
-                //2
-                List<Temp> b = liveness.liveOut(node);
+                //2 moveq s,d
+                List<Temp> liveList = liveness.liveOut(node);
                 for (Temp def : fg.def(node)) {
-                    Node<Temp> a = nodeFor(def);
+                    Node<Temp> d = nodeFor(def);
                     for (Temp use : fg.use(node)) {
-                        Node<Temp> c = nodeFor(use);
-                        for (Temp bi: b) {
-                            Node<Temp> biTemp = nodeFor(bi);
-                            if (! c.equals(bi)) {
-                                addEdge(a, biTemp);
+                        Node<Temp> s = nodeFor(use);
+                        for (Temp liveTemp: liveList) {
+                            Node<Temp> live = nodeFor(liveTemp);
+                            if (! live.equals(d) && ! live.equals(s)) {
+                                addEdge(d,live);
+                                addEdge(live,d);
                             }
                         }
                     }
@@ -54,12 +55,15 @@ public class InterferenceGraphImplementation<N> extends InterferenceGraph {
             }
             else{
                 //1
-                List<Temp> b =  liveness.liveOut(node);
-                for (Temp def : fg.def(node)) {
-                    Node<Temp> a = nodeFor(def);
-                    for (Temp bi: b) {
-                        Node<Temp> biTemp = nodeFor(bi);
-                        addEdge(a, biTemp);
+                List<Temp> liveList =  liveness.liveOut(node);
+                for (Temp dTemp : fg.def(node)) {
+                    Node<Temp> d = nodeFor(dTemp);
+                    for (Temp liveTemp: liveList) {
+                        Node<Temp> live = nodeFor(liveTemp);
+                        if (! live.equals(d)) {
+                            addEdge(d, live);
+                            addEdge(live,d);
+                        }
                     }
                 }
             }
