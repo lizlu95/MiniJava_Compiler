@@ -1,17 +1,17 @@
 package analysis.implementation;
 
+import analysis.FlowGraph;
+import analysis.InterferenceGraph;
+import analysis.util.graph.Node;
+import ir.temp.Color;
+import ir.temp.Temp;
+import util.IndentingWriter;
+import util.List;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import util.IndentingWriter;
-import util.List;
-import ir.temp.Color;
-import ir.temp.Temp;
-import analysis.FlowGraph;
-import analysis.InterferenceGraph;
-import analysis.util.graph.Node;
 
 public class InterferenceGraphImplementation<N> extends InterferenceGraph {
 
@@ -31,6 +31,41 @@ public class InterferenceGraphImplementation<N> extends InterferenceGraph {
                 Node<Temp> n = nodeFor(use);
             }
         }
+        //add edges?
+        //1. at any non-move instruction that defines a variable a
+        // where the live-out variables are b1...bj, add edges (a,b1)
+        // ...(a,bj)
+        for (Node<N> node: fg.nodes()){
+            if (fg.isMove(node)){
+                //2
+                List<Temp> b = liveness.liveOut(node);
+                for (Temp def : fg.def(node)) {
+                    Node<Temp> a = nodeFor(def);
+                    for (Temp use : fg.use(node)) {
+                        Node<Temp> c = nodeFor(use);
+                        for (Temp bi: b) {
+                            Node<Temp> biTemp = nodeFor(bi);
+                            if (! c.equals(bi)) {
+                                addEdge(a, biTemp);
+                            }
+                        }
+                    }
+                }
+            }
+            else{
+                //1
+                List<Temp> b =  liveness.liveOut(node);
+                for (Temp def : fg.def(node)) {
+                    Node<Temp> a = nodeFor(def);
+                    for (Temp bi: b) {
+                        Node<Temp> biTemp = nodeFor(bi);
+                        addEdge(a, biTemp);
+                    }
+                }
+            }
+        }
+        //2. at a move instruction a <- c, where variables b1..bj are live-out
+        // add edges (a,b1)...(a,bj) for any bi that is not the same as c
     }
 
     @Override

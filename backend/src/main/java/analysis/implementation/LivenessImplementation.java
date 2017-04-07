@@ -29,7 +29,7 @@ public class LivenessImplementation<N> extends Liveness<N> {
         iterativeLiveness();
     }
 
-    public void iterativeLiveness(){
+    private void iterativeLiveness(){
         List<Node<N>> nodes = g.nodes();
         for (Node<N> n : nodes){
             inMap.put(n,List.empty());
@@ -70,7 +70,7 @@ public class LivenessImplementation<N> extends Liveness<N> {
         return false;
     }
 
-    public boolean isEnd(){
+    private boolean isEnd(){
         for (Node<N> n : g.nodes()){
             boolean isInEqual = isEqualList(inMap.get(n),inMapPrime.get(n));
             boolean isOutEqual = isEqualList(outMap.get(n),outMapPrime.get(n));
