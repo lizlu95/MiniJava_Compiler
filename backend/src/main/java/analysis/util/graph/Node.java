@@ -1,8 +1,6 @@
 package analysis.util.graph;
 
 import util.List;
-import java.util.Collections;
-import java.lang.Comparable;
 
 import static util.List.*;
 
@@ -11,7 +9,7 @@ import static util.List.*;
  * <p>
  * It is used by the Graph class to represent its nodes.
  */
-public class Node<N> implements Comparable<Node<N>>{
+public class Node<N> {
 
     Graph<N> mygraph;
 
@@ -78,11 +76,6 @@ public class Node<N> implements Comparable<Node<N>>{
 
     public N wrappee() {
         return info;
-    }
-
-    @Override
-    public int compareTo(Node<N> n) {
-        return this.degree() - n.degree();
     }
 
 }

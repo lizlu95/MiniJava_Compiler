@@ -21,8 +21,6 @@ import analysis.InterferenceGraph;
 import analysis.RegAlloc;
 import analysis.util.graph.Node;
 
-import static java.util.Collections.*;
-
 public class SimpleRegAlloc extends RegAlloc {
 
     private AssemProc proc;
@@ -142,6 +140,21 @@ public class SimpleRegAlloc extends RegAlloc {
         this.ig.name = proc.getLabel().toString() + " round " + iteration;
     }
 
+    // help sorting the toColor list
+    private void bubbleSort(List<Node<Temp>> n) {
+        int s = n.size();
+        Node<Temp> temp;
+        for (int i = 0; i < s; i++) {
+            for (int j = 1; j < (s - i); j++) {
+                if (n.get(j-1).degree() > n.get(j).degree()) {
+                    temp = n.get(j-1);
+                    n.replace(n.get(j-1),n.get(j));
+                    n.replace(n.get(j),temp);
+                }
+            }
+        }
+    }
+
     /**
      * Returns a List of Temp's (a stack really) which suggest the order
      * in which nodes should be assigned colors.
@@ -159,7 +172,7 @@ public class SimpleRegAlloc extends RegAlloc {
                 toColor.add(node);
 
         while (!toColor.isEmpty()) {
-            sort(toColor);
+            bubbleSort(toColor);
             Node<Temp> node = toColor.head();
             toColor = toColor.delete(node);
             ordering = List.cons(node.wrappee(), ordering);
