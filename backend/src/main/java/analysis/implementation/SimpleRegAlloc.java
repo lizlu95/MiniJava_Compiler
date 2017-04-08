@@ -21,6 +21,8 @@ import analysis.InterferenceGraph;
 import analysis.RegAlloc;
 import analysis.util.graph.Node;
 
+import static java.util.Collections.*;
+
 public class SimpleRegAlloc extends RegAlloc {
 
     private AssemProc proc;
@@ -157,9 +159,11 @@ public class SimpleRegAlloc extends RegAlloc {
                 toColor.add(node);
 
         while (!toColor.isEmpty()) {
+            sort(toColor);
             Node<Temp> node = toColor.head();
             toColor = toColor.delete(node);
             ordering = List.cons(node.wrappee(), ordering);
+
             // this.ig.rmNode(node);
             if (generateDotFiles) {
                 File out = new File("simplify-" + incarnation + "-" + simplified + ".dot");
