@@ -118,11 +118,11 @@ public class SimpleRegAlloc extends RegAlloc {
     private boolean tryToColor(Temp t, List<Color> colors) {
         for(int i=0;i<ig.moves().size();i++) {
             if (ig.moves().get(i).src.equals(ig.nodeFor(t))
-                    && getColor(ig.moves().get(i).dst)!=null) {
-                if (isColorOK(ig.nodeFor(t), getColor(ig.moves().get(i).dst))) {
-                    setColor(t, getColor(ig.moves().get(i).dst));
+                    && getColor(ig.moves().get(i).src)!=null) {
+                //if (isColorOK(ig.nodeFor(t), getColor(ig.moves().get(i).src))) {
+                    setColor(t, getColor(ig.moves().get(i).src));
                     return true;
-                }
+                //}
             }
         }
         for (Color color : colors) {

@@ -35,15 +35,14 @@ public class InterferenceGraphImplementation<N> extends InterferenceGraph {
                     Node<Temp> d = nodeFor(def);
                     for (Temp use : fg.use(node)) {
                         Node<Temp> s = nodeFor(use);
-                        moves.add(new Move(d,s));
                         for (Temp liveTemp: liveList) {
                             Node<Temp> live = nodeFor(liveTemp);
                             if (! live.equals(d) && ! live.equals(s)) {
                                 addEdge(d,live);
                                 addEdge(live,d);
-
                             }
                         }
+                        moves.add(new Move(d,s));
                     }
                 }
             }
