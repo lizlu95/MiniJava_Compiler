@@ -62,7 +62,7 @@ public class TestTranslate {
         return true;
     }
 
-    //@Test
+    @Test
     public void BinaryS() throws Exception {
         test("20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n" +
                         "31\n32\n33\n34\n35\n36\n37\n38\n99999\n" +
@@ -619,7 +619,7 @@ public class TestTranslate {
     }
 
 
-    @Test
+    //@Test
     public void field() throws Exception {
         test("50\n",
                 "class Main {\n" +
