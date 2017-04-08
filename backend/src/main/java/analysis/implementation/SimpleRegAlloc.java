@@ -118,15 +118,14 @@ public class SimpleRegAlloc extends RegAlloc {
     private boolean tryToColor(Temp t, List<Color> colors) {
         for(int i=0;i<ig.moves().size();i++) {
             if (ig.moves().get(i).src.equals(ig.nodeFor(t))
-                    && getColor(ig.moves().get(i).src)!=null) {
-                //if (isColorOK(ig.nodeFor(t), getColor(ig.moves().get(i).src))) {
-                    setColor(t, getColor(ig.moves().get(i).src));
+                    && (getColor(ig.moves().get(i).dst)!=null)) {
+                if (isColorOK(ig.nodeFor(t), getColor(ig.moves().get(i).dst))) {
+                    setColor(t, getColor(ig.moves().get(i).dst));
                     return true;
-                //}
+                }
             }
         }
         for (Color color : colors) {
-
             if (isColorOK(ig.nodeFor(t), color)) {
                 setColor(t, color);
                 return true;
@@ -151,18 +150,60 @@ public class SimpleRegAlloc extends RegAlloc {
     }
 
     // help sorting the toColor list
-    private void bubbleSort(List<Node<Temp>> n) {
-        int s = n.size();
-        Node<Temp> temp;
-        for (int i = 0; i < s; i++) {
-            for (int j = 1; j < (s - i); j++) {
-                if (n.get(j-1).degree() > n.get(j).degree()) {
-                    temp = n.get(j-1);
-                    n.replace(n.get(j-1),n.get(j));
-                    n.replace(n.get(j),temp);
-                }
-            }
+    private List<Node<Temp>> numbers;
+    private List<Node<Temp>> helper;
+    private int number;
+
+    public void sort(List<Node<Temp>> values) {
+        this.numbers = values;
+        number = values.size();
+        this.helper = values;
+        mergesort(0, number - 1);
+    }
+
+    private void mergesort(int low, int high) {
+        // check if low is smaller than high, if not then the array is sorted
+        if (low < high) {
+            // Get the index of the element which is in the middle
+            int middle = low + (high - low) / 2;
+            // Sort the left side of the array
+            mergesort(low, middle);
+            // Sort the right side of the array
+            mergesort(middle + 1, high);
+            // Combine them both
+            merge(low, middle, high);
         }
+    }
+
+    private void merge(int low, int middle, int high) {
+
+        // Copy both parts into the helper array
+        for (int i = low; i <= high; i++) {
+            helper.replace(helper.get(i),numbers.get(i));
+        }
+
+        int i = low;
+        int j = middle + 1;
+        int k = low;
+        // Copy the smallest values from either the left or the right side back
+        // to the original array
+        while (i <= middle && j <= high) {
+            if (helper.get(i).degree() <= helper.get(j).degree()) {
+                numbers.replace(numbers.get(k), helper.get(i));
+                i++;
+            } else {
+                numbers.replace(numbers.get(k), helper.get(j));
+                j++;
+            }
+            k++;
+        }
+        // Copy the rest of the left side of the array into the target array
+        while (i <= middle) {
+            numbers.replace(numbers.get(k), helper.get(i));
+            k++;
+            i++;
+        }
+
     }
 
     /**
@@ -182,7 +223,7 @@ public class SimpleRegAlloc extends RegAlloc {
                 toColor.add(node);
 
         while (!toColor.isEmpty()) {
-            bubbleSort(toColor);
+            sort(toColor);
             Node<Temp> node = toColor.head();
             toColor = toColor.delete(node);
             ordering = List.cons(node.wrappee(), ordering);
