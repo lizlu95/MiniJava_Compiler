@@ -22,15 +22,7 @@ public class InterferenceGraphImplementation<N> extends InterferenceGraph {
     public InterferenceGraphImplementation(FlowGraph<N> fg) {
         this.fg = fg;
         this.liveness = new LivenessImplementation<N>(fg);
-        // This "dummy" implementation just adds nodes, but no edges
-//        for (Node<N> node : fg.nodes()) {
-//            for (Temp def : fg.def(node)) {
-//                Node<Temp> n = nodeFor(def);
-//            }
-//            for (Temp use : fg.use(node)) {
-//                Node<Temp> n = nodeFor(use);
-//            }
-//        }
+
         //add edges?
         //1. at any non-move instruction that defines a variable a
         // where the live-out variables are b1...bj, add edges (a,b1)
@@ -48,6 +40,7 @@ public class InterferenceGraphImplementation<N> extends InterferenceGraph {
                             if (! live.equals(d) && ! live.equals(s)) {
                                 addEdge(d,live);
                                 addEdge(live,d);
+                                moves.add(new Move(d,live));
                             }
                         }
                     }
