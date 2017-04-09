@@ -31,6 +31,8 @@ public class SimpleRegAlloc extends RegAlloc {
     private List<Temp> registers;
     private List<Color> colors;
     private List<Color> spillColors = List.empty();
+    private List<Color> mRColors;
+    private List<Color> nonMRColors;
     private int iteration;
     static private int incarnation = 0;
 
@@ -93,9 +95,31 @@ public class SimpleRegAlloc extends RegAlloc {
         if (toColor.isEmpty()) return;
         Temp t = toColor.head();
         boolean success;
+        mRColors = List.empty();
+        nonMRColors = List.empty();
+        //separate into registers that are move-related to this temp
+        //and other registers
+        //go through all move instructions with t as dst (perhaps need a hashtable)
+        for (InterferenceGraph.Move m: ig.moves()) {
+            //make sure they are colored
+            if (m.dst.wrappee().equals(t)) {
+                for (Temp reg : registers) { //could be improved by Sets (should not be able to add again)
+                    if (m.src.wrappee().equals(reg)) {
+                        mRColors.add(getColor(reg)); //might have repeated values??
+                        continue;
+                    }
+                }
+            }
+        }
+        //check all the registers that are move related to this temp
+        success = tryToColor(t,mRColors);
+        //then try other registers
+
+        //then spill
 
         // Try to color using a register
-        success = tryToColor(t, colors);
+        if (!success)
+            success = tryToColor(t, colors);
 
         if (!success) {
             // Try to spill using an existing spill slot.
@@ -113,15 +137,15 @@ public class SimpleRegAlloc extends RegAlloc {
     }
 
     private boolean tryToColor(Temp t, List<Color> colors) {
-        for(int i=0;i<ig.moves().size();i++) {
-            if (ig.moves().get(i).src.equals(ig.nodeFor(t))
-                    && (getColor(ig.moves().get(i).dst)!=null)) {
-                if (isColorOK(ig.nodeFor(t), getColor(ig.moves().get(i).dst))) {
-                    setColor(t, getColor(ig.moves().get(i).dst));
-                    return true;
-                }
-            }
-        }
+//        for(int i=0;i<ig.moves().size();i++) {
+//            if (ig.moves().get(i).src.equals(ig.nodeFor(t))
+//                    && (getColor(ig.moves().get(i).dst)!=null)) {
+//                if (isColorOK(ig.nodeFor(t), getColor(ig.moves().get(i).dst))) {
+//                    setColor(t, getColor(ig.moves().get(i).dst));
+//                    return true;
+//                }
+//            }
+//        }
         for (Color color : colors) {
             if (isColorOK(ig.nodeFor(t), color)) {
                 setColor(t, color);
@@ -207,8 +231,9 @@ public class SimpleRegAlloc extends RegAlloc {
         for (Node<Temp> node : ig.nodes())
             if (!isColored(node))
                 toColor.add(node);
-        sort(toColor);
         //sort from highest degree to lowest degree
+        sort(toColor);
+
         while (!toColor.isEmpty()) {
             Node<Temp> node = toColor.head();
             toColor = toColor.delete(node);
