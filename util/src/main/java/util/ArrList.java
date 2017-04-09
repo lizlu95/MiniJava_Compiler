@@ -62,7 +62,7 @@ class ArrList<E> extends List<E> implements Iterable<E> {
     public void add(E e) {
 //        System.out.println("e: "+e);
 //        System.out.println("allowMutation: "+allowMutation);
-        assert (allowMutation);
+//        assert (allowMutation);
         elements.add(e);
     }
 

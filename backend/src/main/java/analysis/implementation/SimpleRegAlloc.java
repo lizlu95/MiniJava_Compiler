@@ -1,25 +1,22 @@
 package analysis.implementation;
 
+import analysis.FlowGraph;
+import analysis.InterferenceGraph;
+import analysis.RegAlloc;
+import analysis.util.graph.Node;
+import codegen.AssemProc;
+import codegen.assem.Instr;
 import ir.frame.Frame;
 import ir.temp.Color;
 import ir.temp.Temp;
+import util.IndentingWriter;
+import util.List;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import util.IndentingWriter;
-import util.List;
-
-import codegen.AssemProc;
-import codegen.assem.Instr;
-
-import analysis.FlowGraph;
-import analysis.InterferenceGraph;
-import analysis.RegAlloc;
-import analysis.util.graph.Node;
 
 public class SimpleRegAlloc extends RegAlloc {
 
@@ -162,22 +159,15 @@ public class SimpleRegAlloc extends RegAlloc {
     }
 
     private void mergesort(int low, int high) {
-        // check if low is smaller than high, if not then the array is sorted
         if (low < high) {
-            // Get the index of the element which is in the middle
             int middle = low + (high - low) / 2;
-            // Sort the left side of the array
             mergesort(low, middle);
-            // Sort the right side of the array
             mergesort(middle + 1, high);
-            // Combine them both
             merge(low, middle, high);
         }
     }
 
     private void merge(int low, int middle, int high) {
-
-        // Copy both parts into the helper array
         for (int i = low; i <= high; i++) {
             helper.replace(helper.get(i),numbers.get(i));
         }
@@ -185,8 +175,6 @@ public class SimpleRegAlloc extends RegAlloc {
         int i = low;
         int j = middle + 1;
         int k = low;
-        // Copy the smallest values from either the left or the right side back
-        // to the original array
         while (i <= middle && j <= high) {
             if (helper.get(i).degree() <= helper.get(j).degree()) {
                 numbers.replace(numbers.get(k), helper.get(i));
@@ -197,13 +185,11 @@ public class SimpleRegAlloc extends RegAlloc {
             }
             k++;
         }
-        // Copy the rest of the left side of the array into the target array
         while (i <= middle) {
             numbers.replace(numbers.get(k), helper.get(i));
             k++;
             i++;
         }
-
     }
 
     /**
@@ -221,9 +207,9 @@ public class SimpleRegAlloc extends RegAlloc {
         for (Node<Temp> node : ig.nodes())
             if (!isColored(node))
                 toColor.add(node);
-
+        sort(toColor);
+        //sort from highest degree to lowest degree
         while (!toColor.isEmpty()) {
-            sort(toColor);
             Node<Temp> node = toColor.head();
             toColor = toColor.delete(node);
             ordering = List.cons(node.wrappee(), ordering);

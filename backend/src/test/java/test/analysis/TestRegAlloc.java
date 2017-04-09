@@ -1,16 +1,15 @@
 package test.analysis;
 
-import util.List;
-import ir.temp.Color;
-import ir.temp.Temp;
-import codegen.AssemProc;
 import analysis.FlowGraph;
 import analysis.InterferenceGraph;
 import analysis.RegAlloc;
-import analysis.util.graph.Node;
+import codegen.AssemProc;
+import ir.temp.Color;
+import ir.temp.Temp;
+import util.List;
+import analysis.util.graph.*;
 
-
-import static util.List.*;
+import static util.List.cons;
 
 public class TestRegAlloc extends TestFlowGraphs {
 
@@ -50,7 +49,6 @@ public class TestRegAlloc extends TestFlowGraphs {
         // non precolored temps with register colors.
 
         System.out.println(proc);
-
     }
 
 }
