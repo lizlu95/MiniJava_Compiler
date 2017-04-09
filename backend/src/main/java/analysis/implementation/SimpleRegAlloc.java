@@ -95,30 +95,30 @@ public class SimpleRegAlloc extends RegAlloc {
         if (toColor.isEmpty()) return;
         Temp t = toColor.head();
         boolean success;
-        mRColors = List.empty();
-        nonMRColors = List.empty();
-        //separate into registers that are move-related to this temp
-        //and other registers
-        //go through all move instructions with t as dst (perhaps need a hashtable)
-        for (InterferenceGraph.Move m: ig.moves()) {
-            //make sure they are colored
-            if (m.dst.wrappee().equals(t)) {
-                for (Temp reg : registers) { //could be improved by Sets (should not be able to add again)
-                    if (m.src.wrappee().equals(reg)) {
-                        mRColors.add(getColor(reg)); //might have repeated values??
-                        continue;
-                    }
-                }
-            }
-        }
+//        mRColors = List.empty();
+//        nonMRColors = List.empty();
+//        //separate into registers that are move-related to this temp
+//        //and other registers
+//        //go through all move instructions with t as dst (perhaps need a hashtable)
+//        for (InterferenceGraph.Move m: ig.moves()) {
+//            //make sure they are colored
+//            if (m.dst.wrappee().equals(t)) {
+//                for (Temp reg : registers) { //could be improved by Sets (should not be able to add again)
+//                    if (m.src.wrappee().equals(reg)) {
+//                        mRColors.add(getColor(reg)); //might have repeated values??
+//                        continue;
+//                    }
+//                }
+//            }
+//        }
         //check all the registers that are move related to this temp
-        success = tryToColor(t,mRColors);
+        //success = tryToColor(t,mRColors);
         //then try other registers
 
         //then spill
 
         // Try to color using a register
-        if (!success)
+        //if (!success)
             success = tryToColor(t, colors);
 
         if (!success) {
@@ -232,10 +232,11 @@ public class SimpleRegAlloc extends RegAlloc {
             if (!isColored(node))
                 toColor.add(node);
         //sort from highest degree to lowest degree
-        sort(toColor);
+        //sort(toColor);
 
         while (!toColor.isEmpty()) {
             Node<Temp> node = toColor.head();
+
             toColor = toColor.delete(node);
             ordering = List.cons(node.wrappee(), ordering);
 
