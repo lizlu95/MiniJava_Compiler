@@ -166,13 +166,13 @@ public class X86_64Muncher extends Muncher {
 //        movq    t619, t618
 //        addq    t489, t618
 //        movq    t490, (t618)
-        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(BINOP(BINOP.Op.PLUS, TEMP(_t_), CONST(_i_))), TEMP(_t2_))){
+        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(BINOP(BINOP.Op.PLUS, TEMP(_t_), CONST(_i_))), TEMP(_t2_))) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
                 Temp new_temp = new Temp();
-                m.emit(A_MOV(new_temp,c.get(_t_)));
-                m.emit(A_ADD(c.get(_i_),new_temp));
-                m.emit(A_MOV_TO_MEM(new_temp,c.get(_t2_)));
+                m.emit(A_MOV(new_temp, c.get(_t_)));
+                m.emit(A_ADD(c.get(_i_), new_temp));
+                m.emit(A_MOV_TO_MEM(new_temp, c.get(_t2_)));
                 return null;
             }
         });
@@ -183,11 +183,11 @@ public class X86_64Muncher extends Muncher {
 //                                        t052,
 //                                        CONST 8)),
 //                                CONST 1))
-        sm.add(new MunchRule<IRStm, Void>(MOVE(TEMP(_t_),BINOP(BINOP.Op.PLUS,MEM(_e_),CONST(_i_)))) {
+        sm.add(new MunchRule<IRStm, Void>(MOVE(TEMP(_t_), BINOP(BINOP.Op.PLUS, MEM(_e_), CONST(_i_)))) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
-                m.emit(A_MOV_FROM_MEM(c.get(_t_),m.munch(c.get(_e_))));
-                m.emit(A_ADD(c.get(_i_),c.get(_t_)));
+                m.emit(A_MOV_FROM_MEM(c.get(_t_), m.munch(c.get(_e_))));
+                m.emit(A_ADD(c.get(_i_), c.get(_t_)));
                 return null;
             }
         });
@@ -233,8 +233,8 @@ public class X86_64Muncher extends Muncher {
             @Override
             protected Temp trigger(Muncher m, Matched c) {
                 Temp sum = new Temp();
-                m.emit(A_MOV(sum,c.get(_t_)));
-                m.emit(A_ADD(c.get(_i_),sum));
+                m.emit(A_MOV(sum, c.get(_t_)));
+                m.emit(A_ADD(c.get(_i_), sum));
                 return sum;
             }
         });
@@ -303,49 +303,49 @@ public class X86_64Muncher extends Muncher {
 
         });
         //================================================
-        sm.add(new MunchRule<IRStm,Void>(MOVE(MEM(TEMP(_t_)),CONST(_i_))){
+        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(TEMP(_t_)), CONST(_i_))) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
                 m.emit(A_MOV_TO_MEM(c.get(_t_), c.get(_i_)));
                 return null;
             }
         });
-        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(PLUS(TEMP(_t_),CONST(_i_))),CONST(_i2_))){
+        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(PLUS(TEMP(_t_), CONST(_i_))), CONST(_i2_))) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
                 Temp new_t = new Temp();
-                m.emit(A_MOV(new_t,c.get(_t_)));
-                m.emit(A_ADD(c.get(_i_),new_t));
-                m.emit(A_MOV_TO_MEM(new_t,c.get(_i2_)));
+                m.emit(A_MOV(new_t, c.get(_t_)));
+                m.emit(A_ADD(c.get(_i_), new_t));
+                m.emit(A_MOV_TO_MEM(new_t, c.get(_i2_)));
                 return null;
             }
         });
-        sm.add(new MunchRule<IRStm,Void>(MOVE(TEMP(_t_),MEM(PLUS(MEM(_e_), CONST(_i_))))){
+        sm.add(new MunchRule<IRStm, Void>(MOVE(TEMP(_t_), MEM(PLUS(MEM(_e_), CONST(_i_))))) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
-                /*m.emit(A_MOV_FROM_MEM(c.get(_t_),m.munch(c.get(_e_))));
-                m.emit(A_ADD(c.get(_i_),c.get(_t_)));
-                m.emit(A_MOV_FROM_MEM(c.get(_t_),c.get(_t_)));*/
-                m.emit(A_INDEX_ACCESS(c.get(_t_),c.get(_i_),m.munch(c.get(_e_))));
+                m.emit(A_MOV_FROM_MEM(c.get(_t_), m.munch(c.get(_e_))));
+                m.emit(A_ADD(c.get(_i_), c.get(_t_)));
+                m.emit(A_MOV_FROM_MEM(c.get(_t_), c.get(_t_)));
+//                        A_INDEX_ACCESS(c.get(_t_),c.get(_i_),m.munch(c.get(_e_))));
                 return null;
             }
         });
         //==================================================
-        em.add(new MunchRule<IRExp, Temp>(PLUS(_l_,CONST(_i_))) {
+        em.add(new MunchRule<IRExp, Temp>(PLUS(_l_, CONST(_i_))) {
             @Override
             protected Temp trigger(Muncher m, Matched c) {
                 Temp sum = new Temp();
-                m.emit(A_MOV(sum,c.get(_i_)));
-                m.emit(A_ADD(sum,m.munch(c.get(_l_))));
+                m.emit(A_MOV(sum, c.get(_i_)));
+                m.emit(A_ADD(sum, m.munch(c.get(_l_))));
                 return sum;
             }
         });
-        em.add(new MunchRule<IRExp, Temp>(PLUS(CONST(_i_),_r_)) {
+        em.add(new MunchRule<IRExp, Temp>(PLUS(CONST(_i_), _r_)) {
             @Override
             protected Temp trigger(Muncher m, Matched c) {
                 Temp sum = new Temp();
-                m.emit(A_MOV(sum,c.get(_i_)));
-                m.emit(A_ADD(sum,m.munch(c.get(_r_))));
+                m.emit(A_MOV(sum, c.get(_i_)));
+                m.emit(A_ADD(sum, m.munch(c.get(_r_))));
                 return sum;
             }
         });
@@ -353,27 +353,28 @@ public class X86_64Muncher extends Muncher {
             @Override
             protected Temp trigger(Muncher m, Matched c) {
                 Temp ptr = new Temp();
-                m.emit(A_MOV_FROM_MEM(ptr,c.get(_i_)));
+                m.emit(A_MOV_FROM_MEM(ptr, c.get(_i_)));
                 return ptr;
             }
         });
-        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(PLUS(_l_,CONST(_i_))),_r_)) {
+        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(PLUS(_l_, CONST(_i_))), _r_)) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
 //                movq r, 4(l)
-                m.emit(A_MOV_TO_MEM(m.munch(c.get(_l_)),c.get(_i_),m.munch(c.get(_r_))));
+                m.emit(A_MOV_TO_MEM(m.munch(c.get(_l_)), c.get(_i_), m.munch(c.get(_r_))));
                 return null;
             }
         });
-        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(_l_),MEM(_r_))) {
+        sm.add(new MunchRule<IRStm, Void>(MOVE(MEM(_l_), MEM(_r_))) {
             @Override
             protected Void trigger(Muncher m, Matched c) {
                 Temp r = new Temp();
-                m.emit(A_MOV_FROM_MEM(r,m.munch(c.get(_l_))));
-                m.emit(A_MOV_TO_MEM(m.munch(c.get(_r_)),r));
+                m.emit(A_MOV_FROM_MEM(r, m.munch(c.get(_l_))));
+                m.emit(A_MOV_TO_MEM(m.munch(c.get(_r_)), r));
                 return null;
             }
         });
+
     }
 
     ///////// Helper methods to generate X86 assembly instructions //////////////////////////////////////
@@ -387,7 +388,7 @@ public class X86_64Muncher extends Muncher {
     }
 
     private static Instr A_ADD(int value, Temp dst) {
-        return new A_OPER("addq     $"+value+", `d0",list(dst),noTemps);
+        return new A_OPER("addq     $" + value + ", `d0", list(dst), noTemps);
     }
 
     private static Instr A_ADD(Temp dst, Temp src) {
@@ -530,27 +531,28 @@ public class X86_64Muncher extends Muncher {
     }
 
     private static Instr A_MOV_TO_MEM(Temp ptr, int value) {
-        return new A_OPER("movq    $"+value+", (`s0)", noTemps, list(ptr));
+        return new A_OPER("movq    $" + value + ", (`s0)", noTemps, list(ptr));
     }
+
     //                movq r, 4(l)
-    private static Instr A_MOV_TO_MEM(Temp dst,int offset, Temp src){
-        return new A_OPER("movq `s0,    "+offset+"(`d0)",list(dst),list(src));
+    private static Instr A_MOV_TO_MEM(Temp dst, int offset, Temp src) {
+        return new A_OPER("movq `s0,    " + offset + "(`d0)", list(dst), list(src));
     }
 
     private static Instr A_MOV_FROM_MEM(Temp d, Temp ptr) {
         return new A_OPER("movq    (`s0), `d0", list(d), list(ptr));
     }
 
-    private static Instr A_MOV_FROM_MEM(Temp d, int value){
-        return new A_OPER("movq     $"+value+", `d0\n" +
+    private static Instr A_MOV_FROM_MEM(Temp d, int value) {
+        return new A_OPER("movq     $" + value + ", `d0\n" +
                 "movq   (`d0),   `d0", list(d), list(d));
     }
 
     private static Instr A_INDEX_ACCESS(Temp d, int v, Temp s) {
-        return new A_OPER("movq   (`s0), `d0\n" +
-                "addq   $"+v+", `d0\n" +
-                "movq    (`d0), `d0",
-                list(d), list(s,d));
+        return new A_OPER("movq    (`s0), `d0" +
+                "addq    $" + v + ", `d0\n" +
+                "movq    `d0, (`d0)",
+                list(d), list(s, d));
     }
 
     private static Instr A_SUB(Temp dst, Temp src) {

@@ -601,17 +601,15 @@ public class TestTranslate {
                         "}\n" +
                         "class Foo {\n " +
                         "   public int doit(int x) {\n" +
-                        //"      int result;\n" +
-                        //"      int count;\n" +
-                        //"      result = 0;\n" +
-                        //"      count = 1;\n" +
-                        "      while (2<1) {\n" +
-                        //"      while (count<1) {\n" +
-                        //"          result = result + count;\n" +
-                        //"          count = count + 1;\n" +
+                        "      int result;\n" +
+                        "      int count;\n" +
+                        "      result = 0;\n" +
+                        "      count = 1;\n" +
+                        "      while (count<x) {\n" +
+                        "          result = result + count;\n" +
+                        "          count = count + 1;\n" +
                         "      }\n" +
-                        //"      return result;\n" +
-                        "      return 0;\n" +
+                        "      return result;\n" +
                         "   }\n" +
                         "}"
         );

@@ -124,6 +124,13 @@ public class SimpleRegAlloc extends RegAlloc {
                     return true;
                 }
             }
+            else if (ig.moves().get(i).dst.equals(ig.nodeFor(t))
+                        && (getColor(ig.moves().get(i).src)!=null)) {
+                if (isColorOK(ig.nodeFor(t), getColor(ig.moves().get(i).src))) {
+                    setColor(t, getColor(ig.moves().get(i).src));
+                    return true;
+                }
+            }
         }
         for (Color color : colors) {
             if (isColorOK(ig.nodeFor(t), color)) {
@@ -222,7 +229,7 @@ public class SimpleRegAlloc extends RegAlloc {
             if (!isColored(node))
                 toColor.add(node);
 
-        while (!toColor.isEmpty() && this.ig.nodes()!=null) {
+        while (!toColor.isEmpty() && !this.ig.nodes().isEmpty()) {
             sort(toColor);
             Node<Temp> node = toColor.head();
             toColor = toColor.delete(node);
