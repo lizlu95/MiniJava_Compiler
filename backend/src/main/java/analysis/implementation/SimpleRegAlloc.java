@@ -222,7 +222,7 @@ public class SimpleRegAlloc extends RegAlloc {
             if (!isColored(node))
                 toColor.add(node);
 
-        while (!toColor.isEmpty() && this.ig != null) {
+        while (!toColor.isEmpty() && this.ig.nodes()!=null) {
             sort(toColor);
             Node<Temp> node = toColor.head();
             toColor = toColor.delete(node);
